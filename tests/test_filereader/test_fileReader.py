@@ -1,0 +1,72 @@
+"""Unittests for file reader"""
+
+from __future__ import print_function
+from datetime import datetime
+from os import listdir
+from os.path import join, isfile
+
+from src.FileReader import FileReader
+
+
+class TestFileReader:
+    def setup(self):
+        self.path = 'csvFiles/'
+        self.fileReader = FileReader(path=self.path)
+        assert self.fileReader.path is not None
+        assert self.path is not None
+        self.files = returnFiles(self.path)
+        assert self.files is not None
+        assert len(self.files) > 0
+
+    def test_readCSV(self):
+        ## SDLTest.csv
+        data = self.fileReader.csv_reader(self.files[1], ',', datetime(day=3, month=4, year=2011))
+        if data.empty:
+            assert False
+        assert data is not None
+        assert len(data) > 0
+
+    def test_readTSV(self):
+        ## random TSV style document example 2013/08/18
+        data = None
+        assert data is None
+        data = self.fileReader.csv_reader(self.files[0], '\t', datetime(day=19, month=6, year=2013))
+        if data.empty:
+            assert False
+        data2 = self.fileReader.csv_reader(self.files[0], '\t', datetime(day=3, month=4, year=2013))
+        if data2.empty:
+            assert False
+        assert data is not None
+        assert len(data) > 0 and len(data2) > 0
+
+    def test_readCSV_example1(self):
+        ## Treeline_HrlySummary_2014.csv
+        data = self.fileReader.csv_reader(self.files[2], ',', datetime(day=15, month=3, year=2014), 19)
+        if data.empty:
+            assert False
+        assert data is not None
+        assert len(data) == 439 or len(data) > 0
+
+    def test_readCSV_example2(self):
+        ## Treeline_HrlySummary_2014_2.csv
+        data = self.fileReader.csv_reader(self.files[3], ',', datetime(day=22, month=1, year=2014), 19)
+        if data.empty:
+            assert False
+        assert data is not None
+        assert len(data) == 7 or len(data) > 0
+
+
+## Debugging
+def returnFiles(path):
+    """Collects a list of files within a file
+
+    :rtype: list
+    """
+    if path:
+        try:
+            onlyFiles = [join(path, f) for f in listdir(path) if isfile(join(path, f))]
+            #print("onlyFiles: ", onlyFiles)
+            return onlyFiles
+        except WindowsError:
+            print("Path: ", listdir(path))
+    return None

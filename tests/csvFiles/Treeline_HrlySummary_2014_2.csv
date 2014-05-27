@@ -1,0 +1,33 @@
+2014 Treeline Meterological Hourly Data (Summary),,,,,,,,
+,,,,,,,,
+Reference Dataset with the following format:,,,,,,,,
+ ,[Year of data collection] Meteorological data from Dry Creek Experimental Watershed. Watershed Process Research Group, Boise State University,,,,,,
+ ,URL: earth.boisestate.edu/drycreek. Multi-paged. [month and day of data download].,,,,,,,
+,,,,,,,,
+,,,,,,,,
+ ,Column.Variable-units| Description,,,,,,,
+ ,1. DateTime| Time stamp of variable collection time [MM/DD/YY  hr:mm],,,,,,,
+ ,2. Precipitation-mm| Cumulative Shielded Rain gage depth [mm],,,,,,,
+ ,3. AirTemperature-C| Air Temperature at 2m above ground Averaged [C]],,,,,,,
+ ,4. SolarRadiation-Watts/m2| Solar Radiation Averaged [Watts/m2],,,,,,,
+ ,5. Net Radiation-Watts/m2| Net Radiation Averaged [Watts/m2],,,,,,,
+ ,6. Relative Humidity-percent| Relative Humidity at 2m above ground Averaged [percent],,,,,,,
+ ,7. Wind Direction-Degree| Mean Resultant Wind Direction at 2m above ground [Degree],,,,,,,
+ ,8. Wind Speed-m/s| Wind Speed at 2m above ground Averaged [m/s],,,,,,,
+ ,9.Snow Depth-cm| Filtered depth of snow above ground Acoustic Sensor [cm],,,,,,,
+ ,Note: -6999 denotes missing data,,,,,,,
+,,,,,,,,
+DateTime,Precipitation-mm,AirTemperature-C,SolarRadiation-Watts/m2,NetRadiation-Watts/m2,RelativeHumidity-%,WindDirection-Degree,WindSpeed-m/s,SnowDepth-cm
+1/1/2014 0:00,0,-0.4,0,-66.77,95.4,47.6,3.71,8.02
+1/1/2014 1:00,0,-0.4,0,-69.97,92.1,60.2,4.36,7.96
+1/17/2014 3:00,33.4,4.1,0,-47,24.27,295.5,0.53,21.43
+1/18/2014 23:00,33.4,1.5,0,-56.07,47.5,253.7,0.4,20.07
+1/19/2014 12:00,33.4,4.9,453.4,192.5,43.49,121.8,0.77,19.6
+1/21/2014 5:00,33.4,1,0,-50,51.52,251.2,0.78,18.78
+1/23/2014 9:00,33.4,0.5,127.2,-14.6,59.15,53.5,0.18,17.76
+1/23/2014 10:00,33.4,2.1,280.8,61.2,54.39,144.4,0.16,17.57
+1/24/2014 9:00,33.4,-1.6,-6999,-6999,60.17,206,0.11,17
+1/24/2014 10:00,33.4,1.6,-6999,-6999,51.98,174.1,0.11,17
+1/24/2014 11:00,33.4,2.1,-6999,-6999,51.6,206.6,0.46,17
+1/24/2014 12:00,33.4,2.9,-6999,-6999,52.42,8.1,0.33,17
+1/24/2014 13:00,33.4,1.7,-6999,-6999,57.76,171.4,0.65,17
