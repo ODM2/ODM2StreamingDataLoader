@@ -4,9 +4,6 @@
     Handles reading both CSV & TSV data
 """
 
-from os import listdir
-from os.path import isfile, join
-
 import pandas as pd
 
 
@@ -40,31 +37,18 @@ class FileReader():
         print("Analyzing...'{file}'\n".format(file=filepath))
 
         if not data.empty:
+            sortedData = data.sort()
             if datetime:
                 try:
-                    data.sort()
-                    parsedData = data[datetime:]
-                    return parsedData
+                    return sortedData[datetime:]
                 except KeyError:
-                    # TODO make an approximation if the date isn't in the list.
-                    # https://stackoverflow.com/questions/
-                    # 16175874/python-pandas-dataframe-slicing-by-date-conditions
-                    return data
+                    start = sortedData.index.searchsorted(datetime)
+                    return sortedData[start:]
 
             else:
-                return data
+                return sortedData
         return None
 
-    ## Debugging
-    def returnFiles(self):
-        """Collects a list of files within a file
 
-        :rtype: list
-        """
-        if self.path:
-            onlyFiles = [join(self.path, f) for f in listdir(self.path) if isfile(join(self.path, f))]
-            print("onlyFiles: ", onlyFiles)
-            return onlyFiles
-        return None
 
 
