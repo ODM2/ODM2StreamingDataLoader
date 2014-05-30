@@ -2,15 +2,14 @@
 
 from __future__ import print_function
 from datetime import datetime
-from os import listdir
+from os import listdir, getcwd
 from os.path import join, isfile
-
-from src.FileReader import FileReader
+from src.common.fileReader import FileReader
 
 
 class TestFileReader:
     def setup(self):
-        self.path = 'csvFiles/'
+        self.path = join(getcwd(), 'test_common', 'test_filereader', 'csvFiles')
         self.fileReader = FileReader(path=self.path)
         assert self.fileReader.path is not None
         assert self.path is not None

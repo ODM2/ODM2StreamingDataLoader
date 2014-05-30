@@ -4,7 +4,7 @@
 """
 
 
-from src.controller.system import SystemController
+from src.common.system import SystemController
 
 if __name__ == "__main__":
     sys = SystemController()
