@@ -1,22 +1,27 @@
-'''
-By Jacob Meline
-    Creates a factory logging method to be used within any class
-'''
-
-__author__ = 'Jacob'
+"""Creates a factory logging method to be used within any class"""
 
 import logging
 import os
 
 
 class LoggerTool():
+    """Logging Tool that simplifies the logging process for each module."""
+
     def __init__(self):
         self.formatString = '%(asctime)s - %(levelname)s - %(name)s.%(funcName)s() (%(lineno)d): %(message)s'
         self.formatString1 = '%(asctime)s (%(levelname)s) %(module)s:%(funcName)s.%(name)s(%(lineno)d) - %(message)s'
 
     def setupLogger(self, loggerName, logFile, m='w', level=logging.INFO):
+        """Creates a logging instance and initializes handlers, format, log file path, etc
+
+        :param loggerName:
+        :param logFile:
+        :param m:
+        :param level:
+        :return logging Object:
+        """
         l = logging.getLogger(loggerName)
-        #formatter = logging.Formatter('%(asctime)s : %(message)s')
+        # formatter = logging.Formatter('%(asctime)s : %(message)s')
         formatter = logging.Formatter(self.formatString)
 
         logPath = os.path.abspath(os.path.dirname("../../"))
