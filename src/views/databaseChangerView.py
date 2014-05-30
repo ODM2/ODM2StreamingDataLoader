@@ -1,15 +1,154 @@
 __author__ = 'Jacob'
+# -*- coding: utf-8 -*-
 
-import logging
+# ##########################################################################
+# # Python code generated with wxFormBuilder (version Feb 26 2014)
+# # http://www.wxformbuilder.org/
+##
+## PLEASE DO "NOT" EDIT THIS FILE!
+###########################################################################
 
 import wx
+import wx.xrc
+import wx.aui
+import wx.propgrid as wxpg
 
-from common.logger import LoggerTool
-
+import logging
+from src.common.logger import LoggerTool
 
 tool = LoggerTool()
 logger = tool.setupLogger(__name__, __name__ + '.log', 'w', logging.DEBUG)
 
+###########################################################################
+## Class DatabaseChanger
+###########################################################################
+
+ID_CreateTree = wx.ID_HIGHEST + 1
+ID_CreateGrid = ID_CreateTree + 1
+ID_CreateText = ID_CreateTree + 2
+ID_CreateHTML = ID_CreateTree + 3
+ID_CreateNotebook = ID_CreateTree + 4
+ID_CreateSizeReport = ID_CreateTree + 5
+ID_GridContent = ID_CreateTree + 6
+ID_TextContent = ID_CreateTree + 7
+ID_TreeContent = ID_CreateTree + 8
+ID_HTMLContent = ID_CreateTree + 9
+ID_NotebookContent = ID_CreateTree + 10
+ID_SizeReportContent = ID_CreateTree + 11
+
+
+class DatabaseChangerView(wx.Panel):
+    def __init__(self, param):
+        wx.Panel.__init__(self, parent=param['parent'], id=param['id'], pos=wx.DefaultPosition, size=wx.Size(663, 390),
+                          style=wx.TAB_TRAVERSAL)
+
+        self.m_mgr = wx.aui.AuiManager()
+        self.m_mgr.SetManagedWindow(self)
+        self.m_mgr.SetFlags(wx.aui.AUI_MGR_DEFAULT)
+
+        self.saveBtn = wx.Button(self, wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.m_mgr.AddPane(self.saveBtn,
+                           wx.aui.AuiPaneInfo().Bottom().CaptionVisible(False).CloseButton(False).PaneBorder(
+                               False).Movable(False).Dock().Resizable().FloatingSize(wx.Size(104, 60)).DockFixed(
+                               False).TopDockable(False).LeftDockable(False).RightDockable(False).Floatable(False).Row(
+                               1))
+
+        self.nextBtn = wx.Button(self, wx.ID_ANY, u"Next", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.m_mgr.AddPane(self.nextBtn, wx.aui.AuiPaneInfo().Bottom().CaptionVisible(False).CloseButton(False).Movable(
+            False).Dock().Resizable().FloatingSize(wx.Size(104, 60)).DockFixed(False).TopDockable(False).LeftDockable(
+            False).RightDockable(False).Floatable(False).Row(1))
+
+        # WARNING: wxPython code generation isn't supported for this widget yet.
+        self.m_propertyGridManager1 = pg = wxpg.PropertyGridManager(self,
+                                                                    style=wxpg.PG_SPLITTER_FROM_AUTO_CENTER | wxpg.PG_TOOLBAR)
+
+        self.m_mgr.AddPane(self.m_propertyGridManager1,
+                           wx.aui.AuiPaneInfo().Center().CaptionVisible(False).CloseButton(False).Movable(
+                               False).Dock().Resizable().FloatingSize(wx.Size(460, 361)).DockFixed(
+                               False).BottomDockable(False).TopDockable(False).LeftDockable(False).RightDockable(
+                               False).Floatable(False))
+        self._exampleLayout(self.m_propertyGridManager1)
+        self.m_mgr.Update()
+
+        # Connect Events
+        self.saveBtn.Bind(wx.EVT_BUTTON, self.mybuttonclick)
+
+
+    def _exampleLayout(self, pg):
+        pg.AddPage("Page 1 - Testing All")
+
+        pg.Append(wxpg.PropertyCategory("1 - File Properties"))
+        pg.Append(wxpg.FileProperty("File", value=""))
+
+        pg.Append(wxpg.EnumProperty("Delimiter", "Enum", ['<Comma Delimited>', '<Tab Delimited>'], [10, 11], 10))
+
+        #pg.Append(wxpg.StringProperty("String", value="Some Text"))
+        #pg.Append(wxpg.IntProperty("Int", value=100))
+        #pg.Append(wxpg.FloatProperty("Float", value=100.0))
+        #pg.Append(wxpg.BoolProperty("Bool", value=True))
+        #pg.Append(wxpg.BoolProperty("Bool_with_Checkbox", value=True))
+        #pg.SetPropertyAttribute("Bool_with_Checkbox", "UseCheckbox", True)
+
+        pg.Append(wxpg.PropertyCategory("2 - Database Properties"))
+        pg.Append(
+            wxpg.LongStringProperty("LongString", value="This is a\\nmulti-line string\\nwith\\ttabs\\nmixed\\tin."))
+        pg.Append(wxpg.DirProperty("Dir", value="C:\\Windows"))
+        pg.Append(wxpg.ArrayStringProperty("ArrayString", value=['A', 'B', 'C']))
+
+        pg.Append(wxpg.EditEnumProperty("EditEnum", "EditEnumProperty", ['A', 'B', 'C'], [0, 1, 2], "Text Not in List"))
+
+        pg.Append(wxpg.PropertyCategory("3 - Advanced Properties"))
+        pg.Append(wxpg.DateProperty("Date", value=wx.DateTime_Now()))
+        pg.Append(wxpg.SystemColourProperty("SystemColour"))
+        pg.Append(wxpg.ImageFileProperty("ImageFile"))
+        pg.Append(wxpg.MultiChoiceProperty("MultiChoice", choices=['wxWidgets', 'QT', 'GTK+']))
+
+
+    #def __del__(self):
+    #    self.m_mgr.UnInit()
+
+
+
+    # Virtual event handlers, overide them in your derived class
+    def mybuttonclick(self, event):
+        event.Skip()
+
+
+def create(parent):
+    name = u'test_databaseChangerview'
+    title = u'test_databaseChangerview'
+    return MainFrame(parent, name, title)
+
+
+class MainFrame(wx.Frame):
+    def __init__(self, parent, name, title):
+        wx.Frame.__init__(self, id=wx.ID_ANY, name=name, parent=parent, size=wx.Size(663, 390),
+                          style=wx.DEFAULT_FRAME_STYLE, title=title)
+        param = {}
+        param['id'] = wx.ID_ANY
+        param['parent'] = self
+        param['name'] = u'test_databaseChangerview'
+        param['size'] = wx.Size(663, 390)
+        param['style'] = None
+
+        view = DatabaseChangerView(param)
+
+        self._createMenubar()
+
+    def _createMenubar(self):
+        print "Making Menu"
+        menubar = wx.MenuBar()
+        fileMenu = wx.Menu()
+        fitem = fileMenu.Append(wx.ID_EXIT, 'Quit', 'Quit application')
+        menubar.Append(fileMenu, '&File')
+        self.SetMenuBar(menubar)
+
+if __name__ == "__main__":
+    app = wx.App(False)
+    frame = create(None)
+    frame.Show()
+    app.MainLoop()
+'''
 [wxID_FRMDBCONFIG, wxID_FRMDBCONFIGBOXCONNECTION, wxID_FRMDBCONFIGBTNCANCEL,
  wxID_FRMDBCONFIGBTNSAVE, wxID_FRMDBCONFIGBTNTEST, wxID_FRMDBCONFIGdbComboBox,
  wxID_FRMDBCONFIGLBLDBNAME, wxID_FRMDBCONFIGLBLDBTYPE, wxID_FRMDBCONFIGLBLPASS,
@@ -151,3 +290,4 @@ if __name__ == "__main__":
     frame = create(None)
     frame.Show()
     app.MainLoop()
+'''

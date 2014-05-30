@@ -1,10 +1,10 @@
 ###Tasks needed to be completed for the ODMStreamLoader###
 
 *Jacob*
-  * - [x] create function 'canIrun' that determines whether the specified timedelta has reached. If so, a run event will occur.
-  * - [x] datetime converter params: datetimeUTC, offset
-  * - [ ] database connections need to be put into a panel
-  * - [ ] Add functions to api: Create & Read (getAll and by code) 
+  - [x] create function 'canIrun' that determines whether the specified timedelta has reached. If so, a run event will occur.
+  - [x] datetime converter params: datetimeUTC, offset
+  - [ ] database connections need to be put into a panel
+    - [ ] Add functions to api: Create & Read (getAll and by code) 
         - [ ] variables
             - [ ] method
             - [ ] processing level
@@ -17,8 +17,8 @@
             - [ ] timeseries result values
             - [ ] results          
            
-  * - [ ] database connections need to be put into a panel ( PropertyGrid)
+  - [ ] database connections need to be put into a panel ( PropertyGrid)
 
 *Stephanie*   
-  * - [ ] update class diagram
+  - [ ] update class diagram
   
