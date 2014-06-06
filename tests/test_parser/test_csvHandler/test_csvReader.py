@@ -5,13 +5,13 @@ from datetime import datetime
 from os import listdir, getcwd
 from os.path import join, isfile
 
-from src.common.fileReader import FileReader
+from src.handlers.csvHandler import CSVReader
 
 
 class TestFileReader:
     def setup(self):
-        self.path = join(getcwd(), 'test_common', 'test_filereader', 'csvFiles')
-        self.fileReader = FileReader(path=self.path)
+        self.path = join(getcwd(), 'test_handlers', 'test_csvHandler', 'csvFiles')
+        self.fileReader = CSVReader(path=self.path)
         assert self.fileReader.path is not None
         assert self.path is not None
         self.files = returnFiles(self.path)

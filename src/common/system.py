@@ -21,7 +21,7 @@ class SystemController:
         self._createViews()
         ## Create Models
         self._createModels()
-        ## Pass View and Model into each respective controller
+        ## Pass View and Model into each respective controllers
         self._createControllers()
 
     def _createViews(self):

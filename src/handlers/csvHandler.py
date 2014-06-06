@@ -7,7 +7,7 @@
 import pandas as pd
 
 
-class FileReader():
+class CSVReader():
     """Reads and analyizes CSV/TSV files"""
 
     def __init__(self, path):
