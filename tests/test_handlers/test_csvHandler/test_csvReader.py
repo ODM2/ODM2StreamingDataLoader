@@ -11,8 +11,8 @@ from src.handlers.csvHandler import CSVReader
 class TestFileReader:
     def setup(self):
         self.path = join(getcwd(), 'test_handlers', 'test_csvHandler', 'csvFiles')
-        self.fileReader = CSVReader(path=self.path)
-        assert self.fileReader.path is not None
+        print ("Path at Setup: ", self.path)
+        self.fileReader = CSVReader()
         assert self.path is not None
         self.files = returnFiles(self.path)
         assert self.files is not None
@@ -65,8 +65,9 @@ def returnFiles(path):
     if path:
         try:
             onlyFiles = [join(path, f) for f in listdir(path) if isfile(join(path, f))]
-            #print("onlyFiles: ", onlyFiles)
+            print("onlyFiles: ", onlyFiles)
             return onlyFiles
         except WindowsError:
-            print("Path: ", listdir(path))
+            pass
+            #print("Path: ", listdir(path))
     return None

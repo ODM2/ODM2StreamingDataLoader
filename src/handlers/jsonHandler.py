@@ -1,41 +1,73 @@
+from collections import namedtuple
+
 __author__ = 'Jacob'
 
 import json
+
 
 class JsonHandler():
     """Reads and Writes Json files, generate objects from json
 
     """
+
     def __init__(self):
         pass
 
-    def readJsonFile(self, path):
+    def readJsonFile(self, file):
         """
 
-        :param path:
+        :param file:
             :type String:
         :return:
-            :type json.dump object:
+            :type json.load object:
         """
 
-        load = json.loads(path)
+        if not file:
+            raise "readJsonFile cannot read the file you provided"
 
-    def writeJsonFile(self, outputName):
+        f = open(file)
+        load = json.load(f)
+        f.close()
+        if load:
+            return load
+        else:
+            return None
+
+    def writeJsonFile(self, load, outputName):
         """
 
         :param outputName:
             :type String:
+        :param load:
+            :type json.Load Object:
         :return:
             :type boolean:
         """
-        pass
 
-    def toConfigObject(self, jsonDump):
+        if not load:
+            raise "writeJsonFile cannot work because json.Loads object is None"
+        if not outputName:
+            outputName = "unknown"
+        try:
+            dump = json.dumps(load, indent=4, separators=(',', ': '), sort_keys=True)
+            f = open(outputName, 'w')
+            f.write(dump)
+            f.close()
+            return True
+        except:
+            return False
+
+
+
+    def toConfigObject(self, jsonLoadedObject):
         """
 
-        :param jsonDump:
-            :type jsonDump.dumps instance
+        :param jsonLoadedObject:
+            :type jsonLoadedObject instance
         :return:
-            :type Configuration
+            :type ConfigObject namedtuple
         """
+        self.load = jsonLoadedObject
+        ConfigObject = namedtuple('ConfigObject', **jsonLoadedObject)
+
         pass

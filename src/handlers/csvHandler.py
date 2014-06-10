@@ -10,8 +10,8 @@ import pandas as pd
 class CSVReader():
     """Reads and analyizes CSV/TSV files"""
 
-    def __init__(self, path):
-        self.path = path
+    def __init__(self):
+        pass
 
     def csv_reader(self, filepath, sep, datetime=None, skip=0):
         """Reads csv into pandas object

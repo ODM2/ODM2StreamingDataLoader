@@ -20,21 +20,29 @@
     - [x] site  # Sampling Feature Schema #
       - [x] Create
       - [x] getbyID, getbyCode, getAll
-      ##Unable to find the following...##
+    - [ ] Units # core # 
+      - [ ] Create
+      - [ ] getbyID, getAll
+    - [ ] organization
+      - [ ] create
+      - [ ] getbyId, getbyCode, getall
+    - [ ] people
+      - [ ] create
+      - [ ] getbyId, getbyCode, getall
+  ##Unable to find the following...##
     - [ ] deployment Action # core #
       - [ ] Create
       - [ ] !getbyID, !getbyCode, !getAll
     - [ ] timeseries results # results schema #
       - [ ] Create
-      - [ ] getbyID, !getbyCode, getAll
+      - [ ] getbyID, getAll
     - [ ] timeseries result values # results schema #
       - [ ] Create
-      - [ ] getbyID, !getbyCode, getAll
+      - [ ] getbyID, getAll
     - [ ] results # core #
       - [ ] Create
-      - [ ] getbyID, !getbyCode, getAll
+      - [ ] getbyID, getAll
     - [x] sensor mappings (Backburner....)
-  
   - [x] design config file/schema (json)
   - [ ] write json reader/writer
     - [ ] convert to object (write custom object_pairs_hook)
