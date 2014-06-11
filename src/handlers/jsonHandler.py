@@ -65,9 +65,20 @@ class JsonHandler():
         :param jsonLoadedObject:
             :type jsonLoadedObject instance
         :return:
+            :type list of namedtuple
+        :return:
             :type ConfigObject namedtuple
         """
-        self.load = jsonLoadedObject
-        ConfigObject = namedtuple('ConfigObject', **jsonLoadedObject)
+        if isinstance(jsonLoadedObject, list):
+            listOfObjects = []
+            for x in jsonLoadedObject:
+                listOfObjects.append(namedtuple('ID_%s' % x['ID'], x)(**x))
+            return listOfObjects
+        else:
+            x = jsonLoadedObject
+            return namedtuple('ID_%s' % x['ID'], x)(**x)
 
-        pass
+
+
+        #ConfigObject = namedtuple('Object', **jsonLoadedObject)
+

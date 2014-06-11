@@ -44,9 +44,9 @@
       - [ ] getbyID, getAll
     - [x] sensor mappings (Backburner....)
   - [x] design config file/schema (json)
-  - [ ] write json reader/writer
-    - [ ] convert to object (write custom object_pairs_hook)
-  - [ ] unittest json reader/writer
+  - [x] write json reader/writer
+    - [x] convert to object (write custom object_pairs_hook)
+  - [x] unittest json reader/writer
   
   - [ ] need to write a function to create new datavalue entry in database (workflow for creating a new data value)
   - [ ] write code for loader ( actual steps the loader needs to take to load data )

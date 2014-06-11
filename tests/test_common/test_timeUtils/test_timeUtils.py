@@ -34,4 +34,4 @@ class TestTimeUtils():
             if not result:
                 if not x == dates[-1]:
                     assert False
-            print("delta: %s -- %s result: %s" % (delta, x, result))
+            #print("delta: %s -- %s result: %s" % (delta, x, result))

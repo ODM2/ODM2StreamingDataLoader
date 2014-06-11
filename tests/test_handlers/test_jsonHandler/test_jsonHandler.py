@@ -1,9 +1,10 @@
 from __future__ import print_function
-
 import json
-from src.handlers.jsonHandler import JsonHandler as js
 from os import listdir, getcwd, remove
 from os.path import join, isfile
+
+from src.handlers.jsonHandler import JsonHandler as js
+
 
 class TestJsonHandler:
     def setup(self):
@@ -25,6 +26,7 @@ class TestJsonHandler:
             assert True
         else:
             from warnings import warn
+
             warn("Didn't pass the readJsonFile. File format could have changed!!!!", UserWarning)
 
     def test_writeJsonFile(self):
@@ -39,8 +41,35 @@ class TestJsonHandler:
             assert False
 
     def test_toConfigObject(self):
-        assert self.load
-        pass
+        load = self.json.readJsonFile(self.files[0])
+        assert load
+        load2 = self.json.readJsonFile(self.files[1])
+        assert load2
+
+        myList = load['File']
+        myList2 = load2['File']
+
+        obj = self.json.toConfigObject(myList)
+        for x in obj:
+            assert isnamedtupleinstance(x)
+
+        obj = self.json.toConfigObject(myList2)
+        for x in obj:
+            assert isnamedtupleinstance(x)
+
+        #print ()
+        #for x in obj[0]._fields:
+        #    print(x, ": ", getattr(obj[0], x))
+
+
+
+def isnamedtupleinstance(x):
+    t = type(x)
+    b = t.__bases__
+    if len(b) != 1 or b[0] != tuple: return False
+    f = getattr(t, '_fields', None)
+    if not isinstance(f, tuple): return False
+    return all(type(n) == str for n in f)
 
 
 def returnFiles(path):
@@ -51,12 +80,13 @@ def returnFiles(path):
     if path:
         try:
             onlyFiles = [join(path, f) for f in listdir(path) if isfile(join(path, f))]
-            #print("onlyFiles: ", onlyFiles)
+            # print("onlyFiles: ", onlyFiles)
             return onlyFiles
         except WindowsError:
             pass
-            #print("Path: ", listdir(path))
+            # print("Path: ", listdir(path))
     return None
+
 
 def getTestJsonExample():
     """

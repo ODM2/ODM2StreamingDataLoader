@@ -34,7 +34,7 @@ class CSVReader():
             raise "FilePath cannot be null"
 
         data = pd.read_csv(filepath, sep=sep, index_col=0, parse_dates=True, skiprows=skip)
-        print("Analyzing...'{file}'\n".format(file=filepath))
+        #print("Analyzing...'{file}'\n".format(file=filepath))
 
         if not data.empty:
             sortedData = data.sort()
