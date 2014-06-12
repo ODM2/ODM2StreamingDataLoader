@@ -46,21 +46,17 @@ class TestJsonHandler:
         load2 = self.json.readJsonFile(self.files[1])
         assert load2
 
-        myList = load['File']
-        myList2 = load2['File']
-
-        obj = self.json.toConfigObject(myList)
+        obj = self.json.toConfigObject(load)
         for x in obj:
             assert isnamedtupleinstance(x)
 
-        obj = self.json.toConfigObject(myList2)
+        obj = self.json.toConfigObject(load2)
         for x in obj:
             assert isnamedtupleinstance(x)
 
-        #print ()
-        #for x in obj[0]._fields:
-        #    print(x, ": ", getattr(obj[0], x))
-
+            # print ()
+            #for x in obj[0]._fields:
+            #    print(x, ": ", getattr(obj[0], x))
 
 
 def isnamedtupleinstance(x):

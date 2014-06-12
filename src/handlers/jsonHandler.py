@@ -29,7 +29,7 @@ class JsonHandler():
         load = json.load(f)
         f.close()
         if load:
-            return load
+            return load['File']
         else:
             return None
 

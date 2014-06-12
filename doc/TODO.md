@@ -4,44 +4,56 @@
   - [x] create function 'canIrun' that determines whether the specified timedelta has reached. If so, a run event will occur.
   - [x] datetime converter params: datetimeUTC, offset
   - [x] database connections need to be put into a panel ( PropertyGrid)
+  - [ ] Unittest ODMconnection
   - [ ] Add functions to api: Create & Read (getAll and by code)         
-    - [x] method
+    - [ ] method
       - [x] Create
       - [x] getbyID, getbyCode, getAll
-    - [x] processing level
+      - [ ] unittests
+    - [ ] processing level
       - [x] Create
       - [x] getbyID, getbyCode, getAll
-    - [x] variable 
+      - [ ] unittests
+    - [ ] variable 
       - [x] Create
       - [x] getbyID, getbyCode, getAll
-    - [x] sampling feature # Core #
+      - [ ] unittests
+    - [ ] sampling feature # Core #
       - [x] Create
       - [x] getbyID, getbyCode, getAll
-    - [x] site  # Sampling Feature Schema #
+      - [ ] unittests
+    - [ ] site  # Sampling Feature Schema #
       - [x] Create
       - [x] getbyID, getbyCode, getAll
-    - [ ] Units # core # 
-      - [ ] Create
-      - [ ] getbyID, getAll
+      - [ ] unittests
+    - [ ] Unit # core # 
+      - [x] Create
+      - [x] getbyID, getAll
+      - [ ] unittests
     - [ ] organization
-      - [ ] create
-      - [ ] getbyId, getbyCode, getall
-    - [ ] people
-      - [ ] create
-      - [ ] getbyId, getbyCode, getall
-  ##Unable to find the following...##
-    - [ ] deployment Action # core #
+      - [x] create
+      - [x] getbyId, getbyCode, getall
+      - [ ] unittests
+    - [ ] person
+      - [x] create
+      - [x] getbyId, getall
+      - [ ] unittests
+    - [ ] deployment Action # Sensors #
       - [ ] Create
-      - [ ] !getbyID, !getbyCode, !getAll
+      - [x] getbyID, getbyCode, getAll
+      - [ ] unittests
     - [ ] timeseries results # results schema #
       - [ ] Create
       - [ ] getbyID, getAll
+      - [ ] unittests
     - [ ] timeseries result values # results schema #
       - [ ] Create
       - [ ] getbyID, getAll
+      - [ ] unittests
     - [ ] results # core #
       - [ ] Create
       - [ ] getbyID, getAll
+      - [ ] unittests
     - [x] sensor mappings (Backburner....)
   - [x] design config file/schema (json)
   - [x] write json reader/writer
