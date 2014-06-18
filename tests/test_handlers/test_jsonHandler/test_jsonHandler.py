@@ -1,3 +1,4 @@
+# !/usr/bin/python
 from __future__ import print_function
 import json
 from os import listdir, getcwd, remove
@@ -50,13 +51,19 @@ class TestJsonHandler:
         for x in obj:
             assert isnamedtupleinstance(x)
 
-        obj = self.json.toConfigObject(load2)
-        for x in obj:
+        obj2 = self.json.toConfigObject(load2)
+        for x in obj2:
             assert isnamedtupleinstance(x)
 
-            # print ()
-            #for x in obj[0]._fields:
-            #    print(x, ": ", getattr(obj[0], x))
+        print(obj[0]._fields)
+        field = obj[0]._asdict()
+        print (type(field))
+
+        # get each mapping
+        for i in field['DataSeriesMapping']:
+            for k, v in i.items():
+                print(k, ": ", v)
+            print ()
 
 
 def isnamedtupleinstance(x):
@@ -91,57 +98,136 @@ def getTestJsonExample():
     """
     path = 'C:\\Users\\Jacob\\Documents\\StreamDataLoader\\tests\\test_common\\test_filereader\\csvFiles\\Treeline_HrlySummary_2014.csv'
 
-    test = """{
-        "File": [
+    test = """
+    {
+    "File": [
+      {
+        "ID": "3",
+        "DataRowPosition": "21",
+        "DataSeriesMapping": [
           {
-            "ID": "1",
-            "ServerAddress": "Arroyo.uwrl.usu.edu",
-            "DatabaseName": "TestODM2",
-            "UserName": "ODM",
-            "Pword": "odm",
-            "FileLocationType": "Local",
-            "FileLocation": "%r",
-            "Delimiter": "<Comma Delimited>",
-            "HeaderRowPosition": "20",
-            "DataRowPosition": "21",
-            "SchedulePeriod": "1 minutes",
-            "ScheduleBeginning": "6/4/2014 11:00:00 AM",
-            "UTCDateTimeColumnName": "DateTime",
-            "DaylightSavingsTime": "False",
-            "IncludeOldData": "False",
-            "LastUpdate": "1/1/0001 12:00:00 AM",
-            "ValueColumnName": "Precipitation-mm",
-            "Site": {
-              "ID" : "",
-              "Code" : ""
-              },
-            "SamplingFeature" : {
-              "ID" : "",
-              "Code" : ""
-              },
-            "Variable": {
-              "ID" : "",
-              "Code" : ""
-              },
+            "DatabaseStartOfInterval": "True",
+            "FileStartOfInterval": "True",
+            "IntervalLength": "00:00:00",
+            "MethodID": "32",
             "OffsetTypeID": "2",
-            "OffsetValue": "5",
-            "Method": {
-                "ID" : "",
-                "Code" : ""
-              },
-            "DeploymentAction": {
-              "ID" : "",
-              "Code" : ""
-              },
-            "ProcessingLevel": {
-              "ID" : "",
-              "Code" : ""
-              },
-              "FileStartOfInterval": "True",
-              "DatabaseStartOfInterval": "True",
-              "IntervalLength": "00:00:00"
+            "OffsetValue": "0",
+            "QualityControlLevelID": "-9999",
+            "SiteID": "1",
+            "SourceID": "1",
+            "ValueColumnName": "Precipitation-mm",
+            "VariableID": "4"
+          },
+          {
+            "DatabaseStartOfInterval": "True",
+            "FileStartOfInterval": "True",
+            "IntervalLength": "00:00:00",
+            "MethodID": "32",
+            "OffsetTypeID": "2",
+            "OffsetValue": "0",
+            "QualityControlLevelID": "1",
+            "SiteID": "3",
+            "SourceID": "9",
+            "ValueColumnName": "AirTemperature-C",
+            "VariableID": "85"
+          },
+          {
+            "DatabaseStartOfInterval": "True",
+            "FileStartOfInterval": "True",
+            "IntervalLength": "00:00:00",
+            "MethodID": "31",
+            "OffsetTypeID": "2",
+            "OffsetValue": "0",
+            "QualityControlLevelID": "1",
+            "SiteID": "13",
+            "SourceID": "1",
+            "ValueColumnName": "SolarRadiation-Watts/m2",
+            "VariableID": "90"
+          },
+          {
+            "DatabaseStartOfInterval": "True",
+            "FileStartOfInterval": "True",
+            "IntervalLength": "00:00:00",
+            "MethodID": "1",
+            "OffsetTypeID": "2",
+            "OffsetValue": "0",
+            "QualityControlLevelID": "-9999",
+            "SiteID": "3",
+            "SourceID": "1",
+            "ValueColumnName": "NetRadiation-Watts/m2",
+            "VariableID": "1"
+          },
+          {
+            "DatabaseStartOfInterval": "True",
+            "FileStartOfInterval": "True",
+            "IntervalLength": "00:00:00",
+            "MethodID": "1",
+            "OffsetTypeID": "2",
+            "OffsetValue": "0",
+            "QualityControlLevelID": "-9999",
+            "SiteID": "24",
+            "SourceID": "1",
+            "ValueColumnName": "RelativeHumidity-%%",
+            "VariableID": "1"
+          },
+          {
+            "DatabaseStartOfInterval": "True",
+            "FileStartOfInterval": "True",
+            "IntervalLength": "00:00:00",
+            "MethodID": "1",
+            "OffsetTypeID": "2",
+            "OffsetValue": "0",
+            "QualityControlLevelID": "-9999",
+            "SiteID": "24",
+            "SourceID": "1",
+            "ValueColumnName": "WindDirection-Degree",
+            "VariableID": "1"
+          },
+          {
+            "DatabaseStartOfInterval": "True",
+            "FileStartOfInterval": "True",
+            "IntervalLength": "00:00:00",
+            "MethodID": "1",
+            "OffsetTypeID": "2",
+            "OffsetValue": "0",
+            "QualityControlLevelID": "-9999",
+            "SiteID": "4",
+            "SourceID": "1",
+            "ValueColumnName": "WindSpeed-m/s",
+            "VariableID": "2"
+          },
+          {
+            "DatabaseStartOfInterval": "True",
+            "FileStartOfInterval": "True",
+            "IntervalLength": "00:00:00",
+            "MethodID": "1",
+            "OffsetTypeID": "2",
+            "OffsetValue": "0",
+            "QualityControlLevelID": "-9999",
+            "SiteID": "17",
+            "SourceID": "7",
+            "ValueColumnName": "SnowDepth-cm",
+            "VariableID": "5"
           }
-        ]
-    }""" % (path)
+        ],
+        "DatabaseName": "TestODM",
+        "DateTimeColumnName": "None",
+        "DaylightSavingsTime": "False",
+        "Delimiter": "<Comma Delimited>",
+        "FileLocation": "%r",
+        "FileLocationType": "Local",
+        "HeaderRowPosition": "20",
+        "IncludeOldData": "False",
+        "LastUpdate": "1/1/0001 12:00:00 AM",
+        "Pword": "odm",
+        "ScheduleBeginning": "6/18/2014 10:00:00 AM",
+        "SchedulePeriod": "1 minutes",
+        "ServerAddress": "arroyo.uwrl.usu.edu",
+        "TimeZone": "None",
+        "UTCDateTimeColumnName": "DateTime",
+        "UserName": "ODM"
+      }
+    ]
+} """ % path
 
     return json.loads(test)

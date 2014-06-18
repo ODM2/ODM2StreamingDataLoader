@@ -1,7 +1,7 @@
 __author__ = 'Jacob'
 
-from src.handlers.jsonHandler import JsonHandler as json
-from src.handlers.csvHandler import CSVReader as csv
+from handlers.jsonHandler import JsonHandler as json
+from handlers.csvHandler import CSVReader as csv
 
 class LoaderModel():
     """Model for Loader"""

@@ -33,7 +33,7 @@ class JsonHandler():
         else:
             return None
 
-    def writeJsonFile(self, load, outputName):
+    def writeJsonFile(self, load, outputName=None):
         """
 
         :param outputName:
@@ -45,15 +45,14 @@ class JsonHandler():
         """
 
         if not load:
-            raise "writeJsonFile cannot work because json.Loads object is None"
-        if not outputName:
-            outputName = "unknown"
+            raise "json.Loads object is None"
         try:
             dump = json.dumps(load, indent=4, separators=(',', ': '), sort_keys=True)
-            f = open(outputName, 'w')
-            f.write(dump)
-            f.close()
-            return True
+            if outputName:
+                f = open(outputName, 'w')
+                f.write(dump)
+                f.close()
+            return dump
         except:
             return False
 
