@@ -58,7 +58,6 @@ class JsonHandler():
             return False
 
 
-
     def toConfigObject(self, jsonLoadedObject):
         """
 
@@ -69,6 +68,10 @@ class JsonHandler():
         :return:
             :type ConfigObject namedtuple
         """
+
+        if not jsonLoadedObject:
+            raise "json.Load object cannot be null"
+
         if isinstance(jsonLoadedObject, list):
             listOfObjects = []
             for x in jsonLoadedObject:
@@ -77,8 +80,3 @@ class JsonHandler():
         else:
             x = jsonLoadedObject
             return namedtuple('ID_%s' % x['ID'], x)(**x)
-
-
-
-        #ConfigObject = namedtuple('Object', **jsonLoadedObject)
-

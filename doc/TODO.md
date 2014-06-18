@@ -44,25 +44,25 @@
       - [ ] unittests
     - [ ] timeseries results # results schema #
       - [ ] Create
-      - [ ] getbyID, getAll
+      - [x] getbyID, getAll
       - [ ] unittests
     - [ ] timeseries result values # results schema #
       - [ ] Create
-      - [ ] getbyID, getAll
+      - [x] getbyID, getAll
       - [ ] unittests
     - [ ] results # core #
       - [ ] Create
-      - [ ] getbyID, getAll
+      - [x] getbyID, getAll
       - [ ] unittests
     - [x] sensor mappings (Backburner....)
   - [x] design config file/schema (json)
   - [x] write json reader/writer
     - [x] convert to object (write custom object_pairs_hook)
   - [x] unittest json reader/writer
-  
+
   - [ ] need to write a function to create new datavalue entry in database (workflow for creating a new data value)
-  - [ ] write code for loader ( actual steps the loader needs to take to load data )
-  
+  - [ ] Loader
+  - [ ] Wizard
   - [ ] write the gui
   
 *Stephanie*   
