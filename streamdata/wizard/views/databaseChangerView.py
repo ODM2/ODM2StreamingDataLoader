@@ -14,7 +14,7 @@ import wx.aui
 import wx.propgrid as wxpg
 
 import logging
-from src.common.logger import LoggerTool
+from streamdata.common.logger import LoggerTool
 
 tool = LoggerTool()
 logger = tool.setupLogger(__name__, __name__ + '.log', 'w', logging.DEBUG)

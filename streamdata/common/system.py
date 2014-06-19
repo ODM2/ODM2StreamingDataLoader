@@ -3,7 +3,7 @@ __author__ = 'Jacob'
 """
     System Controller starts the controllers
 """
-from src.wizard.views.databaseChangerView import DatabaseChangerView
+from streamdata.wizard.views.databaseChangerView import DatabaseChangerView
 
 class SystemController:
     def __init__(self):

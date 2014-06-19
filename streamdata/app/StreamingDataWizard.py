@@ -9,7 +9,7 @@ import os
 #sys.path.insert(0, directory)
 #print directory
 
-from src.common import SystemController
+from streamdata.common.system import SystemController
 
 if __name__ == "__main__":
     sys = SystemController()

@@ -4,7 +4,7 @@ import json
 from os import listdir, getcwd, remove
 from os.path import join, isfile
 
-from src.handlers.jsonHandler import JsonHandler as js
+from streamdata.handlers.jsonHandler import JsonHandler as js
 
 
 class TestJsonHandler:
@@ -55,15 +55,16 @@ class TestJsonHandler:
         for x in obj2:
             assert isnamedtupleinstance(x)
 
-        print(obj[0]._fields)
+        print("Object: ", obj[0]._fields)
         field = obj[0]._asdict()
-        print (type(field))
+        print("type Field: ", type(field))
+
+        print(field['DataSeriesMapping'])
 
         # get each mapping
-        for i in field['DataSeriesMapping']:
-            for k, v in i.items():
-                print(k, ": ", v)
-            print ()
+        for k, v in field['DataSeriesMapping'].items():
+            print(k, ": ", v)
+        print()
 
 
 def isnamedtupleinstance(x):

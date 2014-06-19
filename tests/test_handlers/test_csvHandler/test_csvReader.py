@@ -5,7 +5,7 @@ from datetime import datetime
 from os import listdir, getcwd
 from os.path import join, isfile
 
-from src.handlers.csvHandler import CSVReader
+from streamdata.handlers.csvHandler import CSVReader
 
 
 class TestFileReader:
