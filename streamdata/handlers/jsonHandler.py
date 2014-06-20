@@ -23,15 +23,21 @@ class JsonHandler():
         """
 
         if not file:
-            raise "readJsonFile cannot read the file you provided"
+            print("readJsonFile cannot read the file you provided")
+            raise
 
-        f = open(file)
-        load = json.load(f)
-        f.close()
-        if load:
-            return load['File']
-        else:
+        try:
+            f = open(file)
+            load = json.load(f)
+            f.close()
+            if load:
+                return load['File']
+            else:
+                return None
+        except IOError as e:
+            print e
             return None
+
 
     def writeJsonFile(self, load, outputName=None):
         """
@@ -45,7 +51,8 @@ class JsonHandler():
         """
 
         if not load:
-            raise "json.Loads object is None"
+            print ("json.Loads object is None")
+            raise
         try:
             dump = json.dumps(load, indent=4, separators=(',', ': '), sort_keys=True)
             if outputName:
@@ -69,7 +76,8 @@ class JsonHandler():
         """
 
         if not jsonLoadedObject:
-            raise "json.Load object cannot be null"
+            print("json.Load object cannot be null")
+            raise
 
         if isinstance(jsonLoadedObject, list):
             listOfObjects = []

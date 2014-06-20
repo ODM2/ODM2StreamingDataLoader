@@ -3,17 +3,23 @@
 
     Handles reading both CSV & TSV data
 """
+import logging
 
 import pandas as pd
+from streamdata.common.logger import LoggerTool
+
+
+tool = LoggerTool()
+logger = tool.setupLogger(__name__, __name__ + '.log', 'w', logging.DEBUG)
 
 
 class CSVReader():
-    """Reads and analyizes CSV/TSV files"""
+    """Reads and analyzes CSV/TSV files"""
 
     def __init__(self):
         pass
-
-    def csv_reader(self, filepath, sep, datetime=None, skip=0):
+    '''
+    def reader(self, filepath, sep, datetime=None, skip=0):
         """Reads csv into pandas object
 
         Parameters
@@ -33,6 +39,7 @@ class CSVReader():
         if not filepath:
             raise "FilePath cannot be null"
 
+
         data = pd.read_csv(filepath, sep=sep, index_col=0, parse_dates=True, skiprows=skip)
         # print("Analyzing...'{file}'\n".format(file=filepath))
 
@@ -48,8 +55,8 @@ class CSVReader():
             else:
                 return sortedData
         return None
-
-    def getPandasObjectFromFile(self, filepath, sep, skip=0):
+    '''
+    def reader(self, filepath, sep, skip=0):
         """Reads csv into pandas object
 
         Parameters
@@ -65,12 +72,14 @@ class CSVReader():
         """
 
         if not filepath:
-            raise "FilePath cannot be null"
-        if not sep:
-            sep = ','
+            raise RuntimeError("FilePath cannot be null")
+
+        logger.debug("filepath: %s" % filepath)
+        logger.debug("sep: %s" % sep)
+        logger.debug("skiprows: %s" % skip)
 
         try:
-            data = pd.read_csv(filepath, sep=sep, index_col=0, parse_dates=True, skiprows=skip)
+            data = pd.read_csv(filepath, sep=str(sep), index_col=0, parse_dates=True, skiprows=int(skip))
             return data.sort()
         except:
             return None
@@ -88,11 +97,11 @@ class CSVReader():
         """
 
         if not data:
-            raise "Data cannot be None"
+            raise RuntimeError("Data cannot be None")
         if not column:
-            raise "Column cannot be None"
+            raise RuntimeError("Column cannot be None")
         if not datetime:
-            raise "datetime cannot be None"
+            raise RuntimeError("datetime cannot be None")
 
         col = data[column]
         sortedData = col.sort()

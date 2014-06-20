@@ -1,27 +1,37 @@
+import logging
+
 __author__ = 'Jacob'
 
 from streamdata.handlers.jsonHandler import JsonHandler as json
 from streamdata.handlers.csvHandler import CSVReader as csv
 
+from streamdata.common.logger import LoggerTool
+
+tool = LoggerTool()
+logger = tool.setupLogger(__name__, __name__ + '.log', 'w', logging.DEBUG)
+
+
 class LoaderModel():
     """Model for Loader"""
-    def __init__(self, args):
-        """
 
-        :param args:
-            :type ArgumentParser:
+    def __init__(self, config):
+        """
+        :param config:
+            :type config String:
         :return:
         """
-        self.jsonFile = args.jsonFile
+        self.jsonFile = config
         if not self.jsonFile:
-            raise "json configuration file couldn't be found"
+            logger.debug("json configuration file couldn't be found")
+            raise RuntimeError("json configuration file couldn't be found")
 
-        self.dataFile = args.dataFile
+        self.js = json()
+        self.csv = csv()
 
         # read jsonFile
-        self.readJsonConfig(jsonConfig=self.jsonFile)
+        # self.readJsonConfig(jsonConfig=self.jsonFile)
 
-    def readJsonConfig(self, jsonConfig):
+    def readJsonConfig(self, jsonConfig=None):
         """Read Json configuration
 
         :param jsonConfig:
@@ -29,33 +39,65 @@ class LoaderModel():
             :type namedtuple:
         """
 
-        self.config = json.readJsonFile(self.jsonFile)
+        if not jsonConfig:
+            jsonConfig = self.jsonFile
+
+        self.config = self.js.readJsonFile(jsonConfig)
         if not self.config:
-            raise "json configuration returned None"
+            logger.debug('json configuration couldn\'t be extracted')
+            raise RuntimeError('json configuration couldn\'t be extracted')
 
-        self.jsonConfigObject = json.toConfigObject(self.config)
-        if not self.jsonConfigObject:
-            raise "json config object returned None"
+        self.jsonConfigObjectList = self.js.toConfigObject(self.config)
+        if not self.jsonConfigObjectList:
+            logger.debug('jsonConfigObjectList is null')
+            raise RuntimeError('jsonConfigObjectList is null, this cannot happen')
 
-    def readDataFile(self, dataFile=None):
+        return self.jsonConfigObjectList
+
+    def readDataFileFromConfig(self, selectedId, configFile=None):
         """Read dataFile
 
-        :param dataFile:
-        :type dataFile String:
+        :param configFile:
+        :type configFile Object:
         :return:
         """
 
-        sep = self.jsonConfigObject
+        if not configFile:
+            configFile = self.jsonConfigObjectList
 
-        #if dataFile:
-        #    self.data = csv.csv_reader(dataFile)
+        ## Obtain correct configuration file filtered by selectedId
+        config = self.queryBasedOnId(selectedId, configFile)
+        if not config:
+            raise RuntimeError("Unable to find the specified id: %s" % selectedId)
+        if not config.FileLocation:
+            raise RuntimeError("Unable to find the FileLocation to load from the configuration")
+        if not config.DataRowPosition:
+            raise RuntimeError("Unable to find the DataRowPosition from the configuration")
+        if not config.Delimiter:
+            raise RuntimeError("Unable to find the Delimiter")
 
+        sep = (',' if config.Delimiter == "<Comma Delimited>" else '\t')
 
-    def _validateJsonFile(self):
-        pass
+        ## read csv using the parameters from the configuration file
+        extractedData = self.csv.reader(config.FileLocation.strip("'"), sep, config.DataRowPosition)
+        if extractedData.empty:
+            #print ("FileLocation ", config.FileLocation[1:-1])
+            raise RuntimeError("Unable to extract data based on the configuration provided")
 
-    def _validateCSVFile(self):
-        pass
+        ## return extractedData
+        return extractedData
 
+    def queryBasedOnId(self, selectedId, configFile=None):
+        """
 
+        :param selectedId:
+            :type selectedId String:
+        :param dataFile:
+            :type dataFile namedtuple:
+        :return:
+        """
 
+        if not configFile:
+            configFile = self.jsonConfigObjectList
+        result = [t for t in configFile if t.ID == str(selectedId)][0]
+        return result

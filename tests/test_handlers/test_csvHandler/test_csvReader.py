@@ -20,7 +20,8 @@ class TestFileReader:
 
     def test_readCSV(self):
         ## SDLTest.csv
-        data = self.fileReader.csv_reader(self.files[1], ',', datetime(day=3, month=4, year=2011))
+        #data = self.fileReader.reader(self.files[1], ',', datetime(day=3, month=4, year=2011))
+        data = self.fileReader.reader(self.files[1], ',')
         if data.empty:
             assert False
         assert data is not None
@@ -30,10 +31,12 @@ class TestFileReader:
         ## random TSV style document example 2013/08/18
         data = None
         assert data is None
-        data = self.fileReader.csv_reader(self.files[0], '\t', datetime(day=19, month=6, year=2013))
+        #data = self.fileReader.reader(self.files[0], '\t', datetime(day=19, month=6, year=2013))
+        data = self.fileReader.reader(self.files[0], '\t')
         if data.empty:
             assert False
-        data2 = self.fileReader.csv_reader(self.files[0], '\t', datetime(day=3, month=4, year=2013))
+        #data2 = self.fileReader.reader(self.files[0], '\t', datetime(day=3, month=4, year=2013))
+        data2 = self.fileReader.reader(self.files[0], '\t')
         if data2.empty:
             assert False
         assert data is not None
@@ -41,7 +44,8 @@ class TestFileReader:
 
     def test_readCSV_example1(self):
         ## Treeline_HrlySummary_2014.csv
-        data = self.fileReader.csv_reader(self.files[2], ',', datetime(day=15, month=3, year=2014), 19)
+        #data = self.fileReader.reader(self.files[2], ',', datetime(day=15, month=3, year=2014), 19)
+        data = self.fileReader.reader(self.files[2], ',', 19)
         if data.empty:
             assert False
         assert data is not None
@@ -49,7 +53,8 @@ class TestFileReader:
 
     def test_readCSV_example2(self):
         ## Treeline_HrlySummary_2014_2.csv
-        data = self.fileReader.csv_reader(self.files[3], ',', datetime(day=22, month=1, year=2014), 19)
+        #data = self.fileReader.reader(self.files[3], ',', datetime(day=22, month=1, year=2014), 19)
+        data = self.fileReader.reader(self.files[3], ',', 19)
         if data.empty:
             assert False
         assert data is not None
