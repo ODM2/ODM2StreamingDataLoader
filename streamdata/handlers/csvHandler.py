@@ -81,7 +81,8 @@ class CSVReader():
         try:
             data = pd.read_csv(filepath, sep=str(sep), index_col=0, parse_dates=True, skiprows=int(skip))
             return data.sort()
-        except:
+        except Exception as e:
+            logger.fatal(e)
             return None
 
     def getColumn(self, data, column, datetime):

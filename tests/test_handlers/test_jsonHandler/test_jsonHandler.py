@@ -70,9 +70,11 @@ class TestJsonHandler:
 def isnamedtupleinstance(x):
     t = type(x)
     b = t.__bases__
-    if len(b) != 1 or b[0] != tuple: return False
+    if len(b) != 1 or b[0] != tuple: 
+        return False
     f = getattr(t, '_fields', None)
-    if not isinstance(f, tuple): return False
+    if not isinstance(f, tuple): 
+        return False
     return all(type(n) == str for n in f)
 
 
@@ -82,13 +84,10 @@ def returnFiles(path):
     :rtype: list
     """
     if path:
-        try:
-            onlyFiles = [join(path, f) for f in listdir(path) if isfile(join(path, f))]
-            # print("onlyFiles: ", onlyFiles)
-            return onlyFiles
-        except WindowsError:
-            pass
-            # print("Path: ", listdir(path))
+        onlyFiles = [join(path, f) for f in listdir(path) if isfile(join(path, f))]
+        # print("onlyFiles: ", onlyFiles)
+        return onlyFiles
+        # print("Path: ", listdir(path))
     return None
 
 
