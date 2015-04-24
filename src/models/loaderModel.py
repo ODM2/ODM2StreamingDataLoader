@@ -1,11 +1,11 @@
 import logging
-
+import pandas as pd
 __author__ = 'Jacob'
 
-from streamdata.handlers.jsonHandler import JsonHandler as json
-from streamdata.handlers.csvHandler import CSVReader as csv
+from ..handlers.jsonHandler import JsonHandler as json
+from ..handlers.csvHandler import CSVReader as csv
 
-from streamdata.common.logger import LoggerTool
+from ..common.logger import LoggerTool
 
 tool = LoggerTool()
 logger = tool.setupLogger(__name__, __name__ + '.log', 'w', logging.DEBUG)
@@ -80,9 +80,13 @@ class LoaderModel():
 
         ## read csv using the parameters from the configuration file
         extractedData = self.csv.reader(config.FileLocation.strip("'"), sep, config.DataRowPosition)
-        if extractedData.empty:
-            #print ("FileLocation ", config.FileLocation[1:-1])
-            raise RuntimeError("Unable to extract data based on the configuration provided")
+        if isinstance(extractedData, pd.DataFrame):
+            if extractedData.empty:
+                print("Unable to extract data based on the configuration provided")
+        else:
+            if not extractedData:
+                print("Unable to extract data based on the configuration provided")
+
 
         ## return extractedData
         return extractedData

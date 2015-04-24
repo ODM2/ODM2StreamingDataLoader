@@ -6,7 +6,7 @@
 import logging
 
 import pandas as pd
-from streamdata.common.logger import LoggerTool
+from ..common.logger import LoggerTool
 
 
 tool = LoggerTool()
@@ -70,7 +70,7 @@ class CSVReader():
         -------
             pandas.core.frame.DataFrame
         """
-
+        print ("READER PATH: ", filepath)
         if not filepath:
             raise RuntimeError("FilePath cannot be null")
 

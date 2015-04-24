@@ -35,7 +35,7 @@ class JsonHandler():
             else:
                 return None
         except IOError as e:
-            print e
+            print(e)
             return None
 
 

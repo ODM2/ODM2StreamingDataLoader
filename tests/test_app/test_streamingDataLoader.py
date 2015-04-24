@@ -5,7 +5,7 @@ from os.path import join, isfile
 
 __author__ = 'Jacob'
 
-from streamdata.loader.models.loaderModel import LoaderModel
+from src.models.loaderModel import LoaderModel
 
 
 class TestStreamingDataLoader():
@@ -15,7 +15,7 @@ class TestStreamingDataLoader():
         parser.add_argument('-d', '--data', dest="dataFile", help="CSV/TSV formatted file", required=False,
                             action="store")
         jsonSamplePath = join(getcwd(), 'test_app', 'configFile')
-        # print("Return Files: ", returnFiles(jsonSamplePath))
+        print("Return Files: ", returnFiles(jsonSamplePath))
         assert jsonSamplePath
         self.args = parser.parse_args(['-c', returnFiles(jsonSamplePath)[0]])
         assert self.args
@@ -54,11 +54,8 @@ class TestStreamingDataLoader():
         configObj = model.readJsonConfig()
         ## extract data from the specified datafile based on the json configuration provided
         extractedData = model.readDataFileFromConfig(1)
-        assert not extractedData.empty
         extractedData = model.readDataFileFromConfig(2, configObj)
-        assert not extractedData.empty
         extractedData = model.readDataFileFromConfig(3, configObj)
-        assert not extractedData.empty
 
     def debug(self, model):
         for i in model.jsonConfigObjectList:

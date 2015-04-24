@@ -2,7 +2,7 @@ from __future__ import print_function
 
 from datetime import datetime, timedelta
 
-from streamdata.common.timeUtils import TimeUtils as tu
+from src.common.timeUtils import TimeUtils as tu
 
 
 __author__ = 'Jacob'

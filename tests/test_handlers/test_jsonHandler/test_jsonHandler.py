@@ -4,7 +4,7 @@ import json
 from os import listdir, getcwd, remove
 from os.path import join, isfile
 
-from streamdata.handlers.jsonHandler import JsonHandler as js
+from src.handlers.jsonHandler import JsonHandler as js
 
 
 class TestJsonHandler:

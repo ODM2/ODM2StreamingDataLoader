@@ -6,7 +6,7 @@ import os
 from os import listdir, getcwd
 from os.path import join, isfile
 
-from streamdata.handlers.csvHandler import CSVReader
+from src.handlers.csvHandler import CSVReader
 
 
 class TestFileReader:
