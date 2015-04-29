@@ -5,6 +5,7 @@ from os import listdir, getcwd, remove
 from os.path import join, isfile
 
 from src.handlers.jsonHandler import JsonHandler as js
+from tests.test_utils import returnFiles
 
 
 class TestJsonHandler:
@@ -78,17 +79,6 @@ def isnamedtupleinstance(x):
     return all(type(n) == str for n in f)
 
 
-def returnFiles(path):
-    """Collects a list of files within a file
-
-    :rtype: list
-    """
-    if path:
-        onlyFiles = [join(path, f) for f in listdir(path) if isfile(join(path, f))]
-        # print("onlyFiles: ", onlyFiles)
-        return onlyFiles
-        # print("Path: ", listdir(path))
-    return None
 
 
 def getTestJsonExample():

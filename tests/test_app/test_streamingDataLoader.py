@@ -2,6 +2,7 @@ from __future__ import print_function
 from argparse import ArgumentParser
 from os import listdir, getcwd
 from os.path import join, isfile
+from tests.test_utils import returnFiles
 
 __author__ = 'Jacob'
 
@@ -75,17 +76,4 @@ class TestStreamingDataLoader():
         print("Queried ID: ", id)
 
 
-def returnFiles(path):
-    """Collects a list of files within a file
-    :rtype: list
-    """
-    if path:
-        try:
-            onlyFiles = [join(path, f) for f in listdir(path) if isfile(join(path, f))]
-            # print("onlyFiles: ", onlyFiles)
-            return onlyFiles
-        except WindowsError:
-            pass
-            # print("Path: ", listdir(path))
-    return None
 
