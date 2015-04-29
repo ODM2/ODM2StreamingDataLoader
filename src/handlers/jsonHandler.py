@@ -13,7 +13,7 @@ class JsonHandler():
     def __init__(self):
         pass
 
-    def readJsonFile(self, file):
+    def read_json(self, file):
         """
 
         :param file:
@@ -23,7 +23,7 @@ class JsonHandler():
         """
 
         if not file:
-            print("readJsonFile cannot read the file you provided")
+            print("read_json cannot read the file you provided")
             raise
 
         try:
@@ -39,7 +39,7 @@ class JsonHandler():
             return None
 
 
-    def writeJsonFile(self, load, outputName=None):
+    def write_json(self, load, outputName=None):
         """
 
         :param outputName:

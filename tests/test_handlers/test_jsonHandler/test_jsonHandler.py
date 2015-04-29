@@ -16,7 +16,7 @@ class TestJsonHandler:
         self.files = returnFiles(self.path)
         assert self.files
         assert len(self.files) > 0
-        self.load = self.json.readJsonFile(self.files[0])
+        self.load = self.json.read_json(self.files[0])
 
 
     def test_readJsonFile(self):
@@ -28,13 +28,13 @@ class TestJsonHandler:
         else:
             from warnings import warn
 
-            warn("Didn't pass the readJsonFile. File format could have changed!!!!", UserWarning)
+            warn("Didn't pass the read_json. File format could have changed!!!!", UserWarning)
 
     def test_writeJsonFile(self):
         assert self.load
         output = 'test'
         assert output
-        result = self.json.writeJsonFile(self.load, output)
+        result = self.json.write_json(self.load, output)
         if result:
             assert True
             remove(output)
@@ -42,9 +42,9 @@ class TestJsonHandler:
             assert False
 
     def test_toConfigObject(self):
-        load = self.json.readJsonFile(self.files[0])
+        load = self.json.read_json(self.files[0])
         assert load
-        load2 = self.json.readJsonFile(self.files[1])
+        load2 = self.json.read_json(self.files[1])
         assert load2
 
         obj = self.json.toConfigObject(load)

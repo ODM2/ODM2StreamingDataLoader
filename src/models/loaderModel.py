@@ -42,7 +42,7 @@ class LoaderModel():
         if not jsonConfig:
             jsonConfig = self.jsonFile
 
-        self.config = self.js.readJsonFile(jsonConfig)
+        self.config = self.js.read_json(jsonConfig)
         if not self.config:
             logger.debug('json configuration couldn\'t be extracted')
             raise RuntimeError('json configuration couldn\'t be extracted')
