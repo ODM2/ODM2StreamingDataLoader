@@ -1,4 +1,4 @@
-date	id	first_name	last_name	email	country	ip_address
+DateTime	id	first_name	last_name	email	country	ip_address
 2013/09/27	1	Betty	Garcia	bgarcia@lazz.name	Germany	66.153.14.171
 2014/01/14	2	Stephanie	Miller	smiller@linkbridge.org	Nicaragua	49.72.40.126
 2014/04/22	3	Clarence	Bell	cbell@mynte.com	American Samoa	237.169.217.218

@@ -79,8 +79,13 @@ class CSVReader():
         logger.debug("skiprows: %s" % skip)
 
         try:
-            data = pd.read_csv(filepath, sep=str(sep), index_col=0, parse_dates=True, skiprows=int(skip))
-            return data.sort()
+            data = pd.read_csv(filepath, sep=str(sep),
+                               skiprows=int(skip), chunksize=1000,
+                               iterator=True)
+            df =pd.concat(data)
+            df.set_index(["DateTime"], inplace=True)
+            return df
+
         except Exception as e:
             logger.fatal(e)
             return None
@@ -97,7 +102,7 @@ class CSVReader():
         :return :
         """
 
-        if not data:
+        if data.empty:
             raise RuntimeError("Data cannot be None")
         if not column:
             raise RuntimeError("Column cannot be None")
@@ -111,6 +116,24 @@ class CSVReader():
             return sortedData[start:]
         except:
             return None
+
+    def getLatestDataFrameByDate(self, data, dt_value):
+        """
+
+        :param data:
+            :type pandas.core.frame.DataFrame:
+        :param dt_value:
+            :type datetime object:
+        :return:
+            pandas DataFrame
+        """
+
+        if data.empty:
+            raise RuntimeError("Data cannot be None")
+        if not dt_value:
+            raise RuntimeError("datetime cannot be None")
+
+
 
 
 

@@ -19,6 +19,7 @@ class TestYAMLHandler:
 
     def test_write_yaml(self):
         load = self.yaml.read_yaml(self.files[0])
+        assert load
 
         result = self.yaml.write_yaml(load, 'test.yaml')
         print(result)

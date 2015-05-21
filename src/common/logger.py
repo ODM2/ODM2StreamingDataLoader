@@ -24,18 +24,22 @@ class LoggerTool():
         # formatter = logging.Formatter('%(asctime)s : %(message)s')
         formatter = logging.Formatter(self.formatString)
 
-        logPath = os.path.abspath(os.path.dirname("../../"))
-        logPath += '/log/'
-        if not os.path.exists(logPath):
-            os.mkdir(logPath, 755)
-        fileHandler = logging.FileHandler(logPath + logFile, mode=m)
-        fileHandler.setFormatter(formatter)
+        # logPath = os.path.abspath(os.path.dirname("../../"))
+        # logPath += '/log/'
+        # if not os.path.exists(logPath):
+        #     os.mkdir(logPath, 755)
+        # fileHandler = logging.FileHandler(logPath + logFile, mode=m)
+        # fileHandler.setFormatter(formatter)
         streamHandler = logging.StreamHandler()
         streamHandler.setFormatter(formatter)
 
         l.setLevel(level)
-        l.addHandler(fileHandler)
+        # l.addHandler(fileHandler)
         l.addHandler(streamHandler)
+
+        # solves issues where logging would duplicate its logging message to the root logger
+        # https://stackoverflow.com/questions/21127360/python-2-7-log-displayed-twice-when-logging-module-is-used-in-two-python-scri
+        l.propagate = False
 
         return l
 

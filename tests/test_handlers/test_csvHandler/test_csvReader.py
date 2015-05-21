@@ -1,7 +1,7 @@
 """Unittests for file reader"""
 
 from __future__ import print_function
-from datetime import datetime
+import datetime
 import os
 from os import listdir, getcwd
 from os.path import join, isfile
@@ -65,6 +65,35 @@ class TestFileReader:
             assert False
         assert data is not None
         assert len(data) == 7 or len(data) > 0
+
+    def test_getColumn(self):
+        TreeLine_1 = os.path.join(self.example_path, 'Treeline_HrlySummary_2014.csv')
+        assert TreeLine_1
+        data = self.fileReader.reader(TreeLine_1, ',', 19)
+        # print ("Data: ", data)
+        if data.empty:
+            assert False
+        dt = datetime.datetime(2014, 3, 23)
+        # print (dt)
+        # self.fileReader.getColumn(data, 'DateTime', dt)
+
+    def test_load_giga_csv(self):
+        import timeit
+
+        start = timeit.default_timer()
+        GigaCSV = os.path.join(self.example_path, 'Treeline_HrlySummary_2014_giga.csv')
+        assert GigaCSV
+        data = self.fileReader.reader(GigaCSV, ',', 19)
+        end = timeit.default_timer() - start
+        print ("TimeTaken: ", end)
+
+        if data.empty:
+            assert False
+        # print (data[:10])
+
+
+
+
 
 
 ### Debugging
