@@ -14,7 +14,7 @@ class YAMLHandler:
         """
 
         if not filename:
-            print("read_json cannot read the file you provided")
+            print("read_yaml cannot read the file you provided")
             raise
 
         try:
@@ -53,3 +53,12 @@ class YAMLHandler:
         except Exception as e:
             print (e)
             return False
+
+    def toConfigObject(self, yamlLoadedObject):
+        """
+
+        :param yamlLoadedObject instance
+        :type configFile Object:
+        :return:
+        """
+        return None

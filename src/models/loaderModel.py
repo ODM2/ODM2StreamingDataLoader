@@ -3,6 +3,7 @@ import pandas as pd
 __author__ = 'Jacob'
 
 from ..handlers.jsonHandler import JsonHandler as json
+from ..handlers.yamlHandler import YAMLHandler as yaml
 from ..handlers.csvHandler import CSVReader as csv
 
 from ..common.logger import LoggerTool
@@ -20,16 +21,46 @@ class LoaderModel():
             :type config String:
         :return:
         """
-        self.jsonFile = config
-        if not self.jsonFile:
-            logger.debug("json configuration file couldn't be found")
-            raise RuntimeError("json configuration file couldn't be found")
+
+        if config.endswith('.json'):
+            self.jsonFile = config
+            if not self.jsonFile:
+                logger.debug("json configuration file couldn't be found")
+                raise RuntimeError("json configuration file couldn't be found")
+        if config.endswith('.yaml'):
+            self.yamlFile = config
+            if not self.yamlFile:
+                logger.debug("yaml configuration file couldn't be found")
+                raise RuntimeError("yaml configuration file couldn't be found")
 
         self.js = json()
+        self.yaml = yaml()
         self.csv = csv()
 
         # read jsonFile
         # self.readJsonConfig(jsonConfig=self.jsonFile)
+
+    def readYamlConfig(self, yamlConfig=None):
+        """
+        Read YAML configuration
+
+        :param yamlConfig:
+        :return config:
+            :type dictionary:
+        """
+        if not yamlConfig:
+            yamlConfig = self.yamlFile
+        
+        self.config = self.yaml.read_yaml(yamlConfig)
+        if not self.config:
+            logger.debug("yaml configuration couldn't be extracted.")
+            raise RuntimeError("yaml configuration couldn't be extracted.")
+
+        self.yamlConfigObjectList = self.yaml.toConfigObject(self.config)
+        if not self.yamlConfigObjectList:
+            logger.debug("yamlConfigObjectList is null.")
+            raise RuntimeError("yamlConfigObjectList is null, this cannot happen.")
+        return self.yamlConfigObjectList
 
     def readJsonConfig(self, jsonConfig=None):
         """Read Json configuration
