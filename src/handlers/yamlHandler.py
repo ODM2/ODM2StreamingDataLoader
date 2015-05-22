@@ -61,4 +61,12 @@ class YAMLHandler:
         :type configFile Object:
         :return:
         """
-        return None
+
+        if not yamlLoadedObject:
+            print "yaml.Load object cannot be NULL."
+            return None
+
+        return yamlLoadedObject
+
+
+
