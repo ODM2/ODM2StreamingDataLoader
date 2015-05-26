@@ -3,7 +3,7 @@ __author__ = 'jmeline'
 
 import yaml
 
-class YAMLHandler:
+class YAMLHandler():
     def __init__(self):
         pass
 
