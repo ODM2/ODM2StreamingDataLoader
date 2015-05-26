@@ -1,8 +1,10 @@
 import logging
 import pandas as pd
+import pprint
+import os.path
 __author__ = 'Jacob'
 
-from ..handlers.jsonHandler import JsonHandler as json
+#from ..handlers.jsonHandler import JsonHandler as json
 from ..handlers.yamlHandler import YAMLHandler as yaml
 from ..handlers.csvHandler import CSVReader as csv
 
@@ -21,24 +23,38 @@ class LoaderModel():
             :type config String:
         :return:
         """
-
+        """
         if config.endswith('.json'):
             self.jsonFile = config
             if not self.jsonFile:
                 logger.debug("json configuration file couldn't be found")
                 raise RuntimeError("json configuration file couldn't be found")
+        """
         if config.endswith('.yaml'):
             self.yamlFile = config
             if not self.yamlFile:
                 logger.debug("yaml configuration file couldn't be found")
                 raise RuntimeError("yaml configuration file couldn't be found")
-
-        self.js = json()
         self.yaml = yaml()
+        
+        #self.js = json()
         self.csv = csv()
+        self.readData(self.readYamlConfig())
 
-        # read jsonFile
-        # self.readJsonConfig(jsonConfig=self.jsonFile)
+        # read yamlFile
+        # self.readYamlConfig(yamlConfig=self.yamlFile)
+
+    def readData(self, yamlConfigObject):
+        pprint.pprint(yamlConfigObject)
+        # loop for each config file inside of the yaml file
+        for fileConfig in yamlConfigObject:
+            filePath = yamlConfigObject[fileConfig]['Settings']['FileLocation']
+            if (os.path.isfile(filePath)):
+                print self.csv.reader(filePath, '\t')
+            else:
+                print filePath + " does not exist."
+        
+        return None
 
     def readYamlConfig(self, yamlConfig=None):
         """
@@ -94,8 +110,11 @@ class LoaderModel():
         """
 
         if not configFile:
-            configFile = self.jsonConfigObjectList
+            configFile = self.yamlConfigObjectList
 
+        extractedData = self.csv.reader(self.yamlConfigObjectList.strip("'"), '\t')
+        return extractedData
+        """
         ## Obtain correct configuration file filtered by selectedId
         config = self.queryBasedOnId(selectedId, configFile)
         if not config:
@@ -121,7 +140,7 @@ class LoaderModel():
 
         ## return extractedData
         return extractedData
-
+        """
     def queryBasedOnId(self, selectedId, configFile=None):
         """
 

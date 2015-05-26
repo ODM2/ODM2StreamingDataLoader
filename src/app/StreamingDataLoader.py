@@ -8,7 +8,7 @@ __author__ = 'Jacob'
 import sys
 import os
 from argparse import ArgumentParser
-
+import pprint
 '''
 this_file = os.path.realpath(__file__)
 print "this_file: ", this_file, os.path.dirname(this_file)
@@ -20,18 +20,25 @@ for i in sys.path:
     print i
 '''
 
-from streamdata.loader.models.loaderModel import LoaderModel
-
+#from streamdata.loader.models.loaderModel import LoaderModel
+from src.models.loaderModel import LoaderModel
 
 def main(arguments):
     if arguments:
-        print "jsonFile: ", arguments.jsonFile
+        print "yamlFile: ", arguments.yamlFile
         print "dataFile: ", arguments.dataFile
 
-    config = arguments.jsonFile
+    config = arguments.yamlFile
     model = LoaderModel(config)
-    configObj = model.readJsonConfig()
+    #configObj = model.readYamlConfig()
+    
+    #pp = pprint.PrettyPrinter()
+    #pp.pprint(configObj)
 
+    #data = arguments.dataFile
+    #model = LoaderModel(data)
+    #panda = model.readCSV
+    
     # read jsonfile
     # loop through files
     # canirun()
@@ -61,7 +68,7 @@ def main(arguments):
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="StreamDataLoader")
-    parser.add_argument('-c', '--config', dest="jsonFile", help="Json config file", required=True, action="store")
+    parser.add_argument('-c', '--config', dest="yamlFile", help="YAML config file", required=True, action="store")
     parser.add_argument('-d', '--data', dest="dataFile", help="CSV/TSV formatted file", required=False, action="store")
     args = parser.parse_args()
     main(args)
