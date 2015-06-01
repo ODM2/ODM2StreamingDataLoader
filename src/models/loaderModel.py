@@ -112,7 +112,7 @@ class LoaderModel():
         if not configFile:
             configFile = self.yamlConfigObjectList
 
-        extractedData = self.csv.reader(self.yamlConfigObjectList.strip("'"), '\t')
+        extractedData = self.csv.reader(self.yamlConfigObjectList.strip("'"), ',')
         return extractedData
         """
         ## Obtain correct configuration file filtered by selectedId
