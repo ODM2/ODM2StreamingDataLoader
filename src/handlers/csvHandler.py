@@ -6,7 +6,8 @@
 import logging
 
 import pandas as pd
-from ..common.logger import LoggerTool
+from common.logger import LoggerTool
+#from src.common.logger import LoggerTool
 
 
 tool = LoggerTool()
