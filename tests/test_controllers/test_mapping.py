@@ -1,6 +1,5 @@
 __author__ = 'stephanie'
 
-from src.controllers.Mapping import Mapping
 
 class TestMapping():
     def setup(self):
