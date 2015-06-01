@@ -30,11 +30,11 @@ class Mapping():
                 tempdf["TimeAggregationInterval"] = 0
                 tempdf["TimeAggregationIntervalUnitsID"] = 0
 
-
     def readFile(self, path):
         reader = CSVReader()
-        self.rawData=reader.reader(path, ',', 0)
+        self.rawData = reader.reader(path, self.mapping.delim, self.mapping.skiprows)
         #read csv into pandas
+
         if self.rawData:
             return True
         else:
