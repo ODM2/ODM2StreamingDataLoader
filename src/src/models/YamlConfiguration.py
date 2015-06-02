@@ -8,7 +8,6 @@ class YamlConfiguration():
     def __init__(self, configFilePath):
         self.yamlDict = {}
         self.yamlDict = self.readFile(configFilePath)
-        
 
     def readFile(self, path):
         
