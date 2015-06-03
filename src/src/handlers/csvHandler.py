@@ -79,9 +79,9 @@ class CSVReader():
         #logger.debug("skiprows: %s" % skip)
 
         try:
-            df = pd.read_csv(filepath, header=0, sep=str(sep))
+            df = pd.read_csv(filepath, header=skip, sep=str(sep), engine='python')
             #df = pd.concat(data)
-            #df.set_index(['DateTime'], inplace=True)
+            df.set_index(['DateTime'], inplace=True)
             #logger.debug("dataframe: %s" % df)
             return df
 

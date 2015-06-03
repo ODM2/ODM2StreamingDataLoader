@@ -19,14 +19,16 @@ def main(arguments):
     for configParams in yamlModel.get():
         #pprint.pprint(configParams)
         dataMapModel = Mapping(configParams)
-        dataMapModel.get()
+        #dataMapModel.get()
         #Write to database
 
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="StreamDataLoader")
-    parser.add_argument('-c', '--config', dest="yamlFile", help="YAML config file", required=True, action="store")
-    parser.add_argument('-d', '--data', dest="dataFile", help="CSV/TSV formatted file", required=False, action="store")
+    parser.add_argument('-c', '--config', dest="yamlFile",\
+        help="YAML config file", required=True, action="store")
+    parser.add_argument('-d', '--data', dest="dataFile",\
+        help="CSV/TSV formatted file", required=False, action="store")
     args = parser.parse_args()
     main(args)
 

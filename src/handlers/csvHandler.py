@@ -71,19 +71,19 @@ class CSVReader():
         -------
             pandas.core.frame.DataFrame
         """
-        print ("READER PATH: ", filepath)
+        #print ("READER PATH: ", filepath)
         if not filepath:
             raise RuntimeError("FilePath cannot be null")
 
-        logger.debug("filepath: %s" % filepath)
-        logger.debug("sep: %s" % sep)
-        logger.debug("skiprows: %s" % skip)
+        #logger.debug("filepath: %s" % filepath)
+        #logger.debug("sep: %s" % sep)
+        #logger.debug("skiprows: %s" % skip)
 
         try:
             df = pd.read_csv(filepath, header=0, sep=str(sep))
             #df = pd.concat(data)
-            df.set_index(['DateTime'], inplace=True)
-            logger.debug("dataframe: %s" % df)
+            #df.set_index(['DateTime'], inplace=True)
+            #logger.debug("dataframe: %s" % df)
             return df
 
         except Exception as e:
