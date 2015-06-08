@@ -23,27 +23,31 @@ class Mapping():
 
     def buildTable(self):
         tempdf = {}
-        for col in self.mapping:
-            print 'col', col
-            """tempdf = self.table[col]
-            #DataValue, ValueDateTime
-            tempdf["ResultID"] = \
-                col['Mappings']['AirTemperature-C']['ResultID']
-            tempdf["ValueDateTimeUTCOffset"] = \
-                col['Settings']['UTCOffset']
-            tempdf["CensorCodeCV"] = "Not Censored"
-            tempdf["QualityCodeCV"] = 0
-            if not col.calcint:
-                tempdf["TimeAggregationInterval"] = col.aggint
-                tempdf["TimeAggregationIntervalUnitsID"] = \
-                    col.aggintunit
+        for col in self.mapping['Mappings']:
+            print '$%$%$%$%$ col $%$%$%$%$', col
+            tempdf = {'DataValue': self.rawData[col].values}
+            df = pd.DataFrame(dict([ (k, pd.Series(v)) for k,v in tempdf.iteritems() ]))
+            if self.mapping['Mappings'][col]['CalculateAggInterval']:
+                # Calculate the aggregation interval based on distance
+                # between points.
+
+                df['AggregationInterval'] = 0;
+                df['AggregationIntervalUnitsID'] = 0
+
             else:
-                #calculate the aggregation interval based on distance
-                #between points
-                tempdf["TimeAggregationInterval"] = 0
-                tempdf["TimeAggregationIntervalUnitsID"] = 0
-            """
-        print 'tempdf', tempdf
+                df['AggregationInterval'] = self.mapping['Mappings'][col]['IntendedTimeSpacing'];
+                df['AggregationIntervalUnitsID'] = self.mapping['Mappings'][col]['IntendedTimeSpacingUnitID'];
+                
+            df['DateTime'] = self.rawData.index.values
+            df['QualityCode'] = 'None'
+            df['CensorCode'] = 'Unknown'
+            df['ResultID'] = self.mapping['Mappings'][col]['ResultID']
+            df['UTCOffset'] = self.mapping['Settings']['UTCOffset']
+            
+            df.set_index(['DateTime'], inplace=True)
+            
+            print df
+
 
     def readFile(self, path):
         reader = CSVReader()
@@ -57,6 +61,5 @@ class Mapping():
             return True
 
     def get(self):
-        print self.rawData
         return self.table
 

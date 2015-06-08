@@ -83,6 +83,7 @@ class CSVReader():
             #df = pd.concat(data)
             df.set_index(['DateTime'], inplace=True)
             #logger.debug("dataframe: %s" % df)
+            print df
             return df
 
         except Exception as e:
