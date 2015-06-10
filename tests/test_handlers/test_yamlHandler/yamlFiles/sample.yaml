@@ -9,8 +9,8 @@
     Settings:
       DataRowPosition: 21
       DateTimeColumnName: DateTime
-      Delimiter: ", \\t"
-      FileLocation: "FilePath"
+      Delimiter: ','
+      FileLocation: "/Users/stephanie/DEV/StreamingDataLoader/tests/test_handlers/test_csvHandler/csvFiles/Treeline_HrlySummary_2014.csv"
       FileLocationType: Local
       HeaderRowPosition: 20
       FillGaps: False

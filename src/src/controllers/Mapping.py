@@ -1,7 +1,7 @@
 __author__ = 'stephanie'
 import pandas as pd
 
-from src.handlers.csvHandler import CSVReader
+from src.src.handlers.csvHandler import CSVReader
 
 
 class Mapping():
@@ -25,8 +25,10 @@ class Mapping():
         tempdf = {}
         for col in self.mapping['Mappings']:
             print '$%$%$%$%$ col $%$%$%$%$', col
-            tempdf = {'DataValue': self.rawData[col].values}
-            df = pd.DataFrame(dict([ (k, pd.Series(v)) for k,v in tempdf.iteritems() ]))
+            df = pd.DataFrame(self.rawData[col])
+            #df.columns =["DataValues"]
+            #tempdf = {'DataValue': self.rawData[col].values}
+            #df = pd.DataFrame(dict([ (k, pd.Series(v)) for k,v in tempdf.iteritems() ]))
             if self.mapping['Mappings'][col]['CalculateAggInterval']:
                 # Calculate the aggregation interval based on distance
                 # between points.
@@ -46,14 +48,15 @@ class Mapping():
             
             df.set_index(['DateTime'], inplace=True)
             
-            print df
-
+            #print df
 
     def readFile(self, path):
         reader = CSVReader()
-        self.rawData = reader.reader(path,\
-            sep=self.mapping['Settings']['Delimiter'],\
-            skip=self.mapping['Settings']['HeaderRowPosition'] - 1)
+        self.rawData = reader.reader(path, \
+            sep=self.mapping['Settings']['Delimiter'],
+            datecol = self.mapping["Settings"]["DateTimeColumnName"],
+            skip=self.mapping['Settings']['HeaderRowPosition'] - 1
+                                     )
         #read csv into pandas
         if self.rawData.empty:
             return False

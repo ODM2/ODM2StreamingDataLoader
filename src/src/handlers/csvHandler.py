@@ -57,7 +57,7 @@ class CSVReader():
                 return sortedData
         return None
     '''
-    def reader(self, filepath, sep, skip=0):
+    def reader(self, filepath, sep, datecol, skip=0):
         """Reads csv into pandas object
 
         Parameters
@@ -81,9 +81,9 @@ class CSVReader():
         try:
             df = pd.read_csv(filepath, header=skip, sep=str(sep), engine='python')
             #df = pd.concat(data)
-            df.set_index(['DateTime'], inplace=True)
+            df.set_index(datecol, inplace=True)
             #logger.debug("dataframe: %s" % df)
-            print df
+            #print df
             return df
 
         except Exception as e:

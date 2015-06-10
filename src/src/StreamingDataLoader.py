@@ -7,8 +7,8 @@ __author__ = 'Denver'
 from argparse import ArgumentParser
 import pprint
 
-from src.models.YamlConfiguration import YamlConfiguration
-from src.controllers.Mapping import Mapping
+from src.src.models.YamlConfiguration import YamlConfiguration
+from src.src.controllers.Mapping import Mapping
 
 def main(arguments):
     
