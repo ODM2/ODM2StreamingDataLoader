@@ -21,34 +21,33 @@ class Mapping():
             self.buildTable()
 
     def buildTable(self):
-        #tempdf = {}
-        for col in self.mapping['Mappings']:
+
+        for col, series in self.mapping['Mappings'].iteritems():
             print '$%$%$%$%$ col $%$%$%$%$', col
             df = self.rawData[col].reset_index()
 
-            df.columns =[ "ValueDateTime", "DataValue"]
+            df.columns =["ValueDateTime", "DataValue"]
 
-            if self.mapping['Mappings'][col]['CalculateAggInterval']:
+            if series['CalculateAggInterval']:
+
                 # Calculate the aggregation interval based on distance
                 # between points.
 
-                df['AggregationInterval'] = 0;
+                df['AggregationInterval'] = 0
                 df['AggregationIntervalUnitsID'] = 0
 
             else:
-                df['AggregationInterval'] = self.mapping['Mappings'][col]['IntendedTimeSpacing'];
-                df['AggregationIntervalUnitsID'] = self.mapping['Mappings'][col]['IntendedTimeSpacingUnitID'];
-                
-            #df['ValueDateTime'] = self.rawData.index.values
+                df['AggregationInterval'] = series['IntendedTimeSpacing']
+                df['AggregationIntervalUnitsID'] = series['IntendedTimeSpacingUnitID']
+
             df['QualityCode'] = 'None'
             df['CensorCode'] = 'Unknown'
-            df['ResultID'] = self.mapping['Mappings'][col]['ResultID']
+            df['ResultID'] = series['ResultID']
             df['UTCOffset'] = self.mapping['Settings']['UTCOffset']
 
             #df.set_index(['DateTime'], inplace=True)
             self.table.append(df)
             print df
-
 
     def readFile(self, path):
         reader = CSVReader()
