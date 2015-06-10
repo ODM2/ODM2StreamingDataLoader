@@ -3,12 +3,12 @@
 
 __author__ = 'Denver'
 
-
 from argparse import ArgumentParser
 import pprint
 
-from src.src.models.YamlConfiguration import YamlConfiguration
-from src.src.controllers.Mapping import Mapping
+from models.YamlConfiguration import YamlConfiguration
+from controllers.Mapping import Mapping
+from controllers.Database import Database
 
 def main(arguments):
     
@@ -19,7 +19,7 @@ def main(arguments):
     for configParams in yamlModel.get():
         #pprint.pprint(configParams)
         dataMapModel = Mapping(configParams)
-        #dataMapModel.get()
+        dataMapModel.get()
         #Write to database
 
 

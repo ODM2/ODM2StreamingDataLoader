@@ -1,8 +1,7 @@
 __author__ = 'stephanie'
 import pandas as pd
 
-from src.src.handlers.csvHandler import CSVReader
-
+from handlers.csvHandler import CSVReader
 
 class Mapping():
     '''
@@ -15,7 +14,7 @@ class Mapping():
     mapping : dict - The YAML configuration mapping.
     '''
     def __init__(self, configDict):
-        self.table = pd.DataFrame # Empty
+        self.table = [] # Empty
         self.mapping = configDict
         self.rawData = pd.DataFrame # Empty
         if self.readFile(self.mapping['Settings']['FileLocation']):
@@ -47,8 +46,9 @@ class Mapping():
             df['UTCOffset'] = self.mapping['Settings']['UTCOffset']
             
             df.set_index(['DateTime'], inplace=True)
-            
-            #print df
+            self.table.append(df)
+            print df
+
 
     def readFile(self, path):
         reader = CSVReader()
