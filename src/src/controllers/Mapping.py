@@ -21,13 +21,13 @@ class Mapping():
             self.buildTable()
 
     def buildTable(self):
-        tempdf = {}
+        #tempdf = {}
         for col in self.mapping['Mappings']:
             print '$%$%$%$%$ col $%$%$%$%$', col
-            df = pd.DataFrame(self.rawData[col])
-            #df.columns =["DataValues"]
-            #tempdf = {'DataValue': self.rawData[col].values}
-            #df = pd.DataFrame(dict([ (k, pd.Series(v)) for k,v in tempdf.iteritems() ]))
+            df = self.rawData[col].reset_index()
+
+            df.columns =[ "ValueDateTime", "DataValue"]
+
             if self.mapping['Mappings'][col]['CalculateAggInterval']:
                 # Calculate the aggregation interval based on distance
                 # between points.
@@ -39,13 +39,13 @@ class Mapping():
                 df['AggregationInterval'] = self.mapping['Mappings'][col]['IntendedTimeSpacing'];
                 df['AggregationIntervalUnitsID'] = self.mapping['Mappings'][col]['IntendedTimeSpacingUnitID'];
                 
-            df['DateTime'] = self.rawData.index.values
+            #df['ValueDateTime'] = self.rawData.index.values
             df['QualityCode'] = 'None'
             df['CensorCode'] = 'Unknown'
             df['ResultID'] = self.mapping['Mappings'][col]['ResultID']
             df['UTCOffset'] = self.mapping['Settings']['UTCOffset']
-            
-            df.set_index(['DateTime'], inplace=True)
+
+            #df.set_index(['DateTime'], inplace=True)
             self.table.append(df)
             print df
 
