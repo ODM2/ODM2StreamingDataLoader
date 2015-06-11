@@ -15,12 +15,16 @@ def main(arguments):
     print "yamlFile: ", arguments.yamlFile
     print "dataFile: ", arguments.dataFile
 
+    dbWriter = Database()
+
     yamlModel = YamlConfiguration(arguments.yamlFile)
     for configParams in yamlModel.get():
         #pprint.pprint(configParams)
         dataMapModel = Mapping(configParams)
         dataMapModel.get()
-        #Write to database
+        
+        for table in dataMapModel.get():
+            dbWriter.write(table)
 
 
 if __name__ == "__main__":
