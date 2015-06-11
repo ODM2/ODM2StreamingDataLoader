@@ -1,6 +1,6 @@
 __author__ = 'stephanie'
 import pandas as pd
-
+from collections import namedtuple
 from handlers.csvHandler import CSVReader
 
 class Mapping():
@@ -18,36 +18,37 @@ class Mapping():
         self.mapping = configDict
         self.rawData = pd.DataFrame # Empty
         if self.readFile(self.mapping['Settings']['FileLocation']):
-            self.buildTable()
+            self.buildTables()
+    
 
-    def buildTable(self):
-
+    def buildTables(self):
+        
         for col, series in self.mapping['Mappings'].iteritems():
-            print '$%$%$%$%$ col $%$%$%$%$', col
+            #print '$%$%$%$%$ col $%$%$%$%$', col
             df = self.rawData[col].reset_index()
 
-            df.columns =["ValueDateTime", "DataValue"]
+            df.columns = ["ValueDateTime", "DataValue"]
 
             if series['CalculateAggInterval']:
 
                 # Calculate the aggregation interval based on distance
                 # between points.
 
-                df['AggregationInterval'] = 0
-                df['AggregationIntervalUnitsID'] = 0
+                df['TimeAggregationInterval'] = 0
+                df['TimeAggregationIntervalUnitsID'] = 0
 
             else:
-                df['AggregationInterval'] = series['IntendedTimeSpacing']
-                df['AggregationIntervalUnitsID'] = series['IntendedTimeSpacingUnitID']
+                df['TimeAggregationInterval'] = series['IntendedTimeSpacing']
+                df['TimeAggregationIntervalUnitsID'] = series['IntendedTimeSpacingUnitID']
 
-            df['QualityCode'] = 'None'
-            df['CensorCode'] = 'Unknown'
+            df['QualityCodeCV'] = 'None'
+            df['CensorCodeCV'] = 'Unknown'
             df['ResultID'] = series['ResultID']
-            df['UTCOffset'] = self.mapping['Settings']['UTCOffset']
+            df['ValueDateTimeUTCOffset'] = self.mapping['Settings']['UTCOffset']
 
             #df.set_index(['DateTime'], inplace=True)
             self.table.append(df)
-            print df
+            #print df
 
     def readFile(self, path):
         reader = CSVReader()
@@ -62,6 +63,14 @@ class Mapping():
         else:
             return True
 
-    def get(self):
+    def getTables(self):
         return self.table
+    
+    def getDatabase(self):
+        Credentials = namedtuple('Credentials', 'host, db_name,\
+                                    uid, pwd')
+        return Credentials(self.mapping['Database']['Address'],
+                            self.mapping['Database']['DatabaseName'],
+                            self.mapping['Database']['UserName'],
+                            self.mapping['Database']['Password'])
 
