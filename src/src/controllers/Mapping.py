@@ -24,11 +24,11 @@ class Mapping():
     def buildTables(self):
         
         for col, series in self.mapping['Mappings'].iteritems():
-            #print '$%$%$%$%$ col $%$%$%$%$', col
+            
             df = self.rawData[col].reset_index()
 
-            df.columns = ["ValueDateTime", "DataValue"]
-
+            df.columns = ['ValueDateTime', 'DataValue']
+            
             if series['CalculateAggInterval']:
 
                 # Calculate the aggregation interval based on distance
@@ -47,8 +47,9 @@ class Mapping():
             df['ValueDateTimeUTCOffset'] = self.mapping['Settings']['UTCOffset']
 
             #df.set_index(['DateTime'], inplace=True)
+            df.ValueDateTime = pd.to_datetime(\
+                                pd.Series(df.ValueDateTime))
             self.table.append(df)
-            #print df
 
     def readFile(self, path):
         reader = CSVReader()

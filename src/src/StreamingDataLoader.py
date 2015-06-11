@@ -23,12 +23,10 @@ def main(arguments):
         dataMapModel = Mapping(configParams)
         dbCredentials = dataMapModel.getDatabase()
         
-        if not dbWriter.createConnection(dbCredentials):
-            print "Skipping ", dbCredentials
-            continue
+        if dbWriter.createConnection(dbCredentials):
 
-        for table in dataMapModel.getTables():
-            dbWriter.write(table)
+            for table in dataMapModel.getTables():
+                dbWriter.write(table)
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="StreamDataLoader")

@@ -6,7 +6,6 @@ import sys
 sys.path.append('/home/denver/Documents/ODM2PythonAPI')
 
 from src.api.ODM2.services.createService import createResults
-
 from src.api.ODMconnection import dbconnection
 
 class Database:
