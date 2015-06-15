@@ -9,6 +9,7 @@ import pandas as pd
 from common.logger import LoggerTool
 #from src.common.logger import LoggerTool
 
+import os
 
 tool = LoggerTool()
 logger = tool.setupLogger(__name__, __name__ + '.log', 'w', logging.DEBUG)
@@ -79,11 +80,13 @@ class CSVReader():
         #logger.debug("skiprows: %s" % skip)
 
         try:
+
             df = pd.read_csv(filepath, header=skip, sep=str(sep), engine='python')
             #df = pd.concat(data)
             df.set_index(datecol, inplace=True)
             #logger.debug("dataframe: %s" % df)
             #print df
+
             return df
 
         except Exception as e:
@@ -91,6 +94,32 @@ class CSVReader():
             #logger.fatal(e)
             return pd.DataFrame
 
+    
+    def byteReader(self, filepath, sep, datecol, skip=0):
+        """
+            byteReader -- Reads a CSV file beginning from the
+                            end of the last time it was read.
+        """
+
+        # Get the size of the file last time we read the data.
+        size_last_read = open('./fileSize.dat', 'r').read()
+        #print int(size_last_read)  
+        
+        with open(filepath, 'rb') as f:
+            # Jump to the new part of the file.
+            f.seek(int(size_last_read))
+            # Read the new data.
+            data = f.read()
+            #print data
+
+
+        # Store the file size including the new data.
+        with open('./fileSize.dat', 'w') as f:
+            new_file_size = os.path.getsize(filepath)
+            f.write(str(os.path.getsize(filepath)))
+
+    
+    
     def getColumn(self, data, column, datetime):
         """Obtain a specified column from the most recent datetime
 
