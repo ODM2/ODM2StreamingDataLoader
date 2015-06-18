@@ -14,50 +14,14 @@ import os
 tool = LoggerTool()
 logger = tool.setupLogger(__name__, __name__ + '.log', 'w', logging.DEBUG)
 
+from controllers.FileSizeReader import FileSizeReader
 
 class CSVReader():
     """Reads and analyzes CSV/TSV files"""
 
     def __init__(self):
         pass
-    '''
-    def reader(self, filepath, sep, datetime=None, skip=0):
-        """Reads csv into pandas object
-
-        Parameters
-        ----------
-        filepath : string
-            path to csv file
-        datetime : datetime
-            limits output to dates occurring after specified date
-        skip : int
-            indicates the skip amount to begin reading
-
-        Returns
-        -------
-            pandas.core.frame.DataFrame
-        """
-
-        if not filepath:
-            raise "FilePath cannot be null"
-
-
-        data = pd.read_csv(filepath, sep=sep, index_col=0, parse_dates=True, skiprows=skip)
-        # print("Analyzing...'{file}'\n".format(file=filepath))
-
-        if not data.empty:
-            sortedData = data.sort()
-            if datetime:
-                try:
-                    return sortedData[datetime:]
-                except KeyError:
-                    start = sortedData.index.searchsorted(datetime)
-                    return sortedData[start:]
-
-            else:
-                return sortedData
-        return None
-    '''
+    
     def reader(self, filepath, sep, datecol, skip=0):
         """Reads csv into pandas object
 
@@ -75,17 +39,11 @@ class CSVReader():
         if not filepath:
             raise RuntimeError("FilePath cannot be null")
 
-        #logger.debug("filepath: %s" % filepath)
-        #logger.debug("sep: %s" % sep)
-        #logger.debug("skiprows: %s" % skip)
-
         try:
 
-            df = pd.read_csv(filepath, header=skip, sep=str(sep), engine='python')
-            #df = pd.concat(data)
+            df = pd.read_csv(filepath, header=skip,
+                                sep=str(sep), engine='python')
             df.set_index(datecol, inplace=True)
-            #logger.debug("dataframe: %s" % df)
-            #print df
 
             return df
 
@@ -101,23 +59,21 @@ class CSVReader():
                             end of the last time it was read.
         """
 
+        fsr = FileSizeReader('./fileSize.dat')
+
         # Get the size of the file last time we read the data.
-        size_last_read = open('./fileSize.dat', 'r').read()
-        #print int(size_last_read)  
-        
+        size_last_read = fsr.getSizeByName(filepath)
+
         with open(filepath, 'rb') as f:
             # Jump to the new part of the file.
             f.seek(int(size_last_read))
             # Read the new data.
             data = f.read()
-            #print data
+            print data
 
 
         # Store the file size including the new data.
-        with open('./fileSize.dat', 'w') as f:
-            new_file_size = os.path.getsize(filepath)
-            f.write(str(os.path.getsize(filepath)))
-
+        fsr.setSizeByName(filepath)
     
     
     def getColumn(self, data, column, datetime):
