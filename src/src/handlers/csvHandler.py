@@ -10,6 +10,7 @@ from common.logger import LoggerTool
 #from src.common.logger import LoggerTool
 
 import os
+from StringIO import StringIO
 
 tool = LoggerTool()
 logger = tool.setupLogger(__name__, __name__ + '.log', 'w', logging.DEBUG)
@@ -53,27 +54,58 @@ class CSVReader():
             return pd.DataFrame
 
     
-    def byteReader(self, filepath, sep, datecol, skip=0):
+    def byteReader(self, filepath, start_byte, sep, datecol, skip=0):
         """
-            byteReader -- Reads a CSV file beginning from the
-                            end of the last time it was read.
+        byteReader reads from a given file (filepath) beginning at the given
+        byte (start_byte). This method returns an empty Pandas dataframe on 
+        failure, and a populated Pandas dataframe on success.
+
+        Other Parameters:
+
+        sep - A string of characters to use as separators when reading the CSV file.
+        datecol - The column name which contains the dates in the CSV file.
+        skip - the number of lines to skip, i.e. where the data begins in the CSV file.
         """
 
-        fsr = FileSizeReader('./fileSize.dat')
+        df = pd.DataFrame
 
-        # Get the size of the file last time we read the data.
-        size_last_read = fsr.getSizeByName(filepath)
+        try:
 
-        with open(filepath, 'rb') as f:
-            # Jump to the new part of the file.
-            f.seek(int(size_last_read))
-            # Read the new data.
-            data = f.read()
-            print data
+            with open(filepath, 'rb') as f:
+                data = ''
+                # If we are going to skip to the new location, we need
+                # to make sure and grab the header for Pandas.
+                if start_byte > 0:
+                    skip = 1
+                    # Without reading the whole file first, search each line
+                    # for the column names. This could potentially go wrong.
+                    # We should think of some better way to locate the column names.
+                    line = f.next()
+                    while (str(datecol + ',') not in line):
+                        skip = skip + 1
+                        line = f.next()
+                    print "Column names are on line %d" % skip
+                    data = line
+                
+                # Jump to the new part of the file.
+                f.seek(int(start_byte))
+                # Read the new data.
+                data_vals = f.read()
+                data = data + data_vals
+                print "New Data:\n\n", data
+                return None
+                df = pd.read_csv(StringIO(data), header=skip,
+                                    sep=str(sep), engine='python')
+                df.set_index(datecol, inplace=True)
+        
+        except IOError as e:
+            print "Skipping '%s' because of %s" % (filepath, e)
+        except Exception as e2:
+            # TODO: There is something fishy because if I don't watch for an Exception,
+            # pandas freaks out about something. Figure out why that is.
+            print e2
 
-
-        # Store the file size including the new data.
-        fsr.setSizeByName(filepath)
+        return df
     
     
     def getColumn(self, data, column, datetime):

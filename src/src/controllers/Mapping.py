@@ -6,27 +6,33 @@ from handlers.csvHandler import CSVReader
 class Mapping():
     '''
     Model class representing a mapped pandas dataframe object.
-
-    rawData : pandas.core.frame.DataFrame - Raw CSV data from the
-                                            given file.
-    table : pandas.core.frame.DataFrame - The finnished table to
-                                            write to the database.
-    mapping : dict - The YAML configuration mapping.
+    
+    Attributes:
+        rawData : pandas.core.frame.DataFrame - Raw CSV data from the
+                                                given file.
+        table : pandas.core.frame.DataFrame - The finnished table to
+                                                write to the database.
+        mapping : dict - The YAML configuration mapping.
     '''
     def __init__(self, configDict):
         self.table = [] # Empty
         self.mapping = configDict
         self.rawData = pd.DataFrame # Empty
-        if self.readFile(self.mapping['Settings']['FileLocation']):
-            self.buildTables()
-    
 
-    def buildTables(self):
-        
+    def map(self):
+        if self._readFile(self.mapping['Settings']['FileLocation']):
+            self._buildTables()
+            return True
+
+    def _buildTables(self):
+        '''
+        buildTables creates a brand new Pandas dataframe (table),
+        gathering the needed columns from the YAML file (mapping)
+        and raw data (rawData).
+        '''
         for col, series in self.mapping['Mappings'].iteritems():
             
             df = self.rawData[col].reset_index()
-
             df.columns = ['ValueDateTime', 'DataValue']
             
             if series['CalculateAggInterval']:
@@ -51,14 +57,28 @@ class Mapping():
                                 pd.Series(df.ValueDateTime))
             self.table.append(df)
 
-    def readFile(self, path):
+    def _readFile(self, path):
+        '''
+        readFile gathers the raw data (rawData) from the given CSV
+        file (path). If rawData ends up being empty, we return False,
+        otherwise we return as True.
+        '''
         reader = CSVReader()
+        
+        '''
         self.rawData = reader.reader(path, \
             sep=self.mapping['Settings']['Delimiter'],
             datecol = self.mapping["Settings"]["DateTimeColumnName"],
             skip=self.mapping['Settings']['HeaderRowPosition'] - 1
                                      )
-        #read csv into pandas
+        '''
+        self.rawData = reader.byteReader(path,
+                start_byte=self.mapping['Settings']['LastByteRead'],
+                sep=self.mapping['Settings']['Delimiter'],
+                datecol=self.mapping['Settings']['DateTimeColumnName'],
+                skip=self.mapping['Settings']['HeaderRowPosition'] - 1)
+
+        # Read csv into pandas
         if self.rawData.empty:
             return False
         else:
@@ -68,6 +88,12 @@ class Mapping():
         return self.table
     
     def getDatabase(self):
+        '''
+        getDatabase is a public method that should be called before
+        interacting with the database. It snatches up the database
+        credentials from the YAML file object (mapping) and returns
+        a named-tuple called Credentials.
+        '''
         Credentials = namedtuple('Credentials', 'host, db_name,\
                                     uid, pwd')
         return Credentials(self.mapping['Database']['Address'],

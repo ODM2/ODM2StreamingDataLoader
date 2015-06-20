@@ -13,20 +13,31 @@ from controllers.Database import Database
 
 def main(arguments):
     
-    print "yamlFile: ", arguments.yamlFile
+    print "Using %s as YAML configuration." % arguments.yamlFile
 
     yamlModel = YamlConfiguration(arguments.yamlFile)
     dbWriter = Database()
 
+    configParamsList = []
+
+    # Loop through each file given in the YAML configuration.
     for configParams in yamlModel.get():
         
         dataMapModel = Mapping(configParams)
-        dbCredentials = dataMapModel.getDatabase()
+        if dataMapModel.map():
+            dbCredentials = dataMapModel.getDatabase()
+            if dbWriter.createConnection(dbCredentials):
+                #for table in dataMapModel.getTables():
+                #    dbWriter.write(table)
+                updatedParams = yamlModel.updateLastRead(configParams)
+            else:
+                updatedParams = configParams    
+        else:
+            updatedParams = configParams
         
-        if dbWriter.createConnection(dbCredentials):
-
-            for table in dataMapModel.getTables():
-                dbWriter.write(table)
+        configParamsList.append(updatedParams)
+    
+    yamlModel.rebase(configParamsList)
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="StreamDataLoader")
