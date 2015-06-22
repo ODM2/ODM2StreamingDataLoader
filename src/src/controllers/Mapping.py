@@ -10,7 +10,7 @@ class Mapping():
     Attributes:
         rawData : pandas.core.frame.DataFrame - Raw CSV data from the
                                                 given file.
-        table : pandas.core.frame.DataFrame - The finnished table to
+        table : pandas.core.frame.DataFrame - The finnished tables to
                                                 write to the database.
         mapping : dict - The YAML configuration mapping.
     '''
@@ -20,6 +20,12 @@ class Mapping():
         self.rawData = pd.DataFrame # Empty
 
     def map(self):
+        '''
+        This public method begins the process of mapping the data
+        into something that we can write to the database. First,
+        the file is read from the config file (mapping), if that
+        works, we begin to build a new Pandas dataframe. 
+        '''
         if self._readFile(self.mapping['Settings']['FileLocation']):
             self._buildTables()
             return True
@@ -66,13 +72,6 @@ class Mapping():
         '''
         reader = CSVReader()
         
-        '''
-        self.rawData = reader.reader(path, \
-            sep=self.mapping['Settings']['Delimiter'],
-            datecol = self.mapping["Settings"]["DateTimeColumnName"],
-            skip=self.mapping['Settings']['HeaderRowPosition'] - 1
-                                     )
-        '''
         self.rawData = reader.byteReader(path,
                 start_byte=self.mapping['Settings']['LastByteRead'],
                 sep=self.mapping['Settings']['Delimiter'],
@@ -86,6 +85,10 @@ class Mapping():
             return True
 
     def getTables(self):
+        '''
+        getTables is a public method that returns a Pandas dataframe.
+        It should be called after a mapping has been made.
+        '''
         return self.table
     
     def getDatabase(self):

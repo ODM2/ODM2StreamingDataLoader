@@ -8,7 +8,9 @@ import pprint
 import datetime
 
 class YamlConfiguration():
-    """ YAML Config file model """
+    '''
+    YAML Config file model
+    '''
 
     def __init__(self, configFilePath):
         self.yamlFilePath = configFilePath

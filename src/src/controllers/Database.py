@@ -44,7 +44,7 @@ class Database:
         database connection has been established.
         '''
         #print data.columns.tolist()[0]
-        #print data
+        print "DATA TO BE WRITTEN TO THE DATABASE:", data
         cr = createResults(self.session_factory)
         cr.createTimeSeriesResultValues(data)
 

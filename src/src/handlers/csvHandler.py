@@ -99,10 +99,10 @@ class CSVReader():
                                         engine='python')
                     df.set_index(datecol, inplace=True)
                 else:
+                    # Just begin at the start of the file.
                     f.seek(0)
                     finished_data = f.read()
-                    print "New File...Data:\n", finished_data
-
+                    
                     df = pd.read_csv(StringIO(finished_data),
                                         header=skip,
                                         sep=str(sep),

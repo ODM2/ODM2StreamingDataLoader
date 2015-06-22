@@ -37,10 +37,10 @@ def main(arguments):
             # If we are able to connect to the database with
             # the credentials...
             if dbWriter.createConnection(dbCredentials):
-                # For each of the tables in the mapping...
-                #for table in dataMapModel.getTables():
-                #    # Write the table to the database.
-                #    dbWriter.write(table)
+                # For each of the tables in the mapping,
+                # write to the database.
+                for table in dataMapModel.getTables():
+                    dbWriter.write(table)
                 # Update the config file to match what was
                 # most recently read.
                 updatedParams = yamlModel.updateLastRead(configParams)
