@@ -22,8 +22,10 @@ class CSVReader():
 
     def __init__(self):
         pass
-    
-    def reader(self, filepath, sep, datecol, skip=0):
+
+
+    def reader(self, filepath, sep, datecol, skip=0, columns= None):
+
         """Reads csv into pandas object
 
         Parameters
@@ -45,6 +47,12 @@ class CSVReader():
             df = pd.read_csv(filepath, header=skip,
                                 sep=str(sep), engine='python')
             df.set_index(datecol, inplace=True)
+            '''
+            df = pd.read_csv(filepath, header=skip, sep=str(sep), engine='c', index_col = datecol, usecols= [datecol]+columns, parse_dates = True)
+    #skiprows : list-like or integer Row numbers to skip (0-indexed) or number of rows to skip (int) at the start of the file
+            #df.set_index(datecol, inplace=True)
+            #logger.debug("dataframe: %s" % df)
+            '''
 
             return df
 

@@ -71,6 +71,7 @@ class Mapping():
         otherwise we return as True.
         '''
         reader = CSVReader()
+
         
         self.rawData = reader.byteReader(path,
                 start_byte=self.mapping['Settings']['LastByteRead'],
@@ -79,6 +80,15 @@ class Mapping():
                 skip=self.mapping['Settings']['HeaderRowPosition'] - 1)
 
         # Read csv into pandas
+        '''
+        self.rawData = reader.reader(path,
+            sep = self.mapping['Settings']['Delimiter'],
+            datecol = self.mapping["Settings"]["DateTimeColumnName"],
+            skip = self.mapping['Settings']['HeaderRowPosition'] - 1,
+            columns = self.mapping["Mappings"].keys()
+                                     )
+        #read csv into pandas
+        '''
         if self.rawData.empty:
             return False
         else:
