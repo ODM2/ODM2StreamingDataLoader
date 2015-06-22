@@ -23,6 +23,7 @@ class Mapping():
         if self._readFile(self.mapping['Settings']['FileLocation']):
             self._buildTables()
             return True
+        return False
 
     def _buildTables(self):
         '''
