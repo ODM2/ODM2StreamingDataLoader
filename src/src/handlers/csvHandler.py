@@ -81,9 +81,16 @@ class CSVReader():
 
         df = pd.DataFrame
 
+        # Check if the data has been modified.
+        if os.path.getsize(filepath) < start_byte:
+            print "***THE DATA FILE HAS BEEN MODIFIED!"
+            print "***STARTING AT THE BEGINNING OF DATA FILE."
+            start_byte = 0
+        
         try:
 
             with open(filepath, 'rb') as f:
+                
                 # If we are going to skip to the new location, we need
                 # to make sure and grab the header for Pandas.
                 if start_byte > 0:
