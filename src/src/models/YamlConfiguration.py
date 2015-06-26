@@ -36,7 +36,6 @@ class YamlConfiguration():
                 if load:
                     return load
         except IOError as e:
-            print e
             return None
 
 
@@ -50,6 +49,19 @@ class YamlConfiguration():
         for fileDict in self.yamlDict.keys():
             fileDictList.append(self.yamlDict[fileDict])
         return fileDictList
+
+    def updateLastRead2(self, configFileDict, columnName):
+        '''
+        updateLastRead is a public method which updates the
+        'LastByteRead' parameter for the given column.
+        '''
+        fileSize = os.path.getsize(configFileDict['Settings']\
+                                                 ['FileLocation'])
+        configFileDict['Mappings'][columnName]\
+                      ['LastByteRead'] = str(fileSize)
+        
+        return configFileDict
+
 
     def updateLastRead(self, configFileDict):
         

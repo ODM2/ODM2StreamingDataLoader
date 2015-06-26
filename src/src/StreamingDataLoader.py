@@ -25,6 +25,7 @@ def main(arguments):
     # List to hold any changes made to the config file to be
     # saved when the program has completed.
     configParamsList = []
+    failureList = []
 
     # Loop through each file given in the YAML configuration.
     for configParams in yamlModel.get():
@@ -40,10 +41,11 @@ def main(arguments):
                 # For each of the tables in the mapping,
                 # write to the database.
                 for table in dataMapModel.getTables():
-                    dbWriter.write(table)
-                # Update the config file to match what was
-                # most recently read.
-                updatedParams = yamlModel.updateLastRead(configParams)
+                    if dbWriter.write(table[1]):
+                        updatedParams = yamlModel.updateLastRead2(\
+                                            configParams, table[0])
+                    else:
+                        failureList.append(table[0])
             # If not able to connect to the database with the
             # given credentials, then the config file does not
             # need to be updated.
@@ -61,6 +63,11 @@ def main(arguments):
     # Update the config file with any parameters that have
     # changed since the last time the program was ran.
     yamlModel.rebase(configParamsList)
+
+    if failureList:
+        print "These columns were not added to the database:"
+        for fail in failureList:
+            print fail
 
 # Application entry point.
 if __name__ == "__main__":

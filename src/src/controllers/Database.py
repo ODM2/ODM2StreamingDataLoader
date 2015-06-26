@@ -4,12 +4,14 @@ __author__ = 'Denver'
 import sys
 
 
+sys.path.append('/home/denver/Documents/ODM2PythonAPI')
+from src.api.ODM2.services.createService import createResults
+from src.api.ODMconnection import dbconnection
+from src.api.ODM2.services.readService import readCore
 
-
-
-sys.path.insert(0, '/Users/stephanie/DEV/ODM2PythonAPI/src')
-from api.ODM2.services.createService import createResults
-from api.ODMconnection import dbconnection
+#sys.path.insert(0, '/Users/stephanie/DEV/ODM2PythonAPI/src')
+#from api.ODM2.services.createService import createResults
+#from api.ODMconnection import dbconnection
 
 
 class Database:
@@ -47,9 +49,13 @@ class Database:
         ODM2 database. This method should only be called once a valid
         database connection has been established.
         '''
-        #print data.columns.tolist()[0]
-        print "DATA TO BE WRITTEN TO THE DATABASE:", data
         cr = createResults(self.session_factory)
-        cr.createTimeSeriesResultValues(data)
+        if cr.createTimeSeriesResultValues(data) is None:
+            return False
+        return True
 
+    def getNoDataValues(self, resultID):
+        rc = readCore(self.session_factory)
+        result = rc.getResultByID(resultID)
         
+        return result.VariableObj.NoDataValue

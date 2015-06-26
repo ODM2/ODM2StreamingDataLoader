@@ -10,12 +10,12 @@ class Mapping():
     Attributes:
         rawData : pandas.core.frame.DataFrame - Raw CSV data from the
                                                 given file.
-        table : pandas.core.frame.DataFrame - The finnished tables to
+        tables : pandas.core.frame.DataFrame - The finnished tables to
                                                 write to the database.
         mapping : dict - The YAML configuration mapping.
     '''
     def __init__(self, configDict):
-        self.table = [] # Empty
+        self.tables = [] # Empty
         self.mapping = configDict
         self.rawData = pd.DataFrame # Empty
 
@@ -33,7 +33,7 @@ class Mapping():
 
     def _buildTables(self):
         '''
-        buildTables creates a brand new Pandas dataframe (table),
+        buildTables creates a brand new Pandas dataframe (tables),
         gathering the needed columns from the YAML file (mapping)
         and raw data (rawData).
         '''
@@ -54,7 +54,8 @@ class Mapping():
                 df['TimeAggregationInterval'] = series['IntendedTimeSpacing']
                 df['TimeAggregationIntervalUnitsID'] = series['IntendedTimeSpacingUnitID']
 
-            df['QualityCodeCV'] = 'None'
+            #df['QualityCodeCV'] = 'None'
+            df['QualityCodeCV'] = 'SDL Test Data'
             df['CensorCodeCV'] = 'Unknown'
             df['ResultID'] = series['ResultID']
             df['ValueDateTimeUTCOffset'] = self.mapping['Settings']['UTCOffset']
@@ -62,7 +63,18 @@ class Mapping():
             #df.set_index(['DateTime'], inplace=True)
             df.ValueDateTime = pd.to_datetime(\
                                 pd.Series(df.ValueDateTime))
-            self.table.append(df)
+            self.tables.append((col, df))
+
+    def _getStartByte(self):
+        '''
+        getStartByte is a private method which determines the smallest
+        byte number of the given columns.
+        '''
+        m = [value['LastByteRead'] for key,value in \
+            self.mapping['Mappings'].items()]
+        
+        return min(m)
+
 
     def _readFile(self, path):
         '''
@@ -72,23 +84,17 @@ class Mapping():
         '''
         reader = CSVReader()
 
+        # Collect the smallest 'LastByteRead' in the file.
+        byte = self._getStartByte()
+
+        print "Beginning from byte number", byte
         
         self.rawData = reader.byteReader(path,
-                start_byte=self.mapping['Settings']['LastByteRead'],
+                start_byte=byte,
                 sep=self.mapping['Settings']['Delimiter'],
                 datecol=self.mapping['Settings']['DateTimeColumnName'],
                 skip=self.mapping['Settings']['HeaderRowPosition'] - 1)
 
-        # Read csv into pandas
-        '''
-        self.rawData = reader.reader(path,
-            sep = self.mapping['Settings']['Delimiter'],
-            datecol = self.mapping["Settings"]["DateTimeColumnName"],
-            skip = self.mapping['Settings']['HeaderRowPosition'] - 1,
-            columns = self.mapping["Mappings"].keys()
-                                     )
-        #read csv into pandas
-        '''
         if self.rawData.empty:
             return False
         else:
@@ -99,7 +105,7 @@ class Mapping():
         getTables is a public method that returns a Pandas dataframe.
         It should be called after a mapping has been made.
         '''
-        return self.table
+        return self.tables
     
     def getDatabase(self):
         '''
