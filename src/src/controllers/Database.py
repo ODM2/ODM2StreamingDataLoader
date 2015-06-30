@@ -5,9 +5,9 @@ import sys
 
 
 sys.path.append('/home/denver/Documents/ODM2PythonAPI')
-from src.api.ODM2.services.createService import createResults
+from src.api.ODM2.services.createService import CreateODM2
 from src.api.ODMconnection import dbconnection
-from src.api.ODM2.services.readService import readCore
+from src.api.ODM2.services.readService import ReadODM2
 
 #sys.path.insert(0, '/Users/stephanie/DEV/ODM2PythonAPI/src')
 #from api.ODM2.services.createService import createResults
@@ -35,10 +35,10 @@ class Database:
         if not self.session_factory:
             return False
 
-        print "Connected!"
-        print "Server: ", Credentials.host
-        print "Database: ", Credentials.db_name
-        print "User: ", Credentials.uid
+        print "[INFO] Connected!"
+        print "\tHost:", Credentials.host
+        print "\tDatabase: ", Credentials.db_name
+        print "\tUser: ", Credentials.uid
         
         return True
 
@@ -49,13 +49,15 @@ class Database:
         ODM2 database. This method should only be called once a valid
         database connection has been established.
         '''
-        cr = createResults(self.session_factory)
+        cr = CreateODM2(self.session_factory)
+        
+        # TODO: Check if data is already in the database.
+
         if cr.createTimeSeriesResultValues(data) is None:
             return False
         return True
 
-    def getNoDataValues(self, resultID):
-        rc = readCore(self.session_factory)
-        result = rc.getResultByID(resultID)
-        
+    def getNoDataValue(self, resultID):
+        rc = ReadODM2(self.session_factory)
+        result = rc.getResultByID(int(resultID))
         return result.VariableObj.NoDataValue

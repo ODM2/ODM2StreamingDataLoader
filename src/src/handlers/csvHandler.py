@@ -63,7 +63,7 @@ class CSVReader():
 
     
     def byteReader(self, filepath, start_byte, sep, datecol, skip=0):
-        """
+        '''
         byteReader reads from a given file (filepath) beginning at the
         given byte (start_byte). This method returns an empty Pandas
         dataframe on failure, and a populated Pandas dataframe on
@@ -77,20 +77,23 @@ class CSVReader():
                 file.
         skip - the number of lines to skip, i.e. where the data begins
              in the CSV file.
-        """
+        '''
 
         df = pd.DataFrame
 
+        print "[INFO] File size:", os.path.getsize(filepath)
+        print "[INFO] Start byte:", start_byte
+
         # Check if the data has been modified.
-        if os.path.getsize(filepath) < start_byte:
-            print "***THE DATA FILE HAS BEEN MODIFIED!"
-            print "***STARTING AT THE BEGINNING OF DATA FILE."
+        if int(os.path.getsize(filepath)) < start_byte:
+            print "[INFO] Previous data has been modified."
             start_byte = 0
         
         try:
 
             with open(filepath, 'rb') as f:
                 
+                print "[INFO] Reading from byte %d." % start_byte
                 # If we are going to skip to the new location, we need
                 # to make sure and grab the header for Pandas.
                 if start_byte > 0:
@@ -107,7 +110,11 @@ class CSVReader():
                     new_data = f.read()
                 
                     finished_data = header_names + new_data
-                    print "New Data:\n", finished_data
+                    
+                    if new_data:
+                        print "[INFO] New data:\n", finished_data
+                    else:
+                        print "[INFO] No new data."
 
                     df = pd.read_csv(StringIO(finished_data),
                                         sep=str(sep),
@@ -118,14 +125,17 @@ class CSVReader():
                     f.seek(0)
                     finished_data = f.read()
                     
+                    print "[INFO] New data:\n", finished_data
+                    
                     df = pd.read_csv(StringIO(finished_data),
                                         header=skip,
                                         sep=str(sep),
                                         engine='python')
                     df.set_index(datecol, inplace=True)
+
         
         except IOError as e:
-            print "Skipping '%s' because of %s" % (filepath, e)
+            print "[INFO] Skipping '%s' because of %s" % (filepath, e)
         except Exception as e2:
             # TODO: There is something fishy because if I don't
             # watch for an Exception, Pandas freaks out about

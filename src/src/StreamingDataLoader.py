@@ -9,18 +9,14 @@ import pprint
 from models.YamlConfiguration import YamlConfiguration
 
 from controllers.Mapping import Mapping
-from controllers.Database import Database
 
 def main(arguments):
     
-    print "Using %s as YAML configuration." % arguments.yamlFile
+    print "[INFO] Using '%s' as YAML configuration." % arguments.yamlFile
 
     # Create an object to represent the yaml coniguration
     # file.
     yamlModel = YamlConfiguration(arguments.yamlFile)
-    # Create an object to handle interactions with the database
-    # and ODM2 API.
-    dbWriter = Database()
 
     # List to hold any changes made to the config file to be
     # saved when the program has completed.
@@ -29,45 +25,35 @@ def main(arguments):
 
     # Loop through each file given in the YAML configuration.
     for configParams in yamlModel.get():
-        
+        updatedParams = configParams 
         dataMapModel = Mapping(configParams)
-        # If we are able to create a mapping...
-        if dataMapModel.map():
-            # Get the database connection credentials.
-            dbCredentials = dataMapModel.getDatabase()
-            # If we are able to connect to the database with
-            # the credentials...
-            if dbWriter.createConnection(dbCredentials):
-                # For each of the tables in the mapping,
-                # write to the database.
-                for table in dataMapModel.getTables():
-                    if dbWriter.write(table[1]):
-                        updatedParams = yamlModel.updateLastRead2(\
-                                            configParams, table[0])
-                    else:
-                        failureList.append(table[0])
-            # If not able to connect to the database with the
-            # given credentials, then the config file does not
-            # need to be updated.
-            else:
-                updatedParams = configParams    
-        # If not able to create a mapping, then the config file
-        # does not need to be updated.
-        else:
-            updatedParams = configParams
         
-        # Add any changes to the config file to the list to be
-        # updated when finished reading the config file.
+        if dataMapModel.getDatabase():
+
+            if dataMapModel.map():
+
+                for table in dataMapModel.getTables():
+                    
+                    print "[INFO] Trying to write", table[0]
+                    print table[1]
+                    if dataMapModel.save(table[1]):
+                        
+                        print "\t...Success!"
+                        updatedParams = yamlModel.updateLastRead(\
+                                            configParams, table[0])
+                    
+                    else:
+                        
+                        failureList.append(table[0])
+        
         configParamsList.append(updatedParams)
     
-    # Update the config file with any parameters that have
-    # changed since the last time the program was ran.
     yamlModel.rebase(configParamsList)
 
     if failureList:
-        print "These columns were not added to the database:"
+        print "[INFO] These columns were not added to the database:"
         for fail in failureList:
-            print fail
+            print "\t", fail
 
 # Application entry point.
 if __name__ == "__main__":

@@ -1,7 +1,10 @@
 __author__ = 'stephanie'
 import pandas as pd
+import numpy as np
 from collections import namedtuple
+
 from handlers.csvHandler import CSVReader
+from controllers.Database import Database
 
 class Mapping():
     '''
@@ -14,11 +17,35 @@ class Mapping():
                                                 write to the database.
         mapping : dict - The YAML configuration mapping.
     '''
+    
+    
+    
     def __init__(self, configDict):
         self.tables = [] # Empty
         self.mapping = configDict
         self.rawData = pd.DataFrame # Empty
 
+        self.dbWriter = Database()
+
+    
+    
+    def getDatabase(self):
+        '''
+        getDatabase is a public method that should be called before
+        interacting with the database. It snatches up the database
+        credentials from the YAML file object (mapping) and returns
+        a named-tuple called Credentials.
+        '''
+        Credentials = namedtuple('Credentials', 'host, db_name,\
+                                    uid, pwd')
+        return self.dbWriter.createConnection(Credentials(\
+                            self.mapping['Database']['Address'],
+                            self.mapping['Database']['DatabaseName'],
+                            self.mapping['Database']['UserName'],
+                            self.mapping['Database']['Password']))
+    
+    
+    
     def map(self):
         '''
         This public method begins the process of mapping the data
@@ -30,7 +57,47 @@ class Mapping():
             self._buildTables()
             return True
         return False
+    
+    
+    
+    def _readFile(self, path):
+        '''
+        readFile gathers the raw data (rawData) from the given CSV
+        file (path). If rawData ends up being empty, we return False,
+        otherwise we return as True.
+        '''
+        reader = CSVReader()
 
+        # Collect the smallest 'LastByteRead' in the file.
+        byte = self._getStartByte()
+
+        print "[INFO] Last successful byte read:", byte
+        
+        self.rawData = reader.byteReader(path,
+                start_byte=byte,
+                sep=self.mapping['Settings']['Delimiter'],
+                datecol=self.mapping['Settings']['DateTimeColumnName'],
+                skip=self.mapping['Settings']['HeaderRowPosition'] - 1)
+
+        if self.rawData.empty:
+            return False
+        else:
+            return True
+    
+    
+    
+    def _getStartByte(self):
+        '''
+        getStartByte is a private method which determines the smallest
+        byte number of the given columns.
+        '''
+        m = [value['LastByteRead'] for key,value in \
+            self.mapping['Mappings'].items()]
+        
+        return int(min(m))
+    
+    
+    
     def _buildTables(self):
         '''
         buildTables creates a brand new Pandas dataframe (tables),
@@ -38,7 +105,6 @@ class Mapping():
         and raw data (rawData).
         '''
         for col, series in self.mapping['Mappings'].iteritems():
-            
             df = self.rawData[col].reset_index()
             df.columns = ['ValueDateTime', 'DataValue']
             
@@ -60,46 +126,22 @@ class Mapping():
             df['ResultID'] = series['ResultID']
             df['ValueDateTimeUTCOffset'] = self.mapping['Settings']['UTCOffset']
 
-            #df.set_index(['DateTime'], inplace=True)
+            noDataValue = self._getNoDataValue(df['ResultID'][0])
+            df = df.replace(to_replace=[np.nan, '-INF'],
+                            value=[noDataValue, noDataValue],
+                            regex=True)
+            
             df.ValueDateTime = pd.to_datetime(\
                                 pd.Series(df.ValueDateTime))
             self.tables.append((col, df))
-
-    def _getStartByte(self):
-        '''
-        getStartByte is a private method which determines the smallest
-        byte number of the given columns.
-        '''
-        m = [value['LastByteRead'] for key,value in \
-            self.mapping['Mappings'].items()]
-        
-        return min(m)
-
-
-    def _readFile(self, path):
-        '''
-        readFile gathers the raw data (rawData) from the given CSV
-        file (path). If rawData ends up being empty, we return False,
-        otherwise we return as True.
-        '''
-        reader = CSVReader()
-
-        # Collect the smallest 'LastByteRead' in the file.
-        byte = self._getStartByte()
-
-        print "Beginning from byte number", byte
-        
-        self.rawData = reader.byteReader(path,
-                start_byte=byte,
-                sep=self.mapping['Settings']['Delimiter'],
-                datecol=self.mapping['Settings']['DateTimeColumnName'],
-                skip=self.mapping['Settings']['HeaderRowPosition'] - 1)
-
-        if self.rawData.empty:
-            return False
-        else:
-            return True
-
+    
+            print "[INFO] Created dataframe: ", df 
+    
+    def _getNoDataValue(self, resultID):
+        return self.dbWriter.getNoDataValue(resultID)
+    
+    
+    
     def getTables(self):
         '''
         getTables is a public method that returns a Pandas dataframe.
@@ -107,17 +149,12 @@ class Mapping():
         '''
         return self.tables
     
-    def getDatabase(self):
+    
+    
+    def save(self, data):
         '''
-        getDatabase is a public method that should be called before
-        interacting with the database. It snatches up the database
-        credentials from the YAML file object (mapping) and returns
-        a named-tuple called Credentials.
+        save is a public method that wraps the Database.write method.
         '''
-        Credentials = namedtuple('Credentials', 'host, db_name,\
-                                    uid, pwd')
-        return Credentials(self.mapping['Database']['Address'],
-                            self.mapping['Database']['DatabaseName'],
-                            self.mapping['Database']['UserName'],
-                            self.mapping['Database']['Password'])
+        return self.dbWriter.write(data)
+
 

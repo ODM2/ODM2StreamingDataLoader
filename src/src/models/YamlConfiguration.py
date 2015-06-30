@@ -50,7 +50,7 @@ class YamlConfiguration():
             fileDictList.append(self.yamlDict[fileDict])
         return fileDictList
 
-    def updateLastRead2(self, configFileDict, columnName):
+    def updateLastRead(self, configFileDict, columnName):
         '''
         updateLastRead is a public method which updates the
         'LastByteRead' parameter for the given column.
@@ -62,13 +62,6 @@ class YamlConfiguration():
         
         return configFileDict
 
-
-    def updateLastRead(self, configFileDict):
-        
-        fileSize = os.path.getsize(configFileDict['Settings']['FileLocation'])
-        configFileDict['Settings']['LastByteRead'] = str(fileSize)
-
-        return configFileDict
 
     def rebase(self, configFileDictList):
         newContent = {}
