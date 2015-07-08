@@ -5,9 +5,10 @@ import sys
 
 
 sys.path.append('/home/denver/Documents/ODM2PythonAPI')
-from src.api.ODM2.services.createService import CreateODM2
+#from src.api.ODM2.services.createService import CreateODM2
 from src.api.ODMconnection import dbconnection
-from src.api.ODM2.services.readService import ReadODM2
+#from src.api.ODM2.services.readService import ReadODM2
+from src.api.ODM2.services import *
 
 #sys.path.insert(0, '/Users/stephanie/DEV/ODM2PythonAPI/src')
 #from api.ODM2.services.createService import createResults
@@ -52,8 +53,11 @@ class Database:
         cr = CreateODM2(self.session_factory)
         
         # TODO: Check if data is already in the database.
+        rc = ReadODM2(self.session_factory)
+        dt = rc.getResultValidDateTime(data['ResultID'][0])
+        filtered_data = data[data['ValueDateTime'] > dt[0]]
 
-        if cr.createTimeSeriesResultValues(data) is None:
+        if cr.createTimeSeriesResultValues(filtered_data) is None:
             return False
         return True
 
@@ -61,3 +65,8 @@ class Database:
         rc = ReadODM2(self.session_factory)
         result = rc.getResultByID(int(resultID))
         return result.VariableObj.NoDataValue
+
+    def updateDateTime(self, seriesId, dateTime):
+        cr = UpdateODM2(self.session_factory)
+        cr.updateResultValidDateTime(seriesId, dateTime)
+        return True

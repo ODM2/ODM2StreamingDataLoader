@@ -6,6 +6,9 @@ import csv
 
 import pprint
 import datetime
+import logging
+
+logger = logging.getLogger('SDL_logger')
 
 class YamlConfiguration():
     '''
@@ -23,8 +26,8 @@ class YamlConfiguration():
         the YAML configuration file to be mapped to a python dict.
         '''
         # If the given path does not exist then return None.
+        # TODO: This this case even possible?
         if not path:
-            print "Cannot read the file provided."
             return None
 
         # Attempt to read from the given path. Data is returned if
@@ -36,6 +39,7 @@ class YamlConfiguration():
                 if load:
                     return load
         except IOError as e:
+            logger.error("Cannot read the file provided. Exception: %s" % e)
             return None
 
 

@@ -1,29 +1,16 @@
-"""
-    File Parser
-
-    Handles reading both CSV & TSV data
-"""
-import logging
-
-import pandas as pd
-from common.logger import LoggerTool
-#from src.common.logger import LoggerTool
-
 import os
+import pandas as pd
+import logging
 from StringIO import StringIO
 
-tool = LoggerTool()
-logger = tool.setupLogger(__name__, __name__ + '.log', 'w', logging.DEBUG)
-
 from controllers.FileSizeReader import FileSizeReader
+
+logger = logging.getLogger('SDL_logger')
 
 class CSVReader():
     """Reads and analyzes CSV/TSV files"""
 
-    def __init__(self):
-        pass
-
-
+    '''
     def reader(self, filepath, sep, datecol, skip=0, columns= None):
 
         """Reads csv into pandas object
@@ -47,12 +34,10 @@ class CSVReader():
             df = pd.read_csv(filepath, header=skip,
                                 sep=str(sep), engine='python')
             df.set_index(datecol, inplace=True)
-            '''
             df = pd.read_csv(filepath, header=skip, sep=str(sep), engine='c', index_col = datecol, usecols= [datecol]+columns, parse_dates = True)
     #skiprows : list-like or integer Row numbers to skip (0-indexed) or number of rows to skip (int) at the start of the file
             #df.set_index(datecol, inplace=True)
             #logger.debug("dataframe: %s" % df)
-            '''
 
             return df
 
@@ -60,7 +45,7 @@ class CSVReader():
             print e
             #logger.fatal(e)
             return pd.DataFrame
-
+    '''
     
     def byteReader(self, filepath, start_byte, sep, datecol, skip=0):
         '''
@@ -80,9 +65,9 @@ class CSVReader():
         '''
 
         df = pd.DataFrame
-
-        print "[INFO] File size:", os.path.getsize(filepath)
-        print "[INFO] Start byte:", start_byte
+        
+        logger.debug('File size: %d bytes.' % os.path.getsize(filepath))
+        logger.debug('Start byte: %d.' % start_byte)
 
         # Check if the data has been modified.
         if int(os.path.getsize(filepath)) < start_byte:

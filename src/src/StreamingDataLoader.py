@@ -5,14 +5,30 @@ __author__ = 'Denver'
 
 from argparse import ArgumentParser
 import pprint
+import logging
 
 from models.YamlConfiguration import YamlConfiguration
-
 from controllers.Mapping import Mapping
+
+import numpy as np
 
 def main(arguments):
     
-    print "[INFO] Using '%s' as YAML configuration." % arguments.yamlFile
+
+    # Setup logging.
+    LOG_FILENAME = 'logfile.txt'
+    logger = logging.getLogger('SDL_logger')
+    if arguments.verbose:
+        logger.setLevel(logging.DEBUG)
+    else:
+        logger.setLevel(logging.INFO)
+    formatter = logging.Formatter("[%(asctime)s %(levelname)s] %(message)s", "%Y-%m-%d %H:%M:%S")
+    handler = logging.FileHandler(LOG_FILENAME)
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    
+
+    logger.info("Using '%s' as YAML configuration." % arguments.yamlFile)
 
     # Create an object to represent the yaml coniguration
     # file.
@@ -33,12 +49,12 @@ def main(arguments):
             if dataMapModel.map():
 
                 for table in dataMapModel.getTables():
-                    
-                    print "[INFO] Trying to write", table[0]
-                    print table[1]
+                    logger.debug('Writing %s...' % table[0])
                     if dataMapModel.save(table[1]):
                         
-                        print "\t...Success!"
+                        dataMapModel.updateDateTime(table[1]['ResultID'][0], np.max(table[1]['ValueDateTime'])) 
+                        
+                        logger.debug('...Success!')
                         updatedParams = yamlModel.updateLastRead(\
                                             configParams, table[0])
                     
@@ -51,13 +67,14 @@ def main(arguments):
     yamlModel.rebase(configParamsList)
 
     if failureList:
-        print "[INFO] These columns were not added to the database:"
         for fail in failureList:
-            print "\t", fail
+            logger.info('%s not added to the database.' % fail)
 
 # Application entry point.
 if __name__ == "__main__":
     parser = ArgumentParser(description="StreamDataLoader")
+    parser.add_argument('-v', '--verbose',\
+        action='store_true', help="Verbose logging mode.")
     parser.add_argument('-c', '--config', dest="yamlFile",\
         help="YAML config file", required=True, action="store")
     args = parser.parse_args()

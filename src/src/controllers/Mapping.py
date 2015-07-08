@@ -135,7 +135,6 @@ class Mapping():
                                 pd.Series(df.ValueDateTime))
             self.tables.append((col, df))
     
-            print "[INFO] Created dataframe: ", df 
     
     def _getNoDataValue(self, resultID):
         return self.dbWriter.getNoDataValue(resultID)
@@ -156,5 +155,21 @@ class Mapping():
         save is a public method that wraps the Database.write method.
         '''
         return self.dbWriter.write(data)
+
+    def updateDateTime(self, seriesId, dateTime):
+        '''
+        updateDateTime is a public method that wraps the
+        Database.updateDateTime method. It's part of this module
+        because the database connection is only accessable through
+        here.
+        '''
+        return self.dbWriter.updateDateTime(seriesId, dateTime)      
+
+    def filterExisting(self):
+        '''
+        filterExisting is a public method that returns a table
+        with values that aren't already in the database.
+        '''
+        pass
 
 

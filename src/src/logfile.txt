@@ -1,0 +1,112 @@
+
+[2015-07-08 13:39:07 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 13:39:07 DEBUG] File size: 2235 bytes.
+[2015-07-08 13:39:07 DEBUG] Start byte: 2183.
+[2015-07-08 13:39:07 DEBUG] Writing WindDirection-Degree...
+[2015-07-08 13:39:07 DEBUG] Writing NetRadiation-Watts/m2...
+[2015-07-08 13:39:07 DEBUG] Writing AirTemperature-C...
+[2015-07-08 13:39:07 DEBUG] Writing SolarRadiation-Watts/m2...
+[2015-07-08 13:39:07 DEBUG] Writing WindSpeed-m/s...
+[2015-07-08 13:39:07 DEBUG] Writing RelativeHumidity-%...
+[2015-07-08 13:39:07 DEBUG] Writing Precipitation-mm...
+[2015-07-08 13:39:07 DEBUG] Writing SnowDepth-cm...
+[2015-07-08 13:39:07 INFO] WindDirection-Degree not added to the database.
+[2015-07-08 13:39:07 INFO] NetRadiation-Watts/m2 not added to the database.
+[2015-07-08 13:39:07 INFO] AirTemperature-C not added to the database.
+[2015-07-08 13:39:07 INFO] SolarRadiation-Watts/m2 not added to the database.
+[2015-07-08 13:39:07 INFO] WindSpeed-m/s not added to the database.
+[2015-07-08 13:39:07 INFO] RelativeHumidity-% not added to the database.
+[2015-07-08 13:39:07 INFO] Precipitation-mm not added to the database.
+[2015-07-08 13:39:07 INFO] SnowDepth-cm not added to the database.
+[2015-07-08 13:46:43 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 13:46:45 INFO] NetRadiation-Watts/m2 not added to the database.
+[2015-07-08 13:48:13 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 13:48:14 INFO] WindDirection-Degree not added to the database.
+[2015-07-08 13:48:14 INFO] NetRadiation-Watts/m2 not added to the database.
+[2015-07-08 13:48:14 INFO] AirTemperature-C not added to the database.
+[2015-07-08 13:48:14 INFO] SolarRadiation-Watts/m2 not added to the database.
+[2015-07-08 13:48:14 INFO] WindSpeed-m/s not added to the database.
+[2015-07-08 13:48:14 INFO] RelativeHumidity-% not added to the database.
+[2015-07-08 13:48:14 INFO] Precipitation-mm not added to the database.
+[2015-07-08 13:48:14 INFO] SnowDepth-cm not added to the database.
+[2015-07-08 13:53:06 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 13:53:07 INFO] WindDirection-Degree not added to the database.
+[2015-07-08 13:53:07 INFO] NetRadiation-Watts/m2 not added to the database.
+[2015-07-08 13:53:07 INFO] AirTemperature-C not added to the database.
+[2015-07-08 13:53:07 INFO] SolarRadiation-Watts/m2 not added to the database.
+[2015-07-08 13:53:07 INFO] WindSpeed-m/s not added to the database.
+[2015-07-08 13:53:07 INFO] RelativeHumidity-% not added to the database.
+[2015-07-08 13:53:07 INFO] Precipitation-mm not added to the database.
+[2015-07-08 13:53:07 INFO] SnowDepth-cm not added to the database.
+[2015-07-08 13:54:57 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 13:54:58 INFO] WindDirection-Degree not added to the database.
+[2015-07-08 13:54:58 INFO] NetRadiation-Watts/m2 not added to the database.
+[2015-07-08 13:54:58 INFO] AirTemperature-C not added to the database.
+[2015-07-08 13:54:58 INFO] SolarRadiation-Watts/m2 not added to the database.
+[2015-07-08 13:54:58 INFO] WindSpeed-m/s not added to the database.
+[2015-07-08 13:54:58 INFO] RelativeHumidity-% not added to the database.
+[2015-07-08 13:54:58 INFO] Precipitation-mm not added to the database.
+[2015-07-08 13:54:58 INFO] SnowDepth-cm not added to the database.
+[2015-07-08 13:55:37 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 13:56:35 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 13:57:04 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 13:57:05 INFO] WindDirection-Degree not added to the database.
+[2015-07-08 13:57:05 INFO] AirTemperature-C not added to the database.
+[2015-07-08 13:57:05 INFO] SolarRadiation-Watts/m2 not added to the database.
+[2015-07-08 13:57:05 INFO] WindSpeed-m/s not added to the database.
+[2015-07-08 13:57:05 INFO] RelativeHumidity-% not added to the database.
+[2015-07-08 13:57:05 INFO] Precipitation-mm not added to the database.
+[2015-07-08 13:57:05 INFO] SnowDepth-cm not added to the database.
+[2015-07-08 13:58:48 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:00:28 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:17:16 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:17:58 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:19:43 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:21:49 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:28:00 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:28:30 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:29:24 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:29:50 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:34:29 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:34:50 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:39:13 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:40:08 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:41:09 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:42:51 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:43:23 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:44:01 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:44:38 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:44:39 INFO] WindDirection-Degree not added to the database.
+[2015-07-08 14:45:25 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:45:34 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:45:42 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:48:21 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:50:49 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:51:20 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:52:57 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:53:56 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:57:15 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 14:58:41 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:31:07 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:33:34 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:34:02 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:35:17 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:37:58 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:42:46 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:43:45 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:44:19 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:45:01 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:45:33 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:45:48 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:46:07 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:47:06 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:47:21 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:47:59 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:49:13 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:49:37 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 15:52:12 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 16:00:24 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 16:00:55 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 16:01:29 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 16:01:50 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-08 16:02:13 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
