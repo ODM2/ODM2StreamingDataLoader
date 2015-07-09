@@ -2,7 +2,7 @@
 __author__ = 'Denver'
 
 import sys
-
+import logging
 
 sys.path.append('/home/denver/Documents/ODM2PythonAPI')
 #from src.api.ODM2.services.createService import CreateODM2
@@ -14,6 +14,7 @@ from src.api.ODM2.services import *
 #from api.ODM2.services.createService import createResults
 #from api.ODMconnection import dbconnection
 
+logger = logging.getLogger('SDL_logger')
 
 class Database:
     '''
@@ -27,7 +28,6 @@ class Database:
         after obtaining login credentials (Credentials) and is used
         to set up a new connection to an ODM2 database.
         '''
-        #print Credentials.host
         self.session_factory = \
             dbconnection.createConnection('mysql', Credentials.host,
                                             Credentials.db_name,
@@ -35,16 +35,11 @@ class Database:
                                             Credentials.pwd)
         if not self.session_factory:
             return False
-
-        print "[INFO] Connected!"
-        print "\tHost:", Credentials.host
-        print "\tDatabase: ", Credentials.db_name
-        print "\tUser: ", Credentials.uid
         
         return True
 
 
-    def write(self, data):
+    def write(self, data, duplicateValuesCheck):
         '''
         write is a public method that is used to write data to an 
         ODM2 database. This method should only be called once a valid
@@ -52,12 +47,18 @@ class Database:
         '''
         cr = CreateODM2(self.session_factory)
         
-        # TODO: Check if data is already in the database.
-        rc = ReadODM2(self.session_factory)
-        dt = rc.getResultValidDateTime(data['ResultID'][0])
-        filtered_data = data[data['ValueDateTime'] > dt[0]]
+        print duplicateValuesCheck
+        
+        finished_data = data
 
-        if cr.createTimeSeriesResultValues(filtered_data) is None:
+        if duplicateValuesCheck == True:
+            logger.info('Performing duplicate database value check. (This affects performance).')
+            # Check if data is already in the database.
+            rc = ReadODM2(self.session_factory)
+            dt = rc.getResultValidDateTime(data['ResultID'][0])
+            finished_data = data[data['ValueDateTime'] > dt[0]]
+
+        if cr.createTimeSeriesResultValues(finished_data) is None:
             return False
         return True
 

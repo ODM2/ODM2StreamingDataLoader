@@ -1,112 +1,200 @@
 
-[2015-07-08 13:39:07 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 13:39:07 DEBUG] File size: 2235 bytes.
-[2015-07-08 13:39:07 DEBUG] Start byte: 2183.
-[2015-07-08 13:39:07 DEBUG] Writing WindDirection-Degree...
-[2015-07-08 13:39:07 DEBUG] Writing NetRadiation-Watts/m2...
-[2015-07-08 13:39:07 DEBUG] Writing AirTemperature-C...
-[2015-07-08 13:39:07 DEBUG] Writing SolarRadiation-Watts/m2...
-[2015-07-08 13:39:07 DEBUG] Writing WindSpeed-m/s...
-[2015-07-08 13:39:07 DEBUG] Writing RelativeHumidity-%...
-[2015-07-08 13:39:07 DEBUG] Writing Precipitation-mm...
-[2015-07-08 13:39:07 DEBUG] Writing SnowDepth-cm...
-[2015-07-08 13:39:07 INFO] WindDirection-Degree not added to the database.
-[2015-07-08 13:39:07 INFO] NetRadiation-Watts/m2 not added to the database.
-[2015-07-08 13:39:07 INFO] AirTemperature-C not added to the database.
-[2015-07-08 13:39:07 INFO] SolarRadiation-Watts/m2 not added to the database.
-[2015-07-08 13:39:07 INFO] WindSpeed-m/s not added to the database.
-[2015-07-08 13:39:07 INFO] RelativeHumidity-% not added to the database.
-[2015-07-08 13:39:07 INFO] Precipitation-mm not added to the database.
-[2015-07-08 13:39:07 INFO] SnowDepth-cm not added to the database.
-[2015-07-08 13:46:43 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 13:46:45 INFO] NetRadiation-Watts/m2 not added to the database.
-[2015-07-08 13:48:13 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 13:48:14 INFO] WindDirection-Degree not added to the database.
-[2015-07-08 13:48:14 INFO] NetRadiation-Watts/m2 not added to the database.
-[2015-07-08 13:48:14 INFO] AirTemperature-C not added to the database.
-[2015-07-08 13:48:14 INFO] SolarRadiation-Watts/m2 not added to the database.
-[2015-07-08 13:48:14 INFO] WindSpeed-m/s not added to the database.
-[2015-07-08 13:48:14 INFO] RelativeHumidity-% not added to the database.
-[2015-07-08 13:48:14 INFO] Precipitation-mm not added to the database.
-[2015-07-08 13:48:14 INFO] SnowDepth-cm not added to the database.
-[2015-07-08 13:53:06 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 13:53:07 INFO] WindDirection-Degree not added to the database.
-[2015-07-08 13:53:07 INFO] NetRadiation-Watts/m2 not added to the database.
-[2015-07-08 13:53:07 INFO] AirTemperature-C not added to the database.
-[2015-07-08 13:53:07 INFO] SolarRadiation-Watts/m2 not added to the database.
-[2015-07-08 13:53:07 INFO] WindSpeed-m/s not added to the database.
-[2015-07-08 13:53:07 INFO] RelativeHumidity-% not added to the database.
-[2015-07-08 13:53:07 INFO] Precipitation-mm not added to the database.
-[2015-07-08 13:53:07 INFO] SnowDepth-cm not added to the database.
-[2015-07-08 13:54:57 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 13:54:58 INFO] WindDirection-Degree not added to the database.
-[2015-07-08 13:54:58 INFO] NetRadiation-Watts/m2 not added to the database.
-[2015-07-08 13:54:58 INFO] AirTemperature-C not added to the database.
-[2015-07-08 13:54:58 INFO] SolarRadiation-Watts/m2 not added to the database.
-[2015-07-08 13:54:58 INFO] WindSpeed-m/s not added to the database.
-[2015-07-08 13:54:58 INFO] RelativeHumidity-% not added to the database.
-[2015-07-08 13:54:58 INFO] Precipitation-mm not added to the database.
-[2015-07-08 13:54:58 INFO] SnowDepth-cm not added to the database.
-[2015-07-08 13:55:37 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 13:56:35 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 13:57:04 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 13:57:05 INFO] WindDirection-Degree not added to the database.
-[2015-07-08 13:57:05 INFO] AirTemperature-C not added to the database.
-[2015-07-08 13:57:05 INFO] SolarRadiation-Watts/m2 not added to the database.
-[2015-07-08 13:57:05 INFO] WindSpeed-m/s not added to the database.
-[2015-07-08 13:57:05 INFO] RelativeHumidity-% not added to the database.
-[2015-07-08 13:57:05 INFO] Precipitation-mm not added to the database.
-[2015-07-08 13:57:05 INFO] SnowDepth-cm not added to the database.
-[2015-07-08 13:58:48 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:00:28 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:17:16 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:17:58 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:19:43 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:21:49 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:28:00 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:28:30 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:29:24 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:29:50 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:34:29 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:34:50 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:39:13 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:40:08 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:41:09 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:42:51 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:43:23 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:44:01 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:44:38 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:44:39 INFO] WindDirection-Degree not added to the database.
-[2015-07-08 14:45:25 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:45:34 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:45:42 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:48:21 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:50:49 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:51:20 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:52:57 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:53:56 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:57:15 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 14:58:41 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:31:07 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:33:34 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:34:02 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:35:17 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:37:58 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:42:46 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:43:45 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:44:19 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:45:01 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:45:33 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:45:48 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:46:07 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:47:06 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:47:21 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:47:59 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:49:13 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:49:37 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 15:52:12 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 16:00:24 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 16:00:55 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 16:01:29 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 16:01:50 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
-[2015-07-08 16:02:13 INFO] Using '/home/denver/test2.yaml' as YAML configuration.
+[2015-07-09 17:17:32 INFO] Beginning execution.
+[2015-07-09 17:17:32 INFO] Reading from byte 0.
+[2015-07-09 17:17:32 INFO] New data:
+2014 Treeline Meterological Hourly Data (Summary),,,,,,,,
+,,,,,,,,
+Reference Dataset with the following format:,,,,,,,,
+ ,[Year of data collection] Meteorological data from Dry Creek Experimental Watershed. Watershed Process Research Group, Boise State University,,,,,,
+ ,URL: earth.boisestate.edu/drycreek. Multi-paged. [month and day of data download].,,,,,,,
+,,,,,,,,
+,,,,,,,,
+ ,Column.Variable-units| Description,,,,,,,
+ ,1. DateTime| Time stamp of variable collection time [MM/DD/YY  hr:mm],,,,,,,
+ ,2. Precipitation-mm| Cumulative Shielded Rain gage depth [mm],,,,,,,
+ ,3. AirTemperature-C| Air Temperature at 2m above ground Averaged [C]],,,,,,,
+ ,4. SolarRadiation-Watts/m2| Solar Radiation Averaged [Watts/m2],,,,,,,
+ ,5. Net Radiation-Watts/m2| Net Radiation Averaged [Watts/m2],,,,,,,
+ ,6. Relative Humidity-percent| Relative Humidity at 2m above ground Averaged [percent],,,,,,,
+ ,7. Wind Direction-Degree| Mean Resultant Wind Direction at 2m above ground [Degree],,,,,,,
+ ,8. Wind Speed-m/s| Wind Speed at 2m above ground Averaged [m/s],,,,,,,
+ ,9.Snow Depth-cm| Filtered depth of snow above ground Acoustic Sensor [cm],,,,,,,
+ ,Note: -6999 denotes missing data,,,,,,,
+,,,,,,,,
+DateTime,Precipitation-mm,AirTemperature-C,SolarRadiation-Watts/m2,NetRadiation-Watts/m2,RelativeHumidity-%,WindDirection-Degree,WindSpeed-m/s,SnowDepth-cm
+1/1/2015 0:00,0,-0.4,0,-66.77,95.4,47.6,3.71,8.02
+1/1/2015 1:00,-INF,-0.4,0,-69.97,92.1,60.2,4.36,7.96
+1/1/2015 2:00,5,-1,0,-65.57,91.1,339.3,2.19,7.92
+1/1/2015 3:00,NaN,-0.7,NaN,-64.96,79.94,59.6,2.04,7.88
+1/1/2015 4:00,0,-0.6,0,-67.7,79.32,72.4,2.25,7.84
+1/1/2015 5:00,.9,-1.2,0,-60.5,83.2,356,1.38,7.89
+1/1/2015 6:00,0,-0.4,0,-65.66,69.09,24.9,2.16,8.01
+1/1/2015 7:00,0,-0.8,0,-57.91,68.26,342.3,0.61,8.04
+1/1/2015 8:00,0,-0.9,0,-55.9,68.83,53.2,0.38,7.94
+1/1/2015 9:00,0,-0.8,47.77,-42.31,69.45,16,2.58,7.8
+1/3/2015 5:00,100,100,100,100,100,100,100,100
+1/3/2015 6:00,1,100,10,100,100,100,100,9
+1/3/2015 6:30,100,1000,10,100,100,100,100,100
+1/3/2015 7:00,.01,0,1,10,100,100,1,100
+1/3/2015 7:30,130,0,140,1020,1200,1200,12,1200
+1/3/2015 8:00,130,0,140,1020,1200,1200,12,1200
+1/3/2015 8:30,30,80,1840,1020,1200,126700,172,12341234
+1/3/2015 9:00,30,80,1840,1020,1200,126700,172,12341234
+1/4/2015 9:30,2,3,10,120,1200,126700,172,41234
+1/5/2015 9:30,2,3,10,120,1200,126700,172,41234
+1/5/2015 10:00,26,35,104,1230,12100,1126700,1772,418234
+1/5/2015 10:00,26,,1230,12100,1126700,1772,418234
+
+[2015-07-09 17:17:32 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:17:33 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:17:33 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:17:33 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:17:33 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:17:33 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:17:33 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:17:33 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:17:33 INFO] WindDirection-Degree not added to the database.
+[2015-07-09 17:17:33 INFO] NetRadiation-Watts/m2 not added to the database.
+[2015-07-09 17:17:33 INFO] AirTemperature-C not added to the database.
+[2015-07-09 17:17:33 INFO] SolarRadiation-Watts/m2 not added to the database.
+[2015-07-09 17:17:33 INFO] WindSpeed-m/s not added to the database.
+[2015-07-09 17:17:33 INFO] RelativeHumidity-% not added to the database.
+[2015-07-09 17:17:33 INFO] Precipitation-mm not added to the database.
+[2015-07-09 17:17:33 INFO] SnowDepth-cm not added to the database.
+[2015-07-09 17:17:33 INFO] Completed execution.
+[2015-07-09 17:19:07 INFO] Beginning execution.
+[2015-07-09 17:19:07 INFO] Reading from byte 0.
+[2015-07-09 17:19:07 INFO] New data:
+2014 Treeline Meterological Hourly Data (Summary),,,,,,,,
+,,,,,,,,
+Reference Dataset with the following format:,,,,,,,,
+ ,[Year of data collection] Meteorological data from Dry Creek Experimental Watershed. Watershed Process Research Group, Boise State University,,,,,,
+ ,URL: earth.boisestate.edu/drycreek. Multi-paged. [month and day of data download].,,,,,,,
+,,,,,,,,
+,,,,,,,,
+ ,Column.Variable-units| Description,,,,,,,
+ ,1. DateTime| Time stamp of variable collection time [MM/DD/YY  hr:mm],,,,,,,
+ ,2. Precipitation-mm| Cumulative Shielded Rain gage depth [mm],,,,,,,
+ ,3. AirTemperature-C| Air Temperature at 2m above ground Averaged [C]],,,,,,,
+ ,4. SolarRadiation-Watts/m2| Solar Radiation Averaged [Watts/m2],,,,,,,
+ ,5. Net Radiation-Watts/m2| Net Radiation Averaged [Watts/m2],,,,,,,
+ ,6. Relative Humidity-percent| Relative Humidity at 2m above ground Averaged [percent],,,,,,,
+ ,7. Wind Direction-Degree| Mean Resultant Wind Direction at 2m above ground [Degree],,,,,,,
+ ,8. Wind Speed-m/s| Wind Speed at 2m above ground Averaged [m/s],,,,,,,
+ ,9.Snow Depth-cm| Filtered depth of snow above ground Acoustic Sensor [cm],,,,,,,
+ ,Note: -6999 denotes missing data,,,,,,,
+,,,,,,,,
+DateTime,Precipitation-mm,AirTemperature-C,SolarRadiation-Watts/m2,NetRadiation-Watts/m2,RelativeHumidity-%,WindDirection-Degree,WindSpeed-m/s,SnowDepth-cm
+1/1/2015 0:00,0,-0.4,0,-66.77,95.4,47.6,3.71,8.02
+1/1/2015 1:00,-INF,-0.4,0,-69.97,92.1,60.2,4.36,7.96
+1/1/2015 2:00,5,-1,0,-65.57,91.1,339.3,2.19,7.92
+1/1/2015 3:00,NaN,-0.7,NaN,-64.96,79.94,59.6,2.04,7.88
+1/1/2015 4:00,0,-0.6,0,-67.7,79.32,72.4,2.25,7.84
+1/1/2015 5:00,.9,-1.2,0,-60.5,83.2,356,1.38,7.89
+1/1/2015 6:00,0,-0.4,0,-65.66,69.09,24.9,2.16,8.01
+1/1/2015 7:00,0,-0.8,0,-57.91,68.26,342.3,0.61,8.04
+1/1/2015 8:00,0,-0.9,0,-55.9,68.83,53.2,0.38,7.94
+1/1/2015 9:00,0,-0.8,47.77,-42.31,69.45,16,2.58,7.8
+1/3/2015 5:00,100,100,100,100,100,100,100,100
+1/3/2015 6:00,1,100,10,100,100,100,100,9
+1/3/2015 6:30,100,1000,10,100,100,100,100,100
+1/3/2015 7:00,.01,0,1,10,100,100,1,100
+1/3/2015 7:30,130,0,140,1020,1200,1200,12,1200
+1/3/2015 8:00,130,0,140,1020,1200,1200,12,1200
+1/3/2015 8:30,30,80,1840,1020,1200,126700,172,12341234
+1/3/2015 9:00,30,80,1840,1020,1200,126700,172,12341234
+1/4/2015 9:30,2,3,10,120,1200,126700,172,41234
+1/5/2015 9:30,2,3,10,120,1200,126700,172,41234
+
+[2015-07-09 17:19:08 INFO] Completed execution.
+[2015-07-09 17:19:10 INFO] Beginning execution.
+[2015-07-09 17:19:10 INFO] Reading from byte 2328.
+[2015-07-09 17:19:10 INFO] No new data.
+[2015-07-09 17:19:10 INFO] Completed execution.
+[2015-07-09 17:19:14 INFO] Beginning execution.
+[2015-07-09 17:19:14 INFO] Reading from byte 2328.
+[2015-07-09 17:19:14 INFO] No new data.
+[2015-07-09 17:19:14 INFO] Completed execution.
+[2015-07-09 17:19:59 INFO] Beginning execution.
+[2015-07-09 17:19:59 INFO] Reading from byte 2328.
+[2015-07-09 17:19:59 INFO] New Data:
+DateTime,Precipitation-mm,AirTemperature-C,SolarRadiation-Watts/m2,NetRadiation-Watts/m2,RelativeHumidity-%,WindDirection-Degree,WindSpeed-m/s,SnowDepth-cm
+1/6/2015 9:30,2,3,1,10,1200,126700,172,t
+
+[2015-07-09 17:20:00 INFO] SnowDepth-cm not added to the database.
+[2015-07-09 17:20:00 INFO] Completed execution.
+[2015-07-09 17:20:09 INFO] Beginning execution.
+[2015-07-09 17:20:09 INFO] Reading from byte 2328.
+[2015-07-09 17:20:09 INFO] New Data:
+DateTime,Precipitation-mm,AirTemperature-C,SolarRadiation-Watts/m2,NetRadiation-Watts/m2,RelativeHumidity-%,WindDirection-Degree,WindSpeed-m/s,SnowDepth-cm
+1/6/2015 9:30,2,3,1,10,1200,126700,172,t
+
+[2015-07-09 17:20:10 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:10 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:10 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:10 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:10 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:10 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:10 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:10 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:10 INFO] SnowDepth-cm not added to the database.
+[2015-07-09 17:20:10 INFO] Completed execution.
+[2015-07-09 17:20:12 INFO] Beginning execution.
+[2015-07-09 17:20:12 INFO] Reading from byte 2328.
+[2015-07-09 17:20:12 INFO] New Data:
+DateTime,Precipitation-mm,AirTemperature-C,SolarRadiation-Watts/m2,NetRadiation-Watts/m2,RelativeHumidity-%,WindDirection-Degree,WindSpeed-m/s,SnowDepth-cm
+1/6/2015 9:30,2,3,1,10,1200,126700,172,t
+
+[2015-07-09 17:20:12 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:13 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:13 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:13 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:13 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:13 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:13 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:13 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:13 INFO] SnowDepth-cm not added to the database.
+[2015-07-09 17:20:13 INFO] Completed execution.
+[2015-07-09 17:20:32 INFO] Beginning execution.
+[2015-07-09 17:20:32 INFO] Reading from byte 2328.
+[2015-07-09 17:20:32 INFO] New Data:
+DateTime,Precipitation-mm,AirTemperature-C,SolarRadiation-Watts/m2,NetRadiation-Watts/m2,RelativeHumidity-%,WindDirection-Degree,WindSpeed-m/s,SnowDepth-cm
+1/6/2015 9:30,2,3,1,10,1200,126700,172,t
+
+[2015-07-09 17:20:33 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:33 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:33 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:33 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:33 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:33 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:33 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:33 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:33 INFO] SnowDepth-cm not added to the database.
+[2015-07-09 17:20:33 INFO] Completed execution.
+[2015-07-09 17:20:49 INFO] Beginning execution.
+[2015-07-09 17:20:49 INFO] Reading from byte 2328.
+[2015-07-09 17:20:49 INFO] New Data:
+DateTime,Precipitation-mm,AirTemperature-C,SolarRadiation-Watts/m2,NetRadiation-Watts/m2,RelativeHumidity-%,WindDirection-Degree,WindSpeed-m/s,SnowDepth-cm
+1/6/2015 9:30,2,3,1,10,1200,126700,172,.001
+
+[2015-07-09 17:20:49 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:49 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:49 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:49 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:50 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:50 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:50 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:50 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-09 17:20:50 INFO] Completed execution.
+[2015-07-09 17:20:55 INFO] Beginning execution.
+[2015-07-09 17:20:55 INFO] Reading from byte 2372.
+[2015-07-09 17:20:55 INFO] No new data.
+[2015-07-09 17:20:55 INFO] Completed execution.
+[2015-07-09 17:20:57 INFO] Beginning execution.
+[2015-07-09 17:20:57 INFO] Reading from byte 2372.
+[2015-07-09 17:20:57 INFO] No new data.
+[2015-07-09 17:20:57 INFO] Completed execution.
+[2015-07-09 17:20:59 INFO] Beginning execution.
+[2015-07-09 17:20:59 INFO] Reading from byte 2372.
+[2015-07-09 17:20:59 INFO] No new data.
+[2015-07-09 17:20:59 INFO] Completed execution.

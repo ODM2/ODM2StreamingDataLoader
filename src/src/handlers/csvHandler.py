@@ -71,14 +71,14 @@ class CSVReader():
 
         # Check if the data has been modified.
         if int(os.path.getsize(filepath)) < start_byte:
-            print "[INFO] Previous data has been modified."
+            logger.info('Previous data has been modified.')
             start_byte = 0
         
         try:
 
             with open(filepath, 'rb') as f:
                 
-                print "[INFO] Reading from byte %d." % start_byte
+                logger.info('Reading from byte %d.' % start_byte)
                 # If we are going to skip to the new location, we need
                 # to make sure and grab the header for Pandas.
                 if start_byte > 0:
@@ -97,9 +97,9 @@ class CSVReader():
                     finished_data = header_names + new_data
                     
                     if new_data:
-                        print "[INFO] New data:\n", finished_data
+                        logger.info('New Data:\n%s' % finished_data)
                     else:
-                        print "[INFO] No new data."
+                        logger.info('No new data.')
 
                     df = pd.read_csv(StringIO(finished_data),
                                         sep=str(sep),
@@ -110,7 +110,7 @@ class CSVReader():
                     f.seek(0)
                     finished_data = f.read()
                     
-                    print "[INFO] New data:\n", finished_data
+                    logger.info('New data:\n%s' % finished_data)
                     
                     df = pd.read_csv(StringIO(finished_data),
                                         header=skip,
@@ -120,12 +120,12 @@ class CSVReader():
 
         
         except IOError as e:
-            print "[INFO] Skipping '%s' because of %s" % (filepath, e)
+            logger.error('Skipping "%s" because of %s' % (filepath, e))
         except Exception as e2:
             # TODO: There is something fishy because if I don't
             # watch for an Exception, Pandas freaks out about
             # something. Figure out why that is.
-            print e2
+            logger.error('Exception: %s' % e2.message)
 
         return df
     

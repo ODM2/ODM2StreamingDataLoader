@@ -2,9 +2,12 @@ __author__ = 'stephanie'
 import pandas as pd
 import numpy as np
 from collections import namedtuple
+import logging
 
 from handlers.csvHandler import CSVReader
 from controllers.Database import Database
+
+logger = logging.getLogger('SDL_logger')
 
 class Mapping():
     '''
@@ -26,7 +29,7 @@ class Mapping():
         self.rawData = pd.DataFrame # Empty
 
         self.dbWriter = Database()
-
+        self.performDuplicateValueChecks = False
     
     
     def getDatabase(self):
@@ -70,8 +73,8 @@ class Mapping():
 
         # Collect the smallest 'LastByteRead' in the file.
         byte = self._getStartByte()
-
-        print "[INFO] Last successful byte read:", byte
+        
+        logger.debug('Last successful byte read: %s' % byte)
         
         self.rawData = reader.byteReader(path,
                 start_byte=byte,
@@ -94,6 +97,10 @@ class Mapping():
         m = [value['LastByteRead'] for key,value in \
             self.mapping['Mappings'].items()]
         
+        # If all of the bytes are the same, don't do a
+        # duplicate values check when writing to database.
+        self.performDuplicateValueChecks = not len(set(m)) <= 1
+
         return int(min(m))
     
     
@@ -154,7 +161,8 @@ class Mapping():
         '''
         save is a public method that wraps the Database.write method.
         '''
-        return self.dbWriter.write(data)
+        return self.dbWriter.write(data,
+            self.performDuplicateValueChecks)
 
     def updateDateTime(self, seriesId, dateTime):
         '''
@@ -164,12 +172,5 @@ class Mapping():
         here.
         '''
         return self.dbWriter.updateDateTime(seriesId, dateTime)      
-
-    def filterExisting(self):
-        '''
-        filterExisting is a public method that returns a table
-        with values that aren't already in the database.
-        '''
-        pass
 
 

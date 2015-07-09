@@ -4,7 +4,6 @@ import yaml
 import os
 import csv
 
-import pprint
 import datetime
 import logging
 
@@ -15,10 +14,11 @@ class YamlConfiguration():
     YAML Config file model
     '''
 
-    def __init__(self, configFilePath):
+    def __init__(self, configFilePath, dataFile=None):
         self.yamlFilePath = configFilePath
         self.yamlDict = {}
         self.yamlDict = self._readFile(self.yamlFilePath)
+        self.dataFile = dataFile
 
     def _readFile(self, path):
         '''
@@ -50,8 +50,19 @@ class YamlConfiguration():
         parameters for each CSV file in the YAML configuration file.
         '''
         fileDictList = []
+
         for fileDict in self.yamlDict.keys():
-            fileDictList.append(self.yamlDict[fileDict])
+            # If the user specified a single data file to use.
+            if self.dataFile is not None:
+                # Look for the matching data file.
+                if self.yamlDict[fileDict]['Settings']['FileLocation'] == self.dataFile:
+                    # only use the one file configuration.
+                    fileDictList.append(self.yamlDict[fileDict])
+            
+            # Collect all of the configurations.
+            else:
+                fileDictList.append(self.yamlDict[fileDict])
+
         return fileDictList
 
     def updateLastRead(self, configFileDict, columnName):

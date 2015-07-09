@@ -27,12 +27,15 @@ def main(arguments):
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     
-
-    logger.info("Using '%s' as YAML configuration." % arguments.yamlFile)
+    logger.info('Beginning execution.')
+    logger.debug("Using '%s' as YAML configuration." % arguments.yamlFile)
+    if arguments.csvFile:
+        logger.info('Using only the specified data file: %s' % arguments.csvFile)
 
     # Create an object to represent the yaml coniguration
     # file.
-    yamlModel = YamlConfiguration(arguments.yamlFile)
+    yamlModel = YamlConfiguration(arguments.yamlFile,\
+        (arguments.csvFile if arguments.csvFile is not None else None))
 
     # List to hold any changes made to the config file to be
     # saved when the program has completed.
@@ -40,7 +43,8 @@ def main(arguments):
     failureList = []
 
     # Loop through each file given in the YAML configuration.
-    for configParams in yamlModel.get():
+    files = yamlModel.get()
+    for configParams in files:
         updatedParams = configParams 
         dataMapModel = Mapping(configParams)
         
@@ -64,11 +68,16 @@ def main(arguments):
         
         configParamsList.append(updatedParams)
     
-    yamlModel.rebase(configParamsList)
+    if not files:
+        logger.error('No matching configuration found using configuration file "%s" and data file "%s".' % (arguments.yamlFile, arguments.csvFile))
+    else:
+        yamlModel.rebase(configParamsList)
 
     if failureList:
         for fail in failureList:
             logger.info('%s not added to the database.' % fail)
+
+    logger.info('Completed execution.')
 
 # Application entry point.
 if __name__ == "__main__":
@@ -77,6 +86,8 @@ if __name__ == "__main__":
         action='store_true', help="Verbose logging mode.")
     parser.add_argument('-c', '--config', dest="yamlFile",\
         help="YAML config file", required=True, action="store")
+    parser.add_argument('-f', '--file', dest="csvFile",\
+        help="CSV data file", required=False, action="store")
     args = parser.parse_args()
     main(args)
 
