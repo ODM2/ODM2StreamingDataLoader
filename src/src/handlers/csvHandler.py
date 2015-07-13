@@ -8,43 +8,8 @@ from controllers.FileSizeReader import FileSizeReader
 logger = logging.getLogger('SDL_logger')
 
 class CSVReader():
-    """Reads and analyzes CSV/TSV files"""
-
     '''
-    def reader(self, filepath, sep, datecol, skip=0, columns= None):
-
-        """Reads csv into pandas object
-
-        Parameters
-        ----------
-        filepath : string
-            path to csv file
-        skip : int
-            indicates the skip amount to begin reading
-
-        Returns
-        -------
-            pandas.core.frame.DataFrame
-        """
-        if not filepath:
-            raise RuntimeError("FilePath cannot be null")
-
-        try:
-
-            df = pd.read_csv(filepath, header=skip,
-                                sep=str(sep), engine='python')
-            df.set_index(datecol, inplace=True)
-            df = pd.read_csv(filepath, header=skip, sep=str(sep), engine='c', index_col = datecol, usecols= [datecol]+columns, parse_dates = True)
-    #skiprows : list-like or integer Row numbers to skip (0-indexed) or number of rows to skip (int) at the start of the file
-            #df.set_index(datecol, inplace=True)
-            #logger.debug("dataframe: %s" % df)
-
-            return df
-
-        except Exception as e:
-            print e
-            #logger.fatal(e)
-            return pd.DataFrame
+    Reads and analyzes CSV/TSV files.
     '''
     
     def byteReader(self, filepath, start_byte, sep, datecol, skip=0):
@@ -129,58 +94,4 @@ class CSVReader():
 
         return df
     
-    
-    def getColumn(self, data, column, datetime):
-        """Obtain a specified column from the most recent datetime
-
-        :param data:
-            :type pandas.core.frame.DataFrame:
-        :param column:
-            :type pandas.core.index.Index:
-        :param datetime:
-            :type datetime object:
-        :return :
-        """
-
-        if data.empty:
-            raise RuntimeError("Data cannot be None")
-        if not column:
-            raise RuntimeError("Column cannot be None")
-        if not datetime:
-            raise RuntimeError("datetime cannot be None")
-
-        col = data[column]
-        sortedData = col.sort()
-        try:
-            start = sortedData.index.searchsorted(datetime)
-            return sortedData[start:]
-        except:
-            return None
-
-    def getLatestDataFrameByDate(self, data, dt_value):
-        """
-
-        :param data:
-            :type pandas.core.frame.DataFrame:
-        :param dt_value:
-            :type datetime object:
-        :return:
-            pandas DataFrame
-        """
-
-        if data.empty:
-            raise RuntimeError("Data cannot be None")
-        if not dt_value:
-            raise RuntimeError("datetime cannot be None")
-
-
-
-
-
-
-
-
-
-
-
 

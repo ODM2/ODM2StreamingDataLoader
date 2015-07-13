@@ -19,6 +19,7 @@ class Mapping():
         tables : pandas.core.frame.DataFrame - The finnished tables to
                                                 write to the database.
         mapping : dict - The YAML configuration mapping.
+        dbWriter : Database - The database object that will be used.
     '''
     
     
@@ -54,11 +55,12 @@ class Mapping():
         This public method begins the process of mapping the data
         into something that we can write to the database. First,
         the file is read from the config file (mapping), if that
-        works, we begin to build a new Pandas dataframe. 
+        works, we begin to build a new Pandas dataframe.
         '''
         if self._readFile(self.mapping['Settings']['FileLocation']):
             self._buildTables()
             return True
+        # Error occurred - return False.
         return False
     
     
@@ -69,6 +71,7 @@ class Mapping():
         file (path). If rawData ends up being empty, we return False,
         otherwise we return as True.
         '''
+        
         reader = CSVReader()
 
         # Collect the smallest 'LastByteRead' in the file.
@@ -101,7 +104,15 @@ class Mapping():
         # duplicate values check when writing to database.
         self.performDuplicateValueChecks = not len(set(m)) <= 1
 
-        return int(min(m))
+        # Starting byte will be the lowest value.
+        startByte = int(min(m))
+        
+        # But if it's less than 0 (AKA running in restart mode)
+        # then just set it to 0.
+        if startByte < 0:
+            startByte = 0
+        
+        return startByte
     
     
     
@@ -117,8 +128,8 @@ class Mapping():
             
             if series['CalculateAggInterval']:
 
-                # Calculate the aggregation interval based on distance
-                # between points.
+                # TODO: Calculate the aggregation interval
+                # based on distance between points.
 
                 df['TimeAggregationInterval'] = 0
                 df['TimeAggregationIntervalUnitsID'] = 0
@@ -144,6 +155,10 @@ class Mapping():
     
     
     def _getNoDataValue(self, resultID):
+        '''
+        _getNoDataValue is a wrapper method to the database object's
+        getNoDataValue method.
+        '''
         return self.dbWriter.getNoDataValue(resultID)
     
     

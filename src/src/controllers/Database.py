@@ -47,8 +47,6 @@ class Database:
         '''
         cr = CreateODM2(self.session_factory)
         
-        print duplicateValuesCheck
-        
         finished_data = data
 
         if duplicateValuesCheck == True:
@@ -63,11 +61,20 @@ class Database:
         return True
 
     def getNoDataValue(self, resultID):
+        '''
+        getNoDataValue querys the ODM2 API and returns
+        the "No data value" for the given ResultID.
+        '''
+
         rc = ReadODM2(self.session_factory)
         result = rc.getResultByID(int(resultID))
         return result.VariableObj.NoDataValue
 
     def updateDateTime(self, seriesId, dateTime):
+        '''
+        updateDateTime uses the ODM2 API to update the latest
+        date time added to the database.
+        '''
         cr = UpdateODM2(self.session_factory)
         cr.updateResultValidDateTime(seriesId, dateTime)
         return True

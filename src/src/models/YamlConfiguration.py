@@ -12,13 +12,40 @@ logger = logging.getLogger('SDL_logger')
 class YamlConfiguration():
     '''
     YAML Config file model
+
+    This class represents a YAML configuration file. It does things
+    like loading and writing data to the file, and handles all 
+    interaction to the YAML configuration file.
+
+    yamlDict - A dictionary containing the same data that's inside
+                the YAML file.
+    yamlFilePath - The path to the YAML configuration file.
+    dataFile - An optional path to one specific CSV file provided by
+                the user.
     '''
 
-    def __init__(self, configFilePath, dataFile=None):
+    def __init__(self, configFilePath,
+                dataFile=None, ignoreBytes=False):
         self.yamlFilePath = configFilePath
         self.yamlDict = {}
         self.yamlDict = self._readFile(self.yamlFilePath)
         self.dataFile = dataFile
+
+
+        # If we are running in restart mode, ignore the 
+        # 'LastByteRead' parameter in the YAML file.
+        if ignoreBytes:
+            logger.info('Restart mode enabled - Ignoring last byte read.')
+            # Loop through to set just one of the values to -1
+            # so that the mapper performs duplicate value checks.
+            for fileConfig in self.yamlDict.keys():
+                for variable in self.yamlDict[fileConfig]['Mappings'].keys():
+                    self.yamlDict[fileConfig]\
+                                 ['Mappings']\
+                                 [variable]\
+                                 ['LastByteRead'] = '-1'
+                    break
+
 
     def _readFile(self, path):
         '''
@@ -69,6 +96,9 @@ class YamlConfiguration():
         '''
         updateLastRead is a public method which updates the
         'LastByteRead' parameter for the given column.
+        
+        These changes are not reflected in the actual file
+        until the rebase method is called.
         '''
         fileSize = os.path.getsize(configFileDict['Settings']\
                                                  ['FileLocation'])
@@ -79,6 +109,11 @@ class YamlConfiguration():
 
 
     def rebase(self, configFileDictList):
+        '''
+        A public method which writes the changes made in memory
+        to the YAML configuration file.
+        '''
+
         newContent = {}
         for i,d in enumerate(reversed(configFileDictList)):
             newContent['File_%d' % i] = d
