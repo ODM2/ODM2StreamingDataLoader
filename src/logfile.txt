@@ -1,0 +1,54 @@
+[2015-07-13 16:04:41 INFO] Beginning execution.
+[2015-07-13 16:04:41 INFO] Restart mode enabled - Ignoring last byte read.
+[2015-07-13 16:04:41 INFO] Reading from byte 0.
+[2015-07-13 16:04:41 INFO] New data:
+2014 Treeline Meterological Hourly Data (Summary),,,,,,,,
+,,,,,,,,
+Reference Dataset with the following format:,,,,,,,,
+ ,[Year of data collection] Meteorological data from Dry Creek Experimental Watershed. Watershed Process Research Group, Boise State University,,,,,,
+ ,URL: earth.boisestate.edu/drycreek. Multi-paged. [month and day of data download].,,,,,,,
+,,,,,,,,
+,,,,,,,,
+ ,Column.Variable-units| Description,,,,,,,
+ ,1. DateTime| Time stamp of variable collection time [MM/DD/YY  hr:mm],,,,,,,
+ ,2. Precipitation-mm| Cumulative Shielded Rain gage depth [mm],,,,,,,
+ ,3. AirTemperature-C| Air Temperature at 2m above ground Averaged [C]],,,,,,,
+ ,4. SolarRadiation-Watts/m2| Solar Radiation Averaged [Watts/m2],,,,,,,
+ ,5. Net Radiation-Watts/m2| Net Radiation Averaged [Watts/m2],,,,,,,
+ ,6. Relative Humidity-percent| Relative Humidity at 2m above ground Averaged [percent],,,,,,,
+ ,7. Wind Direction-Degree| Mean Resultant Wind Direction at 2m above ground [Degree],,,,,,,
+ ,8. Wind Speed-m/s| Wind Speed at 2m above ground Averaged [m/s],,,,,,,
+ ,9.Snow Depth-cm| Filtered depth of snow above ground Acoustic Sensor [cm],,,,,,,
+ ,Note: -6999 denotes missing data,,,,,,,
+,,,,,,,,
+DateTime,Precipitation-mm,AirTemperature-C,SolarRadiation-Watts/m2,NetRadiation-Watts/m2,RelativeHumidity-%,WindDirection-Degree,WindSpeed-m/s,SnowDepth-cm
+1/1/2015 0:00,0,-0.4,0,-66.77,95.4,47.6,3.71,8.02
+1/1/2015 1:00,-INF,-0.4,0,-69.97,92.1,60.2,4.36,7.96
+1/1/2015 2:00,5,-1,0,-65.57,91.1,339.3,2.19,7.92
+1/1/2015 3:00,NaN,-0.7,NaN,-64.96,79.94,59.6,2.04,7.88
+1/1/2015 4:00,0,-0.6,0,-67.7,79.32,72.4,2.25,7.84
+1/1/2015 5:00,.9,-1.2,0,-60.5,83.2,356,1.38,7.89
+1/1/2015 7:00,0,-0.8,0,-57.91,68.26,342.3,0.61,8.04
+1/1/2015 8:00,0,-0.9,0,-55.9,68.83,53.2,0.38,7.94
+1/1/2015 9:00,0,-0.8,47.77,-42.31,69.45,16,2.58,7.8
+1/3/2015 5:00,100,100,100,100,100,100,100,100
+1/3/2015 6:00,1,100,10,100,100,100,100,9
+1/3/2015 6:30,100,1000,10,100,100,100,100,100
+1/3/2015 7:00,.01,0,1,10,100,100,1,100
+1/3/2015 7:30,130,0,140,1020,1200,1200,12,1200
+1/3/2015 8:00,130,0,140,1020,1200,1200,12,1200
+1/3/2015 8:30,30,80,1840,1020,1200,126700,172,12341234
+1/3/2015 9:00,30,80,1840,1020,1200,126700,172,12341234
+1/4/2015 9:30,2,3,10,120,1200,126700,172,41234
+1/5/2015 9:30,2,3,10,120,1200,126700,172,41234
+1/6/2015 9:30,2,3,1,10,1200,126700,172,.001
+
+[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
+[2015-07-13 16:04:42 INFO] Completed execution.
