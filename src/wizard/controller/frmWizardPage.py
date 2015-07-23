@@ -6,8 +6,8 @@ import sys
 from view.clsWizardPage import WizardPageView
 
 class WizardPageController(WizardPageView):
-    def __init__(self, daddy, **kwargs):
-        super(WizardPageController, self).__init__(daddy, **kwargs)
+    def __init__(self, daddy, panel, **kwargs):
+        super(WizardPageController, self).__init__(daddy, panel, **kwargs)
 
 
 if __name__ == '__main__':

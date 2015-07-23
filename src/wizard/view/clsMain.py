@@ -6,13 +6,21 @@ class MainView(wx.Frame):
         super(MainView, self).__init__(parent,
                                          id=wx.ID_ANY,
                                          pos=wx.DefaultPosition,
-                                         size=(1050,700),
+                                         size=(1080,700),
                                          style=wx.DEFAULT_FRAME_STYLE,
                                          **kwargs)
 
-        self.SetSizeHintsSz(wx.Size(1050, 700), wx.DefaultSize)
+        self.SetSizeHintsSz(wx.Size(1080, 700), wx.DefaultSize)
         self.Centre(wx.BOTH)
 
     def __del__(self):
         pass
     
+    def onFileOpenClick(self, event):    
+        event.Skip()
+    def onFileNewClick(self, event):    
+        event.Skip()
+    def onFileExitClick(self, event):    
+        event.Skip()
+    def onHelpAboutClick(self, event):    
+        event.Skip()

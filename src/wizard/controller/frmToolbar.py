@@ -5,20 +5,21 @@ import sys
 
 from view.clsToolbar import ToolbarView
 from controller.frmWizard import WizardController
-from controller.frmWizardPage import WizardPageController
+from controller.frmWizardPage1 import WizardPage1Controller
 
 class ToolbarController(ToolbarView):
     def __init__(self, daddy, **kwargs):
         super(ToolbarController, self).__init__(daddy, **kwargs)
 
     def OnNewButtonClick(self, event):
-        wizard = WizardController(self, 'New Data Configuration Wizard')
-        page1 = WizardPageController(wizard)
-        page2 = WizardPageController(wizard)
+        wizard = WizardController(self, title='New Data Configuration Wizard')
+
+        page1 = WizardPage1Controller(wizard)
+        #page2 = WizardPage2Controller(wizard)
 
         wizard.FitToPage(page1)
         
-        wiz.WizardPageSimple.Chain(page1, page2)
+        #wiz.WizardPageSimple.Chain(page1, page2)
 
         if wizard.RunWizard(page1):
             wx.MessageBox('Completed Successfully', 'Info')
