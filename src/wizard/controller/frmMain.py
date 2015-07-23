@@ -1,10 +1,13 @@
 
 import wx
+import os
 
 from view.clsMain import MainView
 
 from controller.frmToolbar import ToolbarController
 from controller.frmFileList import FileListController
+
+WILDCARD = "YAML file (*.yaml)|*.yaml"
 
 class MainController(MainView):
     def __init__(self, daddy, **kwargs):
@@ -45,7 +48,36 @@ class MainController(MainView):
         self.menu_bar.Append(self.help_menu, '&Help')
 
         self.SetMenuBar(self.menu_bar)
+
+        self.Bind(wx.EVT_MENU, self.onFileOpenClick, id=102)
+        self.Bind(wx.EVT_MENU, self.onFileNewClick, id=101)
+        self.Bind(wx.EVT_MENU, self.onFileExitClick, id=103)
+        self.Bind(wx.EVT_MENU, self.onHelpAboutClick, id=201)
+
+    def onFileOpenClick(self, event):
+        dlg = wx.FileDialog(self, message='Load Configuration File',
+                defaultDir=os.getcwd(), defaultFile='',
+                wildcard=WILDCARD,
+                style=wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR)
         
+        if dlg.ShowModal() == wx.ID_OK:
+            paths = dlg.GetPaths()
+            print paths
+        
+        dlg.Destroy()
+        
+        event.Skip()
+
+    def onFileNewClick(self, event):
+        event.Skip()
+        
+    def onFileExitClick(self, event):
+        event.Skip()
+
+    def onHelpAboutClick(self, event):
+        event.Skip()
+
+
 if __name__ == '__main__':
     app = wx.App()
     frame = MainController(None)
