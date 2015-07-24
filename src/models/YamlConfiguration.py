@@ -127,13 +127,17 @@ class YamlConfiguration():
                     str(datetime.datetime.now().minute)))
             f.write(yaml.dump(newContent, default_flow_style=False, allow_unicode=True,))
 
-    def getAttributeDict(self, attribute):
+    def getAttributeDict(self, attribute=None):
         '''
         getAttributeDict will return a dictionary containing the key
         and value pair matching the specified attribute from a 
         given YAML file.
         '''
         value = ''
-        return dict(attribute, value)
+        
+        if not attribute:
+            return self.yamlDict.keys()
+         
+        return {attribute: value}
 
 

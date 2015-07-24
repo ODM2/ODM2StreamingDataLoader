@@ -14,7 +14,7 @@ class FileListView(wx.Panel):
         
         self.fileListCtrl = wx.ListCtrl(self, wx.ID_ANY,
                         wx.DefaultPosition, size,
-                        wx.LC_HRULES | wx.LC_ICON | \
+                        wx.LC_HRULES | \
                         wx.LC_REPORT | wx.LC_VRULES)
        
         self.fileListCtrl.InsertColumn(0, 'ID')
