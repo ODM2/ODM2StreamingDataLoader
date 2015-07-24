@@ -7,6 +7,7 @@ from view.clsMain import MainView
 from controller.frmToolbar import ToolbarController
 from controller.frmFileList import FileListController
 
+
 WILDCARD = "YAML file (*.yaml)|*.yaml"
 
 class MainController(MainView):

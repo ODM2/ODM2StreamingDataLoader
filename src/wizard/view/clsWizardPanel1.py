@@ -1,5 +1,6 @@
 
 import wx
+import wx.lib.masked as masked
 import operator
 
 class WizardPanel1View(wx.Panel):
@@ -127,7 +128,7 @@ class WizardPanel1View(wx.Panel):
                 
         options_sizer.Add(options_flex_sizer2, 1, wx.EXPAND, 5)
                 
-        options_flex_sizer3 = wx.FlexGridSizer(0, 5, 0, 0)
+        options_flex_sizer3 = wx.FlexGridSizer(0, 6, 0, 0)
         options_flex_sizer3.SetFlexibleDirection(wx.BOTH)
         options_flex_sizer3.SetNonFlexibleGrowMode(\
             wx.FLEX_GROWMODE_SPECIFIED)
@@ -150,11 +151,24 @@ class WizardPanel1View(wx.Panel):
             wx.DefaultSize, wx.DP_DEFAULT)
         options_flex_sizer3.Add(self.m_datePicker3, 0, wx.TOP, 5)
                 
-        self.m_datePicker4 = wx.DatePickerCtrl(\
+        self.m_timePicker1 = masked.TimeCtrl(\
             options_sizer.GetStaticBox(), wx.ID_ANY,
-            wx.DefaultDateTime, wx.DefaultPosition,
-            wx.DefaultSize, wx.DP_DEFAULT)
-        options_flex_sizer3.Add(self.m_datePicker4, 0, wx.TOP, 5)
+            '00:00:00', wx.DefaultPosition,
+            wx.DefaultSize, wx.TE_PROCESS_TAB,
+            validator=wx.DefaultValidator,
+            name = 'time',
+            format = 'HHMMSS')
+        
+        h = self.m_timePicker1.GetSize().height
+        
+        self.spinner = wx.SpinButton(\
+            options_sizer.GetStaticBox(), wx.ID_ANY,
+            wx.DefaultPosition, (-1,h), wx.SP_VERTICAL)
+        
+        self.m_timePicker1.BindSpinButton(self.spinner)
+        
+        options_flex_sizer3.Add(self.m_timePicker1, 0, wx.TOP, 5)
+        options_flex_sizer3.Add(self.spinner, 0, wx.TOP, 5)
                 
                 
         options_sizer.Add(options_flex_sizer3, 1, wx.EXPAND, 5)
