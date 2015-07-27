@@ -75,6 +75,8 @@ class YamlConfiguration():
         The YAML file is divided up according to different CSV data
         files. This method returns a list of the configuration
         parameters for each CSV file in the YAML configuration file.
+
+        The list is in this format: [('file_id',{parameter_dict}), ('file_id',{parameter_dict})]
         '''
         fileDictList = []
 
@@ -84,11 +86,11 @@ class YamlConfiguration():
                 # Look for the matching data file.
                 if self.yamlDict[fileDict]['Settings']['FileLocation'] == self.dataFile:
                     # only use the one file configuration.
-                    fileDictList.append(self.yamlDict[fileDict])
+                    fileDictList.append((fileDict, self.yamlDict[fileDict]))
             
             # Collect all of the configurations.
             else:
-                fileDictList.append(self.yamlDict[fileDict])
+                fileDictList.append((fileDict, self.yamlDict[fileDict]))
 
         return fileDictList
 
@@ -100,9 +102,9 @@ class YamlConfiguration():
         These changes are not reflected in the actual file
         until the rebase method is called.
         '''
-        fileSize = os.path.getsize(configFileDict['Settings']\
+        fileSize = os.path.getsize(configFileDict[1]['Settings']\
                                                  ['FileLocation'])
-        configFileDict['Mappings'][columnName]\
+        configFileDict[1]['Mappings'][columnName]\
                       ['LastByteRead'] = str(fileSize)
         
         return configFileDict
@@ -114,9 +116,14 @@ class YamlConfiguration():
         to the YAML configuration file.
         '''
 
+        print 'configFileDictList', configFileDictList
+
         newContent = {}
-        for i,d in enumerate(reversed(configFileDictList)):
-            newContent['File_%d' % i] = d
+        for i,d in reversed(configFileDictList):
+            print 'i', i
+            print 'd', d
+
+            newContent[i] = d
         
         with open(self.yamlFilePath, 'w') as f:
             f.write('## Configuration file\n## Last modified: %s\n---\n' %\
@@ -126,18 +133,4 @@ class YamlConfiguration():
                     ':' +\
                     str(datetime.datetime.now().minute)))
             f.write(yaml.dump(newContent, default_flow_style=False, allow_unicode=True,))
-
-    def getAttributeDict(self, attribute=None):
-        '''
-        getAttributeDict will return a dictionary containing the key
-        and value pair matching the specified attribute from a 
-        given YAML file.
-        '''
-        value = ''
-        
-        if not attribute:
-            return self.yamlDict.keys()
-         
-        return {attribute: value}
-
 

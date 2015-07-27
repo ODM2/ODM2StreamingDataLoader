@@ -20,6 +20,8 @@ class MainView(wx.Frame):
         event.Skip()
     def onFileNewClick(self, event):    
         event.Skip()
+    def onFileSaveAsClick(self, event):    
+        event.Skip()
     def onFileExitClick(self, event):    
         event.Skip()
     def onHelpAboutClick(self, event):    

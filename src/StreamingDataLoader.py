@@ -54,7 +54,7 @@ def main(arguments):
     for configParams in files:
         # Declare updatedParams to preserve scope.
         updatedParams = configParams 
-        dataMapModel = Mapping(configParams)
+        dataMapModel = Mapping(configParams[1])
         
         # If able to connect to the database...
         if dataMapModel.getDatabase():

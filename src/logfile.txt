@@ -1,7 +1,7 @@
-[2015-07-13 16:04:41 INFO] Beginning execution.
-[2015-07-13 16:04:41 INFO] Restart mode enabled - Ignoring last byte read.
-[2015-07-13 16:04:41 INFO] Reading from byte 0.
-[2015-07-13 16:04:41 INFO] New data:
+
+[2015-07-27 14:40:29 INFO] Beginning execution.
+[2015-07-27 14:40:29 INFO] Reading from byte 0.
+[2015-07-27 14:40:29 INFO] New data:
 2014 Treeline Meterological Hourly Data (Summary),,,,,,,,
 ,,,,,,,,
 Reference Dataset with the following format:,,,,,,,,
@@ -43,12 +43,4 @@ DateTime,Precipitation-mm,AirTemperature-C,SolarRadiation-Watts/m2,NetRadiation-
 1/5/2015 9:30,2,3,10,120,1200,126700,172,41234
 1/6/2015 9:30,2,3,1,10,1200,126700,172,.001
 
-[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
-[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
-[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
-[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
-[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
-[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
-[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
-[2015-07-13 16:04:42 INFO] Performing duplicate database value check. (This affects performance).
-[2015-07-13 16:04:42 INFO] Completed execution.
+[2015-07-27 14:40:30 INFO] Completed execution.

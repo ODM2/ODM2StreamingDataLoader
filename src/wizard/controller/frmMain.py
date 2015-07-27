@@ -39,7 +39,9 @@ class MainController(MainView):
         self.file_menu.Append(101, '&New Configuration File...')
         self.file_menu.Append(102, '&Load Configuration File...')
         self.file_menu.AppendSeparator()
-        self.file_menu.Append(103, '&Exit')
+        self.file_menu.Append(103, '&Save as...')
+        self.file_menu.AppendSeparator()
+        self.file_menu.Append(104, '&Exit')
 
         self.menu_bar.Append(self.file_menu, '&File')
         
@@ -52,7 +54,8 @@ class MainController(MainView):
 
         self.Bind(wx.EVT_MENU, self.onFileOpenClick, id=102)
         self.Bind(wx.EVT_MENU, self.onFileNewClick, id=101)
-        self.Bind(wx.EVT_MENU, self.onFileExitClick, id=103)
+        self.Bind(wx.EVT_MENU, self.onFileSaveAsClick, id=103)
+        self.Bind(wx.EVT_MENU, self.onFileExitClick, id=104)
         self.Bind(wx.EVT_MENU, self.onHelpAboutClick, id=201)
 
     def onFileOpenClick(self, event):
@@ -63,8 +66,22 @@ class MainController(MainView):
         
         if dlg.ShowModal() == wx.ID_OK:
             paths = dlg.GetPaths()
-            print paths
+            self.fileList.populateRows(paths)
         
+        dlg.Destroy()
+        
+        event.Skip()
+
+    def onFileSaveAsClick(self, event):
+        dlg = wx.FileDialog(self, message='Save Configuration File',
+                defaultDir=os.getcwd(), defaultFile='',
+                wildcard=WILDCARD,
+                style=wx.SAVE)
+        
+        if dlg.ShowModal() == wx.ID_OK:
+            path = dlg.GetPath()
+            print path
+
         dlg.Destroy()
         
         event.Skip()

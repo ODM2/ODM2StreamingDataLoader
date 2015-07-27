@@ -8,43 +8,39 @@ from models.YamlConfiguration import YamlConfiguration
 class FileListController(FileListView):
     def __init__(self, daddy, **kwargs):
         super(FileListController, self).__init__(daddy, **kwargs)
-        
-        self.populateRows()
 
-    def populateRows(self):
-        yamlConfig = YamlConfiguration('/home/denver/test2.yaml')
-        '''
-        for file_block in yamlConfig.getAttributeDict():
-            id = file_block
-            database = yamlConfig.getAttributeDict('Database')
-        '''
-        data = []
+    def populateRows(self, paths):
+        for path in paths:
+            yamlConfig = YamlConfiguration(path)
 
-        for file_block in yamlConfig.get():
-            database_name = u'%s' % (file_block['Database']['DatabaseName'])
-            database_server = u'%s' % (file_block['Database']['Address']) 
-            print database_server
-            print database_name
-            
-            id = 1
+            # Append the list control each configuration block in the 
+            # YAML file.
+            for file_block in reversed(yamlConfig.get()):
+                database_name = u'%s' % (file_block[1]\
+                    ['Database']['DatabaseName'])
+                database_server = u'%s' % (file_block[1]\
+                    ['Database']['Address']) 
+                id = file_block[0]
+                file_path = u'%s' % (file_block[1]\
+                    ['Settings']['FileLocation'])
+                last_update = u'%s' % (file_block[1]\
+                    ['Schedule']['LastUpdate'])
+                begin_date = u'%s' % (file_block[1]\
+                    ['Schedule']['Beginning'])
+                period = u'%s' % (file_block[1]\
+                    ['Schedule']['Frequency'])
 
-            file_path = u'%s' % (file_block['Settings']['FileLocation'])
-            print file_path
+                data = [id, database_server, database_name, file_path,
+                    period, begin_date, last_update]
+                
+                print data
+                self.fileListCtrl.Append(data)
 
-            last_update = u'%s' % (file_block['Schedule']['LastUpdate'])
-            print last_update
-
-            begin_date = u'%s' % (file_block['Schedule']['Beginning'])
-            print begin_date
-
-            period = u'%s' % (file_block['Schedule']['Frequency'])
-            print period
-
-            data = [u'0', database_server, database_name, file_path,
-                period, begin_date, last_update]
-            
-            print data
-            self.fileListCtrl.Append(data)
+        # Adjust the width of the list columns. 
+        for column_index in range(self.fileListCtrl.GetColumnCount()):
+            self.fileListCtrl.SetColumnWidth(column_index,
+                wx.LIST_AUTOSIZE)
+    
 
 if __name__ == '__main__':
     app = wx.App()
