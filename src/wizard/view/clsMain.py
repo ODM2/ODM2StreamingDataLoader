@@ -13,6 +13,7 @@ class MainView(wx.Frame):
         self.SetSizeHintsSz(wx.Size(1080, 700), wx.DefaultSize)
         self.Centre(wx.BOTH)
 
+
     def __del__(self):
         pass
     

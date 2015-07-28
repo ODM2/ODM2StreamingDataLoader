@@ -6,7 +6,7 @@ from view.clsMain import MainView
 
 from controller.frmToolbar import ToolbarController
 from controller.frmFileList import FileListController
-
+from controller.frmStatusBar import StatusBarController
 
 WILDCARD = "YAML file (*.yaml)|*.yaml"
 
@@ -21,6 +21,10 @@ class MainController(MainView):
         supa_sizer = wx.FlexGridSizer(2, 1, 0, 0)
         supa_sizer.SetFlexibleDirection(wx.BOTH)
         supa_sizer.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
+
+        # Status bar.
+        self.status_bar = StatusBarController(self)
+        self.SetStatusBar(self.status_bar)
         
         # Panel for the tool bar.
         self.toolbar = ToolbarController(self)
@@ -36,12 +40,20 @@ class MainController(MainView):
     def setupMenu(self):
         self.menu_bar = wx.MenuBar()
         self.file_menu = wx.Menu()
-        self.file_menu.Append(101, '&New Configuration File...')
-        self.file_menu.Append(102, '&Load Configuration File...')
+        self.file_menu.Append(101, '&New Configuration File...',
+            'Create a new configuration file.')
+        
+        self.file_menu.Enable(101, False)
+
+        self.file_menu.Append(102, '&Load Configuration File...',
+            'Open an existing configuration file.')
         self.file_menu.AppendSeparator()
-        self.file_menu.Append(103, '&Save as...')
+        self.file_menu.Append(103, '&Save as...', 'Save as...')
+        
+        self.file_menu.Enable(103, False)
+
         self.file_menu.AppendSeparator()
-        self.file_menu.Append(104, '&Exit')
+        self.file_menu.Append(104, '&Exit', 'Exit')
 
         self.menu_bar.Append(self.file_menu, '&File')
         
@@ -65,8 +77,12 @@ class MainController(MainView):
                 style=wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR)
         
         if dlg.ShowModal() == wx.ID_OK:
-            paths = dlg.GetPaths()
-            self.fileList.populateRows(paths)
+            path = dlg.GetPaths()
+            self.fileList.populateRows(path)
+            self.SetStatusText('Configuration File: "' + path[0] + '"', 1)
+            self.file_menu.Enable(101, True)
+            self.file_menu.Enable(103, True)
+
         
         dlg.Destroy()
         
@@ -81,15 +97,23 @@ class MainController(MainView):
         if dlg.ShowModal() == wx.ID_OK:
             path = dlg.GetPath()
             self.fileList.save(path)
+            self.SetStatusText('Configuration File: "' + path + '"', 1)
 
         dlg.Destroy()
         
         event.Skip()
 
     def onFileNewClick(self, event):
+        self.SetStatusText('Configuration File: [NEW FILE]', 1)
+        self.fileList.fileListCtrl.DeleteAllItems()
+        
+        self.file_menu.Enable(103, False)
+        self.file_menu.Enable(101, False)
+        
         event.Skip()
         
     def onFileExitClick(self, event):
+        self.Close()
         event.Skip()
 
     def onHelpAboutClick(self, event):

@@ -10,7 +10,9 @@ class FileListController(FileListView):
         super(FileListController, self).__init__(daddy, **kwargs)
 
     def populateRows(self, paths):
+        # Clear the previous data from the list.
         self.fileListCtrl.DeleteAllItems()
+        
         for path in paths:
             yamlConfig = YamlConfiguration(path)
 

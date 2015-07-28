@@ -10,8 +10,9 @@ from controller.frmWizardPage1 import WizardPage1Controller
 class ToolbarController(ToolbarView):
     def __init__(self, daddy, **kwargs):
         super(ToolbarController, self).__init__(daddy, **kwargs)
-
-    def OnNewButtonClick(self, event):
+        self.parent = daddy
+    
+    def onNewButtonClick(self, event):
         wizard = WizardController(self, title='New Data Configuration Wizard')
 
         page1 = WizardPage1Controller(wizard)
@@ -29,21 +30,35 @@ class ToolbarController(ToolbarView):
 
         event.Skip()
     
-    def OnDelButtonClick(self, event):
+    def onDelButtonClick(self, event):
         print 'delete'
         event.Skip()
     
-    def OnEditButtonClick(self, event):
+    def onEditButtonClick(self, event):
         print 'edit'
         event.Skip()
     
-    def OnRefButtonClick(self, event):
+    def onRefButtonClick(self, event):
         print 'refresh'
         event.Skip()
 
-    def OnRunButtonClick(self, event):
+    def onRunButtonClick(self, event):
         print 'run'
         event.Skip()
+
+    def onNewButtonOver(self, event):
+        self.parent.SetStatusText('Add a new configuration to the file.', 1)
+        event.Skip()
+
+    def onDelButtonOver(self, event):
+        self.parent.SetStatusText('Delete selected configuration from the file.', 1)
+        event.Skip()
+    
+    def onEditButtonOver(self, event):
+        self.parent.SetStatusText('Edit selected configuration.', 1)
+        event.Skip()
+
+
 
 if __name__ == '__main__':
     app = wx.App()

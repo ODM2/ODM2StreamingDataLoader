@@ -59,11 +59,18 @@ class ToolbarView(wx.Panel):
         self.tool_bar.AddControl(self.ref_btn)
         self.tool_bar.AddControl(self.run_btn)
        
-        self.Bind(wx.EVT_BUTTON, self.OnNewButtonClick, self.new_btn)
-        self.Bind(wx.EVT_BUTTON, self.OnDelButtonClick, self.del_btn)
-        self.Bind(wx.EVT_BUTTON, self.OnEditButtonClick, self.edit_btn)
-        self.Bind(wx.EVT_BUTTON, self.OnRefButtonClick, self.ref_btn)
-        self.Bind(wx.EVT_BUTTON, self.OnRunButtonClick, self.run_btn)
+        self.Bind(wx.EVT_BUTTON, self.onNewButtonClick, self.new_btn)
+        self.Bind(wx.EVT_BUTTON, self.onDelButtonClick, self.del_btn)
+        self.Bind(wx.EVT_BUTTON, self.onEditButtonClick, self.edit_btn)
+        self.Bind(wx.EVT_BUTTON, self.onRefButtonClick, self.ref_btn)
+        self.Bind(wx.EVT_BUTTON, self.onRunButtonClick, self.run_btn)
+        
+        self.Bind(wx.EVT_ENTER_WINDOW, self.onNewButtonOver,
+            self.new_btn)
+        self.Bind(wx.EVT_ENTER_WINDOW, self.onDelButtonOver,
+            self.del_btn)
+        self.Bind(wx.EVT_ENTER_WINDOW, self.onEditButtonOver,
+            self.edit_btn)
         
         self.tool_bar.Realize()
 
@@ -75,19 +82,28 @@ class ToolbarView(wx.Panel):
     def __del__(self):
         pass
 
-    def OnNewButtonClick(self, event):
+    def onNewButtonClick(self, event):
         event.Skip()
 
-    def OnDelButtonClick(self, event):
+    def onDelButtonClick(self, event):
         event.Skip()
     
-    def OnEditButtonClick(self, event):
+    def onEditButtonClick(self, event):
         event.Skip()
     
-    def OnRefButtonClick(self, event):
+    def onRefButtonClick(self, event):
         event.Skip()
 
-    def OnRunButtonClick(self, event):
+    def onRunButtonClick(self, event):
+        event.Skip()
+    
+    def onNewButtonOver(self, event):
+        event.Skip()
+
+    def onDelButtonOver(self, event):
+        event.Skip()
+    
+    def onEditButtonOver(self, event):
         event.Skip()
 
 

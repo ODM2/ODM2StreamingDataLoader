@@ -10,7 +10,7 @@ class FileListView(wx.Panel):
         supa_sizer.SetFlexibleDirection(wx.BOTH)
         supa_sizer.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
 
-        size = tuple(map(operator.sub, parent.GetSize(), (20, 100)))
+        size = tuple(map(operator.sub, parent.GetSize(), (20, 150)))
         
         self.fileListCtrl = wx.ListCtrl(self, wx.ID_ANY,
                         wx.DefaultPosition, size,
@@ -97,7 +97,7 @@ class FileListView(wx.Panel):
 
         supa_sizer.Add(bottom_sizer, 1, wx.EXPAND, 5)
         '''
-        
+
         self.SetSizer(supa_sizer)
         self.Layout()
 
