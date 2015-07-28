@@ -80,7 +80,7 @@ class MainController(MainView):
         
         if dlg.ShowModal() == wx.ID_OK:
             path = dlg.GetPath()
-            print path
+            self.fileList.save(path)
 
         dlg.Destroy()
         

@@ -10,6 +10,7 @@ class FileListController(FileListView):
         super(FileListController, self).__init__(daddy, **kwargs)
 
     def populateRows(self, paths):
+        self.fileListCtrl.DeleteAllItems()
         for path in paths:
             yamlConfig = YamlConfiguration(path)
 
@@ -41,6 +42,11 @@ class FileListController(FileListView):
             self.fileListCtrl.SetColumnWidth(column_index,
                 wx.LIST_AUTOSIZE)
     
+    def save(self, path):
+        # Check if path already exists:
+        yamlConfig = YamlConfiguration()
+        yamlConfig.save(path)
+        
 
 if __name__ == '__main__':
     app = wx.App()

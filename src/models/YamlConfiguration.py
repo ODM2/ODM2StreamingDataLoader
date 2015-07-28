@@ -3,7 +3,6 @@ __author__ = 'Denver'
 import yaml
 import os
 import csv
-
 import datetime
 import logging
 
@@ -23,9 +22,14 @@ class YamlConfiguration():
     dataFile - An optional path to one specific CSV file provided by
                 the user.
     '''
-
-    def __init__(self, configFilePath,
+    def __init__(self, configFilePath=None,
                 dataFile=None, ignoreBytes=False):
+        if not configFilePath:
+            self.yamlDict = self._createNew()
+            self.dataFile = dataFile
+            self.yamlDict = self.get(yamlDict=self.yamlDict)
+            return
+
         self.yamlFilePath = configFilePath
         self.yamlDict = {}
         self.yamlDict = self._readFile(self.yamlFilePath)
@@ -64,13 +68,14 @@ class YamlConfiguration():
             with open(path) as f:
                 load = yaml.load(f)
                 if load:
+                    print load
                     return load
         except IOError as e:
             logger.error("Cannot read the file provided. Exception: %s" % e)
             return None
 
 
-    def get(self):
+    def get(self, yamlDict=None):
         '''
         The YAML file is divided up according to different CSV data
         files. This method returns a list of the configuration
@@ -80,7 +85,10 @@ class YamlConfiguration():
         '''
         fileDictList = []
 
-        for fileDict in self.yamlDict.keys():
+        if not yamlDict:
+            yamlDict = self.yamlDict
+        
+        for fileDict in yamlDict.keys():
             # If the user specified a single data file to use.
             if self.dataFile is not None:
                 # Look for the matching data file.
@@ -90,6 +98,7 @@ class YamlConfiguration():
             
             # Collect all of the configurations.
             else:
+                print fileDict
                 fileDictList.append((fileDict, self.yamlDict[fileDict]))
 
         return fileDictList
@@ -115,13 +124,9 @@ class YamlConfiguration():
         A public method which writes the changes made in memory
         to the YAML configuration file.
         '''
-
-        print 'configFileDictList', configFileDictList
-
+        print configFileDictList
         newContent = {}
         for i,d in reversed(configFileDictList):
-            print 'i', i
-            print 'd', d
 
             newContent[i] = d
         
@@ -133,4 +138,87 @@ class YamlConfiguration():
                     ':' +\
                     str(datetime.datetime.now().minute)))
             f.write(yaml.dump(newContent, default_flow_style=False, allow_unicode=True,))
+
+    def _createNew(self):
+        '''
+        _createNew returns an python dictionary formatted to the appropriate YAML
+        configuration file standards, but contains empty values.
+        '''
+        yamlDict = {'new_file_id':\
+                    {'Database':\
+                        {'UserName': '',\
+                         'Password': '',\
+                         'DatabaseName': '',\
+                         'Address': ''},\
+                     'Settings':\
+                        {'FileLocation': '',\
+                         'FileLocationType': '',\
+                         'HeaderRowPosition': '',\
+                         'DataRowPosition': '',\
+                         'Delimiter': ',',\
+                         'DateTimeColumnName': 'DateTime',\
+                         'FillGaps': '',\
+                         'UTCOffset': ''},\
+                    'Mappings':\
+                        {'WindDirection-Degree':\
+                            {'CalculateAggInterval': '',\
+                             'IntendedTimeSpacing': '',\
+                             'ResultID': '',\
+                             'IntendedTimeSpacingUnitID': '',\
+                             'LastByteRead': '0'},\
+                         'NetRadiation-Watts/m2':\
+                            {'CalculateAggInterval': '',\
+                             'IntendedTimeSpacing': '',\
+                             'ResultID': '',\
+                             'IntendedTimeSpacingUnitID': '',\
+                             'LastByteRead': '0'},\
+                         'AirTemperature-C':\
+                            {'CalculateAggInterval': '',\
+                             'IntendedTimeSpacing': '',\
+                             'ResultID': '',\
+                             'IntendedTimeSpacingUnitID': '',\
+                             'LastByteRead': '0'},\
+                         'SolarRadiation-Watts/m2':\
+                            {'CalculateAggInterval': '',\
+                             'IntendedTimeSpacing': '',\
+                             'ResultID': '',\
+                             'IntendedTimeSpacingUnitID': '',\
+                             'LastByteRead': '0'},\
+                         'WindSpeed-m/s':\
+                            {'CalculateAggInterval': '',\
+                             'IntendedTimeSpacing': '',\
+                             'ResultID': '',\
+                             'IntendedTimeSpacingUnitID': '',\
+                             'LastByteRead': '0'},\
+                         'RelativeHumidity-%':\
+                            {'CalculateAggInterval': '',\
+                             'IntendedTimeSpacing': '',\
+                             'ResultID': '',\
+                             'IntendedTimeSpacingUnitID': '',\
+                             'LastByteRead': '0'},\
+                         'Precipitation-mm':\
+                            {'CalculateAggInterval': '',\
+                             'IntendedTimeSpacing': '',\
+                             'ResultID': '',\
+                             'IntendedTimeSpacingUnitID': '',\
+                             'LastByteRead': '0'},\
+                         'SnowDepth-cm':\
+                            {'CalculateAggInterval': '',\
+                             'IntendedTimeSpacing': '',\
+                             'ResultID': '',\
+                             'IntendedTimeSpacingUnitID': '',\
+                             'LastByteRead': '0'}},\
+                    'Schedule':\
+                        {'LastUpdate': '',\
+                         'Frequency': '',\
+                         'Beginning': '',\
+                         'Time': ''}}}        
+        return yamlDict
+
+    def save(self, path):
+        print 'writing to ', path
+        print self.yamlDict
+
+        self.yamlFilePath = path
+        self.rebase(self.yamlDict)
 
