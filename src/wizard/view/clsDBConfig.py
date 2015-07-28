@@ -36,7 +36,7 @@ class clsDBConfiguration ( wx.Panel ):
 		connectionSizer.Add( self.stVersion, 0, wx.ALL|wx.ALIGN_RIGHT|wx.EXPAND, 5 )
 		
 		cbDatabaseType1Choices = [ u"2.0", u"1.1.1" ]
-		self.cbDatabaseType1 = wx.ComboBox( self, wx.ID_ANY, u"2.0", wx.DefaultPosition, wx.DefaultSize, cbDatabaseType1Choices, wx.CB_READONLY|wx.CB_SORT )
+		self.cbDatabaseType1 = wx.ComboBox( self, wx.ID_ANY, u"2.0", wx.DefaultPosition, wx.DefaultSize, cbDatabaseType1Choices, wx.CB_READONLY )
 		self.cbDatabaseType1.SetSelection( 1 )
 		connectionSizer.Add( self.cbDatabaseType1, 1, wx.ALL|wx.EXPAND, 5 )
 		
@@ -45,7 +45,8 @@ class clsDBConfiguration ( wx.Panel ):
 		connectionSizer.Add( self.stConnType, 0, wx.ALL|wx.EXPAND|wx.ALIGN_RIGHT, 5 )
 		
 		cbDatabaseTypeChoices = []
-		self.cbDatabaseType = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, cbDatabaseTypeChoices, wx.CB_READONLY|wx.CB_SORT )
+		self.cbDatabaseType = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, cbDatabaseTypeChoices, wx.CB_READONLY )
+
 		connectionSizer.Add( self.cbDatabaseType, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		self.stServer = wx.StaticText( self, wx.ID_ANY, u"Server", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
