@@ -68,7 +68,6 @@ class YamlConfiguration():
             with open(path) as f:
                 load = yaml.load(f)
                 if load:
-                    print load
                     return load
         except IOError as e:
             logger.error("Cannot read the file provided. Exception: %s" % e)
@@ -98,7 +97,6 @@ class YamlConfiguration():
             
             # Collect all of the configurations.
             else:
-                print fileDict
                 fileDictList.append((fileDict, self.yamlDict[fileDict]))
 
         return fileDictList
@@ -124,7 +122,6 @@ class YamlConfiguration():
         A public method which writes the changes made in memory
         to the YAML configuration file.
         '''
-        print configFileDictList
         newContent = {}
         for i,d in reversed(configFileDictList):
 

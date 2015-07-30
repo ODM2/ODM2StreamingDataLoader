@@ -1,18 +1,45 @@
-
 import wx
-import wx.wizard as wiz
-import sys
+import wx.wizard
 
-from view.clsWizardPage import WizardPageView
+class WizardPage(wx.wizard.PyWizardPage):
+    def __init__(self, parent, **kwargs):
+        super(WizardPage, self).__init__(parent, **kwargs)
 
-class WizardPageController(WizardPageView):
-    def __init__(self, daddy, panel, **kwargs):
-        super(WizardPageController, self).__init__(daddy, panel, **kwargs)
+        self.next = None
+        self.prev = None
 
+        self.panel = None
 
-if __name__ == '__main__':
-    app = wx.App()
-    frame = ToolbarController(None)
-    frame.Show()
-    app.MainLoop()
+        self.sizer = wx.FlexGridSizer(0, 1, 0, 0)
+        self.sizer.SetFlexibleDirection(wx.BOTH)
+        self.sizer.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
+        self.SetSizer(self.sizer)
+        self.Layout()
 
+    def addPanel(self, panel):
+        self.sizer.Add(panel, 0, wx.ALL | wx.EXPAND, 5)
+        self.panel = panel
+
+    def getPanel(self):
+        return self.panel
+   
+    def validate(self):
+        
+        return True
+
+    # For the record, I don't usually capitalize method names,
+    # but I am in this case because of the inherited methods
+    # from wxPython.
+    
+    def SetNext(self, next):
+        self.next = next
+
+    def SetPrev(self, prev):
+        self.prev = prev
+
+    def GetNext(self):
+        return self.next
+
+    def GetPrev(self):
+        return self.prev
+    

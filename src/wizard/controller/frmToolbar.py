@@ -5,8 +5,6 @@ import sys
 
 from view.clsToolbar import ToolbarView
 from controller.frmWizard import WizardController
-from controller.frmWizardPage1 import WizardPage1Controller
-from controller.frmWizardPage0 import WizardPage0Controller
 
 class ToolbarController(ToolbarView):
     def __init__(self, daddy, **kwargs):
@@ -14,20 +12,10 @@ class ToolbarController(ToolbarView):
         self.parent = daddy
     
     def onNewButtonClick(self, event):
-        wizard = WizardController(self, title='New Data Configuration Wizard')
-        page0 = WizardPage0Controller(wizard)
-        page1 = WizardPage1Controller(wizard)
-        #page2 = WizardPage2Controller(wizard)
-
-        wiz.WizardPageSimple.Chain(page0, page1)
-        wizard.FitToPage(page0)
-
-        if wizard.RunWizard(page0):
-            wx.MessageBox('Completed Successfully', 'Info')
-        else:
-            wx.MessageBox('Cancelled', 'Info')
-            
-
+        
+        wizard = WizardController(self, title='New Data Wizard')
+        wizard.run() 
+        
         event.Skip()
     
     def onDelButtonClick(self, event):
