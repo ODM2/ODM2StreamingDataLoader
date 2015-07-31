@@ -13,6 +13,10 @@ class WizardController(wiz.Wizard):
             pos=wx.DefaultPosition, style=wx.DEFAULT_DIALOG_STYLE,
             **kwargs)
         
+        # In order for validation to work on widgets within
+        # a panel, you must set this extra style.
+        self.SetExtraStyle(wx.WS_EX_VALIDATE_RECURSIVELY)
+        
         self.page1 = self.createPages()
 
     def createPages(self):
@@ -40,22 +44,27 @@ class WizardController(wiz.Wizard):
         return page1
 
     def onPageChange(self, event):
+        '''
+        Event which takes place as the user clicks the 'next'
+        or 'previous' button.
+        '''
+
         page = event.GetPage()
         panel = page.getPanel()
-
-        if page.validate():
-
+       
+        if event.GetDirection():
+            # Validate all of the children widgets.
+            page.Validate()
+            
             next_page = page.GetNext()
             
             try:
                 next_panel = next_page.getPanel()
-
-                print "doing it."
                 next_panel.populate(data=panel.getInput())
 
-            except(AttributeError):
+            except AttributeError as e:
                 pass
-        
+       
         event.Skip()
         
     def run(self):

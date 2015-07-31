@@ -10,21 +10,35 @@ class DataConfigPanelController(DataConfigPanelView):
         self.parent = daddy
         
     def getInput(self):
+        '''
+        A method which returns a dict of data.
+        Used to share data between panels.
+        '''
         return {}
 
     def populate(self, data={}):
+        '''
+        A method to populate the controls/widgets with the contents
+        of the given data parameter.
+        '''
+        print type(data['dataBegin'])
         # Read the file.
         csv = CSVReader()
-        data = csv.dataFrameReader(data['data'])
-        # Delete data if file path was changed.
+        data = csv.dataFrameReader(data['dataFilePath'],
+            skip=data['dataBegin'] - 2)
+        
+        # TODO: Delete data if file path was changed.
+        
         # Get column headers and InsertColumn for each of them.
         columns = csv.getColumnNames(data)
         for column in columns:
-            print columns.index(column)
             self.m_listCtrl1.InsertColumn(columns.index(column), column)
 
         # Read data into appropriate columns.
-        
-        for row in csv.getData(data):
-            self.m_listCtrl1.Append(row)
+        self.m_listCtrl1.SetItemCount(len(data)-1)
+        self.m_listCtrl1.setData(csv.getData(data))
+        #i=0
+        #for row in csv.getData(data):
+        #    self.m_listCtrl1.OnGetItemText(i, row)
+        #    i = i + 1
 

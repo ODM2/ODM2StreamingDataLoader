@@ -13,8 +13,8 @@ class ToolbarController(ToolbarView):
     
     def onNewButtonClick(self, event):
         
-        wizard = WizardController(self, title='New Data Wizard')
-        wizard.run() 
+        wizard = WizardController(self, title='Harry Potter Wizard')
+        wizard.run()
         
         event.Skip()
     

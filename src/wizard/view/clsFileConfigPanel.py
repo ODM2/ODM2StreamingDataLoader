@@ -3,6 +3,8 @@ import wx
 import wx.lib.masked as masked
 import operator
 
+from controller.frmFilePathValidator import FilePathValidator
+
 class FileConfigPanelView(wx.Panel):
     def __init__(self, parent, **kwargs):
         super(FileConfigPanelView, self).__init__(parent, **kwargs)
@@ -27,10 +29,12 @@ class FileConfigPanelView(wx.Panel):
             wx.DefaultSize, style=wx.RB_GROUP)
         #file_location_flex_sizer.Add(self.local_file_radio, 0,
         #    wx.ALL | wx.RB_GROUP, 5)
+        self.local_file_radio.SetValue(True)
 
         self.local_file_txt =  wx.TextCtrl(\
             file_location_sizer.GetStaticBox(), wx.ID_ANY,
-            wx.EmptyString, wx.Point(-1,-1), wx.Size(500,-1))
+            wx.EmptyString, wx.Point(-1,-1), wx.Size(500,-1),
+            validator=FilePathValidator())
         #file_location_flex_sizer.Add(self.local_file_txt, 0,
         #    wx.ALL, 5)
 
@@ -210,9 +214,11 @@ class FileConfigPanelView(wx.Panel):
                 
         self.m_spinCtrl2 = wx.SpinCtrl(options_sizer.GetStaticBox(),\
             wx.ID_ANY, wx.EmptyString, wx.DefaultPosition,
-            wx.Size(50,-1), wx.SP_ARROW_KEYS, 0, 10, 10)
+            wx.Size(50,-1), wx.SP_ARROW_KEYS, 0, 0, 0)
         options_flex_sizer4.Add(self.m_spinCtrl2, 0, wx.TOP, 5)
-                
+        self.m_spinCtrl2.SetRange(0, 999)
+        self.m_spinCtrl2.SetValue(0)
+
                 
         options_sizer.Add(options_flex_sizer4, 1, wx.EXPAND, 5)
                 
@@ -237,8 +243,10 @@ class FileConfigPanelView(wx.Panel):
         self.m_spinCtrl4 = wx.SpinCtrl(\
             options_sizer.GetStaticBox(), wx.ID_ANY, wx.EmptyString,
             wx.DefaultPosition, wx.Size(50,-1), wx.SP_ARROW_KEYS,
-            0, 10, 0)
+            0, 0, 0)
         options_flex_sizer5.Add(self.m_spinCtrl4, 0, wx.TOP, 5)
+        self.m_spinCtrl4.SetRange(0, 999)
+        self.m_spinCtrl4.SetValue(0)
         
         
         options_sizer.Add(options_flex_sizer5, 1, wx.EXPAND, 5)

@@ -22,10 +22,6 @@ class WizardPage(wx.wizard.PyWizardPage):
 
     def getPanel(self):
         return self.panel
-   
-    def validate(self):
-        
-        return True
 
     # For the record, I don't usually capitalize method names,
     # but I am in this case because of the inherited methods

@@ -2,6 +2,8 @@
 import wx
 import wx.lib.agw.ultimatelistctrl as ULC
 
+from controller.frmVirtualList import VirtualList
+
 class DataConfigPanelView(wx.Panel):
     def __init__(self, parent, **kwargs):
         super(DataConfigPanelView, self).__init__(parent, **kwargs)
@@ -10,7 +12,8 @@ class DataConfigPanelView(wx.Panel):
         supa_sizer.SetFlexibleDirection(wx.BOTH)
         supa_sizer.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
 
-        self.m_listCtrl1 = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 1000,400 ), wx.LC_REPORT | wx.LC_HRULES | wx.LC_VRULES )
+        self.m_listCtrl1 = VirtualList(self, size=wx.Size(1000, 400))
+        #self.m_listCtrl1 = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 1000,400 ), wx.LC_REPORT | wx.LC_VIRTUAL | wx.LC_HRULES | wx.LC_VRULES )
         supa_sizer.Add( self.m_listCtrl1, 0, wx.ALL, 5 )
                 
         fgSizer13 = wx.FlexGridSizer( 0, 2, 0, 0 )

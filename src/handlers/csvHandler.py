@@ -13,8 +13,8 @@ class CSVReader():
 
     '''
     
-    def dataFrameReader(self, filepath):
-        df = pd.read_csv(filepath)
+    def dataFrameReader(self, filepath, skip=0):
+        df = pd.read_csv(filepath, header=skip)
         return df
 
     def getData(self, df):
