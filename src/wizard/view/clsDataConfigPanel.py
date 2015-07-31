@@ -10,7 +10,7 @@ class DataConfigPanelView(wx.Panel):
         supa_sizer.SetFlexibleDirection(wx.BOTH)
         supa_sizer.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
 
-        self.m_listCtrl1 = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 1000,400 ), wx.LC_ICON|wx.LC_REPORT|wx.LC_VIRTUAL )
+        self.m_listCtrl1 = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 1000,400 ), wx.LC_REPORT | wx.LC_HRULES | wx.LC_VRULES )
         supa_sizer.Add( self.m_listCtrl1, 0, wx.ALL, 5 )
                 
         fgSizer13 = wx.FlexGridSizer( 0, 2, 0, 0 )

@@ -43,7 +43,6 @@ class FileConfigPanelController(FileConfigPanelView):
         return self.local_file_txt.GetValue()
 
     def getInput(self):
-        print "path: ", type(self.path)
         return {'data': self.path}
 
     def populate(self, data={}):

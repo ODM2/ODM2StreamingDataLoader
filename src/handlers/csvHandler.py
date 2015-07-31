@@ -10,8 +10,20 @@ logger = logging.getLogger('SDL_logger')
 class CSVReader():
     '''
     Reads and analyzes CSV/TSV files.
+
     '''
     
+    def dataFrameReader(self, filepath):
+        df = pd.read_csv(filepath)
+        return df
+
+    def getData(self, df):
+        return df.applymap(unicode).values.tolist()
+    
+    def getColumnNames(self, df):
+        return df.columns.values.tolist()
+    
+
     def byteReader(self, filepath, start_byte, sep, datecol, skip=0):
         '''
         byteReader reads from a given file (filepath) beginning at the

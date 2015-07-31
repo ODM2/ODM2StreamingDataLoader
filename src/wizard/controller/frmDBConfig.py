@@ -32,6 +32,13 @@ class pnlDBConfig(clsDBConfiguration):
 
         self.set_field_values()
 
+
+    def getInput(self):
+        return {}
+
+    def populate(self, data={}):
+        return
+
     def OnValueChanged(self, event):
         """
 
