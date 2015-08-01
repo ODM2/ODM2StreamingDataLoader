@@ -8,6 +8,8 @@ class DataConfigPanelController(DataConfigPanelView):
     def __init__(self, daddy, **kwargs):
         super(DataConfigPanelController, self).__init__(daddy, **kwargs)
         self.parent = daddy
+
+        self.current_data = None
         
     def getInput(self):
         '''
@@ -21,24 +23,32 @@ class DataConfigPanelController(DataConfigPanelView):
         A method to populate the controls/widgets with the contents
         of the given data parameter.
         '''
-        print type(data['dataBegin'])
-        # Read the file.
-        csv = CSVReader()
-        data = csv.dataFrameReader(data['dataFilePath'],
-            skip=data['dataBegin'] - 2)
+        print 'current_data', self.current_data
+        print 'data', data
         
-        # TODO: Delete data if file path was changed.
-        
-        # Get column headers and InsertColumn for each of them.
-        columns = csv.getColumnNames(data)
-        for column in columns:
-            self.m_listCtrl1.InsertColumn(columns.index(column), column)
+        # Update the list control only if the data has changed.
+        if self.current_data != data:
+            # Create a CSV reader object.
+            csv = CSVReader()
+            # Clear the list control of previous data.
+            self.m_listCtrl1.ClearAll()
+            # Read the file to get the csv data.
+            df = csv.dataFrameReader(data['dataFilePath'],
+                skip=data['dataBegin'])
+            # Get column headers and InsertColumn for each of them.
+            columns = csv.getColumnNames(df)
+            for column in columns:
+                self.m_listCtrl1.InsertColumn(columns.index(column), column)
+            # Set the number of items because this is a virtual list ctrl.
+            self.m_listCtrl1.SetItemCount(len(df))
+            # Give the virtual list ctrl a data source.
+            self.m_listCtrl1.setData(csv.getData(df))
+            
+            for column_index in range(self.m_listCtrl1.GetColumnCount()):
+                self.m_listCtrl1.SetColumnWidth(column_index,
+                    wx.LIST_AUTOSIZE)
 
-        # Read data into appropriate columns.
-        self.m_listCtrl1.SetItemCount(len(data)-1)
-        self.m_listCtrl1.setData(csv.getData(data))
-        #i=0
-        #for row in csv.getData(data):
-        #    self.m_listCtrl1.OnGetItemText(i, row)
-        #    i = i + 1
+            # Update the path.
+            self.current_data = data
+            
 

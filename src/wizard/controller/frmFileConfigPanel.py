@@ -60,13 +60,16 @@ class FileConfigPanelController(FileConfigPanelView):
         return path or None
 
     def _getDataBeginLine(self):
-        return self.m_spinCtrl4.GetValue()
+        value = self.m_spinCtrl4.GetValue()
+        if value <= 1:
+            return 0
+        return value - 2
 
     def getInput(self):
         dataFilePath = self._getDataFilePath()
         dataBegin = self._getDataBeginLine()
 
-        if dataFilePath and dataBegin:
+        if dataFilePath:
             self.inputDict['dataFilePath'] = dataFilePath
             self.inputDict['dataBegin'] = dataBegin
 
