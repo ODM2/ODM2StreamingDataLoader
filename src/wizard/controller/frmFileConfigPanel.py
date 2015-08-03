@@ -29,6 +29,7 @@ class FileConfigPanelController(FileConfigPanelView):
         if event.GetEventObject() == self.remote_file_radio:
             self.remote_file_txt.Enable(True)
             self.local_file_txt.Enable(False)
+            self.local_file_btn.Enable(False)
             self.remote_file_txt.SetValidator(FilePathValidator())
             self.local_file_txt.SetValidator(wx.DefaultValidator)
             self.dataFileRadioSelected = self.remote_file_radio
