@@ -1,5 +1,6 @@
 
 import wx
+import os
 
 class ToolbarView(wx.Panel):
     def __init__(self, parent, **kwargs):
@@ -13,16 +14,17 @@ class ToolbarView(wx.Panel):
                             wx.DefaultSize, wx.TB_HORIZONTAL)
 
         tsize = (24, 24)
-       
-        new_bmp = scaleBitmap(wx.Bitmap('../media/ic_add_box_black_24dp.png',
+        path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        print  "this is the path: "+ path
+        new_bmp = scaleBitmap(wx.Bitmap(path + '/media/ic_add_box_black_24dp.png',
                     wx.BITMAP_TYPE_PNG), tsize)
-        del_bmp = scaleBitmap(wx.Bitmap('../media/ic_delete_black_24dp.png',
+        del_bmp = scaleBitmap(wx.Bitmap(path + '/media/ic_delete_black_24dp.png',
                                 wx.BITMAP_TYPE_PNG), tsize)
-        edit_bmp = scaleBitmap(wx.Bitmap('../media/ic_mode_edit_black_24dp.png',
+        edit_bmp = scaleBitmap(wx.Bitmap(path + '/media/ic_mode_edit_black_24dp.png',
                                 wx.BITMAP_TYPE_PNG), tsize)
-        ref_bmp = scaleBitmap(wx.Bitmap('../media/ic_autorenew_black_24dp.png',
+        ref_bmp = scaleBitmap(wx.Bitmap(path + '//media/ic_autorenew_black_24dp.png',
                                 wx.BITMAP_TYPE_PNG), tsize)
-        run_bmp = scaleBitmap(wx.Bitmap('../media/ic_desktop_mac_black_24dp.png',
+        run_bmp = scaleBitmap(wx.Bitmap(path + '//media/ic_desktop_mac_black_24dp.png',
                                 wx.BITMAP_TYPE_PNG), tsize)
 
         self.tool_bar.SetToolBitmapSize(tsize) 

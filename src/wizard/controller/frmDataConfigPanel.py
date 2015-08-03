@@ -3,6 +3,7 @@ import wx
 
 from view.clsDataConfigPanel import DataConfigPanelView
 from handlers.csvHandler import CSVReader
+from copy import deepcopy
 
 class DataConfigPanelController(DataConfigPanelView):
     def __init__(self, daddy, **kwargs):
@@ -57,5 +58,5 @@ class DataConfigPanelController(DataConfigPanelView):
                     wx.LIST_AUTOSIZE)
 
         print 'Changing self.prev_data (%s) to %s' % (self.prev_data_x, data)
-        self.prev_data_x = data
+        self.prev_data_x = deepcopy(data)
         

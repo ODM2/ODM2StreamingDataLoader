@@ -56,7 +56,7 @@ class Database:
             dt = rc.getResultValidDateTime(data['ResultID'][0])
             finished_data = data[data['ValueDateTime'] > dt[0]]
 
-        if cr.createTimeSeriesResultValues(finished_data) is None:
+        if s is None:
             return False
         return True
 

@@ -2,6 +2,10 @@
 import wx
 import os
 
+import sys
+sys.path.append("/Users/Stephanie/DEV/StreamingDataLoader/src")
+sys.path.append("/Users/Stephanie/DEV/StreamingDataLoader/src/wizard")
+
 from view.clsMain import MainView
 
 from controller.frmToolbar import ToolbarController

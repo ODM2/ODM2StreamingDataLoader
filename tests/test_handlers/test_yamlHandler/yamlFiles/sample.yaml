@@ -20,42 +20,42 @@
         CalculateAggInterval: True
         IntentedTimeSpacing: 15
         IntentedTimeSpacingUnitID: 3
-        ResultID: -1
+        ResultID: 1
       NetRadiation-Watts/m2:
         CalculateAggInterval: True
         IntentedTimeSpacing: 15
         IntentedTimeSpacingUnitID: 3
-        ResultID: -1
+        ResultID: 2
       Precipitation-mm:
         CalculateAggInterval: True
         IntentedTimeSpacing: 15
         IntentedTimeSpacingUnitID: 3
-        ResultID: -1
+        ResultID: 3
       RelativeHumidity-%:
         CalculateAggInterval: True
         IntentedTimeSpacing: 15
         IntentedTimeSpacingUnitID: 3
-        ResultID: -1
+        ResultID: 4
       SnowDepth-cm:
         CalculateAggInterval: True
         IntentedTimeSpacing: 15
         IntentedTimeSpacingUnitID: 3
-        ResultID: -1
+        ResultID: 5
       SolarRadiation-Watts/m2:
         CalculateAggInterval: True
         IntentedTimeSpacing: 15
         IntentedTimeSpacingUnitID: 3
-        ResultID: -1
+        ResultID: 6
       WindDirection-Degree:
         CalculateAggInterval: True
         IntentedTimeSpacing: 15
         IntentedTimeSpacingUnitID: 3
-        ResultID: -1
+        ResultID: 7
       WindSpeed-m/s:
         CalculateAggInterval: True
         IntentedTimeSpacing: 15
         IntentedTimeSpacingUnitID: 3
-        ResultID: -1
+        ResultID: 9
     Schedule:
       Beginning: "6/4/2014 11:00:00 AM"
       Frequency: Minute
