@@ -10,9 +10,14 @@ class VirtualList(wx.ListCtrl):
 
     def setData(self, data):
         self.data = data
-        #self.RefreshItem(len(self.data)-1)
-        self.RefreshItems(self.data[0], len(self.data)-1)
 
+    def RefreshAllItems(self):
+        if self.data:
+            self.DeleteAllItems()
+            self.DeleteAllColumns()
+            self.SetItemCount(len(self.data))
+            self.RefreshItems(0, len(self.data) - 1)
+    
     def OnGetItemText(self, item, col):
         return self.data[item][col]
 

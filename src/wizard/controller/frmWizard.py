@@ -51,7 +51,7 @@ class WizardController(wiz.Wizard):
 
         page = event.GetPage()
         panel = page.getPanel()
-       
+        
         if event.GetDirection():
             # Validate all of the children widgets.
             page.Validate()
@@ -59,9 +59,10 @@ class WizardController(wiz.Wizard):
             next_page = page.GetNext()
             
             try:
+                print 'tick...\n'
                 next_panel = next_page.getPanel()
                 next_panel.populate(data=panel.getInput())
-
+            
             except AttributeError as e:
                 pass
        

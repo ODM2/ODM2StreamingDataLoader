@@ -72,6 +72,8 @@ class DataConfigPanelView(wx.Panel):
         self.SetSizer(supa_sizer)
         self.Layout()
 
+        self.prev_data = {}
+
     def __del__(self):
         pass
 

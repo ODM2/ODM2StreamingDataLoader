@@ -26,7 +26,6 @@ class FileConfigPanelController(FileConfigPanelView):
                 text.Enable(False)
                 button.Enable(False)
 
-        print self.dataFileRadioSelected
         event.Skip()
 
     def onFileSelectPath(self, event):
