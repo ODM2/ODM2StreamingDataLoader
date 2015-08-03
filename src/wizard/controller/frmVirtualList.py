@@ -13,11 +13,13 @@ class VirtualList(wx.ListCtrl):
 
     def RefreshAllItems(self):
         if self.data:
-            self.DeleteAllItems()
-            self.DeleteAllColumns()
-            self.SetItemCount(len(self.data))
-            self.RefreshItems(0, len(self.data) - 1)
-    
+            if self.DeleteAllItems():
+                if self.DeleteAllColumns():
+                    self.SetItemCount(len(self.data))
+                    self.RefreshItems(0, len(self.data) - 1)
+                    return True
+        return False
+
     def OnGetItemText(self, item, col):
         return self.data[item][col]
 

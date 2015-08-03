@@ -40,32 +40,45 @@ class WizardController(wiz.Wizard):
         page3.SetPrev(page2)
 
         self.Bind(wiz.EVT_WIZARD_PAGE_CHANGING, self.onPageChange)
+        self.Bind(wiz.EVT_WIZARD_PAGE_CHANGED, self.onPageChanged)
 
         return page1
 
-    def onPageChange(self, event):
+    def onPageChanged(self, event):
         '''
-        Event which takes place as the user clicks the 'next'
-        or 'previous' button.
+        Event which takes place after the user has clicked
+        'next' or 'back' button.
         '''
-
         page = event.GetPage()
         panel = page.getPanel()
-        
+
+        #print 'current page: ', page.getPanel().__class__.__name__
+        #print 'next page: ',\
+        #    page.GetNext().getPanel().__class__.__name__
+        #print 'previous page: ',\
+        #    page.GetPrev().getPanel().__class__.__name__
+
+        # If moving forward in the wizard...
         if event.GetDirection():
+            try:
+                prev_panel = page.GetPrev().getPanel()
+                panel.populate(data=prev_panel.getInput())
+            except AttributeError as e:
+                print 'ERROR!'
+
+        event.Skip()
+    
+    def onPageChange(self, event):
+        '''
+        Event which takes place after the user clicks the 'next'
+        or 'previous' button, but before the next page is called.
+        '''
+        # If moving forward in the wizard...
+        if event.GetDirection():
+            page = event.GetPage()
             # Validate all of the children widgets.
             page.Validate()
-            
-            next_page = page.GetNext()
-            
-            try:
-                print 'tick...\n'
-                next_panel = next_page.getPanel()
-                next_panel.populate(data=panel.getInput())
-            
-            except AttributeError as e:
-                pass
-       
+        
         event.Skip()
         
     def run(self):
