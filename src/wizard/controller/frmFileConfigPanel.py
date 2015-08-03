@@ -3,6 +3,7 @@ import wx
 import os
 
 from view.clsFileConfigPanel import FileConfigPanelView
+from controller.frmFilePathValidator import FilePathValidator
 
 class FileConfigPanelController(FileConfigPanelView):
     def __init__(self, daddy, **kwargs):
@@ -17,14 +18,20 @@ class FileConfigPanelController(FileConfigPanelView):
         Event that happens when user clicks the local/remote
         file radio button.
         '''
-        for radio, text, button in self.file_group:
-            if radio is event.GetEventObject():
-                text.Enable(True)
-                button.Enable(True)
-                self.dataFileRadioSelected = radio
-            else:
-                text.Enable(False)
-                button.Enable(False)
+        if event.GetEventObject() == self.local_file_radio:
+            self.local_file_txt.Enable(True)
+            self.remote_file_txt.Enable(False)
+            self.local_file_btn.Enable(True)
+            self.local_file_txt.SetValidator(FilePathValidator())
+            self.remote_file_txt.SetValidator(wx.DefaultValidator)
+            self.dataFileRadioSelected = self.local_file_radio
+
+        if event.GetEventObject() == self.remote_file_radio:
+            self.remote_file_txt.Enable(True)
+            self.local_file_txt.Enable(False)
+            self.remote_file_txt.SetValidator(FilePathValidator())
+            self.local_file_txt.SetValidator(wx.DefaultValidator)
+            self.dataFileRadioSelected = self.remote_file_radio
 
         event.Skip()
 
@@ -38,20 +45,14 @@ class FileConfigPanelController(FileConfigPanelView):
         
         if dlg.ShowModal() == wx.ID_OK:
             path = dlg.GetPath()
-           
-            # Check which text control to update by getting
-            # the ID of the button.
-            if event.GetId() == 49:
-                self.local_file_txt.SetValue(path)
-            else:
-                self.remote_file_txt.SetValue(path)
+            self.local_file_txt.SetValue(path)
 
         dlg.Destroy()
         event.Skip()
 
     def _getDataFilePath(self):
         # Decide which radio box is checked.
-        if self.dataFileRadioSelected in self.file_group[0]:
+        if self.local_file_radio.GetValue():
             path = self.local_file_txt.GetValue()
             return path or None
         

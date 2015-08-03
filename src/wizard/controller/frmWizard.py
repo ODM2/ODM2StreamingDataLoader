@@ -52,12 +52,6 @@ class WizardController(wiz.Wizard):
         page = event.GetPage()
         panel = page.getPanel()
 
-        #print 'current page: ', page.getPanel().__class__.__name__
-        #print 'next page: ',\
-        #    page.GetNext().getPanel().__class__.__name__
-        #print 'previous page: ',\
-        #    page.GetPrev().getPanel().__class__.__name__
-
         # If moving forward in the wizard...
         if event.GetDirection():
             try:
@@ -77,7 +71,7 @@ class WizardController(wiz.Wizard):
         if event.GetDirection():
             page = event.GetPage()
             # Validate all of the children widgets.
-            page.Validate()
+            #page.Validate()
         
         event.Skip()
         

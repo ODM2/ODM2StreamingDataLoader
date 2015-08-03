@@ -24,39 +24,37 @@ class DataConfigPanelController(DataConfigPanelView):
         A method to populate the controls/widgets with the contents
         of the given data parameter.
         '''
-        print 'data', data
-        print 'prev_data', self.prev_data_x
         # Update the list control only if the new data is different.
         if cmp(self.prev_data_x, data) != 0:
-            print 'NEW DATA'
+            # Here is what happens in here:
             # Create a CSV reader object.
-            csv = CSVReader()
-            
             # Clear the list control of previous data.
+            # Read the file to get the csv data.
+            # Get column headers and InsertColumn for each of them.
+            # Set the number of items because this is
+            # a virtual list ctrl.
+            # Give the virtual list ctrl a data source.
+            # Adjust column width.
+            csv = CSVReader()
+
             self.m_listCtrl1.RefreshAllItems()
 
-            # Read the file to get the csv data.
             df = csv.dataFrameReader(data['dataFilePath'],
                 skip=data['dataBegin'])
             
-            # Get column headers and InsertColumn for each of them.
             columns = csv.getColumnNames(df)
+            
             for column in columns:
                 self.m_listCtrl1.InsertColumn(columns.index(column),\
                     column)
             
-            # Set the number of items because this is
-            # a virtual list ctrl.
             self.m_listCtrl1.SetItemCount(len(df))
-    
-            # Give the virtual list ctrl a data source.
             self.m_listCtrl1.setData(csv.getData(df))
-            # Adjust column width.
+            
             for column_index in range(\
                     self.m_listCtrl1.GetColumnCount()):
                 self.m_listCtrl1.SetColumnWidth(column_index,
                     wx.LIST_AUTOSIZE)
 
-        print 'Changing self.prev_data (%s) to %s' % (self.prev_data_x, data)
         self.prev_data_x = deepcopy(data)
         

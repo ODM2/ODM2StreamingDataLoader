@@ -27,61 +27,45 @@ class FileConfigPanelView(wx.Panel):
             file_location_sizer.GetStaticBox(),
             wx.ID_ANY, u'Local File', wx.DefaultPosition,
             wx.DefaultSize, style=wx.RB_GROUP)
-        #file_location_flex_sizer.Add(self.local_file_radio, 0,
-        #    wx.ALL | wx.RB_GROUP, 5)
+        file_location_flex_sizer.Add(self.local_file_radio, 0,
+            wx.ALL | wx.RB_GROUP, 5)
         self.local_file_radio.SetValue(True)
 
         self.local_file_txt =  wx.TextCtrl(\
             file_location_sizer.GetStaticBox(), wx.ID_ANY,
             wx.EmptyString, wx.Point(-1,-1), wx.Size(500,-1),
             validator=FilePathValidator())
-        #file_location_flex_sizer.Add(self.local_file_txt, 0,
-        #    wx.ALL, 5)
+        file_location_flex_sizer.Add(self.local_file_txt, 0,
+            wx.ALL, 5)
 
         self.local_file_btn =  wx.Button(\
             file_location_sizer.GetStaticBox(), 49,
             u'...', wx.DefaultPosition, wx.Size(40,-1))
-        #file_location_flex_sizer.Add(self.local_file_btn, 0,
-        #    wx.ALIGN_RIGHT | wx.ALL, 5)
+        file_location_flex_sizer.Add(self.local_file_btn, 0,
+            wx.ALIGN_RIGHT | wx.ALL, 5)
 
         
         self.remote_file_radio = wx.RadioButton(\
             file_location_sizer.GetStaticBox(),
             wx.ID_ANY, u'Remote File', wx.DefaultPosition,
             wx.DefaultSize)
-        #file_location_flex_sizer.Add(self.remote_file_radio, 0,
-        #    wx.ALL, 5)
+        file_location_flex_sizer.Add(self.remote_file_radio, 0,
+            wx.ALL, 5)
 
         self.remote_file_txt =  wx.TextCtrl(\
             file_location_sizer.GetStaticBox(), wx.ID_ANY,
             wx.EmptyString, wx.Point(-1,-1), wx.Size(500,-1))
-        #file_location_flex_sizer.Add(self.remote_file_txt, 0,
-        #    wx.ALL, 5)
-
-        self.remote_file_btn =  wx.Button(\
-            file_location_sizer.GetStaticBox(), 50,
-            u'...', wx.DefaultPosition, wx.Size(40,-1))
-        #file_location_flex_sizer.Add(self.remote_file_btn, 0,
-        #    wx.ALIGN_RIGHT | wx.ALL, 5)
-        
-        self.file_group = []
-
-        self.file_group.append((self.local_file_radio,
-            self.local_file_txt, self.local_file_btn))
-        self.file_group.append((self.remote_file_radio,
-            self.remote_file_txt, self.remote_file_btn))
+        file_location_flex_sizer.Add(self.remote_file_txt, 0,
+            wx.ALL, 5)
 
         self.remote_file_txt.Enable(False)
-        self.remote_file_btn.Enable(False)
-
-
-        for radio, text, button in self.file_group:
-            file_location_flex_sizer.Add(radio, 1, wx.ALL, 5)
-            file_location_flex_sizer.Add(text, 1, wx.ALL, 5)
-            file_location_flex_sizer.Add(button, 1, wx.ALL | wx.ALIGN_RIGHT, 5)
-            self.Bind(wx.EVT_RADIOBUTTON, self.onFileSelect, radio)
-            self.Bind(wx.EVT_BUTTON, self.onFileSelectPath, button)
         
+        self.Bind(wx.EVT_RADIOBUTTON, self.onFileSelect,
+            self.local_file_radio)
+        self.Bind(wx.EVT_RADIOBUTTON, self.onFileSelect,
+            self.remote_file_radio)
+        self.Bind(wx.EVT_BUTTON, self.onFileSelectPath,
+            self.local_file_btn)
         
         file_location_sizer.Add(file_location_flex_sizer,
             1, wx.EXPAND, 5)
