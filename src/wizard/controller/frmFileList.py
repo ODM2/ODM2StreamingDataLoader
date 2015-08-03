@@ -43,6 +43,22 @@ class FileListController(FileListView):
         for column_index in range(self.fileListCtrl.GetColumnCount()):
             self.fileListCtrl.SetColumnWidth(column_index,
                 wx.LIST_AUTOSIZE)
+
+    def appendRow(self, dataDict):
+        '''
+        appendRow adds a list of data to the list control.
+        '''
+        data = ['fake_id', 'fake db', 'fake db name']
+        data.append(dataDict['dataFilePath'])
+        data.append(dataDict['frequency'])
+        data.append(dataDict['begin'])
+        data.append('--')
+        self.fileListCtrl.Append(data)
+        
+        # Adjust the width of the list columns. 
+        for column_index in range(self.fileListCtrl.GetColumnCount()):
+            self.fileListCtrl.SetColumnWidth(column_index,
+                wx.LIST_AUTOSIZE)
     
     def save(self, path):
         # Check if path already exists:

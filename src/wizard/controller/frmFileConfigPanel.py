@@ -61,23 +61,57 @@ class FileConfigPanelController(FileConfigPanelView):
         return path or None
 
     def _getDataBeginLine(self):
-        value = self.m_spinCtrl4.GetValue()
-        if value <= 1:
-            return 0
-        return value - 2
+        dataStart = self.m_spinCtrl4.GetValue()
+        return dataStart
+
+    def _getColumnBeginLine(self):
+        value = self.m_spinCtrl2.GetValue()
+        return value
+
+    def _getDelimiter(self):
+        value = {u'Comma': ',', u'Tab': '\t', u'Custom': None}
+        index = self.m_choice1.GetSelection()
+        return value[self.m_choice1.GetString(index)]
+    
+    def _getTime(self):
+        value = self.m_spinCtrl1.GetValue()
+        return value
+
+    def _getFrequency(self):
+        value = {u'Hours': 'Hour', u'Minutes': 'Minute'}
+        index = self.m_choice2.GetSelection()
+        return value[self.m_choice2.GetString(index)]
+
+    def _getBegin(self):
+        date = self.m_datePicker3.GetValue()
+        time = self.m_timePicker1.GetValue()
+
+        value = str(date) + ' ' + str(time)
+        print 'begin: ', value
+        return value
 
     def getInput(self):
         dataFilePath = self._getDataFilePath()
         dataBegin = self._getDataBeginLine()
+        columnBegin = self._getColumnBeginLine()
+        delimiter = self._getDelimiter()
+        time = self._getTime()
+        frequency = self._getFrequency()
+        begin = self._getBegin()
 
         if dataFilePath:
             self.inputDict['dataFilePath'] = dataFilePath
             self.inputDict['dataBegin'] = dataBegin
+            self.inputDict['columnBegin'] = columnBegin
+            self.inputDict['delimiter'] = delimiter
+            self.inputDict['time'] = time
+            self.inputDict['frequency'] = frequency
+            self.inputDict['begin'] = begin
 
         return self.inputDict
 
 
     def populate(self, data={}):
-        pass
+        return self.inputDict
 
         

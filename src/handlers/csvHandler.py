@@ -13,8 +13,9 @@ class CSVReader():
 
     '''
     
-    def dataFrameReader(self, filepath, skip=0):
-        df = pd.read_csv(filepath, header=skip)
+    def dataFrameReader(self, filepath, header=0, sep=None, dataBegin=0):
+        df = pd.read_csv(filepath, header=(header - 1), sep=sep)
+        df = df.ix[(dataBegin - header) - 1:]
         return df
 
     def getData(self, df):

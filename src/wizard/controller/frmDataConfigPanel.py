@@ -1,31 +1,34 @@
 
 import wx
+from copy import deepcopy
 
 from view.clsDataConfigPanel import DataConfigPanelView
 from handlers.csvHandler import CSVReader
-from copy import deepcopy
 
 class DataConfigPanelController(DataConfigPanelView):
     def __init__(self, daddy, **kwargs):
         super(DataConfigPanelController, self).__init__(daddy, **kwargs)
         self.parent = daddy
         
-        self.prev_data_x = {}
+        self.prev_data = {}
+        self.inputDict = {}
 
     def getInput(self):
         '''
         A method which returns a dict of data.
         Used to share data between panels.
         '''
-        return {}
+        return self.inputDict
 
     def populate(self, data):
         '''
         A method to populate the controls/widgets with the contents
         of the given data parameter.
         '''
+        print data
+        self.inputDict = data
         # Update the list control only if the new data is different.
-        if cmp(self.prev_data_x, data) != 0:
+        if cmp(self.prev_data, data) != 0:
             # Here is what happens in here:
             # Create a CSV reader object.
             # Clear the list control of previous data.
@@ -40,7 +43,8 @@ class DataConfigPanelController(DataConfigPanelView):
             self.m_listCtrl1.RefreshAllItems()
 
             df = csv.dataFrameReader(data['dataFilePath'],
-                skip=data['dataBegin'])
+                header=data['columnBegin'], sep=data['delimiter'],
+                dataBegin=data['dataBegin'])
             
             columns = csv.getColumnNames(df)
             
@@ -56,5 +60,5 @@ class DataConfigPanelController(DataConfigPanelView):
                 self.m_listCtrl1.SetColumnWidth(column_index,
                     wx.LIST_AUTOSIZE)
 
-        self.prev_data_x = deepcopy(data)
+        self.prev_data = deepcopy(data)
         

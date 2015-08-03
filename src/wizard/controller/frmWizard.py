@@ -18,6 +18,7 @@ class WizardController(wiz.Wizard):
         self.SetExtraStyle(wx.WS_EX_VALIDATE_RECURSIVELY)
         
         self.page1 = self.createPages()
+        self.metadata = {}
 
     def createPages(self):
         
@@ -41,6 +42,7 @@ class WizardController(wiz.Wizard):
 
         self.Bind(wiz.EVT_WIZARD_PAGE_CHANGING, self.onPageChange)
         self.Bind(wiz.EVT_WIZARD_PAGE_CHANGED, self.onPageChanged)
+        self.Bind(wiz.EVT_WIZARD_FINISHED, self.onFinished)
 
         return page1
 
@@ -58,7 +60,7 @@ class WizardController(wiz.Wizard):
                 prev_panel = page.GetPrev().getPanel()
                 panel.populate(data=prev_panel.getInput())
             except AttributeError as e:
-                print 'ERROR!'
+                print e
 
         event.Skip()
     
@@ -74,8 +76,14 @@ class WizardController(wiz.Wizard):
             #page.Validate()
         
         event.Skip()
+
+    def onFinished(self, event):
+        self.metadata = event.GetPage().getPanel().getInput()
+        event.Skip()
         
     def run(self):
         self.FitToPage(self.page1)
-        return self.RunWizard(self.page1)
+        if self.RunWizard(self.page1):
+            return self.metadata
+        return None
 

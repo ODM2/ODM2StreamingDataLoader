@@ -14,8 +14,11 @@ class ToolbarController(ToolbarView):
     def onNewButtonClick(self, event):
         
         wizard = WizardController(self, title='Harry Potter Wizard')
-        wizard.run()
-        
+        newMapping = wizard.run()
+        if newMapping:
+            print 'data from wizard: ', newMapping
+            self.parent.fileList.appendRow(newMapping)
+
         event.Skip()
     
     def onDelButtonClick(self, event):
