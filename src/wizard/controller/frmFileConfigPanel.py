@@ -1,6 +1,7 @@
 
 import wx
 import os
+from datetime import datetime
 
 from view.clsFileConfigPanel import FileConfigPanelView
 from controller.frmFilePathValidator import FilePathValidator
@@ -86,8 +87,8 @@ class FileConfigPanelController(FileConfigPanelView):
         date = self.m_datePicker3.GetValue()
         time = self.m_timePicker1.GetValue()
 
-        value = str(date) + ' ' + str(time)
-        print 'begin: ', value
+        v1 = datetime.strptime(str(date), '%c').strftime('%m/%d/%Y')
+        value = v1 + ' ' + str(time)
         return value
 
     def getInput(self):

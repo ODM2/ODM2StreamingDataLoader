@@ -17,7 +17,7 @@ import wx.xrc
 class clsDBConfiguration ( wx.Panel ):
 	
 	def __init__( self, parent ):
-		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,291 ), style = wx.TAB_TRAVERSAL )
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.TAB_TRAVERSAL )
 		
 		self.SetMinSize( wx.Size( 442,291 ) )
 		self.SetMaxSize( wx.Size( 627,291 ) )

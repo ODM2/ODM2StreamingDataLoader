@@ -8,6 +8,7 @@ from models.YamlConfiguration import YamlConfiguration
 class FileListController(FileListView):
     def __init__(self, daddy, **kwargs):
         super(FileListController, self).__init__(daddy, **kwargs)
+        self.parent = daddy
 
     def populateRows(self, paths):
         # Clear the previous data from the list.
@@ -60,11 +61,28 @@ class FileListController(FileListView):
             self.fileListCtrl.SetColumnWidth(column_index,
                 wx.LIST_AUTOSIZE)
     
+    def getSelectionTextByColumn(self, col=0):
+        return self.fileListCtrl.GetItemText(\
+            self.fileListCtrl.GetFocusedItem(), col)
+
+    def getSelection(self):
+        return self.fileListCtrl.GetFocusedItem()
+
+    def deleteRow(self, row):
+        return self.fileListCtrl.DeleteItem(row)
+
     def save(self, path):
         # Check if path already exists:
         yamlConfig = YamlConfiguration()
         yamlConfig.save(path)
         
+    def onSelection(self, event):
+        self.parent.toolbar.del_btn.Enable(True)
+        event.Skip()
+
+    def onDeselection(self, event):
+        self.parent.toolbar.del_btn.Enable(False)
+        event.Skip()
 
 if __name__ == '__main__':
     app = wx.App()

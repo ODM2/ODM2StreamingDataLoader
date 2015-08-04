@@ -10,6 +10,10 @@ class ToolbarController(ToolbarView):
     def __init__(self, daddy, **kwargs):
         super(ToolbarController, self).__init__(daddy, **kwargs)
         self.parent = daddy
+        self.del_btn.Enable(False)
+        self.ref_btn.Enable(False)
+        self.run_btn.Enable(False)
+        self.edit_btn.Enable(False)
     
     def onNewButtonClick(self, event):
         
@@ -22,7 +26,19 @@ class ToolbarController(ToolbarView):
         event.Skip()
     
     def onDelButtonClick(self, event):
-        print 'delete'
+        msg_txt = self.parent.fileList.getSelectionTextByColumn(3)
+        msg = wx.MessageDialog(self,
+            "Are you sure you want to delete the mapping for '%s' from this configuration file?" % (msg_txt),
+            'Delete Mapping',
+            wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
+
+        if msg.ShowModal() == wx.ID_YES:
+            row = self.parent.fileList.getSelection()
+            self.parent.fileList.deleteRow(row)
+            self.parent.toolbar.del_btn.Enable(False)
+
+        msg.Destroy()
+
         event.Skip()
     
     def onEditButtonClick(self, event):

@@ -157,6 +157,7 @@ class FileConfigPanelView(wx.Panel):
             options_sizer.GetStaticBox(), wx.ID_ANY,
             wx.DefaultDateTime, wx.DefaultPosition,
             wx.DefaultSize, wx.DP_DEFAULT)
+
         options_flex_sizer3.Add(self.m_datePicker3, 0, wx.TOP, 5)
                 
         self.m_timePicker1 = masked.TimeCtrl(\

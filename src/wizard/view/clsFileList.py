@@ -29,6 +29,17 @@ class FileListView(wx.Panel):
         self.SetSizer(supa_sizer)
         self.Layout()
 
+        self.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onSelection,
+            self.fileListCtrl)
+        self.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onDeselection,
+            self.fileListCtrl)
+    
+    def onSelection(self, event):
+        event.Skip()
+
+    def onDeselection(self, event):
+        event.Skip()
+
     def __del__(self):
         pass
 

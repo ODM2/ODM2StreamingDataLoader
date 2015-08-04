@@ -45,15 +45,22 @@ class DataConfigPanelView(wx.Panel):
         self.m_staticText6 = wx.StaticText( sbSizer3.GetStaticBox(), wx.ID_ANY, u"Time Zone", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText6.Wrap( -1 )
         fgSizer10.Add( self.m_staticText6, 0, wx.ALL, 5 )
-        
+
+        boxSizer = wx.BoxSizer(wx.HORIZONTAL)        
+
         m_choice5Choices = [ u"-7" ]
         self.m_choice5 = wx.Choice( sbSizer3.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice5Choices, 0 )
         self.m_choice5.SetSelection( 0 )
-        fgSizer10.Add( self.m_choice5, 0, wx.ALL, 5 )
-        
+        boxSizer.Add( self.m_choice5, 0, wx.ALL, 5 )
+                
+        self.m_checkBox1 = wx.CheckBox(sbSizer3.GetStaticBox(),\
+                wx.ID_ANY, u"DST", wx.DefaultPosition, wx.DefaultSize,\
+                0)
+        boxSizer.Add(self.m_checkBox1, 0, wx.ALL, 5)
+
+        fgSizer10.Add(boxSizer, 0, wx.ALL, 5)     
         
         sbSizer3.Add( fgSizer10, 1, wx.EXPAND, 5 )
-        
         
         fgSizer13.Add( sbSizer3, 1, wx.EXPAND, 5 )
         
@@ -61,11 +68,30 @@ class DataConfigPanelView(wx.Panel):
         fgSizer12.SetFlexibleDirection( wx.BOTH )
         fgSizer12.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
         
-        self.m_listCtrl3 = ULC.UltimateListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 750,-1 ), agwStyle=wx.LC_VRULES | wx.LC_HRULES | wx.LC_REPORT )
+        self.m_listCtrl3 = ULC.UltimateListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 685,150 ), agwStyle=wx.LC_VRULES | wx.LC_HRULES | wx.LC_REPORT )
         fgSizer12.Add( self.m_listCtrl3, 0, wx.ALL, 5 )
         
+        button_right_sizer = wx.BoxSizer( wx.VERTICAL )
+                
+        self.m_button8 = wx.Button( self, wx.ID_ANY, u"Add", wx.DefaultPosition, wx.Size( 50,-1 ), 0 )
+        self.m_button8.SetForegroundColour( wx.Colour( 91, 196, 117 ) )
+        self.m_button8.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
         
-        fgSizer13.Add( fgSizer12, 1, wx.EXPAND, 5 )
+        button_right_sizer.Add( self.m_button8, 0, wx.ALL, 5 )
+        
+        self.m_button9 = wx.Button( self, wx.ID_ANY, u"Edit", wx.DefaultPosition, wx.Size( 50,-1 ), 0 )
+        button_right_sizer.Add( self.m_button9, 0, wx.ALL, 5 )
+        
+        self.m_button10 = wx.Button( self, wx.ID_ANY, u"Delete", wx.DefaultPosition, wx.Size( 50,-1 ), 0 )
+        self.m_button10.SetForegroundColour( wx.Colour( 255, 88, 88 ) )
+        
+        button_right_sizer.Add( self.m_button10, 0, wx.ALL, 5 )
+        
+        
+        fgSizer12.Add( button_right_sizer, 1, wx.EXPAND, 5 )
+        
+        
+        fgSizer13.Add( fgSizer12, 1, wx.EXPAND, 5 )        
 
         supa_sizer.Add(fgSizer13, 1, wx.EXPAND, 5)
         
