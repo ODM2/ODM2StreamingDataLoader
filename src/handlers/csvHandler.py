@@ -25,7 +25,8 @@ class CSVReader():
         return df.columns.values.tolist()
     
 
-    def byteReader(self, filepath, start_byte, sep, datecol, skip=0):
+    def byteReader(self, filepath, start_byte, datecol, header=0, sep=None, dataBegin=0):
+    #def byteReader(self, filepath, start_byte, sep, datecol, skip=0):
         '''
         byteReader reads from a given file (filepath) beginning at the
         given byte (start_byte). This method returns an empty Pandas
@@ -66,7 +67,7 @@ class CSVReader():
                     # expensive because the headers are almost
                     # always gaurenteed to be within about 100
                     # lines.
-                    for i in range(skip+1):
+                    for i in range(header):
                         header_names = f.next()
 
                     f.seek(int(start_byte))
@@ -91,9 +92,10 @@ class CSVReader():
                     logger.info('New data:\n%s' % finished_data)
                     
                     df = pd.read_csv(StringIO(finished_data),
-                                        header=skip,
+                                        header=(header - 1),
                                         sep=str(sep),
                                         engine='python')
+                    df = df.ix[(dataBegin - header) - 1:]
                     df.set_index(datecol, inplace=True)
 
         

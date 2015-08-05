@@ -81,9 +81,10 @@ class Mapping():
         
         self.rawData = reader.byteReader(path,
                 start_byte=byte,
-                sep=self.mapping['Settings']['Delimiter'],
                 datecol=self.mapping['Settings']['DateTimeColumnName'],
-                skip=self.mapping['Settings']['HeaderRowPosition'] - 1)
+                sep=self.mapping['Settings']['Delimiter'],
+                header=self.mapping['Settings']['HeaderRowPosition'],
+                dataBegin=self.mapping['Settings']['DataRowPosition'])
 
         if self.rawData.empty:
             return False
