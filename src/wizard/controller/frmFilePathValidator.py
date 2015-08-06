@@ -21,7 +21,7 @@ class FilePathValidator(wx.PyValidator):
         text = text_ctrl.GetValue()
         if not os.path.exists(text):
             text_ctrl.SetBackgroundColour('pink')
-            wx.MessageBox('Not a valid file path.', 'You lie to me?')
+            wx.MessageBox('Not a valid file path.', 'Form Error')
             text_ctrl.SetFocus()
             text_ctrl.Refresh()
             return False

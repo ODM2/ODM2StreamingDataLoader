@@ -4,6 +4,7 @@ import wx.lib.masked as masked
 import operator
 
 from controller.frmFilePathValidator import FilePathValidator
+from controller.frmURLValidator import URLValidator
 
 class FileConfigPanelView(wx.Panel):
     def __init__(self, parent, **kwargs):
@@ -54,7 +55,8 @@ class FileConfigPanelView(wx.Panel):
 
         self.remote_file_txt =  wx.TextCtrl(\
             file_location_sizer.GetStaticBox(), wx.ID_ANY,
-            wx.EmptyString, wx.Point(-1,-1), wx.Size(500,-1))
+            wx.EmptyString, wx.Point(-1,-1), wx.Size(500,-1),
+            validator=URLValidator())
         file_location_flex_sizer.Add(self.remote_file_txt, 0,
             wx.ALL, 5)
 
@@ -66,6 +68,8 @@ class FileConfigPanelView(wx.Panel):
             self.remote_file_radio)
         self.Bind(wx.EVT_BUTTON, self.onFileSelectPath,
             self.local_file_btn)
+        #self.Bind(wx.EVT_BUTTON, self.onFileSelectRemotePath,
+        #    self.remote_file_btn)
         
         file_location_sizer.Add(file_location_flex_sizer,
             1, wx.EXPAND, 5)

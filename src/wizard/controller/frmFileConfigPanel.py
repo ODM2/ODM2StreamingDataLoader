@@ -1,11 +1,11 @@
 
 import wx
 import os
-import locale
 from datetime import datetime
 
 from view.clsFileConfigPanel import FileConfigPanelView
 from controller.frmFilePathValidator import FilePathValidator
+from controller.frmURLValidator import URLValidator
 
 class FileConfigPanelController(FileConfigPanelView):
     def __init__(self, daddy, **kwargs):
@@ -13,6 +13,7 @@ class FileConfigPanelController(FileConfigPanelView):
         self.parent = daddy
         self.inputDict = {}
         self.dataFileRadioSelected = self.local_file_radio
+        self.remote_file_txt.SetValidator(wx.DefaultValidator)
 
 
     def onFileSelect(self, event):
@@ -32,7 +33,7 @@ class FileConfigPanelController(FileConfigPanelView):
             self.remote_file_txt.Enable(True)
             self.local_file_txt.Enable(False)
             self.local_file_btn.Enable(False)
-            self.remote_file_txt.SetValidator(FilePathValidator())
+            self.remote_file_txt.SetValidator(URLValidator())
             self.local_file_txt.SetValidator(wx.DefaultValidator)
             self.dataFileRadioSelected = self.remote_file_radio
 
@@ -58,8 +59,9 @@ class FileConfigPanelController(FileConfigPanelView):
         if self.local_file_radio.GetValue():
             path = self.local_file_txt.GetValue()
             return path or None
-        
         path = self.remote_file_txt.GetValue()
+        if path.startswith('http://') == False:
+            path = 'http://' + path
         return path or None
 
     def _getDataBeginLine(self):
@@ -88,9 +90,6 @@ class FileConfigPanelController(FileConfigPanelView):
         date = self.m_datePicker3.GetValue()
         time = self.m_timePicker1.GetValue()
 
-        locale.setlocale(locale.LC_ALL, '')
-
-        #v1 = datetime.strptime(str(date), '%a %b %d %H:%M:%S %Y').strftime('%m/%d/%Y')
         v1 = datetime.strptime(str(date), '%c').strftime('%m/%d/%Y')
         value = v1 + ' ' + str(time)
         return value

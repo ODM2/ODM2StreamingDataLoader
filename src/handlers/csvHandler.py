@@ -1,5 +1,7 @@
 import os
+import urllib2
 import pandas as pd
+import tempfile
 import logging
 from StringIO import StringIO
 
@@ -14,6 +16,12 @@ class CSVReader():
     '''
     
     def dataFrameReader(self, filepath, header=0, sep=None, dataBegin=0):
+        
+        if filepath.startswith('http://'):
+            response = urllib2.urlopen(filepath)
+            data = response.read()
+            filepath = StringIO(data)
+        
         df = pd.read_csv(filepath, header=(header - 1), sep=sep)
         df = df.ix[(dataBegin - header) - 1:]
         return df
@@ -42,6 +50,24 @@ class CSVReader():
         skip - the number of lines to skip, i.e. where the data begins
              in the CSV file.
         '''
+        try:
+            if filepath.startswith('http://'):
+                response = urllib2.urlopen(filepath)
+                data = response.read()
+                #filepath = StringIO(data)
+
+                temp = tempfile.NamedTemporaryFile()
+                try:
+                    temp.write(data)
+                    temp.seek(0)
+                finally:
+                    print temp.name
+                    df = self.byteReader(temp.name, start_byte, datecol, header, sep, dataBegin)
+                    temp.close()
+                    return df
+                #return self.byteReader(filepath, start_byte, datecol, header, sep, dataBegin)
+        except AttributeError:
+            print 'not a text'
 
         df = pd.DataFrame
         
@@ -53,10 +79,11 @@ class CSVReader():
             logger.info('Previous data has been modified.')
             start_byte = 0
         
+        
         try:
-
+            print filepath
             with open(filepath, 'rb') as f:
-                
+                print 'sdfsdf ', f.readlines()
                 logger.info('Reading from byte %d.' % start_byte)
                 # If we are going to skip to the new location, we need
                 # to make sure and grab the header for Pandas.
