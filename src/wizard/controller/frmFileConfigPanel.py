@@ -87,7 +87,7 @@ class FileConfigPanelController(FileConfigPanelView):
         date = self.m_datePicker3.GetValue()
         time = self.m_timePicker1.GetValue()
 
-        v1 = datetime.strptime(str(date), '%c').strftime('%m/%d/%Y')
+        v1 = datetime.strptime(str(date), '%a %b %d %H:%M:%S %Y').strftime('%m/%d/%Y')
         value = v1 + ' ' + str(time)
         return value
 
