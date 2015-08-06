@@ -81,9 +81,7 @@ class CSVReader():
         
         
         try:
-            print filepath
             with open(filepath, 'rb') as f:
-                print 'sdfsdf ', f.readlines()
                 logger.info('Reading from byte %d.' % start_byte)
                 # If we are going to skip to the new location, we need
                 # to make sure and grab the header for Pandas.
@@ -99,7 +97,7 @@ class CSVReader():
 
                     f.seek(int(start_byte))
                     new_data = f.read()
-                
+                    print 'new_data', new_data 
                     finished_data = header_names + new_data
                     
                     if new_data:

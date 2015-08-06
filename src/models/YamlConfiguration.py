@@ -5,6 +5,8 @@ import os
 import csv
 import datetime
 import logging
+import urllib2
+import tempfile
 
 logger = logging.getLogger('SDL_logger')
 
@@ -33,6 +35,7 @@ class YamlConfiguration():
         self.yamlFilePath = configFilePath
         self.yamlDict = {}
         self.yamlDict = self._readFile(self.yamlFilePath)
+        self._remoteFileMagic()
         self.dataFile = dataFile
 
 
@@ -50,6 +53,10 @@ class YamlConfiguration():
                                  ['LastByteRead'] = '-1'
                     break
 
+
+    def _remoteFileMagic(self):
+        for chunk in self.yamlDict.keys():
+            print chunk
 
     def _readFile(self, path):
         '''
@@ -109,8 +116,25 @@ class YamlConfiguration():
         These changes are not reflected in the actual file
         until the rebase method is called.
         '''
-        fileSize = os.path.getsize(configFileDict[1]['Settings']\
-                                                 ['FileLocation'])
+        
+        try:
+            fileSize = os.path.getsize(configFileDict[1]['Settings']\
+                                                     ['FileLocation'])
+        except OSError:
+            response = urllib2.urlopen(configFileDict[1]['Settings']\
+                ['FileLocation'])
+            data = response.read()
+            temp = tempfile.NamedTemporaryFile()
+            try:
+                temp.write(data)
+                temp.seek(0)
+            finally:
+                fileSize = os.path.getsize(temp.name)
+                configFileDict[1]['Mappings'][columnName]\
+                    ['LastByteRead'] = str(fileSize)
+                temp.close()
+                return configFileDict
+        
         configFileDict[1]['Mappings'][columnName]\
                       ['LastByteRead'] = str(fileSize)
         
