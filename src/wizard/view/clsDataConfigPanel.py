@@ -98,7 +98,10 @@ class DataConfigPanelView(wx.Panel):
         self.SetSizer(supa_sizer)
         self.Layout()
 
+        self.Bind(wx.EVT_BUTTON, self.onAddNew, self.m_button8)
 
     def __del__(self):
         pass
-
+    
+    def onAddNew(self, event):
+        event.Skip()

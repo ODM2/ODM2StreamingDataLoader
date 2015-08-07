@@ -5,6 +5,8 @@ from copy import deepcopy
 from view.clsDataConfigPanel import DataConfigPanelView
 from handlers.csvHandler import CSVReader
 
+from controller.frmSeriesWizard import SeriesWizardController
+
 class DataConfigPanelController(DataConfigPanelView):
     def __init__(self, daddy, **kwargs):
         super(DataConfigPanelController, self).__init__(daddy, **kwargs)
@@ -61,4 +63,9 @@ class DataConfigPanelController(DataConfigPanelView):
                     wx.LIST_AUTOSIZE)
 
         self.prev_data = deepcopy(data)
-        
+
+    def onAddNew(self, event):
+        seriesWizard = SeriesWizardController(self)
+        seriesWizard.run()
+        event.Skip()
+
