@@ -1,7 +1,10 @@
 import wx
 
+from controller.frmNewSeriesDialog import NewSeriesDialog
+from controller.frmAddNewSourcePanel import AddNewSourcePanelController
+
 class SeriesSelectPanel(wx.Panel):
-    def __init__( self, parent, label ):
+    def __init__( self, parent, label):
         wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 644,330 ), style = wx.TAB_TRAVERSAL )
         
         fgSizer1 = wx.FlexGridSizer( 0, 1, 0, 0 )
@@ -27,9 +30,33 @@ class SeriesSelectPanel(wx.Panel):
         
         self.SetSizer(fgSizer1)
         self.Layout()
+        
+        # The panel to use for adding a new series.
+        self.label = label
 
-    def setLabels(self, string):
-        print dir(self.static_txt)
+        self.Bind(wx.EVT_BUTTON, self.onButtonAdd)
+
+    def addPanel(self, panel):
+        self.new_panel = panel
+    
+    def onButtonAdd(self, event):
+        # Open a 'new_xxx' dialog.
+        dlg = NewSeriesDialog(self, u'Create New ' + self.label)
+
+        if self.label == u'Source':
+            newSourcePanel = AddNewSourcePanelController(dlg)
+            dlg.addPanel(newSourcePanel)
+
+        dlg.CenterOnScreen()
+
+        if dlg.ShowModal() == wx.ID_OK:
+            print 'OK'
+        else:
+            pass
+
+        dlg.Destroy()
+
+        event.Skip()
     
     def __del__( self ):
         pass

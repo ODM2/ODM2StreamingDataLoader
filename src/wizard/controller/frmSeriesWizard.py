@@ -22,7 +22,7 @@ class SeriesWizardController(wiz.Wizard):
         
         page1 = WizardPage(self)
         page2 = WizardPage(self)
-       
+
         siteSelectPanel = SeriesSelectPanel(page1, u'Site')
         sourceSelectPanel = SeriesSelectPanel(page2, u'Source')
 
