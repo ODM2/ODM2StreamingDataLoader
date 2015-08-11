@@ -1,0 +1,72 @@
+## Configuration file
+## Last modified: 2015-08-11 14:56
+---
+Custom_file_id:
+  Database:
+    Address: jws.uwrl.usu.edu
+    DatabaseName: odm2
+    Password: ODM123!!
+    UserName: ODM
+  Mappings:
+    AirTemperature-C:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '2345'
+      ResultID: 1
+    NetRadiation-Watts/m2:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '2345'
+      ResultID: 2
+    Precipitation-mm:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '2345'
+      ResultID: 3
+    RelativeHumidity-%:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '2345'
+      ResultID: 4
+    SnowDepth-cm:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '2345'
+      ResultID: 5
+    SolarRadiation-Watts/m2:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '2345'
+      ResultID: 6
+    WindDirection-Degree:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '2345'
+      ResultID: 7
+    WindSpeed-m/s:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '2345'
+      ResultID: 8
+  Schedule:
+    Beginning: 6/4/2014 11:00:00 AM
+    Frequency: Minute
+    LastUpdate: 1/1/2015 12:00:00 AM
+    Time: 1
+  Settings:
+    DataRowPosition: 22
+    DateTimeColumnName: DateTime
+    Delimiter: ','
+    FileLocation: /home/denver/raw.csv
+    FileLocationType: Local
+    FillGaps: false
+    HeaderRowPosition: 20
+    UTCOffset: -6
