@@ -89,10 +89,18 @@ class FileConfigPanelController(FileConfigPanelView):
     def _getBegin(self):
         date = self.m_datePicker3.GetValue()
         time = self.m_timePicker1.GetValue()
-
-        v1 = datetime.strptime(str(date), '%c').strftime('%m/%d/%Y')
-        value = v1 + ' ' + str(time)
-        return value
+        begin = ''
+        try:
+            begin = datetime.strptime(str(date), '%c').strftime('%m/%d/%Y')
+            begin = begin + ' ' + str(time)
+        except ValueError:
+            date = str(date)
+            print date
+            date = date.replace("'PMt'", '')
+            date = date.replace("'AMt'", '')
+            begin = datetime.strptime(date, '%A, %B %d, %Y %X %p').strftime('%m/%d/%Y')
+            begin = begin + ' ' + str(time)
+        return begin
 
     def getInput(self):
         dataFilePath = self._getDataFilePath()
