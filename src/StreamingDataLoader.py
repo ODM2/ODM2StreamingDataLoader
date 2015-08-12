@@ -8,13 +8,22 @@ import logging
 
 from models.YamlConfiguration import YamlConfiguration
 from controllers.Mapping import Mapping
+from lib.Appdirs.appdirs import user_config_dir
 
 import numpy as np
+import os
+
+def _get_file(filename):
+        #fn = util.resource_path('connection.config')
+        fn = os.path.join(user_config_dir("SDL", "UCHIC"), filename)
+        print fn
+
+        return fn
 
 def main(arguments):
 
     # Create logger.
-    LOG_FILENAME = 'logfile.txt'
+    LOG_FILENAME = _get_file( 'logfile.txt')
     logger = logging.getLogger('SDL_logger')
     
     # Set logging verbosity to either DEBUG or INFO.

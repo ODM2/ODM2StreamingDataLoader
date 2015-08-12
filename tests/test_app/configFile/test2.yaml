@@ -1,5 +1,5 @@
 ## Configuration file
-## Last modified: 2015-08-11 14:56
+## Last modified: 2015-08-12 13:48
 ---
 Custom_file_id:
   Database:
@@ -65,7 +65,7 @@ Custom_file_id:
     DataRowPosition: 22
     DateTimeColumnName: DateTime
     Delimiter: ','
-    FileLocation: /home/denver/raw.csv
+    FileLocation: /Users/stephanie/DEV/StreamingDataLoader/tests/test_handlers/test_csvHandler/csvFiles/raw.csv
     FileLocationType: Local
     FillGaps: false
     HeaderRowPosition: 20

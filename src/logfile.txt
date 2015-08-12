@@ -142,3 +142,28 @@ DateTime,Precipitation-mm,AirTemperature-C,SolarRadiation-Watts/m2,NetRadiation-
 1/6/2015 9:30,2,3,1,10,1200,126700,172,.001
 
 [2015-07-27 17:58:15 INFO] Completed execution.
+[2015-08-11 15:01:23 INFO] Beginning execution.
+[2015-08-11 15:01:24 INFO] Completed execution.
+[2015-08-11 15:01:43 INFO] Beginning execution.
+[2015-08-11 15:01:44 INFO] Completed execution.
+[2015-08-11 15:02:10 INFO] Beginning execution.
+[2015-08-11 15:14:48 INFO] Beginning execution.
+[2015-08-11 15:14:49 INFO] Reading from byte 2345.
+[2015-08-11 15:14:49 INFO] No new data.
+[2015-08-11 15:14:49 INFO] Completed execution.
+[2015-08-12 11:20:14 INFO] Beginning execution.
+[2015-08-12 11:20:17 INFO] Reading from byte 2345.
+[2015-08-12 11:20:17 INFO] No new data.
+[2015-08-12 11:20:17 INFO] Completed execution.
+[2015-08-12 11:21:11 INFO] Beginning execution.
+[2015-08-12 11:21:11 INFO] Reading from byte 2345.
+[2015-08-12 11:21:11 INFO] No new data.
+[2015-08-12 11:21:11 INFO] Completed execution.
+[2015-08-12 11:53:48 INFO] Beginning execution.
+[2015-08-12 11:53:48 INFO] Reading from byte 2345.
+[2015-08-12 11:53:48 INFO] No new data.
+[2015-08-12 11:53:48 INFO] Completed execution.
+[2015-08-12 11:56:56 INFO] Beginning execution.
+[2015-08-12 11:56:57 INFO] Reading from byte 2345.
+[2015-08-12 11:56:57 INFO] No new data.
+[2015-08-12 11:56:57 INFO] Completed execution.

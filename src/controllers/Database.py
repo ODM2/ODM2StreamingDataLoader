@@ -4,7 +4,9 @@ __author__ = 'Denver'
 import sys
 import logging
 
-sys.path.append('/home/denver/Documents/ODM2PythonAPI')
+
+
+sys.path.append("/Users/Stephanie/DEV/ODM2PythonAPI")
 #from src.api.ODM2.services.createService import CreateODM2
 from src.api.ODMconnection import dbconnection
 #from src.api.ODM2.services.readService import ReadODM2

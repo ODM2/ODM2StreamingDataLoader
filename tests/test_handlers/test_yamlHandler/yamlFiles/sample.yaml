@@ -1,63 +1,64 @@
 ## Configuration file
+## Last modified: 2015-08-11 15:1
 ---
-  1:
-    Database:
-      Address: Arroyo.uwrl.usu.edu
-      DatabaseName: Test_ODM
-      Password: odm
-      UserName: ODM
-    Settings:
-      DataRowPosition: 21
-      DateTimeColumnName: DateTime
-      Delimiter: ','
-      FileLocation: "/Users/stephanie/DEV/StreamingDataLoader/tests/test_handlers/test_csvHandler/csvFiles/Treeline_HrlySummary_2014.csv"
-      FileLocationType: Local
-      HeaderRowPosition: 20
-      FillGaps: False
-      UTCOffset: -7
-    Mappings:
-      AirTemperature-C:
-        CalculateAggInterval: True
-        IntentedTimeSpacing: 15
-        IntentedTimeSpacingUnitID: 3
-        ResultID: 1
-      NetRadiation-Watts/m2:
-        CalculateAggInterval: True
-        IntentedTimeSpacing: 15
-        IntentedTimeSpacingUnitID: 3
-        ResultID: 2
-      Precipitation-mm:
-        CalculateAggInterval: True
-        IntentedTimeSpacing: 15
-        IntentedTimeSpacingUnitID: 3
-        ResultID: 3
-      RelativeHumidity-%:
-        CalculateAggInterval: True
-        IntentedTimeSpacing: 15
-        IntentedTimeSpacingUnitID: 3
-        ResultID: 4
-      SnowDepth-cm:
-        CalculateAggInterval: True
-        IntentedTimeSpacing: 15
-        IntentedTimeSpacingUnitID: 3
-        ResultID: 5
-      SolarRadiation-Watts/m2:
-        CalculateAggInterval: True
-        IntentedTimeSpacing: 15
-        IntentedTimeSpacingUnitID: 3
-        ResultID: 6
-      WindDirection-Degree:
-        CalculateAggInterval: True
-        IntentedTimeSpacing: 15
-        IntentedTimeSpacingUnitID: 3
-        ResultID: 7
-      WindSpeed-m/s:
-        CalculateAggInterval: True
-        IntentedTimeSpacing: 15
-        IntentedTimeSpacingUnitID: 3
-        ResultID: 9
-    Schedule:
-      Beginning: "6/4/2014 11:00:00 AM"
-      Frequency: Minute
-      Time: 1
-      LastUpdate: "1/1/0001 12:00:00 AM"
+1:
+  Database:
+    Address: jws.uwrl.usu.edu
+    DatabaseName: ODM2
+    Password: ODM123!!
+    UserName: ODM
+  Mappings:
+    AirTemperature-C:
+      CalculateAggInterval: true
+      IntentedTimeSpacing: 15
+      IntentedTimeSpacingUnitID: 3
+      ResultID: 1
+    NetRadiation-Watts/m2:
+      CalculateAggInterval: true
+      IntentedTimeSpacing: 15
+      IntentedTimeSpacingUnitID: 3
+      ResultID: 2
+    Precipitation-mm:
+      CalculateAggInterval: true
+      IntentedTimeSpacing: 15
+      IntentedTimeSpacingUnitID: 3
+      ResultID: 3
+    RelativeHumidity-%:
+      CalculateAggInterval: true
+      IntentedTimeSpacing: 15
+      IntentedTimeSpacingUnitID: 3
+      ResultID: 4
+    SnowDepth-cm:
+      CalculateAggInterval: true
+      IntentedTimeSpacing: 15
+      IntentedTimeSpacingUnitID: 3
+      ResultID: 5
+    SolarRadiation-Watts/m2:
+      CalculateAggInterval: true
+      IntentedTimeSpacing: 15
+      IntentedTimeSpacingUnitID: 3
+      ResultID: 6
+    WindDirection-Degree:
+      CalculateAggInterval: true
+      IntentedTimeSpacing: 15
+      IntentedTimeSpacingUnitID: 3
+      ResultID: 7
+    WindSpeed-m/s:
+      CalculateAggInterval: true
+      IntentedTimeSpacing: 15
+      IntentedTimeSpacingUnitID: 3
+      ResultID: 9
+  Schedule:
+    Beginning: 6/4/2014 11:00:00 AM
+    Frequency: Minute
+    LastUpdate: 1/1/0001 12:00:00 AM
+    Time: 1
+  Settings:
+    DataRowPosition: 21
+    DateTimeColumnName: DateTime
+    Delimiter: ','
+    FileLocation: /Users/stephanie/DEV/StreamingDataLoader/tests/test_handlers/test_csvHandler/csvFiles/Treeline_HrlySummary_2014.csv
+    FileLocationType: Local
+    FillGaps: false
+    HeaderRowPosition: 20
+    UTCOffset: -7
