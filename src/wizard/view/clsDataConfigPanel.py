@@ -3,6 +3,7 @@ import wx
 import wx.lib.agw.ultimatelistctrl as ULC
 
 from controller.frmVirtualList import VirtualList
+from lib.ObjectListView.ObjectListView import VirtualObjectListView
 
 class DataConfigPanelView(wx.Panel):
     def __init__(self, parent, **kwargs):
@@ -99,9 +100,16 @@ class DataConfigPanelView(wx.Panel):
         self.Layout()
 
         self.Bind(wx.EVT_BUTTON, self.onAddNew, self.m_button8)
+        self.Bind(wx.EVT_LIST_COL_CLICK, self.onColClick,
+            self.m_listCtrl1)
+        self.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onColClick,
+            self.m_listCtrl1)
 
     def __del__(self):
         pass
     
     def onAddNew(self, event):
+        event.Skip()
+
+    def onColClick(self, event):
         event.Skip()

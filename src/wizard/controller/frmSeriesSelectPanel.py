@@ -1,7 +1,10 @@
 import wx
 
 from controller.frmNewSeriesDialog import NewSeriesDialog
-from controller.frmAddNewSourcePanel import AddNewSourcePanelController
+from controller.frmAddNewVariablePanel import AddNewVariablePanelController
+from controller.frmAddNewUnitPanel import AddNewUnitPanelController
+from controller.frmAddNewProcLevelPanel import AddNewProcLevelPanelController
+from controller.frmAddNewMethodPanel import AddNewMethodPanelController
 
 class SeriesSelectPanel(wx.Panel):
     def __init__( self, parent, label):
@@ -24,7 +27,7 @@ class SeriesSelectPanel(wx.Panel):
         
         self.new_button = wx.Button(self, wx.ID_ANY,
                 u"Add New " + label, wx.DefaultPosition,
-                wx.Size(100,-1), 0)
+                wx.Size(-1,-1), 0)
         fgSizer1.Add(self.new_button, 0, wx.ALIGN_RIGHT|wx.ALL, 5 )
         
         
@@ -43,9 +46,21 @@ class SeriesSelectPanel(wx.Panel):
         # Open a 'new_xxx' dialog.
         dlg = NewSeriesDialog(self, u'Create New ' + self.label)
 
-        if self.label == u'Source':
-            newSourcePanel = AddNewSourcePanelController(dlg)
-            dlg.addPanel(newSourcePanel)
+        if self.label == u'Variable':
+            newVariablePanel = AddNewVariablePanelController(dlg)
+            dlg.addPanel(newVariablePanel)
+        
+        if self.label == u'Unit':
+            newUnitPanel = AddNewUnitPanelController(dlg)
+            dlg.addPanel(newUnitPanel)
+        
+        if self.label == u'Processing Level':
+            newProcLevelPanel = AddNewProcLevelPanelController(dlg)
+            dlg.addPanel(newProcLevelPanel)
+        
+        if self.label == u'Method':
+            newMethodPanel = AddNewMethodPanelController(dlg)
+            dlg.addPanel(newMethodPanel)
 
         dlg.CenterOnScreen()
 

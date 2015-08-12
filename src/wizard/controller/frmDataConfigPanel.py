@@ -43,7 +43,7 @@ class DataConfigPanelController(DataConfigPanelView):
             csv = CSVReader()
 
             self.m_listCtrl1.RefreshAllItems()
-
+            
             df = csv.dataFrameReader(data['dataFilePath'],
                 header=data['columnBegin'], sep=data['delimiter'],
                 dataBegin=data['dataBegin'])
@@ -68,4 +68,11 @@ class DataConfigPanelController(DataConfigPanelView):
         seriesWizard = SeriesWizardController(self)
         seriesWizard.run()
         event.Skip()
-
+    
+    def onColClick(self, event):
+        print dir(event)
+        print event.GetColumn()
+        print event.m_item
+        print event.m_itemIndex
+        print event.m_itemCol
+        event.Skip()

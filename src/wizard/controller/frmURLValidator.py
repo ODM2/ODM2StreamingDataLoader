@@ -1,5 +1,7 @@
 import wx
 import os
+
+os.environ['http_proxy'] = ''
 import urllib2
 
 class URLValidator(wx.PyValidator):
@@ -19,7 +21,7 @@ class URLValidator(wx.PyValidator):
     
     def Validate(self, win):
         text_ctrl = self.GetWindow()
-        url = str(text_ctrl.GetValue())
+        url = str(text_ctrl.GetValue()).lstrip(' ')
         error_message = 'Enter a valid URL data file path.'
 
         # Check if text is empty.
@@ -34,7 +36,8 @@ class URLValidator(wx.PyValidator):
                     wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW))
                 text_ctrl.Refresh()
                 return True
-            except urllib2.URLError:
+            except urllib2.URLError as e:
+                print e
                 error_message = 'Unable to connect to the provided URL!'
         
         text_ctrl.SetBackgroundColour('pink')

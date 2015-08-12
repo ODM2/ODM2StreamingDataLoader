@@ -2,124 +2,184 @@ import wx
 
 class AddNewSourcePanelView ( wx.Panel ):
     def __init__( self, parent ):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 300,444 ), style = wx.TAB_TRAVERSAL )
-        
-        self.SetMinSize( wx.Size( 300,470 ) )
+        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 402,528 ), style = wx.TAB_TRAVERSAL )
+                
+        self.SetMinSize( wx.Size( 402,528 ) )
         
         bSizer1 = wx.BoxSizer( wx.VERTICAL )
         
         sbSizer1 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Required Fields:" ), wx.VERTICAL )
         
-        self.organization_txt = wx.SearchCtrl(sbSizer1.GetStaticBox(),
-                wx.ID_ANY, u'a',
-                wx.DefaultPosition, wx.DefaultSize,
-                style=wx.TE_NOHIDESEL)
-        self.organization_txt.ShowSearchButton( False )
-        self.organization_txt.ShowCancelButton( False )
-        self.organization_txt.SetMinSize( wx.Size( 280,25 ) )
-        self.organization_txt.SetDescriptiveText(u"Organization")
-        self.organization_txt.SetForegroundColour((0,0,0))
-        self.organization_txt.SetValue(u'')
-        sbSizer1.Add( self.organization_txt, 0, wx.ALL, 5 )
+        bSizer18 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.description_txt = wx.SearchCtrl(sbSizer1.GetStaticBox(),
-                wx.ID_ANY, wx.EmptyString,
-                wx.DefaultPosition, wx.DefaultSize, 0)
-        self.description_txt.ShowSearchButton( False )
-        self.description_txt.ShowCancelButton( False )
-        self.description_txt.SetMinSize( wx.Size( 280,25 ) )
-        self.description_txt.SetDescriptiveText(u"Description")
-        sbSizer1.Add( self.description_txt, 0, wx.ALL, 5 )
+        self.m_staticText12 = wx.StaticText( sbSizer1.GetStaticBox(), wx.ID_ANY, u"Organization", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText12.Wrap( -1 )
+        bSizer18.Add( self.m_staticText12, 0, wx.ALL, 5 )
         
-        self.citation_txt = wx.SearchCtrl(sbSizer1.GetStaticBox(),
-                wx.ID_ANY, wx.EmptyString,
-                wx.DefaultPosition, wx.DefaultSize, 0)
-        self.citation_txt.ShowSearchButton( False )
-        self.citation_txt.ShowCancelButton( False )
-        self.citation_txt.SetMinSize( wx.Size( 280,25 ) )
-        self.citation_txt.SetDescriptiveText(u"Citation")
-        sbSizer1.Add( self.citation_txt, 0, wx.ALL, 5 )
         
-        self.contact_name_txt = wx.SearchCtrl(sbSizer1.GetStaticBox(),
-                wx.ID_ANY, wx.EmptyString,
-                wx.DefaultPosition, wx.DefaultSize, 0)
-        self.contact_name_txt.ShowSearchButton( False )
-        self.contact_name_txt.ShowCancelButton( False )
-        self.contact_name_txt.SetDescriptiveText(u"Contact Name")
-        self.contact_name_txt.SetMinSize( wx.Size( 280,25 ) )
+        bSizer18.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        sbSizer1.Add( self.contact_name_txt, 0, wx.ALL, 5 )
+        self.m_textCtrl3 = wx.TextCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl3.SetMinSize( wx.Size( 280,-1 ) )
         
-        self.contact_addr_txt = wx.SearchCtrl(sbSizer1.GetStaticBox(),
-                wx.ID_ANY, wx.EmptyString,
-                wx.DefaultPosition, wx.DefaultSize, 0)
-        self.contact_addr_txt.ShowSearchButton( False )
-        self.contact_addr_txt.ShowCancelButton( False )
-        self.contact_addr_txt.SetMinSize( wx.Size( 280,25 ) )
-        self.contact_addr_txt.SetDescriptiveText(u"Contact Address")
+        bSizer18.Add( self.m_textCtrl3, 0, wx.ALL, 5 )
         
-        sbSizer1.Add( self.contact_addr_txt, 0, wx.ALL, 5 )
         
-        self.contact_phone_txt = wx.SearchCtrl(sbSizer1.GetStaticBox(),
-                wx.ID_ANY, wx.EmptyString,
-                wx.DefaultPosition, wx.DefaultSize, 0)
-        self.contact_phone_txt.ShowSearchButton( False )
-        self.contact_phone_txt.ShowCancelButton( False )
-        self.contact_phone_txt.SetMinSize( wx.Size( 280,25 ) )
-        self.contact_phone_txt.SetDescriptiveText(u"Contact Phone")
+        sbSizer1.Add( bSizer18, 1, wx.EXPAND, 5 )
         
-        sbSizer1.Add( self.contact_phone_txt, 0, wx.ALL, 5 )
+        bSizer19 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.contact_email_txt = wx.SearchCtrl(sbSizer1.GetStaticBox(),
-                wx.ID_ANY, wx.EmptyString,
-                wx.DefaultPosition, wx.DefaultSize, 0)
-        self.contact_email_txt.ShowSearchButton( False )
-        self.contact_email_txt.ShowCancelButton( False )
-        self.contact_email_txt.SetMinSize( wx.Size( 280,25 ) )
-        self.contact_email_txt.SetDescriptiveText(u"Contact Email")
+        self.m_staticText14 = wx.StaticText( sbSizer1.GetStaticBox(), wx.ID_ANY, u"Description", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText14.Wrap( -1 )
+        bSizer19.Add( self.m_staticText14, 0, wx.ALL, 5 )
         
-        sbSizer1.Add( self.contact_email_txt, 0, wx.ALL, 5 )
         
-        self.state_txt = wx.SearchCtrl(sbSizer1.GetStaticBox(),
-                wx.ID_ANY, wx.EmptyString,
-                wx.DefaultPosition, wx.DefaultSize, 0)
-        self.state_txt.ShowSearchButton( False )
-        self.state_txt.ShowCancelButton( False )
-        self.state_txt.SetMinSize( wx.Size( 280,25 ) )
-        self.state_txt.SetDescriptiveText(u"State")
+        bSizer19.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        sbSizer1.Add( self.state_txt, 0, wx.ALL, 5 )
+        self.m_textCtrl31 = wx.TextCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl31.SetMinSize( wx.Size( 280,-1 ) )
+        
+        bSizer19.Add( self.m_textCtrl31, 0, wx.ALL, 5 )
+        
+        
+        sbSizer1.Add( bSizer19, 1, wx.EXPAND, 5 )
+        
+        bSizer20 = wx.BoxSizer( wx.HORIZONTAL )
+        
+        self.m_staticText15 = wx.StaticText( sbSizer1.GetStaticBox(), wx.ID_ANY, u"Citation", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText15.Wrap( -1 )
+        bSizer20.Add( self.m_staticText15, 0, wx.ALL, 5 )
+        
+        
+        bSizer20.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        
+        self.m_textCtrl32 = wx.TextCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl32.SetMinSize( wx.Size( 280,-1 ) )
+        
+        bSizer20.Add( self.m_textCtrl32, 0, wx.ALL, 5 )
+        
+        
+        sbSizer1.Add( bSizer20, 1, wx.EXPAND, 5 )
+        
+        bSizer21 = wx.BoxSizer( wx.HORIZONTAL )
+        
+        self.m_staticText16 = wx.StaticText( sbSizer1.GetStaticBox(), wx.ID_ANY, u"Contact Name", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText16.Wrap( -1 )
+        bSizer21.Add( self.m_staticText16, 0, wx.ALL, 5 )
+        
+        
+        bSizer21.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        
+        self.m_textCtrl33 = wx.TextCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl33.SetMinSize( wx.Size( 280,-1 ) )
+        
+        bSizer21.Add( self.m_textCtrl33, 0, wx.ALL, 5 )
+        
+        
+        sbSizer1.Add( bSizer21, 1, wx.EXPAND, 5 )
+        
+        bSizer22 = wx.BoxSizer( wx.HORIZONTAL )
+        
+        self.m_staticText17 = wx.StaticText( sbSizer1.GetStaticBox(), wx.ID_ANY, u"Contact Address", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText17.Wrap( -1 )
+        bSizer22.Add( self.m_staticText17, 0, wx.ALL, 5 )
+        
+        
+        bSizer22.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        
+        self.m_textCtrl34 = wx.TextCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl34.SetMinSize( wx.Size( 280,-1 ) )
+        
+        bSizer22.Add( self.m_textCtrl34, 0, wx.ALL, 5 )
+        
+        
+        sbSizer1.Add( bSizer22, 1, wx.EXPAND, 5 )
+        
+        bSizer23 = wx.BoxSizer( wx.HORIZONTAL )
+        
+        self.m_staticText18 = wx.StaticText( sbSizer1.GetStaticBox(), wx.ID_ANY, u"Contact Phone", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText18.Wrap( -1 )
+        bSizer23.Add( self.m_staticText18, 0, wx.ALL, 5 )
+        
+        
+        bSizer23.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        
+        self.m_textCtrl35 = wx.TextCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl35.SetMinSize( wx.Size( 280,-1 ) )
+        
+        bSizer23.Add( self.m_textCtrl35, 0, wx.ALL, 5 )
+        
+        
+        sbSizer1.Add( bSizer23, 1, wx.EXPAND, 5 )
+        
+        bSizer24 = wx.BoxSizer( wx.HORIZONTAL )
+        
+        self.m_staticText19 = wx.StaticText( sbSizer1.GetStaticBox(), wx.ID_ANY, u"Contact Email", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText19.Wrap( -1 )
+        bSizer24.Add( self.m_staticText19, 0, wx.ALL, 5 )
+        
+        
+        bSizer24.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        
+        self.m_textCtrl36 = wx.TextCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl36.SetMinSize( wx.Size( 280,-1 ) )
+        
+        bSizer24.Add( self.m_textCtrl36, 0, wx.ALL, 5 )
+        
+        
+        sbSizer1.Add( bSizer24, 1, wx.EXPAND, 5 )
+        
+        bSizer25 = wx.BoxSizer( wx.HORIZONTAL )
+        
+        self.m_staticText20 = wx.StaticText( sbSizer1.GetStaticBox(), wx.ID_ANY, u"State", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText20.Wrap( -1 )
+        bSizer25.Add( self.m_staticText20, 0, wx.ALL, 5 )
+        
+        
+        bSizer25.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        
+        self.m_textCtrl37 = wx.TextCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl37.SetMinSize( wx.Size( 280,-1 ) )
+        
+        bSizer25.Add( self.m_textCtrl37, 0, wx.ALL, 5 )
+        
+        
+        sbSizer1.Add( bSizer25, 1, wx.EXPAND, 5 )
         
         bSizer28 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.city_txt = wx.SearchCtrl(sbSizer1.GetStaticBox(),
-                wx.ID_ANY, wx.EmptyString,
-                wx.DefaultPosition, wx.DefaultSize, 0)
-        self.city_txt.ShowSearchButton( False )
-        self.city_txt.ShowCancelButton( False )
-        self.city_txt.SetMinSize( wx.Size( 160,25 ) )
-        self.city_txt.SetDescriptiveText(u"City")
+        self.m_staticText21 = wx.StaticText( sbSizer1.GetStaticBox(), wx.ID_ANY, u"City", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText21.Wrap( -1 )
+        bSizer28.Add( self.m_staticText21, 0, wx.ALL, 5 )
         
-        bSizer28.Add( self.city_txt, 0, wx.ALL, 5 )
         
-        self.zip_txt = wx.SearchCtrl(sbSizer1.GetStaticBox(),
-                wx.ID_ANY, wx.EmptyString,
-                wx.DefaultPosition, wx.DefaultSize, 0)
-        self.zip_txt.ShowSearchButton( False )
-        self.zip_txt.ShowCancelButton( False )
-        self.zip_txt.SetMinSize( wx.Size( 110,25 ) )
-        self.zip_txt.SetDescriptiveText(u"Zip")
+        bSizer28.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        bSizer28.Add( self.zip_txt, 0, wx.ALL, 5 )
+        self.m_textCtrl20 = wx.TextCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl20.SetMinSize( wx.Size( 142,-1 ) )
+        
+        bSizer28.Add( self.m_textCtrl20, 0, wx.ALL, 5 )
+        
+        self.m_staticText22 = wx.StaticText( sbSizer1.GetStaticBox(), wx.ID_ANY, u"Zip", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText22.Wrap( -1 )
+        bSizer28.Add( self.m_staticText22, 0, wx.ALL, 5 )
+        
+        self.m_textCtrl21 = wx.TextCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl21.SetMinSize( wx.Size( 100,-1 ) )
+        
+        bSizer28.Add( self.m_textCtrl21, 0, wx.ALL, 5 )
         
         
         sbSizer1.Add( bSizer28, 1, wx.EXPAND, 5 )
         
         bSizer8 = wx.BoxSizer( wx.HORIZONTAL )
         
+        
+        bSizer8.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        
         m_comboBox1Choices = []
         self.m_comboBox1 = wx.ComboBox( sbSizer1.GetStaticBox(), wx.ID_ANY, u"ISO Metadata", wx.DefaultPosition, wx.DefaultSize, m_comboBox1Choices, 0 )
-        self.m_comboBox1.SetMinSize( wx.Size( 235,-1 ) )
+        self.m_comboBox1.SetMinSize( wx.Size( 230,-1 ) )
         
         bSizer8.Add( self.m_comboBox1, 0, wx.ALL, 5 )
         
@@ -132,19 +192,29 @@ class AddNewSourcePanelView ( wx.Panel ):
         sbSizer1.Add( bSizer8, 1, wx.EXPAND, 5 )
         
         
-        bSizer1.Add( sbSizer1, 1, wx.EXPAND, 5 )
+        bSizer1.Add( sbSizer1, 1, 0, 5 )
+        
         sbSizer2 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Optional Fields:" ), wx.VERTICAL )
         
-        self.link_txt = wx.SearchCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, u"", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.link_txt.ShowSearchButton( False )
-        self.link_txt.ShowCancelButton( False )
-        self.link_txt.SetMinSize( wx.Size( 280,25 ) )
-        self.link_txt.SetDescriptiveText(u"Link")
+        bSizer26 = wx.BoxSizer( wx.HORIZONTAL )
         
-        sbSizer2.Add( self.link_txt, 0, wx.ALL, 5 )
+        self.m_staticText23 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, u"Link", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText23.Wrap( -1 )
+        bSizer26.Add( self.m_staticText23, 0, wx.ALL, 5 )
         
         
-        bSizer1.Add( sbSizer2, 1, wx.EXPAND, 5 )
+        bSizer26.AddSpacer( ( 70, 0), 1, wx.EXPAND, 5 )
+        
+        self.m_textCtrl22 = wx.TextCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl22.SetMinSize( wx.Size( 280,-1 ) )
+        
+        bSizer26.Add( self.m_textCtrl22, 0, wx.ALL, 5 )
+        
+        
+        sbSizer2.Add( bSizer26, 1, wx.EXPAND, 5 )
+        
+        
+        bSizer1.Add( sbSizer2, 1, 0, 5 )
         
         m_sdbSizer1 = wx.StdDialogButtonSizer()
         self.m_sdbSizer1OK = wx.Button( self, wx.ID_OK )
@@ -155,8 +225,9 @@ class AddNewSourcePanelView ( wx.Panel ):
         
         bSizer1.Add( m_sdbSizer1, 1, wx.EXPAND, 5 )
         
+        
         self.SetSizer( bSizer1 )
-        #self.Layout()
+        self.Layout()    
     
     def __del__( self ):
         pass

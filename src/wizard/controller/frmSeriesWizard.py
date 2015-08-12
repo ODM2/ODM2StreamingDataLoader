@@ -22,15 +22,26 @@ class SeriesWizardController(wiz.Wizard):
         
         page1 = WizardPage(self)
         page2 = WizardPage(self)
+        page3 = WizardPage(self)
+        page4 = WizardPage(self)
 
-        siteSelectPanel = SeriesSelectPanel(page1, u'Site')
-        sourceSelectPanel = SeriesSelectPanel(page2, u'Source')
+        variableSelectPanel = SeriesSelectPanel(page1, u'Variable')
+        unitSelectPanel = SeriesSelectPanel(page2, u'Unit')
+        procLevelSelectPanel = SeriesSelectPanel(page3,
+            u'Processing Level')
+        methodSelectPanel = SeriesSelectPanel(page4, u'Method')
 
-        page1.addPanel(siteSelectPanel)
-        page2.addPanel(sourceSelectPanel)
+        page1.addPanel(variableSelectPanel)
+        page2.addPanel(unitSelectPanel)
+        page3.addPanel(procLevelSelectPanel)
+        page4.addPanel(methodSelectPanel)
 
         page1.SetNext(page2)
         page2.SetPrev(page1)
+        page2.SetNext(page3)
+        page3.SetPrev(page2)
+        page3.SetNext(page4)
+        page4.SetPrev(page3)
 
         self.Bind(wiz.EVT_WIZARD_PAGE_CHANGING, self.onPageChange)
         self.Bind(wiz.EVT_WIZARD_PAGE_CHANGED, self.onPageChanged)
