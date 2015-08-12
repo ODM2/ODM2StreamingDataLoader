@@ -7,6 +7,7 @@ import logging
 
 
 sys.path.append("/Users/Stephanie/DEV/ODM2PythonAPI")
+import src
 #from src.api.ODM2.services.createService import CreateODM2
 from src.api.ODMconnection import dbconnection
 #from src.api.ODM2.services.readService import ReadODM2
