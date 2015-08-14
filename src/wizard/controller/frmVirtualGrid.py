@@ -4,20 +4,18 @@ import wx.grid as Grid
 class GridBase(Grid.PyGridTableBase):
     def __init__(self, data, columns):
         super(GridBase, self).__init__()
-        print columns
-        print data
         self._data = data
-        self._rows = 0
-        self._cols = 0
-    
-    def setData(self, data):
-        self._data = data
+        self._columns = columns 
+        self._rows = len(data)
+        self._cols = len(data[0])
+        self.attr = Grid.GridCellAttr()
+        self.attr.SetReadOnly(True)
 
     def GetNumberRows(self):
-        return 10
+        return self._rows
 
     def GetNumberCols(self):
-        return 10
+        return self._cols
 
     def IsEmptyCell(self, row, col):
         return False
@@ -27,14 +25,22 @@ class GridBase(Grid.PyGridTableBase):
 
     def SetValue(self, row, col, value):
         pass
+    
+    def GetColLabelValue(self, col):
+        return unicode(self._columns[col])
+
+    def GetAttr(self, row, col, kind):
+        attr = self.attr
+        attr.IncRef()
+        return attr
 
 class VirtualGrid(Grid.Grid):
     def __init__(self, parent, **kwargs):
         super(VirtualGrid, self).__init__(parent, **kwargs)
-    
+
     def setTable(self, table):
-        self._table = table
-        self.SetTable(self._table)
+        self.SetTable(table, True)
+        self.SetColSizes(200)
 
     def Reset(self):
         self._table.ResetView(self)

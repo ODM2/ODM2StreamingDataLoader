@@ -52,16 +52,9 @@ class DataConfigPanelController(DataConfigPanelView):
             columns = csv.getColumnNames(df)
             
             base = GridBase(csv.getData(df), columns)
-
             self.m_listCtrl1.setTable(base)
-            #self.m_listCtrl1.InsertColumns(columns)
-            #self.m_listCtrl1.SetItemCount(len(df))
-            #self.m_listCtrl1.setData(csv.getData(df))
-            
-            #for column_index in range(\
-            #        self.m_listCtrl1.GetColumnCount()):
-            #    self.m_listCtrl1.SetColumnWidth(column_index,
-            #        wx.LIST_AUTOSIZE)
+
+            print dir(self.m_listCtrl1)
 
         self.prev_data = deepcopy(data)
 
