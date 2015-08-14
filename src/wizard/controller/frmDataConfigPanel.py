@@ -6,6 +6,7 @@ from view.clsDataConfigPanel import DataConfigPanelView
 from handlers.csvHandler import CSVReader
 
 from controller.frmSeriesWizard import SeriesWizardController
+from controller.frmVirtualGrid import GridBase
 
 class DataConfigPanelController(DataConfigPanelView):
     def __init__(self, daddy, **kwargs):
@@ -42,7 +43,7 @@ class DataConfigPanelController(DataConfigPanelView):
             # Adjust column width.
             csv = CSVReader()
 
-            self.m_listCtrl1.RefreshAllItems()
+            #self.m_listCtrl1.RefreshAllItems()
             
             df = csv.dataFrameReader(data['dataFilePath'],
                 header=data['columnBegin'], sep=data['delimiter'],
@@ -50,29 +51,37 @@ class DataConfigPanelController(DataConfigPanelView):
             
             columns = csv.getColumnNames(df)
             
-            for column in columns:
-                self.m_listCtrl1.InsertColumn(columns.index(column),\
-                    column)
+            base = GridBase(csv.getData(df), columns)
+
+            self.m_listCtrl1.setTable(base)
+            #self.m_listCtrl1.InsertColumns(columns)
+            #self.m_listCtrl1.SetItemCount(len(df))
+            #self.m_listCtrl1.setData(csv.getData(df))
             
-            self.m_listCtrl1.SetItemCount(len(df))
-            self.m_listCtrl1.setData(csv.getData(df))
-            
-            for column_index in range(\
-                    self.m_listCtrl1.GetColumnCount()):
-                self.m_listCtrl1.SetColumnWidth(column_index,
-                    wx.LIST_AUTOSIZE)
+            #for column_index in range(\
+            #        self.m_listCtrl1.GetColumnCount()):
+            #    self.m_listCtrl1.SetColumnWidth(column_index,
+            #        wx.LIST_AUTOSIZE)
 
         self.prev_data = deepcopy(data)
 
     def onAddNew(self, event):
-        seriesWizard = SeriesWizardController(self)
+        seriesWizard = SeriesWizardController(self,
+            title=u'Create New Mapping For %s' % self.selectedColumn)
         seriesWizard.run()
         event.Skip()
     
     def onColClick(self, event):
-        print dir(event)
-        print event.GetColumn()
-        print event.m_item
-        print event.m_itemIndex
-        print event.m_itemCol
+        # Get Number of items (rows) in the table.
+        count = self.m_listCtrl1.GetItemCount()
+        # Set the selected column to whichever was clicked.
+        self.selectedColumn = self.m_listCtrl1.getColumnText(\
+            event.GetColumn())
+
+        for row in range(count):
+            item = self.m_listCtrl1.GetItem(itemId=row,
+                col=event.GetColumn())
+            self.m_listCtrl1.Select(row)
         event.Skip()
+
+

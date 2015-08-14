@@ -2,9 +2,10 @@ import wx
 
 class AddNewProcLevelPanelView ( wx.Panel ):
     def __init__( self, parent ):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 437,289 ), style = wx.TAB_TRAVERSAL )
+        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 437,241 ), style = wx.TAB_TRAVERSAL )
+                
+        self.SetMinSize( wx.Size( 437,241 ) )
         
-        self.SetMinSize(wx.Size(437, 289))
         bSizer40 = wx.BoxSizer( wx.VERTICAL )
         
         sbSizer9 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Required Fields:" ), wx.VERTICAL )
@@ -41,7 +42,7 @@ class AddNewProcLevelPanelView ( wx.Panel ):
         bSizer42.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         self.m_textCtrl31 = wx.TextCtrl( sbSizer10.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
-        self.m_textCtrl31.SetMinSize( wx.Size( 280,70 ) )
+        self.m_textCtrl31.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer42.Add( self.m_textCtrl31, 0, wx.ALL, 5 )
         
@@ -58,7 +59,7 @@ class AddNewProcLevelPanelView ( wx.Panel ):
         bSizer43.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         self.m_textCtrl32 = wx.TextCtrl( sbSizer10.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
-        self.m_textCtrl32.SetMinSize( wx.Size( 280,70 ) )
+        self.m_textCtrl32.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer43.Add( self.m_textCtrl32, 0, wx.ALL, 5 )
         
@@ -79,7 +80,7 @@ class AddNewProcLevelPanelView ( wx.Panel ):
         
         
         self.SetSizer( bSizer40 )
-        self.Layout() 
+        self.Layout()
     
     def __del__( self ):
         pass

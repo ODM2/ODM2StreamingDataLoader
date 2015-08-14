@@ -101,7 +101,8 @@ class CSVReader():
                     finished_data = header_names + new_data
                     
                     if new_data:
-                        logger.info('New Data:\n%s' % finished_data)
+                        logger.info('New Data.')
+                        logger.debug(finished_data)
                     else:
                         logger.info('No new data.')
 
@@ -114,7 +115,8 @@ class CSVReader():
                     f.seek(0)
                     finished_data = f.read()
                     
-                    logger.info('New data:\n%s' % finished_data)
+                    logger.info('New data.')
+                    logger.debug(finished_data)
                     
                     df = pd.read_csv(StringIO(finished_data),
                                         header=(header - 1),

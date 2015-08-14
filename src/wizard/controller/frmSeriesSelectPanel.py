@@ -4,7 +4,9 @@ from controller.frmNewSeriesDialog import NewSeriesDialog
 from controller.frmAddNewVariablePanel import AddNewVariablePanelController
 from controller.frmAddNewUnitPanel import AddNewUnitPanelController
 from controller.frmAddNewProcLevelPanel import AddNewProcLevelPanelController
-from controller.frmAddNewMethodPanel import AddNewMethodPanelController
+from controller.frmAddNewSampFeatPanel import AddNewSampFeatPanelController
+from controller.frmAddNewActionsPanel import AddNewActionsPanelController
+from controller.frmAddNewResultsPanel import AddNewResultsPanelController
 
 class SeriesSelectPanel(wx.Panel):
     def __init__( self, parent, label):
@@ -50,7 +52,7 @@ class SeriesSelectPanel(wx.Panel):
             newVariablePanel = AddNewVariablePanelController(dlg)
             dlg.addPanel(newVariablePanel)
         
-        if self.label == u'Unit':
+        if self.label == u'Units':
             newUnitPanel = AddNewUnitPanelController(dlg)
             dlg.addPanel(newUnitPanel)
         
@@ -58,10 +60,18 @@ class SeriesSelectPanel(wx.Panel):
             newProcLevelPanel = AddNewProcLevelPanelController(dlg)
             dlg.addPanel(newProcLevelPanel)
         
-        if self.label == u'Method':
-            newMethodPanel = AddNewMethodPanelController(dlg)
-            dlg.addPanel(newMethodPanel)
+        if self.label == u'Sampling Feature':
+            newSampFeatPanel = AddNewSampFeatPanelController(dlg)
+            dlg.addPanel(newSampFeatPanel)
+        
+        if self.label == u'Actions':
+            newActionsPanel = AddNewActionsPanelController(dlg)
+            dlg.addPanel(newActionsPanel)
 
+        if self.label == u'Results':
+            newResultsPanel = AddNewResultsPanelController(dlg)
+            dlg.addPanel(newResultsPanel)
+        
         dlg.CenterOnScreen()
 
         if dlg.ShowModal() == wx.ID_OK:

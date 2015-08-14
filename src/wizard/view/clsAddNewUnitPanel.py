@@ -5,6 +5,7 @@ class AddNewUnitPanelView ( wx.Panel ):
         wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 409,257 ), style = wx.TAB_TRAVERSAL )
                 
         self.SetMinSize(wx.Size(409, 257))
+
         bSizer33 = wx.BoxSizer( wx.VERTICAL )
         
         sbSizer7 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Required Fields:" ), wx.VERTICAL )
@@ -34,15 +35,10 @@ class AddNewUnitPanelView ( wx.Panel ):
         bSizer35.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         m_comboBox13Choices = []
-        self.m_comboBox13 = wx.ComboBox( sbSizer7.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, m_comboBox13Choices, 0 )
-        self.m_comboBox13.SetMinSize( wx.Size( 230,-1 ) )
+        self.m_comboBox13 = wx.ComboBox( sbSizer7.GetStaticBox(), wx.ID_ANY, u"Select Units Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox13Choices, 0 )
+        self.m_comboBox13.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer35.Add( self.m_comboBox13, 0, wx.ALL, 5 )
-        
-        self.m_button41 = wx.Button( sbSizer7.GetStaticBox(), wx.ID_ANY, u"+", wx.DefaultPosition, wx.Size( 40,27 ), 0 )
-        self.m_button41.SetFont( wx.Font( 15, 70, 90, 92, False, wx.EmptyString ) )
-        
-        bSizer35.Add( self.m_button41, 0, wx.ALL, 5 )
         
         
         sbSizer7.Add( bSizer35, 1, wx.EXPAND, 5 )

@@ -2,9 +2,9 @@ import wx
 
 class AddNewVariablePanelView ( wx.Panel ):
     def __init__( self, parent ):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 407,386 ), style = wx.TAB_TRAVERSAL )
+        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 407,336 ), style = wx.TAB_TRAVERSAL )
                 
-        self.SetMinSize( wx.Size( 407, 386) )
+        self.SetMinSize( wx.Size( 407,336 ) )
         
         bSizer13 = wx.BoxSizer( wx.VERTICAL )
         
@@ -37,7 +37,7 @@ class AddNewVariablePanelView ( wx.Panel ):
         bSizer28.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         m_comboBox4Choices = []
-        self.m_comboBox4 = wx.ComboBox( sbSizer9.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, m_comboBox4Choices, 0 )
+        self.m_comboBox4 = wx.ComboBox( sbSizer9.GetStaticBox(), wx.ID_ANY, u"Select Variable Name", wx.DefaultPosition, wx.DefaultSize, m_comboBox4Choices, 0 )
         self.m_comboBox4.SetMinSize( wx.Size( 230,-1 ) )
         
         bSizer28.Add( self.m_comboBox4, 0, wx.ALL, 5 )
@@ -60,7 +60,7 @@ class AddNewVariablePanelView ( wx.Panel ):
         bSizer32.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         m_comboBox12Choices = []
-        self.m_comboBox12 = wx.ComboBox( sbSizer9.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, m_comboBox12Choices, 0 )
+        self.m_comboBox12 = wx.ComboBox( sbSizer9.GetStaticBox(), wx.ID_ANY, u"Select Variable Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox12Choices, 0 )
         self.m_comboBox12.SetMinSize( wx.Size( 230,-1 ) )
         
         bSizer32.Add( self.m_comboBox12, 0, wx.ALL, 5 )
@@ -105,7 +105,7 @@ class AddNewVariablePanelView ( wx.Panel ):
         bSizer29.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         m_comboBox2Choices = []
-        self.m_comboBox2 = wx.ComboBox( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, m_comboBox2Choices, 0 )
+        self.m_comboBox2 = wx.ComboBox( sbSizer6.GetStaticBox(), wx.ID_ANY, u"Select Speciation", wx.DefaultPosition, wx.DefaultSize, m_comboBox2Choices, 0 )
         self.m_comboBox2.SetMinSize( wx.Size( 230,-1 ) )
         
         bSizer29.Add( self.m_comboBox2, 0, wx.ALL, 5 )
@@ -128,7 +128,7 @@ class AddNewVariablePanelView ( wx.Panel ):
         bSizer31.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         self.m_textCtrl24 = wx.TextCtrl( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
-        self.m_textCtrl24.SetMinSize( wx.Size( 280,70 ) )
+        self.m_textCtrl24.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer31.Add( self.m_textCtrl24, 0, wx.ALL, 5 )
         
@@ -149,6 +149,7 @@ class AddNewVariablePanelView ( wx.Panel ):
         
         
         self.SetSizer( bSizer13 )
-        self.Layout()  
+        self.Layout() 
+    
     def __del__( self ):
         pass

@@ -24,17 +24,27 @@ class SeriesWizardController(wiz.Wizard):
         page2 = WizardPage(self)
         page3 = WizardPage(self)
         page4 = WizardPage(self)
+        page5 = WizardPage(self)
+        page6 = WizardPage(self)
 
-        variableSelectPanel = SeriesSelectPanel(page1, u'Variable')
-        unitSelectPanel = SeriesSelectPanel(page2, u'Unit')
-        procLevelSelectPanel = SeriesSelectPanel(page3,
+        sampFeatSelectPanel = SeriesSelectPanel(page1,
+            u'Sampling Feature')
+        variableSelectPanel = SeriesSelectPanel(page2, u'Variable')
+        unitsSelectPanel = SeriesSelectPanel(page3,
+            u'Units')
+        procLevelSelectPanel = SeriesSelectPanel(page4,
             u'Processing Level')
-        methodSelectPanel = SeriesSelectPanel(page4, u'Method')
+        actionsSelectPanel = SeriesSelectPanel(page5,
+            u'Actions')
+        resultsSelectPanel = SeriesSelectPanel(page6,
+            u'Results')
 
-        page1.addPanel(variableSelectPanel)
-        page2.addPanel(unitSelectPanel)
-        page3.addPanel(procLevelSelectPanel)
-        page4.addPanel(methodSelectPanel)
+        page1.addPanel(sampFeatSelectPanel)
+        page2.addPanel(variableSelectPanel)
+        page3.addPanel(unitsSelectPanel)
+        page4.addPanel(procLevelSelectPanel)
+        page5.addPanel(actionsSelectPanel)
+        page6.addPanel(resultsSelectPanel)
 
         page1.SetNext(page2)
         page2.SetPrev(page1)
@@ -42,6 +52,10 @@ class SeriesWizardController(wiz.Wizard):
         page3.SetPrev(page2)
         page3.SetNext(page4)
         page4.SetPrev(page3)
+        page4.SetNext(page5)
+        page5.SetPrev(page4)
+        page5.SetNext(page6)
+        page6.SetPrev(page5)
 
         self.Bind(wiz.EVT_WIZARD_PAGE_CHANGING, self.onPageChange)
         self.Bind(wiz.EVT_WIZARD_PAGE_CHANGED, self.onPageChanged)

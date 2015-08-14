@@ -41,7 +41,7 @@ def main(arguments):
     
     logger.addHandler(handler)
     
-    logger.info('Beginning execution.')
+    logger.info('\n\nBeginning execution.')
     logger.debug("Using '%s' as YAML configuration." % arguments.yamlFile)
 
     if arguments.csvFile:

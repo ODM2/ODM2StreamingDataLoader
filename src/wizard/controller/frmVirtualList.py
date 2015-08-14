@@ -7,9 +7,11 @@ class VirtualList(wx.ListCtrl):
             wx.LC_VRULES | wx.LC_HRULES, **kwargs)
     
         self.data = None
+        self.columns = []
 
     def setData(self, data):
         self.data = data
+        print data
 
     def RefreshAllItems(self):
         if self.data:
@@ -22,4 +24,13 @@ class VirtualList(wx.ListCtrl):
 
     def OnGetItemText(self, item, col):
         return self.data[item][col]
+    
+    def InsertColumns(self, columnList):
+        self.columns = columnList
+        
+        for column in columnList:
+            super(VirtualList, self).InsertColumn(\
+                columnList.index(column), column)
 
+    def getColumnText(self, index):
+        return self.columns[index]

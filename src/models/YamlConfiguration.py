@@ -237,7 +237,7 @@ class YamlConfiguration():
         return yamlDict
 
     def save(self, path):
-        print 'writing to ', path
+        logger.info("Writing to '%s'" % path)
         print self.yamlDict
 
         self.yamlFilePath = path
