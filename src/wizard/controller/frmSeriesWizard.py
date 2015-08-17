@@ -5,7 +5,7 @@ from controller.frmWizardPage import WizardPage
 from controller.frmSeriesSelectPanel import SeriesSelectPanel
 
 class SeriesWizardController(wiz.Wizard):
-    def __init__(self, parent, **kwargs):
+    def __init__(self, parent, label, **kwargs):
         super(SeriesWizardController, self).__init__(parent,
             id=wx.ID_ANY, bitmap=wx.NullBitmap,
             pos=wx.DefaultPosition, style=wx.DEFAULT_DIALOG_STYLE,
@@ -16,7 +16,7 @@ class SeriesWizardController(wiz.Wizard):
         self.SetExtraStyle(wx.WS_EX_VALIDATE_RECURSIVELY)
         
         self.page1 = self.createPages()
-        self.metadata = {}
+        self.metadata = {0: label}
 
     def createPages(self):
         

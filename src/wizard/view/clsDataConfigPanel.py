@@ -4,7 +4,7 @@ import wx.lib.agw.ultimatelistctrl as ULC
 
 from controller.frmVirtualList import VirtualList
 from controller.frmVirtualGrid import VirtualGrid, GridBase
-from lib.ObjectListView.ObjectListView import VirtualObjectListView
+#from lib.ObjectListView.ObjectListView import VirtualObjectListView
 
 class DataConfigPanelView(wx.Panel):
     def __init__(self, parent, **kwargs):
@@ -27,28 +27,34 @@ class DataConfigPanelView(wx.Panel):
         fgSizer13.SetFlexibleDirection( wx.BOTH )
         fgSizer13.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
         
-        sbSizer3 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Time:" ), wx.HORIZONTAL )
+        sbSizer3 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Date Time:" ), wx.HORIZONTAL )
         
         fgSizer10 = wx.FlexGridSizer( 3, 2, 0, 0 )
         fgSizer10.SetFlexibleDirection( wx.BOTH )
         fgSizer10.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
         
-        self.m_radioBtn3 = wx.RadioButton( sbSizer3.GetStaticBox(), wx.ID_ANY, u"UTC Date Time", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_radioBtn3 = wx.RadioButton( sbSizer3.GetStaticBox(), wx.ID_ANY, u"UTC", wx.DefaultPosition, wx.DefaultSize, 0 )
         fgSizer10.Add( self.m_radioBtn3, 0, wx.ALL, 5 )
         
         m_choice3Choices = []
         self.m_choice3 = wx.Choice( sbSizer3.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice3Choices, 0 )
         self.m_choice3.SetSelection( 0 )
         fgSizer10.Add( self.m_choice3, 0, wx.ALL, 5 )
+        self.m_choice3.SetMinSize( wx.Size( 170,-1 ) )
         
-        self.m_radioBtn4 = wx.RadioButton( sbSizer3.GetStaticBox(), wx.ID_ANY, u"Local Date Time", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_radioBtn4 = wx.RadioButton( sbSizer3.GetStaticBox(), wx.ID_ANY, u"Local", wx.DefaultPosition, wx.DefaultSize, 0 )
         fgSizer10.Add( self.m_radioBtn4, 0, wx.ALL, 5 )
-        
-        m_choice4Choices = [ u"TIMESTAMP" ]
-        self.m_choice4 = wx.Choice( sbSizer3.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice4Choices, 0 )
+
+        self.m_radioBtn4.SetValue(False)
+        self.m_radioBtn3.SetValue(True)
+
+        self.m_choice4 = wx.Choice( sbSizer3.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, [], 0 )
         self.m_choice4.SetSelection( 0 )
         fgSizer10.Add( self.m_choice4, 0, wx.ALL, 5 )
+        self.m_choice4.SetMinSize( wx.Size( 170,-1 ) )
         
+        self.m_choice4.Enable(False)
+
         self.m_staticText6 = wx.StaticText( sbSizer3.GetStaticBox(), wx.ID_ANY, u"Time Zone", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText6.Wrap( -1 )
         fgSizer10.Add( self.m_staticText6, 0, wx.ALL, 5 )
@@ -60,10 +66,6 @@ class DataConfigPanelView(wx.Panel):
         self.m_choice5.SetSelection( 0 )
         boxSizer.Add( self.m_choice5, 0, wx.ALL, 5 )
                 
-        self.m_checkBox1 = wx.CheckBox(sbSizer3.GetStaticBox(),\
-                wx.ID_ANY, u"DST", wx.DefaultPosition, wx.DefaultSize,\
-                0)
-        boxSizer.Add(self.m_checkBox1, 0, wx.ALL, 5)
 
         fgSizer10.Add(boxSizer, 0, wx.ALL, 5)     
         
@@ -106,10 +108,22 @@ class DataConfigPanelView(wx.Panel):
         self.Layout()
 
         self.Bind(wx.EVT_BUTTON, self.onAddNew, self.m_button8)
-        self.Bind(wx.EVT_LIST_COL_CLICK, self.onColClick,
+        self.Bind(wx.grid.EVT_GRID_LABEL_LEFT_CLICK, self.onColClick,
             self.m_listCtrl1)
-        self.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onColClick,
+        self.Bind(wx.grid.EVT_GRID_CELL_LEFT_CLICK, self.onCellClick,
             self.m_listCtrl1)
+        self.Bind(wx.grid.EVT_GRID_CELL_RIGHT_CLICK, self.onCellClick,
+            self.m_listCtrl1)
+        self.Bind(wx.grid.EVT_GRID_LABEL_LEFT_DCLICK,\
+            self.onColDoubleClick, self.m_listCtrl1)
+        self.Bind(wx.EVT_RADIOBUTTON, self.onTimeSelect,\
+            self.m_radioBtn4)
+        self.Bind(wx.EVT_RADIOBUTTON, self.onTimeSelect,\
+            self.m_radioBtn3)
+        self.Bind(wx.EVT_CHOICE, self.onTimeChoice,\
+            self.m_choice3)
+        self.Bind(wx.EVT_CHOICE, self.onTimeChoice,\
+            self.m_choice4)
 
     def __del__(self):
         pass
@@ -119,5 +133,15 @@ class DataConfigPanelView(wx.Panel):
 
     def onColClick(self, event):
         event.Skip()
-
-        
+    
+    def onCellClick(self, event):
+        event.Skip()
+    
+    def onTimeSelect(self, event):
+        event.Skip()
+    
+    def onTimeChoice(self, event):
+        event.Skip()
+    
+    def onColDoubleClick(self, event):
+        event.Skip()

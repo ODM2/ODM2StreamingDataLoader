@@ -40,7 +40,7 @@ class VirtualGrid(Grid.Grid):
 
     def setTable(self, table):
         self.SetTable(table, True)
-        self.SetColSizes(200)
+        #self.SetColSizes(200)
 
     def Reset(self):
         self._table.ResetView(self)
