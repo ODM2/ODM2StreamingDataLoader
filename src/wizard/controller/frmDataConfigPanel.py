@@ -31,7 +31,9 @@ class DataConfigPanelController(DataConfigPanelView):
         of the given data parameter.
         '''
         print data
-        self.inputDict = data
+
+        
+        self.inputDict.update(data)
         # Update the list control only if the new data is different.
         if cmp(self.prev_data, data) != 0:
             # Here is what happens in here:
@@ -58,7 +60,10 @@ class DataConfigPanelController(DataConfigPanelView):
             base = GridBase(csv.getData(df), columns)
             # Assign the table to the grid control.
             self.m_listCtrl1.setTable(base)
-           
+          
+            # Refresh the values
+            self.m_choice4.Clear()
+            self.m_choice3.Clear()
             # Set the values of the time choice controls.
             [self.m_choice4.Append(column) \
                 for column in columns]
@@ -66,12 +71,16 @@ class DataConfigPanelController(DataConfigPanelView):
             [self.m_choice3.Append(column) \
                 for column in columns]
             self.m_choice3.SetSelection(0)
+
+            for column in range(self.m_listCtrl1.GetNumberCols()):
+                self.m_listCtrl1.AutoSizeColLabelSize(column)
             
             #[self.m_choice4.SetString(n, unicode(string)) \
             #    for n, string in \
             #    zip(range(len(columns)), columns)]
 
 
+            self.m_listCtrl3.ClearAll()
             self.m_listCtrl3.InsertColumn(0, 'Value Column')
             self.m_listCtrl3.InsertColumn(1, 'Variable')
             self.m_listCtrl3.InsertColumn(2, 'Units')

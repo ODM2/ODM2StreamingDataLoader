@@ -20,6 +20,8 @@ class MainController(MainView):
                         title='Streaming Data Loader',
                         **kwargs)
 
+        self.mappings = {}
+
         self.setupMenu()
 
         supa_sizer = wx.FlexGridSizer(2, 1, 0, 0)

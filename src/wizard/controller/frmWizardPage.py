@@ -8,7 +8,7 @@ class WizardPage(wx.wizard.PyWizardPage):
         self.next = None
         self.prev = None
 
-        self.panel = None
+        self.panels = []
 
         self.sizer = wx.FlexGridSizer(0, 1, 0, 0)
         self.sizer.SetFlexibleDirection(wx.BOTH)
@@ -18,10 +18,10 @@ class WizardPage(wx.wizard.PyWizardPage):
 
     def addPanel(self, panel):
         self.sizer.Add(panel, 0, wx.ALL | wx.EXPAND, 5)
-        self.panel = panel
+        self.panels.append(panel)
 
-    def getPanel(self):
-        return self.panel
+    def getPanels(self):
+        return self.panels
 
     # For the record, I don't usually capitalize method names,
     # but I am in this case because of the inherited methods

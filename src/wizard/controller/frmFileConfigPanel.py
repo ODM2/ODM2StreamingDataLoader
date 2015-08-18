@@ -124,6 +124,13 @@ class FileConfigPanelController(FileConfigPanelView):
 
 
     def populate(self, data={}):
-        return self.inputDict
-
+        # Populate the local or remote file text controls.
+        self.local_file_txt.SetValue(data['dataFilePath'])
         
+        self.m_spinCtrl4.SetValue(data['dataBegin'])
+        self.m_spinCtrl2.SetValue(data['columnBegin'])
+        #self.m_choice1.SetSelection(data['delimiter'])
+        self.m_spinCtrl1.SetValue(data['time'])
+        #self.m_choice2.SetSelection(data[''])
+        #self.m_datePicker3.SetValue(data['begin'])
+        #self.m_timePicker1.SetValue(data['begin'])

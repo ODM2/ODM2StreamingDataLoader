@@ -49,7 +49,9 @@ class FileListController(FileListView):
         '''
         appendRow adds a list of data to the list control.
         '''
-        data = ['fake_id', 'fake db', 'fake db name']
+        data = ['fake_id']
+        data.append(dataDict['address'])
+        data.append(dataDict['db'])
         data.append(dataDict['dataFilePath'])
         data.append(dataDict['frequency'])
         data.append(dataDict['begin'])
@@ -60,7 +62,26 @@ class FileListController(FileListView):
         for column_index in range(self.fileListCtrl.GetColumnCount()):
             self.fileListCtrl.SetColumnWidth(column_index,
                 wx.LIST_AUTOSIZE)
-    
+   
+    def updateRow(self, row, dataDict):
+        '''
+        updateRow modifies an existing row in the list control.
+        '''
+        data = ['fake_id']
+        data.append(dataDict['address'])
+        data.append(dataDict['db'])
+        data.append(dataDict['dataFilePath'])
+        data.append(dataDict['frequency'])
+        data.append(dataDict['begin'])
+        data.append('--')
+        for i, col in zip(data, range(len(data))):
+            self.fileListCtrl.SetStringItem(row, col, i)
+        
+        # Adjust the width of the list columns. 
+        for column_index in range(self.fileListCtrl.GetColumnCount()):
+            self.fileListCtrl.SetColumnWidth(column_index,
+                wx.LIST_AUTOSIZE)
+
     def getSelectionTextByColumn(self, col=0):
         return self.fileListCtrl.GetItemText(\
             self.fileListCtrl.GetFocusedItem(), col)
@@ -78,10 +99,12 @@ class FileListController(FileListView):
         
     def onSelection(self, event):
         self.parent.toolbar.del_btn.Enable(True)
+        self.parent.toolbar.edit_btn.Enable(True)
         event.Skip()
 
     def onDeselection(self, event):
         self.parent.toolbar.del_btn.Enable(False)
+        self.parent.toolbar.edit_btn.Enable(False)
         event.Skip()
 
 if __name__ == '__main__':

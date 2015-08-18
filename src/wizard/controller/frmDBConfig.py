@@ -32,9 +32,12 @@ class pnlDBConfig(clsDBConfiguration):
 
         self.set_field_values()
 
-
+        self.inputDict = {}
+        
     def getInput(self):
-        return {}
+        print 'ding'
+        self.inputDict = self.getFieldValues()
+        return self.inputDict
 
     def populate(self, data={}):
         return

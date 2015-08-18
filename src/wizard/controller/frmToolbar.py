@@ -23,6 +23,8 @@ class ToolbarController(ToolbarView):
             print 'data from wizard: ', newMapping
             self.parent.fileList.appendRow(newMapping)
 
+            self.parent.mappings.update(newMapping)
+
         event.Skip()
     
     def onDelButtonClick(self, event):
@@ -42,7 +44,14 @@ class ToolbarController(ToolbarView):
         event.Skip()
     
     def onEditButtonClick(self, event):
-        print 'edit'
+        wizard = WizardController(self, title='Edit Mapping', data=self.parent.mappings)
+        newMapping = wizard.run()
+        if newMapping:
+            print 'data from wizard: ', newMapping
+            self.parent.mappings.update(newMapping)
+            self.parent.fileList.updateRow(\
+                self.parent.fileList.fileListCtrl.GetFirstSelected(), newMapping)
+
         event.Skip()
     
     def onRefButtonClick(self, event):
