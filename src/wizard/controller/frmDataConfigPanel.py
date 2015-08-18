@@ -78,7 +78,11 @@ class DataConfigPanelController(DataConfigPanelView):
             self.m_listCtrl3.InsertColumn(3, 'Processing Level')
             self.m_listCtrl3.InsertColumn(4, 'Actions')
             self.m_listCtrl3.InsertColumn(5, 'Results')
-        
+
+            index = self.m_choice3.GetSelection()
+            self.selectedDateColumn = \
+                self.m_choice3.GetString(index)
+
         # Important to make a deep copy, or else
         # data gets changed.
         self.prev_data = deepcopy(data)
@@ -117,9 +121,16 @@ class DataConfigPanelController(DataConfigPanelView):
         if event.GetEventObject() == self.m_radioBtn3:
             self.m_choice3.Enable(True)
             self.m_choice4.Enable(False)
+
+            index = self.m_choice3.GetSelection()
+            self.selectedDateColumn = self.m_choice3.GetString(index)
         if event.GetEventObject() == self.m_radioBtn4:
             self.m_choice3.Enable(False)
             self.m_choice4.Enable(True)
+            
+            index = self.m_choice4.GetSelection()
+            self.selectedDateColumn = self.m_choice4.GetString(index)
+
         event.Skip()
    
     def onTimeChoice(self, event):

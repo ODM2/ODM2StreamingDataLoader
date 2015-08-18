@@ -72,6 +72,7 @@ class WizardController(wiz.Wizard):
         # If moving forward in the wizard...
         if event.GetDirection():
             page = event.GetPage()
+            self.FitToPage(page)
             # Validate all of the children widgets.
             #page.Validate()
         
