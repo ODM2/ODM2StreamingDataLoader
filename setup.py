@@ -245,14 +245,14 @@ def main():
         print "Creating Windows Executable..."
         if run_pyinstaller():
             run_inno()
-
+        '''
         print "Creating Windows Executable Console..."
         if run_pyinstaller(console=True):
             run_inno()
 
         print "Create No Installer "
         run_no_installer()
-
+        '''
         ## Create Shortcut
         ## Create File
         ## Zip Executable

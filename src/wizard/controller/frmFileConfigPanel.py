@@ -15,7 +15,10 @@ class FileConfigPanelController(FileConfigPanelView):
         self.dataFileRadioSelected = self.local_file_radio
         self.remote_file_txt.SetValidator(wx.DefaultValidator)
 
-
+        self.timeValue = {0: 'Hour', 1: 'Minute'}
+        self.delimValue = {'Comma': ',', 'Tab': '\t', 'Custom': None}
+    
+    
     def onFileSelect(self, event):
         '''
         Event that happens when user clicks the local/remote
@@ -73,18 +76,19 @@ class FileConfigPanelController(FileConfigPanelView):
         return value
 
     def _getDelimiter(self):
-        value = {u'Comma': ',', u'Tab': '\t', u'Custom': None}
+        #value = {u'Comma': ',', u'Tab': '\t', u'Custom': None}
         index = self.m_choice1.GetSelection()
-        return value[self.m_choice1.GetString(index)]
+        return self.delimValue[self.m_choice1.GetString(index)]
     
     def _getTime(self):
         value = self.m_spinCtrl1.GetValue()
         return value
 
     def _getFrequency(self):
-        value = {u'Hours': 'Hour', u'Minutes': 'Minute'}
+        #value = {u'Hours': 'Hour', u'Minutes': 'Minute'}
         index = self.m_choice2.GetSelection()
-        return value[self.m_choice2.GetString(index)]
+        #return value[self.m_choice2.GetString(index)]
+        return self.m_choice2.GetString(index)
 
     def _getBegin(self):
         date = self.m_datePicker3.GetValue()
@@ -125,12 +129,25 @@ class FileConfigPanelController(FileConfigPanelView):
 
     def populate(self, data={}):
         # Populate the local or remote file text controls.
-        self.local_file_txt.SetValue(data['dataFilePath'])
+        if data['dataFilePath'].startswith('http'):
+            self.remote_file_txt.SetValue(data['dataFilePath'])
+            self.remote_file_txt.Enable(True)
+            self.local_file_txt.Enable(False)
+            self.local_file_btn.Enable(False)
+            self.remote_file_radio.SetValue(True)
+            self.local_file_radio.SetValue(False)
+            self.dataFileRadioSelected = self.remote_file_radio
+        else:
+            self.local_file_txt.SetValue(data['dataFilePath'])
         
         self.m_spinCtrl4.SetValue(data['dataBegin'])
         self.m_spinCtrl2.SetValue(data['columnBegin'])
-        #self.m_choice1.SetSelection(data['delimiter'])
+        for key, value in self.delimValue.iteritems():
+            if value == data['delimiter']:
+                index = self.m_choice1.FindString(key)
+                self.m_choice1.SetSelection(index)
         self.m_spinCtrl1.SetValue(data['time'])
-        #self.m_choice2.SetSelection(data[''])
+        index = self.m_choice2.FindString(data['frequency'])
+        self.m_choice2.SetSelection(index)
         #self.m_datePicker3.SetValue(data['begin'])
         #self.m_timePicker1.SetValue(data['begin'])

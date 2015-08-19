@@ -31,10 +31,15 @@ class FileListView(wx.Panel):
 
         self.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onSelection,
             self.fileListCtrl)
+        self.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.onDoubleClick,
+            self.fileListCtrl)
         self.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onDeselection,
             self.fileListCtrl)
     
     def onSelection(self, event):
+        event.Skip()
+
+    def onDoubleClick(self, event):
         event.Skip()
 
     def onDeselection(self, event):
