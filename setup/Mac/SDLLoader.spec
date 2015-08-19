@@ -5,7 +5,7 @@ block_cipher = None
 
 a = Analysis(['/Users/stephanie/DEV/StreamingDataLoader/src/StreamingDataLoader.py'],
              pathex=['/Users/stephanie/DEV/StreamingDataLoader/setup/Mac'],
-             hiddenimports=['sqlalchemy.orm'],
+             hiddenimports=[],
              hookspath=['/Users/stephanie/DEV/StreamingDataLoader/setup/hooks'],
              runtime_hooks=None,
              excludes=None,

@@ -42,6 +42,7 @@ orm = eval(orm.strip())
 
 for n in orm:
     hiddenimports.append("sqlalchemy.orm." + n)
+    print "!!", n
 
 
 # sqlalchemy.dialects package from 0.6 and newer sqlachemy versions
@@ -54,10 +55,3 @@ if is_alch06:
 
     for n in databases:
         hiddenimports.append("sqlalchemy.dialects." + n)
-
-
-import sqlalchemy.orm
-#hiddenimports = []
-for n in dir(sqlalchemy.orm):
-    hiddenimports.append("sqlalchemy.orm." + n)
-    print "!!!!!!!!!!", n

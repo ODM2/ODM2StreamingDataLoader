@@ -17,7 +17,7 @@ from zipfile import ZipFile, ZIP_DEFLATED
 
 ## Update odmtools.meta.data whenever creating a release
 from src.meta import data
-
+sys.path.insert(0, '/Users/stephanie/DEV/ODM2PythonAPI')
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 SETUP_DIR= os.path.join(BASE_DIR, "setup")
@@ -159,6 +159,7 @@ def run_pyinstaller( Name= None, File = None, console=False):
                 '--clean '
                 '--distpath=%s ' % WIN_DIR +
                 '--workpath=%s ' % WORK_DIR +
+                '--name=%s ' % 'SDLLoader' + #TODO add if statement if name is none
                 '--additional-hooks-dir=%s'% HOOK_DIR +
                 '--specpath=%s ' % WIN_DIR +
                 '--upx-dir=%s ' % BASE_DIR +
@@ -170,6 +171,7 @@ def run_pyinstaller( Name= None, File = None, console=False):
             val = os.system('pyinstaller '
                 '--clean '
                 '--distpath=%s ' % WIN_DIR +
+                '--name=%s ' % 'SDLLoader' +
                 '--workpath=%s ' % WORK_DIR +
                 '--additional-hooks-dir=%s'% HOOK_DIR +
                 '--specpath=%s ' % WIN_DIR +
@@ -190,7 +192,7 @@ def mac_pyinstaller(Name = None, File = None):
             '--clean '
             '--distpath=%s ' % MAC_DIST_DIR +
             '--additional-hooks-dir=%s '% HOOK_DIR +
-            '--hidden-import=sqlalchemy.orm '
+            #'--hidden-import=sqlalchemy.orm '
             '--workpath=%s ' % MAC_WORK_DIR +
             '--specpath=%s ' % MAC_DIR +
             '--upx-dir=%s ' % BASE_DIR +
@@ -201,7 +203,7 @@ def mac_pyinstaller(Name = None, File = None):
             '--noconfirm ' + APP_FILE)
 
 
-        #os.system("cp /anaconda/envs/odmtools/lib/libwx_osx_cocoau-3.0.0.0.0.dylib %s" % os.path.join(APP_DIR, "Contents/MacOS/"))
+        #os.system("cp /anaconda/envs/odmtools/lib/libwx_osx_cocoau-3.0.0.0.0.dylib %s" % os.path.join(APP_DIR, "Contents", "MacOS"))
 
         return True
     except Exception as e:
