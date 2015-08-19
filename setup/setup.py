@@ -21,6 +21,8 @@ from src.meta import data
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 SETUP_DIR= os.path.join(BASE_DIR, "setup")
+HOOK_DIR = os.path.joine(SETUP_DIR, "hooks")
+
 
 WIN_DIR = os.path.join(SETUP_DIR, "Windows")
 MAC_DIR = os.path.join(SETUP_DIR, "Mac")
@@ -185,7 +187,7 @@ def mac_pyinstaller(Name = None, File = None):
         os.system('pyinstaller '
             '--clean '
             '--distpath=%s ' % MAC_DIST_DIR +
-
+            '--additional-hooks-dir=%s ' % HOOKDIR +
             '--hidden-import=%s ' % 'sqlalchemy.orm' +
             '--workpath=%s ' % MAC_WORK_DIR +
             '--specpath=%s ' % MAC_DIR +
