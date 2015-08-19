@@ -107,6 +107,10 @@ class FileListController(FileListView):
         self.parent.toolbar.edit_btn.Enable(False)
         event.Skip()
 
+    def onDoubleClick(self, event):
+        self.parent.toolbar.onEditButtonClick(event)
+        event.Skip()
+
 if __name__ == '__main__':
     app = wx.App()
     frame = FileListController(None)
