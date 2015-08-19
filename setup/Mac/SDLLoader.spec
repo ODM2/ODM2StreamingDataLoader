@@ -1,10 +1,17 @@
 # -*- mode: python -*-
+
+block_cipher = None
+
+
 a = Analysis(['/Users/stephanie/DEV/StreamingDataLoader/src/StreamingDataLoader.py'],
              pathex=['/Users/stephanie/DEV/StreamingDataLoader/setup/Mac'],
-             hiddenimports=[],
-             hookspath=['/Users/stephanie/DEV/StreamingDataLoader/setup/hooks--workpath=/Users/stephanie/DEV/StreamingDataLoader/setup/Mac/Temp'],
-             runtime_hooks=None)
-pyz = PYZ(a.pure)
+             hiddenimports=['sqlalchemy.orm'],
+             hookspath=['/Users/stephanie/DEV/StreamingDataLoader/setup/hooks'],
+             runtime_hooks=None,
+             excludes=None,
+             cipher=block_cipher)
+pyz = PYZ(a.pure,
+             cipher=block_cipher)
 exe = EXE(pyz,
           a.scripts,
           exclude_binaries=True,
@@ -22,4 +29,5 @@ coll = COLLECT(exe,
                name='SDLLoader')
 app = BUNDLE(coll,
              name='SDLLoader.app',
-             icon='src/common/icons/SDL.icns')
+             icon='src/common/icons/SDL.icns',
+             bundle_identifier=None)

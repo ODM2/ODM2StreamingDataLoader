@@ -7,16 +7,15 @@ import logging
 
 
 #sys.path.append('/home/denver/Documents/ODM2PythonAPI')
-sys.path.append('/Users/stephanie/Dev/ODM2PythonAPI')
+sys.path.insert(0, '/Users/stephanie/DEV/ODM2PythonAPI')
 #import src
 #from src.api.ODM2.services.createService import CreateODM2
 from src.api.ODMconnection import dbconnection
 #from src.api.ODM2.services.readService import ReadODM2
 from src.api.ODM2.services import *
 
-#sys.path.insert(0, '/Users/stephanie/DEV/ODM2PythonAPI/src')
-#from api.ODM2.services.createService import createResults
-#from api.ODMconnection import dbconnection
+
+
 
 logger = logging.getLogger('SDL_logger')
 

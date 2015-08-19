@@ -1,9 +1,0 @@
-('/Users/stephanie/DEV/StreamingDataLoader/setup/Mac/Temp/SDLLoader/SDLLoader',
- False,
- False,
- 'src/common/icons/SDL.icns',
- '/Users/stephanie/DEV/StreamingDataLoader/setup/version.txt',
- [],
- None,
- False,
- 1439412861)
