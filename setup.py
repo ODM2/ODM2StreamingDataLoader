@@ -189,7 +189,8 @@ def mac_pyinstaller(Name = None, File = None):
         os.system('pyinstaller '
             '--clean '
             '--distpath=%s ' % MAC_DIST_DIR +
-            '--additional-hooks-dir=%s'% HOOK_DIR +
+            '--additional-hooks-dir=%s '% HOOK_DIR +
+            '--hidden-import=sqlalchemy.orm '
             '--workpath=%s ' % MAC_WORK_DIR +
             '--specpath=%s ' % MAC_DIR +
             '--upx-dir=%s ' % BASE_DIR +

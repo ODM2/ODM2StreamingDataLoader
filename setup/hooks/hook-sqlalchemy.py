@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import sqlalchemy.orm
-hiddenimports = []
-for n in dir(sqlalchemy.orm):
-    hiddenimports.append("sqlalchemy.orm." + n)
-    print "!!!!!!!!!!", n
-'''
+
+
 __author__ = 'stephanie'
 # Copyright (C) 2009, Giovanni Bajo
 # Based on previous work under copyright (c) 2001, 2002 McMillan Enterprises, Inc.
@@ -42,7 +37,7 @@ for n in databases:
     hiddenimports.append("sqlalchemy.databases." + n)
 
 # sqlalchemy.orm package from pre 0.6 sqlachemy versions
-orm = exec_statement("import sqlalchemy.ormprint sqlalchemy.orm.__all__")
+orm = exec_statement("import sqlalchemy.orm;print sqlalchemy.orm.__all__")
 orm = eval(orm.strip())
 
 for n in orm:
@@ -59,4 +54,10 @@ if is_alch06:
 
     for n in databases:
         hiddenimports.append("sqlalchemy.dialects." + n)
-'''
+
+
+import sqlalchemy.orm
+#hiddenimports = []
+for n in dir(sqlalchemy.orm):
+    hiddenimports.append("sqlalchemy.orm." + n)
+    print "!!!!!!!!!!", n
