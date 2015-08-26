@@ -131,6 +131,7 @@ class Mapping():
 
                 # TODO: Calculate the aggregation interval
                 # based on distance between points.
+                # UPDATE -- Nope, not doing that anymore.
 
                 df['TimeAggregationInterval'] = 0
                 df['TimeAggregationIntervalUnitsID'] = 0
@@ -146,14 +147,18 @@ class Mapping():
             df['ValueDateTimeUTCOffset'] = self.mapping['Settings']['UTCOffset']
 
             noDataValue = self._getNoDataValue(df['ResultID'][0])
+            
             df = df.replace(to_replace=[np.nan, '-INF'],
                             value=[noDataValue, noDataValue],
                             regex=True)
             
+            replaced = df.isin([noDataValue]).sum().sum()
+
             df.ValueDateTime = pd.to_datetime(\
                                 pd.Series(df.ValueDateTime))
             self.tables.append((col, df))
-    
+            
+            logger.info('Result: %s\t\t| Total Values: %d\t| Non-data Values: %d' % (col, len(df), replaced))
     
     def _getNoDataValue(self, resultID):
         '''
