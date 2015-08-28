@@ -35,7 +35,7 @@ class YamlConfiguration():
         self.yamlFilePath = configFilePath
         self.yamlDict = {}
         self.yamlDict = self._readFile(self.yamlFilePath)
-        self._remoteFileMagic()
+        #self._remoteFileMagic()
         self.dataFile = dataFile
 
 
@@ -73,8 +73,10 @@ class YamlConfiguration():
         # some sort of IO Error.
         try:
             with open(path) as f:
+                logger.info("Loading configuration file: '%s'..." % path)
                 load = yaml.load(f)
                 if load:
+                    logger.info("...load successful.")
                     return load
         except IOError as e:
             logger.error("Cannot read the file provided. Exception: %s" % e)

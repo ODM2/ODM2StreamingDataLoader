@@ -58,7 +58,11 @@ class Mapping():
         works, we begin to build a new Pandas dataframe.
         '''
         if self._readFile(self.mapping['Settings']['FileLocation']):
-            self._buildTables()
+            try:
+                self._buildTables()
+            except KeyError:
+                logger.error("Unable to create mapping. Check your data & configuration files.")
+                return False
             return True
         # Error occurred - return False.
         return False
@@ -158,7 +162,7 @@ class Mapping():
                                 pd.Series(df.ValueDateTime))
             self.tables.append((col, df))
             
-            logger.info('Result: %s\t\t| Total Values: %d\t| Non-data Values: %d' % (col, len(df), replaced))
+            logger.info('Result: %s Total Values: %d, Non-data Values: %d' % (col, len(df), replaced))
     
     def _getNoDataValue(self, resultID):
         '''

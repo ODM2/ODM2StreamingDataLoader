@@ -34,6 +34,7 @@ class Database:
                                             Credentials.uid,
                                             Credentials.pwd)
         if not self.session_factory:
+            logger.error("Unable to connect to database with host='%s', database='%s', user='%s', pwd='%s'." % (Credentials.host, Credentials.db_name, Credentials.uid, Credentials.pwd))
             return False
         
         return True
