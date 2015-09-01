@@ -63,11 +63,6 @@ class YamlConfiguration():
         _readFile takes a string argument, which is the path to
         the YAML configuration file to be mapped to a python dict.
         '''
-        # If the given path does not exist then return None.
-        # TODO: This this case even possible?
-        if not path:
-            return None
-
         # Attempt to read from the given path. Data is returned if
         # the opporation is successful, None is returned if there is
         # some sort of IO Error.

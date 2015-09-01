@@ -57,15 +57,15 @@ class Mapping():
         the file is read from the config file (mapping), if that
         works, we begin to build a new Pandas dataframe.
         '''
-        if self._readFile(self.mapping['Settings']['FileLocation']):
-            try:
+        #if self._readFile(self.mapping['Settings']['FileLocation']):
+        try:
+            if self._readFile(self.mapping['Settings']['FileLocation']):
                 self._buildTables()
-            except KeyError:
-                logger.error("Unable to create mapping. Check your data & configuration files.")
-                return False
-            return True
-        # Error occurred - return False.
-        return False
+            #self._buildTables()
+        except KeyError:
+            logger.error("Unable to create mapping. Check your data & configuration files.")
+            return False
+        return True
     
     
     
@@ -82,7 +82,8 @@ class Mapping():
         byte = self._getStartByte()
         
         logger.debug('Last successful byte read: %s' % byte)
-        
+       
+        logger.info("Data file location: '%s'" % path)
         self.rawData = reader.byteReader(path,
                 start_byte=byte,
                 datecol=self.mapping['Settings']['DateTimeColumnName'],
@@ -133,10 +134,6 @@ class Mapping():
             
             if series['CalculateAggInterval']:
 
-                # TODO: Calculate the aggregation interval
-                # based on distance between points.
-                # UPDATE -- Nope, not doing that anymore.
-
                 df['TimeAggregationInterval'] = 0
                 df['TimeAggregationIntervalUnitsID'] = 0
 
@@ -144,8 +141,8 @@ class Mapping():
                 df['TimeAggregationInterval'] = series['IntendedTimeSpacing']
                 df['TimeAggregationIntervalUnitsID'] = series['IntendedTimeSpacingUnitID']
 
-            #df['QualityCodeCV'] = 'None'
-            df['QualityCodeCV'] = 'SDL Test Data'
+            df['QualityCodeCV'] = 'None'
+            #df['QualityCodeCV'] = 'SDL Test Data'
             df['CensorCodeCV'] = 'Unknown'
             df['ResultID'] = series['ResultID']
             df['ValueDateTimeUTCOffset'] = self.mapping['Settings']['UTCOffset']

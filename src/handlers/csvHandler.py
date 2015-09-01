@@ -61,13 +61,13 @@ class CSVReader():
                     temp.write(data)
                     temp.seek(0)
                 finally:
-                    print temp.name
+                    #print temp.name
                     df = self.byteReader(temp.name, start_byte, datecol, header, sep, dataBegin)
                     temp.close()
                     return df
                 #return self.byteReader(filepath, start_byte, datecol, header, sep, dataBegin)
         except AttributeError:
-            print 'not a text'
+            logger.error("Could not read data file!")
 
         df = pd.DataFrame
         
@@ -97,7 +97,6 @@ class CSVReader():
 
                     f.seek(int(start_byte))
                     new_data = f.read()
-                    print 'new_data', new_data 
                     finished_data = header_names + new_data
                     
                     if new_data:
