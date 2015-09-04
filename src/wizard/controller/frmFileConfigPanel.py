@@ -116,38 +116,43 @@ class FileConfigPanelController(FileConfigPanelView):
         begin = self._getBegin()
 
         if dataFilePath:
-            self.inputDict['dataFilePath'] = dataFilePath
-            self.inputDict['dataBegin'] = dataBegin
-            self.inputDict['columnBegin'] = columnBegin
-            self.inputDict['delimiter'] = delimiter
-            self.inputDict['time'] = time
-            self.inputDict['frequency'] = frequency
-            self.inputDict['begin'] = begin
-
+            self.inputDict['FileLocation'] = dataFilePath
+            self.inputDict['DataRowPosition'] = dataBegin
+            self.inputDict['HeaderRowPosition'] = columnBegin
+            self.inputDict['Delimiter'] = delimiter
+            self.inputDict['Time'] = time
+            self.inputDict['Frequency'] = frequency
+            self.inputDict['Beginning'] = begin
+        
+        print self.inputDict
         return self.inputDict
 
 
     def populate(self, data={}):
         # Populate the local or remote file text controls.
-        if data['dataFilePath'].startswith('http'):
-            self.remote_file_txt.SetValue(data['dataFilePath'])
-            self.remote_file_txt.Enable(True)
-            self.local_file_txt.Enable(False)
-            self.local_file_btn.Enable(False)
-            self.remote_file_radio.SetValue(True)
-            self.local_file_radio.SetValue(False)
-            self.dataFileRadioSelected = self.remote_file_radio
-        else:
-            self.local_file_txt.SetValue(data['dataFilePath'])
-        
-        self.m_spinCtrl4.SetValue(data['dataBegin'])
-        self.m_spinCtrl2.SetValue(data['columnBegin'])
-        for key, value in self.delimValue.iteritems():
-            if value == data['delimiter']:
-                index = self.m_choice1.FindString(key)
-                self.m_choice1.SetSelection(index)
-        self.m_spinCtrl1.SetValue(data['time'])
-        index = self.m_choice2.FindString(data['frequency'])
-        self.m_choice2.SetSelection(index)
-        #self.m_datePicker3.SetValue(data['begin'])
-        #self.m_timePicker1.SetValue(data['begin'])
+        try:
+            if data['FileLocation'].startswith('http'):
+                self.remote_file_txt.SetValue(data['FileLocation'])
+                self.remote_file_txt.Enable(True)
+                self.local_file_txt.Enable(False)
+                self.local_file_btn.Enable(False)
+                self.remote_file_radio.SetValue(True)
+                self.local_file_radio.SetValue(False)
+                self.dataFileRadioSelected = self.remote_file_radio
+            else:
+                self.local_file_txt.SetValue(data['FileLocation'])
+            
+            self.m_spinCtrl4.SetValue(data['DataRowPosition'])
+            self.m_spinCtrl2.SetValue(data['HeaderRowPosition'])
+            for key, value in self.delimValue.iteritems():
+                if value == data['Delimiter']:
+                    index = self.m_choice1.FindString(key)
+                    self.m_choice1.SetSelection(index)
+            self.m_spinCtrl1.SetValue(data['Time'])
+            index = self.m_choice2.FindString(data['Frequency'])
+            self.m_choice2.SetSelection(index)
+            #self.m_datePicker3.SetValue(data['Beginning'])
+            #self.m_timePicker1.SetValue(data['Beginning']
+        except KeyError:
+            print "no data..."
+

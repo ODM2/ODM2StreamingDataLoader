@@ -20,8 +20,6 @@ class MainController(MainView):
                         title='Streaming Data Loader',
                         **kwargs)
 
-        self.mappings = {}
-
         self.setupMenu()
 
         supa_sizer = wx.FlexGridSizer(2, 1, 0, 0)
@@ -75,6 +73,7 @@ class MainController(MainView):
         self.Bind(wx.EVT_MENU, self.onFileSaveAsClick, id=103)
         self.Bind(wx.EVT_MENU, self.onFileExitClick, id=104)
         self.Bind(wx.EVT_MENU, self.onHelpAboutClick, id=201)
+
 
     def onFileOpenClick(self, event):
         dlg = wx.FileDialog(self, message='Load Configuration File',

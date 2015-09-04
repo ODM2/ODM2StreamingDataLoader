@@ -47,9 +47,9 @@ class DataConfigPanelController(DataConfigPanelView):
             # Adjust column width.
             csv = CSVReader()
             
-            df = csv.dataFrameReader(data['dataFilePath'],
-                header=data['columnBegin'], sep=data['delimiter'],
-                dataBegin=data['dataBegin'])
+            df = csv.dataFrameReader(data['FileLocation'],
+                header=data['HeaderRowPosition'], sep=data['Delimiter'],
+                dataBegin=data['DataRowPosition'])
             
             columns = csv.getColumnNames(df)
             

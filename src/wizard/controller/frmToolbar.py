@@ -4,7 +4,8 @@ import wx.wizard as wiz
 import sys
 
 from view.clsToolbar import ToolbarView
-from controller.frmWizard import WizardController
+#from controller.frmWizard import WizardController
+from controller.frmChainedDialog import ChainedDialog
 
 class ToolbarController(ToolbarView):
     def __init__(self, daddy, **kwargs):
@@ -17,13 +18,14 @@ class ToolbarController(ToolbarView):
     
     def onNewButtonClick(self, event):
         
-        wizard = WizardController(self, title='Harry Potter Wizard')
+        wizard = ChainedDialog(parent=self, title='New Mapping Wizard')
         newMapping = wizard.run()
+        print 'data from wizard: ', newMapping
         if newMapping:
-            print 'data from wizard: ', newMapping
-            self.parent.fileList.appendRow(newMapping)
-
-            self.parent.mappings.update(newMapping)
+            print "new maping", newMapping
+            self.parent.fileList.update([('bla', newMapping),])
+            #self.parent.fileList.appendRow(newMapping)
+            #self.parent.mappings.update(newMapping)
 
         event.Skip()
     
@@ -44,7 +46,8 @@ class ToolbarController(ToolbarView):
         event.Skip()
     
     def onEditButtonClick(self, event):
-        wizard = WizardController(self, title='Edit Mapping', data=self.parent.mappings)
+        print self.parent.mappings
+        wizard = ChainedDialog(parent=self, title='Edit Mapping', data=self.parent.mappings)
         newMapping = wizard.run()
         if newMapping:
             print 'data from wizard: ', newMapping

@@ -116,10 +116,10 @@ class pnlDBConfig(clsDBConfiguration):
         conn_dict = {}
 
         conn_dict['engine'] = self.choices[self.cbDatabaseType.GetValue()]
-        conn_dict['user'] = self.txtUser.GetValue()
-        conn_dict['password'] = self.txtPass.GetValue()
-        conn_dict['address'] = self.txtServer.GetValue()
-        conn_dict['db'] = self.txtDBName.GetValue()
+        conn_dict['UserName'] = self.txtUser.GetValue()
+        conn_dict['Password'] = self.txtPass.GetValue()
+        conn_dict['Address'] = self.txtServer.GetValue()
+        conn_dict['DatabaseName'] = self.txtDBName.GetValue()
         conn_dict['version']= ""
 
         return conn_dict

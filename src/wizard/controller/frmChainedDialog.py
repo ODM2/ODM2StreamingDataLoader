@@ -39,7 +39,13 @@ class ChainedDialog(wx.Dialog):
         self.SetSizer(self.mainSizer)
         
         # Show/start the dialog.
-        self.showDialog()
+        self.prevButton.Enable(False)
+        self.panelList[self.currentPanel].Show()
+        self.mainSizer.Fit(self)
+
+        self.currentPanel = 0
+
+        self.panelList[self.currentPanel].populate(data=self.data)
 
     def setPanels(self):
         filePanel = FileConfigPanelController(self)
@@ -59,31 +65,32 @@ class ChainedDialog(wx.Dialog):
         self.panelList.append(dataPanel)
         
 
-    def showDialog(self):
+    def run(self):
+        if (self.ShowModal()):
+            return self.data
+        return None
     
-        self.prevButton.Enable(False)
-        self.panelList[self.currentPanel].Show()
-        self.mainSizer.Fit(self)
-        self.Show(True)
-        self.currentPanel = 0
 
-        self.panelList[self.currentPanel].populate(data=self.data)
-    
     def buttonCheck(self):
-        try:
+        if self.currentPanel == len(self.panelList)-1:
+            self.nextButton.SetLabel("Finish")
+            #self.nextButton.Bind(wx.EVT_BUTTON, self.onClose)
+        else:
             self.panelList[self.currentPanel+1]
             self.nextButton.SetLabel("Next >")
-        except IndexError:
-            self.nextButton.SetLabel("Finish")
+
         if self.currentPanel == 0:
             self.prevButton.Enable(False)
         else: 
             self.prevButton.Enable(True)
             
-
+    def onClose(self, event):
+        for panel in self.panelList:
+            self.data.update(panel.getInput())
+        event.Skip()
+        self.EndModal(1)
 
     def onPrev(self, event):
-        print self.currentPanel
         if self.currentPanel-1 >= 0:
             self.panelList[self.currentPanel].Hide()
             self.panelList[self.currentPanel-1].Show()
@@ -96,22 +103,23 @@ class ChainedDialog(wx.Dialog):
 
     def onNext(self, event):
         # OK to move to the next panel.
-        if self.currentPanel+1 < len(self.panelList):
-
-            # If the page has errors, just return and don't change the page.
+        if self.currentPanel+1 <= len(self.panelList)-1:
             if not self.panelList[self.currentPanel].Validate():
                 event.Skip()
                 return
 
             self.panelList[self.currentPanel+1].populate(data=self.panelList[self.currentPanel].getInput())
-
             self.panelList[self.currentPanel].Hide()
             self.panelList[self.currentPanel+1].Show()
             self.currentPanel += 1
             self.mainSizer.Fit(self)
             self.buttonCheck()
         else: 
+            for panel in self.panelList:
+                self.data.update(panel.getInput())
+            self.EndModal(1)
             print "end"
+
         event.Skip()
 
 if __name__ == '__main__':
