@@ -107,8 +107,14 @@ class ChainedDialog(wx.Dialog):
             if not self.panelList[self.currentPanel].Validate():
                 event.Skip()
                 return
+            try:
+                self.panelList[self.currentPanel+1].populate(data=self.panelList[self.currentPanel].getInput())
+            except TypeError:
+                error_dlg = wx.MessageBox('This data does not look valid. Check to see if the configuration options match the data file.\n\nDo you want to continue anyway?', 'Data Load Error', wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
+                if error_dlg == wx.ID_NO:
+                    event.Skip()
+                    return
 
-            self.panelList[self.currentPanel+1].populate(data=self.panelList[self.currentPanel].getInput())
             self.panelList[self.currentPanel].Hide()
             self.panelList[self.currentPanel+1].Show()
             self.currentPanel += 1

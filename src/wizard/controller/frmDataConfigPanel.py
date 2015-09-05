@@ -47,51 +47,53 @@ class DataConfigPanelController(DataConfigPanelView):
             # Adjust column width.
             csv = CSVReader()
             
-            df = csv.dataFrameReader(data['FileLocation'],
-                header=data['HeaderRowPosition'], sep=data['Delimiter'],
-                dataBegin=data['DataRowPosition'])
-            
-            columns = csv.getColumnNames(df)
-            
-            # Create the underlying table of data for
-            # the grid control. Having a virtual table
-            # enables the control to display millions of
-            # cells of data efficiently.
-            base = GridBase(csv.getData(df), columns)
-            # Assign the table to the grid control.
-            self.m_listCtrl1.setTable(base)
-          
-            # Refresh the values
-            self.m_choice4.Clear()
-            self.m_choice3.Clear()
-            # Set the values of the time choice controls.
-            [self.m_choice4.Append(column) \
-                for column in columns]
-            self.m_choice4.SetSelection(0)
-            [self.m_choice3.Append(column) \
-                for column in columns]
-            self.m_choice3.SetSelection(0)
+            try:
+                df = csv.dataFrameReader(data['FileLocation'],
+                    header=data['HeaderRowPosition'], sep=data['Delimiter'],
+                    dataBegin=data['DataRowPosition'])
+                
+                columns = csv.getColumnNames(df)
 
-            for column in range(self.m_listCtrl1.GetNumberCols()):
-                self.m_listCtrl1.AutoSizeColLabelSize(column)
-            
-            #[self.m_choice4.SetString(n, unicode(string)) \
-            #    for n, string in \
-            #    zip(range(len(columns)), columns)]
+                # Create the underlying table of data for
+                # the grid control. Having a virtual table
+                # enables the control to display millions of
+                # cells of data efficiently.
+                base = GridBase(csv.getData(df), columns)
+                # Assign the table to the grid control.
+                self.m_listCtrl1.setTable(base)
+              
+                # Refresh the values
+                self.m_choice4.Clear()
+                self.m_choice3.Clear()
+                # Set the values of the time choice controls.
+                [self.m_choice4.Append(column) \
+                    for column in columns]
+                self.m_choice4.SetSelection(0)
+                [self.m_choice3.Append(column) \
+                    for column in columns]
+                self.m_choice3.SetSelection(0)
+
+                for column in range(self.m_listCtrl1.GetNumberCols()):
+                    self.m_listCtrl1.AutoSizeColLabelSize(column)
+                
+                #[self.m_choice4.SetString(n, unicode(string)) \
+                #    for n, string in \
+                #    zip(range(len(columns)), columns)]
 
 
-            self.m_listCtrl3.ClearAll()
-            self.m_listCtrl3.InsertColumn(0, 'Value Column')
-            self.m_listCtrl3.InsertColumn(1, 'Variable')
-            self.m_listCtrl3.InsertColumn(2, 'Units')
-            self.m_listCtrl3.InsertColumn(3, 'Processing Level')
-            self.m_listCtrl3.InsertColumn(4, 'Actions')
-            self.m_listCtrl3.InsertColumn(5, 'Results')
+                self.m_listCtrl3.ClearAll()
+                self.m_listCtrl3.InsertColumn(0, 'Value Column')
+                self.m_listCtrl3.InsertColumn(1, 'Variable')
+                self.m_listCtrl3.InsertColumn(2, 'Units')
+                self.m_listCtrl3.InsertColumn(3, 'Processing Level')
+                self.m_listCtrl3.InsertColumn(4, 'Actions')
+                self.m_listCtrl3.InsertColumn(5, 'Results')
 
-            index = self.m_choice3.GetSelection()
-            self.selectedDateColumn = \
-                self.m_choice3.GetString(index)
-
+                index = self.m_choice3.GetSelection()
+                self.selectedDateColumn = \
+                    self.m_choice3.GetString(index)
+            except:
+                raise
         # Important to make a deep copy, or else
         # data gets changed.
         self.prev_data = deepcopy(data)
