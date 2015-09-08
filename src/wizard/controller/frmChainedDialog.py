@@ -8,7 +8,6 @@ from controller.frmDBConfig import pnlDBConfig
 class ChainedDialog(wx.Dialog):
     def __init__(self, data={}, *args, **kwargs):
         super(ChainedDialog, self).__init__(*args, **kwargs)
-       
         
         self.SetExtraStyle(wx.WS_EX_VALIDATE_RECURSIVELY)
 
@@ -21,6 +20,12 @@ class ChainedDialog(wx.Dialog):
         self.data = data
 
         self.setPanels()
+        
+        # Add the buttons, which will appear on each page.
+        self.cancelButton = wx.Button(self, label="Cancel")
+        self.cancelButton.Bind(wx.EVT_BUTTON, self.onClose)
+        buttonSizer.Add(self.cancelButton, 0,
+            wx.ALL| wx.EXPAND | wx.ALIGN_RIGHT, 5)
         
         # Add the buttons, which will appear on each page.
         self.prevButton = wx.Button(self, label="< Back")
@@ -85,10 +90,7 @@ class ChainedDialog(wx.Dialog):
             self.prevButton.Enable(True)
             
     def onClose(self, event):
-        for panel in self.panelList:
-            self.data.update(panel.getInput())
-        event.Skip()
-        self.EndModal(1)
+        self.EndModal(-1)
 
     def onPrev(self, event):
         if self.currentPanel-1 >= 0:
