@@ -3,8 +3,8 @@
 import wx
 from sqlalchemy.exc import DBAPIError
 
-from view.clsDBConfig import clsDBConfiguration
-#from .api.ODMconnection import dbconnection
+from src.wizard.view.clsDBConfig import clsDBConfiguration
+from api.ODMconnection import dbconnection
 
 
 
@@ -20,7 +20,7 @@ class frmDBConfig(wx.Dialog):
 
 # Implementing clsDBConfiguration
 class pnlDBConfig(clsDBConfiguration):
-    def __init__(self, parent, service_manager, is_main=False):
+    def __init__(self, parent,  is_main=False):
         clsDBConfiguration.__init__(self, parent)
 
         self.choices = {"Microsoft SQL Server": 'mssql', "MySQL": 'mysql', "PostgreSQL":"postgresql", "SQLite":"sqlite"}
@@ -28,7 +28,7 @@ class pnlDBConfig(clsDBConfiguration):
 
         self.parent = parent
         self.is_main = is_main
-        self.service_manager = service_manager
+
 
         self.set_field_values()
 
@@ -58,7 +58,6 @@ class pnlDBConfig(clsDBConfiguration):
         except:
             pass
 
-
     # Handlers for clsDBConfiguration events.
     def OnBtnTest(self, event):
         conn_dict = self.getFieldValues()
@@ -66,16 +65,12 @@ class pnlDBConfig(clsDBConfiguration):
             self.btnSave.Enable(True)
             self.conn_dict = conn_dict
 
-
     def OnBtnSave(self, event):
-        
         self.parent.EndModal(wx.ID_OK)
-
 
     def OnBtnCancel(self, event):
         self.parent.SetReturnCode(wx.ID_CANCEL)
         self.parent.EndModal(wx.ID_CANCEL)
-
 
     def validateInput(self, conn_dict):
         message = ""
@@ -86,17 +81,16 @@ class pnlDBConfig(clsDBConfiguration):
             wx.MessageBox(message, 'Database Connection', wx.OK | wx.ICON_EXCLAMATION)
             return False
 
-
         try:
-            if self.service_manager.test_connection(conn_dict):
+            #def createConnection(self, engine, address, db=None, user=None, password=None, dbtype = 1.1):
+            conn = dbconnection.createConnection(conn_dict['engine'], conn_dict['Address'], conn_dict["DatabaseName"], conn_dict['UserName'], conn_dict["Password"], conn_dict['version'])
+            if conn:
                 message = "This connection is valid"
                 wx.MessageBox(message, 'Test Connection', wx.OK)
             else:
                 #TODO add error message if user cannont connect to the database ( not using VPN) but the db is still 1.1.1)
-                if not (self.service_manager.get_db_version(conn_dict)):
-                    message = "Cannot connect to the database"
-                else:
-                    message = "This connection is not a 1.1.1 Database"
+
+                message = "This connection is not valid Database"
 
                 wx.MessageBox(message, 'Error Occurred', wx.OK | wx.ICON_ERROR)
                 return False
@@ -108,9 +102,6 @@ class pnlDBConfig(clsDBConfiguration):
 
         return True
 
-
-
-
     # Returns a dictionary of the database values entered in the form
     def getFieldValues(self):
         conn_dict = {}
@@ -120,7 +111,7 @@ class pnlDBConfig(clsDBConfiguration):
         conn_dict['Password'] = self.txtPass.GetValue()
         conn_dict['Address'] = self.txtServer.GetValue()
         conn_dict['DatabaseName'] = self.txtDBName.GetValue()
-        conn_dict['version']= ""
+        conn_dict['version']= self.cbVersion.GetValue()
 
         return conn_dict
 

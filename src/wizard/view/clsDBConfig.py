@@ -35,10 +35,10 @@ class clsDBConfiguration ( wx.Panel ):
 		self.stVersion.Wrap( -1 )
 		connectionSizer.Add( self.stVersion, 0, wx.ALL|wx.ALIGN_RIGHT|wx.EXPAND, 5 )
 		
-		cbDatabaseType1Choices = [ u"2.0", u"1.1.1" ]
-		self.cbDatabaseType1 = wx.ComboBox( self, wx.ID_ANY, u"2.0", wx.DefaultPosition, wx.DefaultSize, cbDatabaseType1Choices, wx.CB_READONLY )
-		self.cbDatabaseType1.SetSelection( 1 )
-		connectionSizer.Add( self.cbDatabaseType1, 1, wx.ALL|wx.EXPAND, 5 )
+		cbDatabaseType1Choices = [ u"2.0", u"1.1" ]
+		self.cbVersion = wx.ComboBox( self, wx.ID_ANY, u"2.0", wx.DefaultPosition, wx.DefaultSize, cbDatabaseType1Choices, wx.CB_READONLY )
+		self.cbVersion.SetSelection( 1 )
+		connectionSizer.Add( self.cbVersion, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		self.stConnType = wx.StaticText( self, wx.ID_ANY, u"Connection Type", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
 		self.stConnType.Wrap( -1 )

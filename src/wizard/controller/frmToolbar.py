@@ -3,9 +3,9 @@ import wx
 import wx.wizard as wiz
 import sys
 
-from view.clsToolbar import ToolbarView
+from src.wizard.view.clsToolbar import ToolbarView
 #from controller.frmWizard import WizardController
-from controller.frmChainedDialog import ChainedDialog
+from src.wizard.controller.frmChainedDialog import ChainedDialog
 
 class ToolbarController(ToolbarView):
     def __init__(self, daddy, **kwargs):

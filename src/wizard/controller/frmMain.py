@@ -6,11 +6,11 @@ import sys
 sys.path.append("/Users/Stephanie/DEV/StreamingDataLoader/src")
 sys.path.append("/Users/Stephanie/DEV/StreamingDataLoader/src/wizard")
 
-from view.clsMain import MainView
+from src.wizard.view.clsMain import MainView
 
-from controller.frmToolbar import ToolbarController
-from controller.frmFileList import FileListController
-from controller.frmStatusBar import StatusBarController
+from src.wizard.controller.frmToolbar import ToolbarController
+from src.wizard.controller.frmFileList import FileListController
+from src.wizard.controller.frmStatusBar import StatusBarController
 
 WILDCARD = "YAML file (*.yaml)|*.yaml"
 
@@ -74,7 +74,6 @@ class MainController(MainView):
         self.Bind(wx.EVT_MENU, self.onFileExitClick, id=104)
         self.Bind(wx.EVT_MENU, self.onHelpAboutClick, id=201)
 
-
     def onFileOpenClick(self, event):
         dlg = wx.FileDialog(self, message='Load Configuration File',
                 defaultDir=os.getcwd(), defaultFile='',
@@ -88,7 +87,6 @@ class MainController(MainView):
             self.file_menu.Enable(101, True)
             self.file_menu.Enable(103, True)
 
-        
         dlg.Destroy()
         
         event.Skip()

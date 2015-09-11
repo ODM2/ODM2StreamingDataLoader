@@ -1,9 +1,9 @@
 
 import wx
 
-from controller.frmFileConfigPanel import FileConfigPanelController
-from controller.frmDataConfigPanel import DataConfigPanelController
-from controller.frmDBConfig import pnlDBConfig
+from src.wizard.controller.frmFileConfigPanel import FileConfigPanelController
+from src.wizard.controller.frmDataConfigPanel import DataConfigPanelController
+from src.wizard.controller.frmDBConfig import pnlDBConfig
 
 class ChainedDialog(wx.Dialog):
     def __init__(self, data={}, *args, **kwargs):
@@ -68,13 +68,11 @@ class ChainedDialog(wx.Dialog):
         self.panelList.append(dbPanel)
         self.panelList.append(filePanel)
         self.panelList.append(dataPanel)
-        
 
     def run(self):
         if (self.ShowModal()):
             return self.data
         return None
-    
 
     def buttonCheck(self):
         if self.currentPanel == len(self.panelList)-1:
