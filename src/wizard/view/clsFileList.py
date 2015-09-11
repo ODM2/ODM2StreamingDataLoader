@@ -20,9 +20,9 @@ class FileListView(wx.Panel):
         self.fileListCtrl.InsertColumn(0, 'ID')
         self.fileListCtrl.InsertColumn(1, 'Server')
         self.fileListCtrl.InsertColumn(2, 'Database')
-        self.fileListCtrl.InsertColumn(3, 'File Location')
+        self.fileListCtrl.InsertColumn(3, 'Data File Location')
         self.fileListCtrl.InsertColumn(4, 'Period')
-        self.fileListCtrl.InsertColumn(5, 'Begin')
+        self.fileListCtrl.InsertColumn(5, 'Scheduled Begin Time')
         self.fileListCtrl.InsertColumn(6, 'Last Update')
         supa_sizer.Add(self.fileListCtrl, 0, wx.ALL, 5)
 
