@@ -1,4 +1,4 @@
-__author__ = 'stephanie'
+__author__ = 'stephanie, denver'
 import pandas as pd
 import numpy as np
 from collections import namedtuple

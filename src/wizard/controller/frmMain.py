@@ -12,6 +12,8 @@ from src.wizard.controller.frmToolbar import ToolbarController
 from src.wizard.controller.frmFileList import FileListController
 from src.wizard.controller.frmStatusBar import StatusBarController
 
+from models.YamlConfiguration import YamlConfiguration
+
 WILDCARD = "YAML file (*.yaml)|*.yaml"
 
 class MainController(MainView):
@@ -81,14 +83,25 @@ class MainController(MainView):
                 style=wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR)
         
         if dlg.ShowModal() == wx.ID_OK:
+            # Get the file path(s).
             path = dlg.GetPaths()
-            self.fileList.populateRows(path)
+            # Create a new YAML model object.
+            # This will represent the file that
+            # the user just opened.
+            yamlConfiguration = YamlConfiguration(path[0],
+                ignoreBytes=False)
+
+            # Now try to get a list of the mappings
+            # that are inside of the file.
+            self.mappings = yamlConfiguration.get()
+            self.fileList.populateRows(self.mappings)
+            #self.fileList.populateRows(path)
             self.SetStatusText('Configuration File: "' + path[0] + '"', 1)
             self.file_menu.Enable(101, True)
             self.file_menu.Enable(103, True)
 
+            #print "Here are my mappings: ", self.mappings
         dlg.Destroy()
-        
         event.Skip()
 
     def onFileSaveAsClick(self, event):

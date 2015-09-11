@@ -27,80 +27,73 @@ class FileListController(FileListView):
         # the YamlConfiguration class.
         self.yamlDataList.append([newData])
     
-    def populateRows(self, paths):
-        # Clear the previous data from the list.
-        self.fileListCtrl.DeleteAllItems()
-        
-        # Loop through each income file path;
-        # there may be one to many.
-        for path in paths:
-            # Create a YAML representation.
-            yamlConfig = YamlConfiguration(path)
-            print yamlConfig.get()
-            # Add the object to our list.
-            self.yamlDataList.append(yamlConfig)
-            # Now extract only the parts from the file
-            # that will be displayed iside the list control.
-            data_list = self.getRowData(yamlConfig.get())
-            # Finally, append the list control with the
-            # appropriate data.
-            for data in data_list:
-                self.fileListCtrl.Append(data)
+    def populateRows(self, yamlObject):
+        '''
+            The populateRows method takes in a list
+            of tuples containing data from a yaml
+            file, and sends each one off to be formatted
+            for the list control.
+            
+            For example: [('id',{...}),]
+            
+            Generally, you should pass the result
+            of a call to YamlConfiguration.get() into
+            this method.
+        '''
+        # For each tuple in the list...
+        for tup in yamlObject:
+            try:
+                # Get only the neccessary parts of the data.
+                dataForListCtrl = self._getRowData(tup)
+                # Append the data to the list control.
+                self.fileListCtrl.Append(dataForListCtrl)
+            except Exception:
+                continue
+        # Adjust the column widths.
+        for column in range(self.fileListCtrl.GetColumnCount()):
+            self.fileListCtrl.SetColumnWidth(column, wx.LIST_AUTOSIZE)
 
-        # Adjust the width of the list columns. 
-        for column_index in range(self.fileListCtrl.GetColumnCount()):
-            self.fileListCtrl.SetColumnWidth(column_index,
-                wx.LIST_AUTOSIZE)
-        return True
 
-    def getRowData(self, dictionary):
-        data_list = []
-        for file_block in reversed(dictionary):
-            print "file block", file_block
-            database_name = u'%s' % (file_block[1]\
-                ['Database']['DatabaseName'])
-            database_server = u'%s' % (file_block[1]\
-                ['Database']['Address']) 
-            id = file_block[0]
-            file_path = u'%s' % (file_block[1]\
-                ['Settings']['FileLocation'])
-            last_update = u'%s' % (file_block[1]\
-                ['Schedule']['LastUpdate'])
-            begin_date = u'%s' % (file_block[1]\
-                ['Schedule']['Beginning'])
-            period = u'%s' % (file_block[1]\
-                ['Schedule']['Frequency'])
+    def _getRowData(self, tup):
+        '''
+            The getRowData method takes in a tuple
+            in this format: ('id', {...}) and gathers
+            data from the dictionary to be shown in
+            the list control. Returns a list of the
+            gathered data, or throws a KeyError
+            exception.
+        '''
+        try:
+            id = tup[0]
+            dbName = u'%s' % (self.searchDict(tup[1], 'DatabaseName'))
+            dbServer = u'%s' % (self.searchDict(tup[1], 'Address'))
+            path = u'%s' % (self.searchDict(tup[1], 'FileLocation'))
+            lastUpdate = u'%s' % (self.searchDict(tup[1], 'LastUpdate'))
+            begin = u'%s' % (self.searchDict(tup[1], 'Beginning'))
+            period = u'%s %s' % (self.searchDict(tup[1], 'Time'),
+                self.searchDict(tup[1], 'Frequency'))
+            data = [id, dbServer, dbName,
+                    path, period, begin, lastUpdate]
+            return data
+        except KeyError as e:
+            wx.MessageBox('The configuration file appears to be missing the "%s" attribute. This mapping has not been loaded.' % e, 'Error reading id "%s"' % tup[0])
 
-            # This is what's going into the list control:
-            data = [id, database_server, database_name, file_path,
-                period, begin_date, last_update]
-            data_list.append(data)
-        return data_list
-    
-    def getRowData2(self, dictionary):
-        data_list = []
-        for file_block in reversed(dictionary):
-            database_name = u'%s' % (self.searchDict(file_block[1], 'DatabaseName'))
-            database_server = u'%s' % (self.searchDict(file_block[1], 'Address'))
-            id = u'%s' % (file_block[0])
-            file_path = u'%s' % (self.searchDict(file_block[1], 'FileLocation'))
-            last_update = u'%s' % (self.searchDict(file_block[1], 'LastUpdate'))
-            begin_date = u'%s' % (self.searchDict(file_block[1], 'Beginning'))
-            period = u'%s' % (self.searchDict(file_block[1], 'Frequency'))
-            # This is what's going into the list control:
-            data = [id, database_server, database_name, file_path,
-                period, begin_date, last_update]
-            data_list.append(data)
-        return data_list
-    
-    def searchDict(self, obj, key):
+    def searchDict(self, obj, key, lvl=0):
+        # Base case: key is in the first level of dictionary.
         if key in obj:
             return obj[key]
+        # Key is not in the first level of the dictionary.
+        # Loop through keys to find nested dictionaries.
         for k,v in obj.items():
+            # Recurse if a dictionary is found.
             if isinstance(v, dict):
-                item = self.searchDict(v, key)
+                item = self.searchDict(v, key, lvl+1)
                 if item is not None:
                     return item
+        # If we're done looking and key still has not
+        # been found, then raise a KeyError
+        if lvl == 0:
+            raise KeyError(key)
 
     def appendRow(self, dataDict):
         '''

@@ -27,9 +27,10 @@ class YamlConfiguration():
     def __init__(self, configFilePath=None,
                 dataFile=None, ignoreBytes=False):
         if not configFilePath:
-            self.yamlDict = self._createNew()
+            #self.yamlDict = self._createNew()
+            self.yamlDict = {}
             self.dataFile = dataFile
-            self.yamlDict = self.get(yamlDict=self.yamlDict)
+            #self.yamlDict = self.get(yamlDict=self.yamlDict)
             return
 
         self.yamlFilePath = configFilePath
@@ -157,81 +158,6 @@ class YamlConfiguration():
                     str(datetime.datetime.now().minute)))
             f.write(yaml.dump(newContent, default_flow_style=False, allow_unicode=True,))
 
-    def _createNew(self):
-        '''
-        _createNew returns an python dictionary formatted to the appropriate YAML
-        configuration file standards, but contains empty values.
-        '''
-        yamlDict = {'new_file_id':\
-                    {'Database':\
-                        {'UserName': '',\
-                         'Password': '',\
-                         'DatabaseName': '',\
-                         'Address': ''},\
-                     'Settings':\
-                        {'FileLocation': '',\
-                         'FileLocationType': '',\
-                         'HeaderRowPosition': '',\
-                         'DataRowPosition': '',\
-                         'Delimiter': ',',\
-                         'DateTimeColumnName': 'DateTime',\
-                         'FillGaps': '',\
-                         'UTCOffset': ''},\
-                    'Mappings':\
-                        {'WindDirection-Degree':\
-                            {'CalculateAggInterval': '',\
-                             'IntendedTimeSpacing': '',\
-                             'ResultID': '',\
-                             'IntendedTimeSpacingUnitID': '',\
-                             'LastByteRead': '0'},\
-                         'NetRadiation-Watts/m2':\
-                            {'CalculateAggInterval': '',\
-                             'IntendedTimeSpacing': '',\
-                             'ResultID': '',\
-                             'IntendedTimeSpacingUnitID': '',\
-                             'LastByteRead': '0'},\
-                         'AirTemperature-C':\
-                            {'CalculateAggInterval': '',\
-                             'IntendedTimeSpacing': '',\
-                             'ResultID': '',\
-                             'IntendedTimeSpacingUnitID': '',\
-                             'LastByteRead': '0'},\
-                         'SolarRadiation-Watts/m2':\
-                            {'CalculateAggInterval': '',\
-                             'IntendedTimeSpacing': '',\
-                             'ResultID': '',\
-                             'IntendedTimeSpacingUnitID': '',\
-                             'LastByteRead': '0'},\
-                         'WindSpeed-m/s':\
-                            {'CalculateAggInterval': '',\
-                             'IntendedTimeSpacing': '',\
-                             'ResultID': '',\
-                             'IntendedTimeSpacingUnitID': '',\
-                             'LastByteRead': '0'},\
-                         'RelativeHumidity-%':\
-                            {'CalculateAggInterval': '',\
-                             'IntendedTimeSpacing': '',\
-                             'ResultID': '',\
-                             'IntendedTimeSpacingUnitID': '',\
-                             'LastByteRead': '0'},\
-                         'Precipitation-mm':\
-                            {'CalculateAggInterval': '',\
-                             'IntendedTimeSpacing': '',\
-                             'ResultID': '',\
-                             'IntendedTimeSpacingUnitID': '',\
-                             'LastByteRead': '0'},\
-                         'SnowDepth-cm':\
-                            {'CalculateAggInterval': '',\
-                             'IntendedTimeSpacing': '',\
-                             'ResultID': '',\
-                             'IntendedTimeSpacingUnitID': '',\
-                             'LastByteRead': '0'}},\
-                    'Schedule':\
-                        {'LastUpdate': '',\
-                         'Frequency': '',\
-                         'Beginning': '',\
-                         'Time': ''}}}        
-        return yamlDict
 
     def save(self, path):
         logger.info("Writing to '%s'" % path)
