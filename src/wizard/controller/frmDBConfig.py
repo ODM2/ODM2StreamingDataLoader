@@ -106,7 +106,7 @@ class pnlDBConfig(clsDBConfiguration):
     def getFieldValues(self):
         conn_dict = {}
 
-        conn_dict['engine'] = self.choices[self.cbDatabaseType.GetValue()]
+        conn_dict['engine'] = self.choices[self.cbDatabaseType.GetValue()] if self.cbDatabaseType.GetValue() != ''  else ''
         conn_dict['UserName'] = self.txtUser.GetValue()
         conn_dict['Password'] = self.txtPass.GetValue()
         conn_dict['Address'] = self.txtServer.GetValue()
