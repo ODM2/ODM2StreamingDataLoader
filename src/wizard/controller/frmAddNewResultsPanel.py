@@ -1,7 +1,7 @@
 
 import wx
 
-from view.clsAddNewResultsPanel import AddNewResultsPanelView
+from src.wizard.view.clsAddNewResultsPanel import AddNewResultsPanelView
 
 class AddNewResultsPanelController(AddNewResultsPanelView):
     def __init__(self, daddy, **kwargs):

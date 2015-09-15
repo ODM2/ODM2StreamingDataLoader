@@ -12,7 +12,7 @@ from src.wizard.controller.frmToolbar import ToolbarController
 from src.wizard.controller.frmFileList import FileListController
 from src.wizard.controller.frmStatusBar import StatusBarController
 
-from models.YamlConfiguration import YamlConfiguration
+from src.models.YamlConfiguration import YamlConfiguration
 
 WILDCARD = "YAML file (*.yaml)|*.yaml"
 

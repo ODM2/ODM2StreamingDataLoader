@@ -5,7 +5,7 @@ import tempfile
 import logging
 from StringIO import StringIO
 
-from controllers.FileSizeReader import FileSizeReader
+from src.controllers.FileSizeReader import FileSizeReader
 
 logger = logging.getLogger('SDL_logger')
 

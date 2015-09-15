@@ -1,7 +1,7 @@
 
 import wx
 
-from view.clsAddNewSampFeatPanel import AddNewSampFeatPanelView
+from src.wizard.view.clsAddNewSampFeatPanel import AddNewSampFeatPanelView
 
 class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
     def __init__(self, daddy, **kwargs):

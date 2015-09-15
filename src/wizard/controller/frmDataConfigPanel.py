@@ -2,11 +2,11 @@
 import wx
 from copy import deepcopy
 
-from view.clsDataConfigPanel import DataConfigPanelView
-from handlers.csvHandler import CSVReader
+from src.wizard.view.clsDataConfigPanel import DataConfigPanelView
+from src.handlers.csvHandler import CSVReader
 
-from controller.frmSeriesWizard import SeriesWizardController
-from controller.frmVirtualGrid import GridBase
+from src.wizard.controller.frmSeriesWizard import SeriesWizardController
+from src.wizard.controller.frmVirtualGrid import GridBase
 
 class DataConfigPanelController(DataConfigPanelView):
     def __init__(self, daddy, **kwargs):

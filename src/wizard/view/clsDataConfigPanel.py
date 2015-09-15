@@ -2,8 +2,8 @@
 import wx
 import wx.lib.agw.ultimatelistctrl as ULC
 
-from controller.frmVirtualList import VirtualList
-from controller.frmVirtualGrid import VirtualGrid, GridBase
+from src.wizard.controller.frmVirtualList import VirtualList
+from src.wizard.controller.frmVirtualGrid import VirtualGrid, GridBase
 #from lib.ObjectListView.ObjectListView import VirtualObjectListView
 
 class DataConfigPanelView(wx.Panel):

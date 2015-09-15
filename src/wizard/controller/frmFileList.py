@@ -1,8 +1,8 @@
 
 import wx
 
-from view.clsFileList import FileListView
-from models.YamlConfiguration import YamlConfiguration
+from src.wizard.view.clsFileList import FileListView
+from src.models.YamlConfiguration import YamlConfiguration
 
 
 class FileListController(FileListView):

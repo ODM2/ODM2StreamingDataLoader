@@ -3,8 +3,8 @@ import wx
 import wx.lib.masked as masked
 import operator
 
-from controller.frmFilePathValidator import FilePathValidator
-from controller.frmURLValidator import URLValidator
+from src.wizard.controller.frmFilePathValidator import FilePathValidator
+from src.wizard.controller.frmURLValidator import URLValidator
 
 class FileConfigPanelView(wx.Panel):
     def __init__(self, parent, **kwargs):

@@ -1,12 +1,12 @@
 import wx
 
-from controller.frmNewSeriesDialog import NewSeriesDialog
-from controller.frmAddNewVariablePanel import AddNewVariablePanelController
-from controller.frmAddNewUnitPanel import AddNewUnitPanelController
-from controller.frmAddNewProcLevelPanel import AddNewProcLevelPanelController
-from controller.frmAddNewSampFeatPanel import AddNewSampFeatPanelController
-from controller.frmAddNewActionsPanel import AddNewActionsPanelController
-from controller.frmAddNewResultsPanel import AddNewResultsPanelController
+from src.wizard.controller.frmNewSeriesDialog import NewSeriesDialog
+from src.wizard.controller.frmAddNewVariablePanel import AddNewVariablePanelController
+from src.wizard.controller.frmAddNewUnitPanel import AddNewUnitPanelController
+from src.wizard.controller.frmAddNewProcLevelPanel import AddNewProcLevelPanelController
+from src.wizard.controller.frmAddNewSampFeatPanel import AddNewSampFeatPanelController
+from src.wizard.controller.frmAddNewActionsPanel import AddNewActionsPanelController
+from src.wizard.controller.frmAddNewResultsPanel import AddNewResultsPanelController
 
 class SeriesSelectPanel(wx.Panel):
     def __init__( self, parent, label):

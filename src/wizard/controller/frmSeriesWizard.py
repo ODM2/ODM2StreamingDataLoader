@@ -1,8 +1,8 @@
 import wx
 import wx.wizard as wiz
 
-from controller.frmWizardPage import WizardPage
-from controller.frmSeriesSelectPanel import SeriesSelectPanel
+from src.wizard.controller.frmWizardPage import WizardPage
+from src.wizard.controller.frmSeriesSelectPanel import SeriesSelectPanel
 
 class SeriesWizardController(wiz.Wizard):
     def __init__(self, parent, label, **kwargs):

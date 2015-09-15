@@ -1,7 +1,7 @@
 
 import wx
 
-from view.clsAddNewProcLevelPanel import AddNewProcLevelPanelView
+from src.wizard.view.clsAddNewProcLevelPanel import AddNewProcLevelPanelView
 
 class AddNewProcLevelPanelController(AddNewProcLevelPanelView):
     def __init__(self, daddy, **kwargs):

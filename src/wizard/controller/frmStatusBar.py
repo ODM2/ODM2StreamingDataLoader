@@ -1,6 +1,6 @@
 import wx
 
-from view.clsStatusBar import StatusBarView
+from src.wizard.view.clsStatusBar import StatusBarView
 
 class StatusBarController(StatusBarView):
     def __init__(self, parent):

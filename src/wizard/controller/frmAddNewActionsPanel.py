@@ -1,7 +1,7 @@
 
 import wx
 
-from view.clsAddNewActionsPanel import AddNewActionsPanelView
+from src.wizard.view.clsAddNewActionsPanel import AddNewActionsPanelView
 
 class AddNewActionsPanelController(AddNewActionsPanelView):
     def __init__(self, daddy, **kwargs):

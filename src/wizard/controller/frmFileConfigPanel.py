@@ -3,9 +3,9 @@ import wx
 import os
 from datetime import datetime
 
-from view.clsFileConfigPanel import FileConfigPanelView
-from controller.frmFilePathValidator import FilePathValidator
-from controller.frmURLValidator import URLValidator
+from src.wizard.view.clsFileConfigPanel import FileConfigPanelView
+from src.wizard.controller.frmFilePathValidator import FilePathValidator
+from src.wizard.controller.frmURLValidator import URLValidator
 
 class FileConfigPanelController(FileConfigPanelView):
     def __init__(self, daddy, **kwargs):

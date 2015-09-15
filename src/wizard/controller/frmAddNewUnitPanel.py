@@ -1,7 +1,7 @@
 
 import wx
 
-from view.clsAddNewUnitPanel import AddNewUnitPanelView
+from src.wizard.view.clsAddNewUnitPanel import AddNewUnitPanelView
 
 class AddNewUnitPanelController(AddNewUnitPanelView):
     def __init__(self, daddy, **kwargs):
