@@ -19,7 +19,7 @@ WILDCARD = "YAML file (*.yaml)|*.yaml"
 class MainController(MainView):
     def __init__(self, daddy, **kwargs):
         super(MainController, self).__init__(daddy,
-                        title='Streaming Data Loader',
+                        title='Streaming Data Loader Wizard',
                         **kwargs)
 
         self.setupMenu()
@@ -54,8 +54,10 @@ class MainController(MainView):
         self.file_menu.Append(102, '&Load Configuration File...',
             'Open an existing configuration file.')
         self.file_menu.AppendSeparator()
+        self.file_menu.Append(108, '&Save', 'Save')
         self.file_menu.Append(103, '&Save as...', 'Save as...')
-        
+        self.file_menu.Enable(108, False)
+
         self.file_menu.Enable(103, False)
 
         self.file_menu.AppendSeparator()
@@ -73,57 +75,85 @@ class MainController(MainView):
         self.Bind(wx.EVT_MENU, self.onFileOpenClick, id=102)
         self.Bind(wx.EVT_MENU, self.onFileNewClick, id=101)
         self.Bind(wx.EVT_MENU, self.onFileSaveAsClick, id=103)
+        self.Bind(wx.EVT_MENU, self.onFileSaveClick, id=108)
         self.Bind(wx.EVT_MENU, self.onFileExitClick, id=104)
         self.Bind(wx.EVT_MENU, self.onHelpAboutClick, id=201)
 
     def onFileOpenClick(self, event):
+        '''
+            The method called when a user clicks
+            File->Load Configuration from the
+            menu.
+        '''
+        # Create a file picker dialog.
         dlg = wx.FileDialog(self, message='Load Configuration File',
                 defaultDir=os.getcwd(), defaultFile='',
                 wildcard=WILDCARD,
                 style=wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR)
-        
+        # If user chose a file and clicked the "OK" button...
         if dlg.ShowModal() == wx.ID_OK:
+            # Delete everything in the mapping list control.
+            self.fileList.fileListCtrl.DeleteAllItems()
             # Get the file path(s).
             path = dlg.GetPaths()
             # Create a new YAML model object.
             # This will represent the file that
             # the user just opened.
-            yamlConfiguration = YamlConfiguration(path[0],
+            self.mappings = YamlConfiguration(path[0],
                 ignoreBytes=False)
-
             # Now try to get a list of the mappings
             # that are inside of the file.
-            self.mappings = yamlConfiguration.get()
-            self.fileList.populateRows(self.mappings)
-            #self.fileList.populateRows(path)
-            self.SetStatusText('Configuration File: "' + path[0] + '"', 1)
+            self.fileList.populateRows(self.mappings.get())
+            # Change the status text at the bottom of
+            # the screen to display the file name.
+            self.SetStatusText('File: "' + path[0] + '"', 0)
+            # Enable the "New Configuration File" menu option.
             self.file_menu.Enable(101, True)
+            # Enable the "Save As" menu option.
             self.file_menu.Enable(103, True)
-
-            #print "Here are my mappings: ", self.mappings
+            # Enable the "Save" menu option.
+            self.file_menu.Enable(108, True)
+        # Destroy the file dialog handle.
         dlg.Destroy()
         event.Skip()
 
     def onFileSaveAsClick(self, event):
+        '''
+            This method is called when the user clicks
+            File->Save As from the menu.
+        '''
+        # Get a handle to a save file dialog.
         dlg = wx.FileDialog(self, message='Save Configuration File',
                 defaultDir=os.getcwd(), defaultFile='',
                 wildcard=WILDCARD,
                 style=wx.SAVE)
-        
+        # If the user clicks "Ok" to save the file...
         if dlg.ShowModal() == wx.ID_OK:
+            # Get the file path.
             path = dlg.GetPath()
-            self.fileList.save(path)
-            self.SetStatusText('Configuration File: "' + path + '"', 1)
-
+            # Call the YamlConfiguration object's save method.
+            self.mappings.save(path)
+            # Change the status text to reflect the new file name. 
+            self.SetStatusText('File: "' + path + '"', 0)
+        # Destroy the dialog handle.
         dlg.Destroy()
-        
         event.Skip()
 
+    def onFileSaveClick(self, event):
+        '''
+            This method is called when the user clicks
+            File->Save from the menu.
+        '''
+        self.mappings.save()
+        text = self.status_bar.GetStatusText(0)
+        self.SetStatusText(text.replace('*', ''), 0)
+    
     def onFileNewClick(self, event):
-        self.SetStatusText('Configuration File: [NEW FILE]', 1)
+        self.SetStatusText('File: [NEW FILE]', 0)
         self.fileList.fileListCtrl.DeleteAllItems()
         
         self.file_menu.Enable(103, False)
+        self.file_menu.Enable(108, False)
         self.file_menu.Enable(101, False)
         
         event.Skip()

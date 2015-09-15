@@ -78,43 +78,32 @@ def main(arguments):
                 updatedParams = configParams 
                 print configParams
                 dataMapModel = Mapping(configParams[1])
-                
                 # If able to connect to the database...
                 if dataMapModel.getDatabase():
-
                     # If able to perform a mapping...
                     if dataMapModel.map():
-
                         # Loop through the tables in the mapping. 
                         for table in dataMapModel.getTables():
                             logger.debug('Writing %s...' % table[0])
-                            
                             # If able to save table to database...
                             if dataMapModel.save(table[1]):
-                                
                                 # Update the latest date time for the table.
                                 dataMapModel.updateDateTime(table[1]['ResultID'][0], np.max(table[1]['ValueDateTime'])) 
-                                
                                 logger.debug('...Success!')
                                 # Update the last byte read.
                                 updatedParams = yamlModel.updateLastRead(\
                                                     configParams, table[0])
-                            
                             # If not able to save to database.
                             else:
-                                
                                 # Add table to list of failures
                                 failureList.append(table[0])
-                
                 configParamsList.append(updatedParams)
-            
             # Error with either YAML or CSV file path given on command line.
             if not files:
                 logger.error('No matching configuration found using configuration file "%s" and data file "%s".' % (arguments.yamlFile, arguments.csvFile))
             # No errors. Update the config file with what the app has done.
             else:
                 yamlModel.rebase(configParamsList)
-
             # If any failures exist, write them to the log file.
             if failureList:
                 for fail in failureList:

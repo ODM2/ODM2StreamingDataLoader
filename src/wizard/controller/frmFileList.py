@@ -142,11 +142,6 @@ class FileListController(FileListView):
     def deleteRow(self, row):
         return self.fileListCtrl.DeleteItem(row)
 
-    def save(self, path):
-        # Check if path already exists:
-        yamlConfig = YamlConfiguration()
-        yamlConfig.save(path)
-        
     def onSelection(self, event):
         #self.parent.setMapping(event....)
         self.parent.toolbar.del_btn.Enable(True)

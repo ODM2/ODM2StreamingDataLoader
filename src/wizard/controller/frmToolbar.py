@@ -30,19 +30,27 @@ class ToolbarController(ToolbarView):
         event.Skip()
     
     def onDelButtonClick(self, event):
+        '''
+            This method is called when the user clicks
+            the delete button from the toolbar.
+        '''
+        # Get the path of the selected mapping.
         msg_txt = self.parent.fileList.getSelectionTextByColumn(3)
+        # Display a message dialog to confirm the delete operation.
         msg = wx.MessageDialog(self,
             "Are you sure you want to delete the mapping for '%s' from this configuration file?" % (msg_txt),
             'Delete Mapping',
             wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
-
+        # If user clicks "Yes,"...
         if msg.ShowModal() == wx.ID_YES:
+            # Get the selected row from the list control. 
             row = self.parent.fileList.getSelection()
+            # Delete that row from the list control.
             self.parent.fileList.deleteRow(row)
+            # Disable the delete button on the toolbar.
             self.parent.toolbar.del_btn.Enable(False)
-
+        # Destroy the message dialog handle.
         msg.Destroy()
-
         event.Skip()
     
     def onEditButtonClick(self, event):

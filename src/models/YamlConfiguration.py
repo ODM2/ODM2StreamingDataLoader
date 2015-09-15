@@ -144,6 +144,7 @@ class YamlConfiguration():
         A public method which writes the changes made in memory
         to the YAML configuration file.
         '''
+        print "configFileDictList", configFileDictList
         newContent = {}
         for i,d in reversed(configFileDictList):
 
@@ -159,10 +160,12 @@ class YamlConfiguration():
             f.write(yaml.dump(newContent, default_flow_style=False, allow_unicode=True,))
 
 
-    def save(self, path):
+    def save(self, path=""):
         logger.info("Writing to '%s'" % path)
         print self.yamlDict
 
-        self.yamlFilePath = path
-        self.rebase(self.yamlDict)
+        if path is not '':
+            self.yamlFilePath = path
+        self.rebase(self.get())
+
 
