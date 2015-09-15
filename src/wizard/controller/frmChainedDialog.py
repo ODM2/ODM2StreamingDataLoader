@@ -97,8 +97,6 @@ class ChainedDialog(wx.Dialog):
             self.currentPanel -= 1
             self.mainSizer.Fit(self)
             self.buttonCheck()
-        else: 
-            print "beginning"
         event.Skip()
 
     def onNext(self, event):

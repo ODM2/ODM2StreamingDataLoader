@@ -17,16 +17,18 @@ class ToolbarController(ToolbarView):
         self.edit_btn.Enable(False)
     
     def onNewButtonClick(self, event):
-        
+        '''
+            This method happens when the plus button
+            is clicked on the toolbar.
+        '''
+        # Create a ChainedDialog.
         wizard = ChainedDialog(parent=self, title='New Mapping Wizard')
+        # Run the ChainedDialog
         newMapping = wizard.run()
         print 'data from wizard: ', newMapping
         if newMapping:
-            print "new maping", newMapping
-            self.parent.fileList.update([('bla', newMapping),])
-            #self.parent.fileList.appendRow(newMapping)
-            #self.parent.mappings.update(newMapping)
-
+            self.parent.fileList.populateRows([('tester', newMapping)])
+            self.parent.mappings = [('test', newMapping)]
         event.Skip()
     
     def onDelButtonClick(self, event):
@@ -54,8 +56,8 @@ class ToolbarController(ToolbarView):
         event.Skip()
     
     def onEditButtonClick(self, event):
-        print self.parent.mappings
-        wizard = ChainedDialog(parent=self, title='Edit Mapping', data=self.parent.mappings)
+        # TODO Get the currently selected mapping.
+        wizard = ChainedDialog(parent=self, title='Edit Mapping', data=self.parent.mappings[0][1])
         newMapping = wizard.run()
         if newMapping:
             print 'data from wizard: ', newMapping

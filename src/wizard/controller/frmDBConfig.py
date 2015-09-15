@@ -35,11 +35,23 @@ class pnlDBConfig(clsDBConfiguration):
         self.inputDict = {}
         
     def getInput(self):
-        print 'ding'
         self.inputDict = self.getFieldValues()
         return self.inputDict
 
     def populate(self, data={}):
+        print "data!!! ",data
+        print type(data)
+        if data:
+            choices = {'mssql': 2, "mysql": 3, "postgresql": 1, "sqlite": 0}
+            dbType = 0
+            if data.has_key('engine'):
+                dbType = choices[data['engine']]
+            self.cbDatabaseType.SetSelection(dbType)
+            self.txtUser.SetValue(data['UserName'])
+            self.txtPass.SetValue(data['Password'])
+            self.txtServer.SetValue(data['Address'])
+            self.txtDBName.SetValue(data['DatabaseName'])
+        
         return
 
     def OnValueChanged(self, event):
@@ -111,7 +123,7 @@ class pnlDBConfig(clsDBConfiguration):
         conn_dict['Password'] = self.txtPass.GetValue()
         conn_dict['Address'] = self.txtServer.GetValue()
         conn_dict['DatabaseName'] = self.txtDBName.GetValue()
-        conn_dict['version']= self.cbVersion.GetValue()
+        conn_dict['version']= 2.0
 
         return conn_dict
 

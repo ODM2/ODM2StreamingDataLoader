@@ -43,6 +43,8 @@ class MainController(MainView):
         self.Layout()
         self.Centre(wx.BOTH)
 
+        self.mappings = None
+
     def setupMenu(self):
         self.menu_bar = wx.MenuBar()
         self.file_menu = wx.Menu()
@@ -99,11 +101,12 @@ class MainController(MainView):
             # Create a new YAML model object.
             # This will represent the file that
             # the user just opened.
-            self.mappings = YamlConfiguration(path[0],
+            yamlConfiguration = YamlConfiguration(path[0],
                 ignoreBytes=False)
+            self.mappings = yamlConfiguration.get()
             # Now try to get a list of the mappings
             # that are inside of the file.
-            self.fileList.populateRows(self.mappings.get())
+            self.fileList.populateRows(self.mappings)
             # Change the status text at the bottom of
             # the screen to display the file name.
             self.SetStatusText('File: "' + path[0] + '"', 0)

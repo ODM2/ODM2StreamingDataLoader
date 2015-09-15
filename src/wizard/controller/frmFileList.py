@@ -15,18 +15,6 @@ class FileListController(FileListView):
         # configuration file.
         self.yamlDataList = []
     
-    def update(self, newData):
-        
-        print "updating! ", newData
-        data = self.getRowData2(newData)
-        for d in data:
-            self.fileListCtrl.Append(d)
-        # Add the object to our list.
-        # TODO This will need to append a
-        # dictionary that is compatable with
-        # the YamlConfiguration class.
-        self.yamlDataList.append([newData])
-    
     def populateRows(self, yamlObject):
         '''
             The populateRows method takes in a list
@@ -99,38 +87,7 @@ class FileListController(FileListView):
         '''
         appendRow adds a list of data to the list control.
         '''
-        data = ['fake_id']
-        data.append(dataDict['address'])
-        data.append(dataDict['db'])
-        data.append(dataDict['dataFilePath'])
-        data.append(dataDict['frequency'])
-        data.append(dataDict['begin'])
-        data.append('--')
-        self.fileListCtrl.Append(data)
-        
-        # Adjust the width of the list columns. 
-        for column_index in range(self.fileListCtrl.GetColumnCount()):
-            self.fileListCtrl.SetColumnWidth(column_index,
-                wx.LIST_AUTOSIZE)
-   
-    def updateRow(self, row, dataDict):
-        '''
-        updateRow modifies an existing row in the list control.
-        '''
-        data = ['fake_id']
-        data.append(dataDict['address'])
-        data.append(dataDict['db'])
-        data.append(dataDict['dataFilePath'])
-        data.append(dataDict['frequency'])
-        data.append(dataDict['begin'])
-        data.append('--')
-        for i, col in zip(data, range(len(data))):
-            self.fileListCtrl.SetStringItem(row, col, i)
-        
-        # Adjust the width of the list columns. 
-        for column_index in range(self.fileListCtrl.GetColumnCount()):
-            self.fileListCtrl.SetColumnWidth(column_index,
-                wx.LIST_AUTOSIZE)
+        dataForListCtrl = self._getRowData(dataDict) 
 
     def getSelectionTextByColumn(self, col=0):
         return self.fileListCtrl.GetItemText(\

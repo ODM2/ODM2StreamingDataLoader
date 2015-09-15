@@ -23,6 +23,7 @@ class DataConfigPanelController(DataConfigPanelView):
         A method which returns a dict of data.
         Used to share data between panels.
         '''
+        self.inputDict['LastUpdate'] = '-'
         return self.inputDict
 
     def populate(self, data):
