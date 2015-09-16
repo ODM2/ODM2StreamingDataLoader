@@ -81,19 +81,14 @@ class clsDBConfiguration ( wx.Panel ):
         
         formSizer.Add( sbSizer, 1, wx.ALL|wx.EXPAND, 7 )
         
-        btnSizer = wx.FlexGridSizer( 0, 2, 0, 0)
-        btnSizer.AddGrowableCol( 0 )
-        btnSizer.AddGrowableCol( 1 )
-        btnSizer.SetFlexibleDirection( wx.VERTICAL )
-        btnSizer.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_ALL )
+        #btnSizer = wx.FlexGridSizer( 0, 2, 0, 0)
+        #btnSizer.SetFlexibleDirection( wx.VERTICAL )
         
-        self.btnTest = wx.Button( self, wx.ID_ANY, u"Test Connection", wx.DefaultPosition, wx.DefaultSize, 0 )
-        btnSizer.Add( self.btnTest, 0, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL, 0 )
+        self.btnTest = wx.Button( self, wx.ID_ANY|wx.RIGHT, u"Test Connection", wx.DefaultPosition, wx.DefaultSize, 0 )
+        connectionSizer.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        connectionSizer.Add( self.btnTest, 0, wx.ALL|wx.RIGHT|wx.ALIGN_RIGHT, 0 )
         
-        self.btnSave = wx.Button( self, wx.ID_ANY, u"Save Connection", wx.DefaultPosition, wx.DefaultSize, 0 )
-        btnSizer.Add( self.btnSave, 0, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL, 0 )
-        
-        formSizer.Add( btnSizer, 0, wx.EXPAND, 5 )
+        #formSizer.Add( btnSizer, 0, wx.EXPAND, 5 )
         
         
         self.SetSizer( formSizer )
@@ -101,7 +96,6 @@ class clsDBConfiguration ( wx.Panel ):
         
         # Connect Events
         self.btnTest.Bind( wx.EVT_BUTTON, self.OnBtnTest )
-        self.btnSave.Bind( wx.EVT_BUTTON, self.OnBtnSave )
     
     def __del__( self ):
             pass

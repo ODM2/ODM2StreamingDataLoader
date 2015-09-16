@@ -115,6 +115,8 @@ class ChainedDialog(wx.Dialog):
 
             self.panelList[self.currentPanel].Hide()
             self.panelList[self.currentPanel+1].Show()
+            self.panelList[self.currentPanel+1].populate(\
+                self.panelList[self.currentPanel].getInput())
             self.currentPanel += 1
             self.mainSizer.Fit(self)
             self.buttonCheck()

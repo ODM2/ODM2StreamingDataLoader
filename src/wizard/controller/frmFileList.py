@@ -3,7 +3,7 @@ import wx
 
 from src.wizard.view.clsFileList import FileListView
 from src.models.YamlConfiguration import YamlConfiguration
-
+from src.common.functions import searchDict
 
 class FileListController(FileListView):
     def __init__(self, daddy, **kwargs):
@@ -53,35 +53,18 @@ class FileListController(FileListView):
         '''
         try:
             id = tup[0]
-            dbName = u'%s' % (self.searchDict(tup[1], 'DatabaseName'))
-            dbServer = u'%s' % (self.searchDict(tup[1], 'Address'))
-            path = u'%s' % (self.searchDict(tup[1], 'FileLocation'))
-            lastUpdate = u'%s' % (self.searchDict(tup[1], 'LastUpdate'))
-            begin = u'%s' % (self.searchDict(tup[1], 'Beginning'))
-            period = u'%s %s' % (self.searchDict(tup[1], 'Time'),
-                self.searchDict(tup[1], 'Frequency'))
+            dbName = u'%s' % (searchDict(tup[1], 'DatabaseName'))
+            dbServer = u'%s' % (searchDict(tup[1], 'Address'))
+            path = u'%s' % (searchDict(tup[1], 'FileLocation'))
+            lastUpdate = u'%s' % (searchDict(tup[1], 'LastUpdate'))
+            begin = u'%s' % (searchDict(tup[1], 'Beginning'))
+            period = u'%s %s' % (searchDict(tup[1], 'Time'),
+                searchDict(tup[1], 'Frequency'))
             data = [id, dbServer, dbName,
                     path, period, begin, lastUpdate]
             return data
         except KeyError as e:
             wx.MessageBox('The configuration file appears to be missing the "%s" attribute. This mapping has not been loaded.' % e, 'Error reading id "%s"' % tup[0])
-
-    def searchDict(self, obj, key, lvl=0):
-        # Base case: key is in the first level of dictionary.
-        if key in obj:
-            return obj[key]
-        # Key is not in the first level of the dictionary.
-        # Loop through keys to find nested dictionaries.
-        for k,v in obj.items():
-            # Recurse if a dictionary is found.
-            if isinstance(v, dict):
-                item = self.searchDict(v, key, lvl+1)
-                if item is not None:
-                    return item
-        # If we're done looking and key still has not
-        # been found, then raise a KeyError
-        if lvl == 0:
-            raise KeyError(key)
 
     def appendRow(self, dataDict):
         '''

@@ -6,6 +6,7 @@ from datetime import datetime
 from src.wizard.view.clsFileConfigPanel import FileConfigPanelView
 from src.wizard.controller.frmFilePathValidator import FilePathValidator
 from src.wizard.controller.frmURLValidator import URLValidator
+from src.common.functions import searchDict
 
 class FileConfigPanelController(FileConfigPanelView):
     def __init__(self, daddy, **kwargs):
@@ -124,15 +125,15 @@ class FileConfigPanelController(FileConfigPanelView):
             self.inputDict['Frequency'] = frequency
             self.inputDict['Beginning'] = begin
         
-        print self.inputDict
         return self.inputDict
 
 
     def populate(self, data={}):
+        print "data!! ", data
         # Populate the local or remote file text controls.
         try:
-            if data['FileLocation'].startswith('http'):
-                self.remote_file_txt.SetValue(data['FileLocation'])
+            if searchDict(data, 'FileLocation').startswith('http'):
+                self.remote_file_txt.SetValue(searchDict(data, 'FileLocation'))
                 self.remote_file_txt.Enable(True)
                 self.local_file_txt.Enable(False)
                 self.local_file_btn.Enable(False)
@@ -140,16 +141,16 @@ class FileConfigPanelController(FileConfigPanelView):
                 self.local_file_radio.SetValue(False)
                 self.dataFileRadioSelected = self.remote_file_radio
             else:
-                self.local_file_txt.SetValue(data['FileLocation'])
+                self.local_file_txt.SetValue(searchDict(data, 'FileLocation'))
             
-            self.m_spinCtrl4.SetValue(data['DataRowPosition'])
-            self.m_spinCtrl2.SetValue(data['HeaderRowPosition'])
+            self.m_spinCtrl4.SetValue(searchDict(data, 'DataRowPosition'))
+            self.m_spinCtrl2.SetValue(searchDict(data, 'HeaderRowPosition'))
             for key, value in self.delimValue.iteritems():
-                if value == data['Delimiter']:
+                if value == searchDict(data, 'Delimiter'):
                     index = self.m_choice1.FindString(key)
                     self.m_choice1.SetSelection(index)
-            self.m_spinCtrl1.SetValue(data['Time'])
-            index = self.m_choice2.FindString(data['Frequency'])
+            self.m_spinCtrl1.SetValue(searchDict(data, 'Time'))
+            index = self.m_choice2.FindString(searchDict(data, 'Frequency'))
             self.m_choice2.SetSelection(index)
             #self.m_datePicker3.SetValue(data['Beginning'])
             #self.m_timePicker1.SetValue(data['Beginning']

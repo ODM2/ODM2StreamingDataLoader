@@ -61,9 +61,10 @@ class ToolbarController(ToolbarView):
         newMapping = wizard.run()
         if newMapping:
             print 'data from wizard: ', newMapping
-            self.parent.mappings.update(newMapping)
-            self.parent.fileList.updateRow(\
-                self.parent.fileList.fileListCtrl.GetFirstSelected(), newMapping)
+            self.parent.mappings[0][1].update(newMapping)
+            self.parent.fileList.populateRows(self.parent.mappings)
+            #self.parent.fileList.updateRow(\
+            #    self.parent.fileList.fileListCtrl.GetFirstSelected(), newMapping)
 
         event.Skip()
     

@@ -5,7 +5,7 @@ from sqlalchemy.exc import DBAPIError
 
 from src.wizard.view.clsDBConfig import clsDBConfiguration
 from api.ODMconnection import dbconnection
-
+from src.common.functions import searchDict
 
 
 class frmDBConfig(wx.Dialog):
@@ -29,30 +29,22 @@ class pnlDBConfig(clsDBConfiguration):
         self.parent = parent
         self.is_main = is_main
 
-
-        self.set_field_values()
-
         self.inputDict = {}
         
     def getInput(self):
-        self.inputDict = self.getFieldValues()
+        self.inputDict.update(self.getFieldValues())
         return self.inputDict
 
     def populate(self, data={}):
-        print "data!!! ",data
-        print type(data)
+        print "data.... ", data
         if data:
             choices = {'mssql': 2, "mysql": 3, "postgresql": 1, "sqlite": 0}
-            dbType = 0
-            if data.has_key('engine'):
-                dbType = choices[data['engine']]
-            self.cbDatabaseType.SetSelection(dbType)
-            self.txtUser.SetValue(data['UserName'])
-            self.txtPass.SetValue(data['Password'])
-            self.txtServer.SetValue(data['Address'])
-            self.txtDBName.SetValue(data['DatabaseName'])
-        
-        return
+            self.cbDatabaseType.SetSelection(choices[searchDict(data, 'Engine')])
+            self.txtUser.SetValue(searchDict(data, 'UserName'))
+            self.txtPass.SetValue(searchDict(data, 'Password'))
+            self.txtServer.SetValue(searchDict(data, 'Address'))
+            self.txtDBName.SetValue(searchDict(data, 'DatabaseName'))
+            self.inputDict = data        
 
     def OnValueChanged(self, event):
         """
@@ -73,7 +65,7 @@ class pnlDBConfig(clsDBConfiguration):
     # Handlers for clsDBConfiguration events.
     def OnBtnTest(self, event):
         conn_dict = self.getFieldValues()
-        if self.validateInput(conn_dict):
+        if self.validateInput(conn_dict['Database']):
             self.btnSave.Enable(True)
             self.conn_dict = conn_dict
 
@@ -94,8 +86,7 @@ class pnlDBConfig(clsDBConfiguration):
             return False
 
         try:
-            #def createConnection(self, engine, address, db=None, user=None, password=None, dbtype = 1.1):
-            conn = dbconnection.createConnection(conn_dict['engine'], conn_dict['Address'], conn_dict["DatabaseName"], conn_dict['UserName'], conn_dict["Password"], conn_dict['version'])
+            conn = dbconnection.createConnection(conn_dict['Engine'], conn_dict['Address'], conn_dict["DatabaseName"], conn_dict['UserName'], conn_dict["Password"], 2.0)
             if conn:
                 message = "This connection is valid"
                 wx.MessageBox(message, 'Test Connection', wx.OK)
@@ -118,24 +109,11 @@ class pnlDBConfig(clsDBConfiguration):
     def getFieldValues(self):
         conn_dict = {}
 
-        conn_dict['engine'] = self.choices[self.cbDatabaseType.GetValue()] if self.cbDatabaseType.GetValue() != ''  else ''
+        conn_dict['Engine'] = self.choices[self.cbDatabaseType.GetValue()] if self.cbDatabaseType.GetValue() != ''  else ''
         conn_dict['UserName'] = self.txtUser.GetValue()
         conn_dict['Password'] = self.txtPass.GetValue()
         conn_dict['Address'] = self.txtServer.GetValue()
         conn_dict['DatabaseName'] = self.txtDBName.GetValue()
-        conn_dict['version']= 2.0
 
-        return conn_dict
+        return {'Database': conn_dict}
 
-    def set_field_values(self):
-        '''
-        conn = self.service_manager.is_valid_connection()
-        if conn is not None:
-            self.txtServer.SetValue(conn['address'])
-            self.txtDBName.SetValue(conn['db'])
-            self.txtUser.SetValue(conn['user'])
-
-            for k, v in self.choices.iteritems():
-                if v == conn['engine']:
-                    self.cbDatabaseType.SetValue(k)
-        '''

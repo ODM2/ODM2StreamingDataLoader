@@ -3,6 +3,7 @@
 ---
 Custom_file_id:
   Database:
+    Engine: mysql
     Address: jws.uwrl.usu.edu
     DatabaseName: odm2
     Password: ODM123!!
