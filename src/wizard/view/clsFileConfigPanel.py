@@ -172,7 +172,7 @@ class FileConfigPanelView(wx.Panel):
         
         bSizer5.Add( self.m_spinCtrl1, 0, wx.ALL|wx.TOP, 5 )
         
-        m_choice2Choices = [ u"Hours", u"Minutes", wx.EmptyString ]
+        m_choice2Choices = [ u"Hour", u"Minute", u"Day"]
         self.m_choice2 = wx.Choice( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice2Choices, 0 )
         self.m_choice2.SetSelection( 1 )
         self.m_choice2.SetMinSize( wx.Size( 100,-1 ) )

@@ -20,6 +20,7 @@ class AddNewSampFeatPanelView ( wx.Panel ):
         bSizer41.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         self.m_textCtrl30 = wx.TextCtrl( sbSizer25.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl30.Enable( False )
         self.m_textCtrl30.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer41.Add( self.m_textCtrl30, 0, wx.ALL, 5 )
@@ -54,7 +55,7 @@ class AddNewSampFeatPanelView ( wx.Panel ):
         bSizer532.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         m_comboBox82Choices = []
-        self.m_comboBox82 = wx.ComboBox( sbSizer25.GetStaticBox(), wx.ID_ANY, u"Select Organization Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox82Choices, 0 )
+        self.m_comboBox82 = wx.ComboBox( sbSizer25.GetStaticBox(), wx.ID_ANY, u"Select Sampling Feature Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox82Choices, 0 )
         self.m_comboBox82.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer532.Add( self.m_comboBox82, 0, wx.ALL, 5 )
@@ -73,14 +74,9 @@ class AddNewSampFeatPanelView ( wx.Panel ):
         
         m_comboBox8Choices = []
         self.m_comboBox8 = wx.ComboBox( sbSizer25.GetStaticBox(), wx.ID_ANY, u"Select Site Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox8Choices, 0 )
-        self.m_comboBox8.SetMinSize( wx.Size( 230,-1 ) )
+        self.m_comboBox8.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer53.Add( self.m_comboBox8, 0, wx.ALL, 5 )
-        
-        self.m_button41 = wx.Button( sbSizer25.GetStaticBox(), wx.ID_ANY, u"+", wx.DefaultPosition, wx.Size( 40,27 ), 0 )
-        self.m_button41.SetFont( wx.Font( 15, 70, 90, 92, False, wx.EmptyString ) )
-        
-        bSizer53.Add( self.m_button41, 0, wx.ALL, 5 )
         
         
         sbSizer25.Add( bSizer53, 1, wx.EXPAND, 5 )
@@ -122,9 +118,14 @@ class AddNewSampFeatPanelView ( wx.Panel ):
         
         m_comboBox822Choices = []
         self.m_comboBox822 = wx.ComboBox( sbSizer25.GetStaticBox(), wx.ID_ANY, u"Select Spatial References", wx.DefaultPosition, wx.DefaultSize, m_comboBox822Choices, 0 )
-        self.m_comboBox822.SetMinSize( wx.Size( 280,-1 ) )
+        self.m_comboBox822.SetMinSize( wx.Size( 230,-1 ) )
         
         bSizer5322.Add( self.m_comboBox822, 0, wx.ALL, 5 )
+        
+        self.m_button411 = wx.Button( sbSizer25.GetStaticBox(), wx.ID_ANY, u"+", wx.DefaultPosition, wx.Size( 40,27 ), 0 )
+        self.m_button411.SetFont( wx.Font( 15, 70, 90, 92, False, wx.EmptyString ) )
+        
+        bSizer5322.Add( self.m_button411, 0, wx.ALL, 5 )
         
         
         sbSizer25.Add( bSizer5322, 1, wx.EXPAND, 5 )
@@ -250,8 +251,13 @@ class AddNewSampFeatPanelView ( wx.Panel ):
         
         bSizer111.Add( m_sdbSizer11, 1, wx.EXPAND, 5 )
         
-        
+        self.Bind(wx.EVT_BUTTON, self.onOK, self.m_sdbSizer11OK)
+
         self.SetSizer( bSizer111 )
         self.Layout() 
+    
     def __del__( self ):
         pass
+
+    def onOK(self, event):
+        event.Skip()

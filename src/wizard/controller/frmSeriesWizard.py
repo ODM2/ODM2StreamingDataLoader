@@ -3,6 +3,12 @@ import wx.wizard as wiz
 
 from src.wizard.controller.frmWizardPage import WizardPage
 from src.wizard.controller.frmSeriesSelectPanel import SeriesSelectPanel
+from src.wizard.controller.frmSampFeatSelectPanel import SampFeatSelectPanel
+from src.wizard.controller.frmProcLevelSelectPanel import ProcLevelSelectPanel
+from src.wizard.controller.frmActionsSelectPanel import ActionsSelectPanel
+from src.wizard.controller.frmResultsSelectPanel import ResultsSelectPanel
+from src.wizard.controller.frmVariableSelectPanel import VariableSelectPanel
+from src.wizard.controller.frmUnitSelectPanel import UnitSelectPanel
 
 class SeriesWizardController(wiz.Wizard):
     def __init__(self, parent, label, **kwargs):
@@ -27,17 +33,14 @@ class SeriesWizardController(wiz.Wizard):
         page5 = WizardPage(self)
         page6 = WizardPage(self)
 
-        sampFeatSelectPanel = SeriesSelectPanel(page1,
+        sampFeatSelectPanel = SampFeatSelectPanel(page1,
             u'Sampling Feature')
-        variableSelectPanel = SeriesSelectPanel(page2, u'Variable')
-        unitsSelectPanel = SeriesSelectPanel(page3,
-            u'Units')
-        procLevelSelectPanel = SeriesSelectPanel(page4,
+        variableSelectPanel = VariableSelectPanel(page2, u'Variable')
+        unitsSelectPanel = UnitSelectPanel(page3, u'Units')
+        procLevelSelectPanel = ProcLevelSelectPanel(page4,
             u'Processing Level')
-        actionsSelectPanel = SeriesSelectPanel(page5,
-            u'Actions')
-        resultsSelectPanel = SeriesSelectPanel(page6,
-            u'Results')
+        actionsSelectPanel = ActionsSelectPanel(page5, u'Actions')
+        resultsSelectPanel = ResultsSelectPanel(page6, u'Results')
 
         page1.addPanel(sampFeatSelectPanel)
         page2.addPanel(variableSelectPanel)

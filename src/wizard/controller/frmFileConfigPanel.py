@@ -6,7 +6,7 @@ from datetime import datetime
 from src.wizard.view.clsFileConfigPanel import FileConfigPanelView
 from src.wizard.controller.frmFilePathValidator import FilePathValidator
 from src.wizard.controller.frmURLValidator import URLValidator
-from src.common.functions import searchDict
+from src.common.functions import searchDict, pydate2wxdate, wxdate2pydate
 
 class FileConfigPanelController(FileConfigPanelView):
     def __init__(self, daddy, **kwargs):
@@ -129,7 +129,7 @@ class FileConfigPanelController(FileConfigPanelView):
 
 
     def populate(self, data={}):
-        print "data!! ", data
+        #print "data!! ", data
         # Populate the local or remote file text controls.
         try:
             if searchDict(data, 'FileLocation').startswith('http'):
@@ -152,8 +152,12 @@ class FileConfigPanelController(FileConfigPanelView):
             self.m_spinCtrl1.SetValue(searchDict(data, 'Time'))
             index = self.m_choice2.FindString(searchDict(data, 'Frequency'))
             self.m_choice2.SetSelection(index)
-            #self.m_datePicker3.SetValue(data['Beginning'])
-            #self.m_timePicker1.SetValue(data['Beginning']
+
+            date = datetime.strptime(searchDict(data, 'Beginning'),
+                '%m/%d/%Y %I:%M:%S %p')
+            print "date: ", date
+            self.m_datePicker3.SetValue(pydate2wxdate(date))
+            self.m_timePicker1.SetValue(str(date.time()))
         except KeyError:
             print "no data..."
 
