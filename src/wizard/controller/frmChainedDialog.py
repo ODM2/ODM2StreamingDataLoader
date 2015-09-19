@@ -8,76 +8,94 @@ from src.wizard.controller.frmDBConfig import pnlDBConfig
 class ChainedDialog(wx.Dialog):
     def __init__(self, data={}, *args, **kwargs):
         super(ChainedDialog, self).__init__(*args, **kwargs)
-        
+        # Set this extra style for validation to work.
         self.SetExtraStyle(wx.WS_EX_VALIDATE_RECURSIVELY)
-
+        # Declare the sizers.
         self.mainSizer = wx.BoxSizer(wx.VERTICAL)
         self.panelSizer = wx.BoxSizer(wx.VERTICAL)
-        buttonSizer = wx.BoxSizer(wx.HORIZONTAL)
-
+        self.buttonSizer = wx.BoxSizer(wx.HORIZONTAL)
+        # panelList holds all of the panels for this
+        # custom wizard.
         self.panelList = []
+        # currentPanel defines which panel that the
+        # user is currently on.
         self.currentPanel = 0
+        # data is a dictionary of attributes
+        # which are passed from one panel to
+        # another in order to create a mapping.
+        # The default value is an empty dictionary.
         self.data = data
-
+        # Add the buttons.
+        self.addButtons()
+        # Define and add the panels.
         self.setPanels()
-        
+        # Display the current panel.
+        self.panelList[self.currentPanel].Show()
+        # Resize the page to fit the contents.
+        self.mainSizer.Fit(self)
+        # Pass any incoming data to the first panel.
+        # E.g. if this custom wizard is being used
+        # to edit a mapping that already exists.
+        self.panelList[self.currentPanel].populate(data=self.data)
+        print "Wizard data", self.data
+
+    def addButtons(self):
         # Add the buttons, which will appear on each page.
         self.cancelButton = wx.Button(self, label="Cancel")
         self.cancelButton.Bind(wx.EVT_BUTTON, self.onClose)
-        buttonSizer.Add(self.cancelButton, 0,
+        self.buttonSizer.Add(self.cancelButton, 0,
             wx.ALL| wx.EXPAND | wx.ALIGN_RIGHT, 5)
-        
-        # Add the buttons, which will appear on each page.
         self.prevButton = wx.Button(self, label="< Back")
         self.prevButton.Bind(wx.EVT_BUTTON, self.onPrev)
-        buttonSizer.Add(self.prevButton, 0,
+        self.buttonSizer.Add(self.prevButton, 0,
             wx.ALL| wx.EXPAND | wx.ALIGN_RIGHT, 5)
-        
         self.nextButton = wx.Button(self, label="Next >")
         self.nextButton.Bind(wx.EVT_BUTTON, self.onNext)
-        buttonSizer.Add(self.nextButton, 0,
+        self.buttonSizer.Add(self.nextButton, 0,
             wx.ALL| wx.EXPAND | wx.ALIGN_RIGHT, 5)
-
         # Add the buttons and sizers to the main sizer.
         self.mainSizer.Add(self.panelSizer, 1, wx.EXPAND)
-        self.mainSizer.Add(buttonSizer, 0, wx.ALIGN_RIGHT)
+        self.mainSizer.Add(self.buttonSizer, 0, wx.ALIGN_RIGHT)
         self.SetSizer(self.mainSizer)
-        
-        # Show/start the dialog.
+        # Disable the 'back' button.
         self.prevButton.Enable(False)
-        self.panelList[self.currentPanel].Show()
-        self.mainSizer.Fit(self)
-
-        self.currentPanel = 0
-
-        self.panelList[self.currentPanel].populate(data=self.data)
-
+    
     def setPanels(self):
+        # Declare each panel to be added to this custom
+        # wizard.
         filePanel = FileConfigPanelController(self)
         dataPanel = DataConfigPanelController(self)
         dbPanel = pnlDBConfig(self, None)
-
+        # Add each of them to the appropriate sizer.
         self.panelSizer.Add(filePanel)
         self.panelSizer.Add(dataPanel)
         self.panelSizer.Add(dbPanel)
-        
+        # Hide them all for now.
         filePanel.Hide()
         dataPanel.Hide()
         dbPanel.Hide()
-
+        # Add each one to the internal list of panels
+        # in order to keep track of which one the user
+        # is currently on.
         self.panelList.append(dbPanel)
         self.panelList.append(filePanel)
         self.panelList.append(dataPanel)
 
     def run(self):
-        if (self.ShowModal()):
+        '''
+            This is where the modal dialog will sit
+            until the call to EndModal() is made.
+        '''
+        returnValue = self.ShowModal()
+        if returnValue == wx.ID_OK:
+            # Completed successfully, return the data.
             return self.data
+        # User quit early, return None.
         return None
 
     def buttonCheck(self):
         if self.currentPanel == len(self.panelList)-1:
             self.nextButton.SetLabel("Finish")
-            #self.nextButton.Bind(wx.EVT_BUTTON, self.onClose)
         else:
             self.panelList[self.currentPanel+1]
             self.nextButton.SetLabel("Next >")
@@ -88,6 +106,7 @@ class ChainedDialog(wx.Dialog):
             self.prevButton.Enable(True)
             
     def onClose(self, event):
+        print "onClose"
         self.EndModal(-1)
 
     def onPrev(self, event):
@@ -123,8 +142,9 @@ class ChainedDialog(wx.Dialog):
         else: 
             for panel in self.panelList:
                 self.data.update(panel.getInput())
-            self.EndModal(1)
+                panel.Destroy()
             print "end"
+            self.EndModal(wx.ID_OK)
 
         event.Skip()
 

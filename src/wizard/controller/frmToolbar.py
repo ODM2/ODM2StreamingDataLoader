@@ -22,12 +22,15 @@ class ToolbarController(ToolbarView):
             is clicked on the toolbar.
         '''
         # Create a ChainedDialog.
-        wizard = ChainedDialog(parent=self, title='New Mapping Wizard')
+        wizard = ChainedDialog(parent=self, title='New Mapping Wizard', data={})
         # Run the ChainedDialog
         newMapping = wizard.run()
         print 'data from wizard: ', newMapping
+        # If the wizard was completed...
         if newMapping:
+            # Update the list control that contains the mappings.
             self.parent.fileList.populateRows([('tester', newMapping)])
+            # Also update the in-memory list of mappings.
             self.parent.mappings = [('test', newMapping)]
         event.Skip()
     
