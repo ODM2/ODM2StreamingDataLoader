@@ -65,6 +65,12 @@ class FileListController(FileListView):
             return data
         except KeyError as e:
             wx.MessageBox('The configuration file appears to be missing the "%s" attribute. This mapping has not been loaded.' % e, 'Error reading id "%s"' % tup[0])
+    
+    def editRow(self, row, dataDict):
+        '''
+            editRow modifies an existing list entry.
+        '''
+        
 
     def appendRow(self, dataDict):
         '''

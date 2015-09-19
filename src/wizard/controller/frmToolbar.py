@@ -21,6 +21,7 @@ class ToolbarController(ToolbarView):
             This method happens when the plus button
             is clicked on the toolbar.
         '''
+        print "onNewButtonClick"
         # Create a ChainedDialog.
         wizard = ChainedDialog(parent=self, title='New Mapping Wizard', data={})
         # Run the ChainedDialog
@@ -32,7 +33,10 @@ class ToolbarController(ToolbarView):
             self.parent.fileList.populateRows([('tester', newMapping)])
             # Also update the in-memory list of mappings.
             self.parent.mappings = [('test', newMapping)]
-        event.Skip()
+        # On Windows, calling event.Skip() makes this 
+        # event be called twice for some reason, so I'm
+        # commenting it out.
+        #event.Skip()
     
     def onDelButtonClick(self, event):
         '''
@@ -56,28 +60,34 @@ class ToolbarController(ToolbarView):
             self.parent.toolbar.del_btn.Enable(False)
         # Destroy the message dialog handle.
         msg.Destroy()
-        event.Skip()
+        #event.Skip()
     
     def onEditButtonClick(self, event):
-        # TODO Get the currently selected mapping.
-        wizard = ChainedDialog(parent=self, title='Edit Mapping', data=self.parent.mappings[0][1])
+        # Get the currently selected mapping.
+        mapping = self.parent.fileList.getSelectionTextByColumn(0)
+        # Create a wizard to edit the selected mapping.
+        wizard = ChainedDialog(parent=self, title='Edit Mapping',
+            data=self.parent.mappings[mapping][1])
+        # Run the wizard and store the data which is returned.
         newMapping = wizard.run()
+        # If the wizard was completed successfully...
         if newMapping:
             print 'data from wizard: ', newMapping
-            self.parent.mappings[0][1].update(newMapping)
-            self.parent.fileList.populateRows(self.parent.mappings)
+            self.parent.mappings[mapping][1].update(newMapping)
+            
+            #self.parent.fileList.populateRows(self.parent.mappings)
             #self.parent.fileList.updateRow(\
             #    self.parent.fileList.fileListCtrl.GetFirstSelected(), newMapping)
 
-        event.Skip()
+        #event.Skip()
     
     def onRefButtonClick(self, event):
         print 'refresh'
-        event.Skip()
+        #event.Skip()
 
     def onRunButtonClick(self, event):
         print 'run'
-        event.Skip()
+        #event.Skip()
 
     def onNewButtonOver(self, event):
         self.parent.SetStatusText('Add a new configuration to the file.', 1)

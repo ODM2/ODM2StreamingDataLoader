@@ -9,7 +9,8 @@ sys.path.append("/Users/Stephanie/DEV/StreamingDataLoader/src/wizard")
 from src.wizard.view.clsMain import MainView
 
 from src.wizard.controller.frmToolbar import ToolbarController
-from src.wizard.controller.frmFileList import FileListController
+#from src.wizard.controller.frmFileList import FileListController
+from src.wizard.controller.frmMappingListPanel import MappingListPanel
 from src.wizard.controller.frmStatusBar import StatusBarController
 
 from src.models.YamlConfiguration import YamlConfiguration
@@ -35,7 +36,8 @@ class MainController(MainView):
         # Panel for the tool bar.
         self.toolbar = ToolbarController(self)
         
-        self.fileList = FileListController(self)
+        #self.fileList = FileListController(self)
+        self.fileList = MappingListPanel(self)
         supa_sizer.Add(self.toolbar, 0, wx.EXPAND | wx.ALL, 5)
         supa_sizer.Add(self.fileList, 0, wx.EXPAND | wx.ALL, 5)
 
