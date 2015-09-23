@@ -6,6 +6,7 @@ import sys
 from src.wizard.view.clsToolbar import ToolbarView
 #from controller.frmWizard import WizardController
 from src.wizard.controller.frmChainedDialog import ChainedDialog
+from src.models.Mapping import Mapping
 
 class ToolbarController(ToolbarView):
     def __init__(self, daddy, **kwargs):
@@ -30,9 +31,11 @@ class ToolbarController(ToolbarView):
         # If the wizard was completed...
         if newMapping:
             # Update the list control that contains the mappings.
-            self.parent.fileList.populateRows([('tester', newMapping)])
+            #self.parent.fileList.populateRows([('tester', newMapping)])
             # Also update the in-memory list of mappings.
-            self.parent.mappings = [('test', newMapping)]
+            #self.parent.mappings.append(Mapping(('test', newMapping)))
+            self.parent.fileList.listCtrl.AddObject(Mapping(('test', newMapping)))
+            self.parent.mappings = self.parent.fileList.listCtrl.GetObjects()
         # On Windows, calling event.Skip() makes this 
         # event be called twice for some reason, so I'm
         # commenting it out.
@@ -43,8 +46,9 @@ class ToolbarController(ToolbarView):
             This method is called when the user clicks
             the delete button from the toolbar.
         '''
-        # Get the path of the selected mapping.
-        msg_txt = self.parent.fileList.getSelectionTextByColumn(3)
+        selected = self.parent.fileList.listCtrl.GetSelectedObject()
+        # Get the id of the selected mapping.
+        msg_txt = selected.id
         # Display a message dialog to confirm the delete operation.
         msg = wx.MessageDialog(self,
             "Are you sure you want to delete the mapping for '%s' from this configuration file?" % (msg_txt),
@@ -52,32 +56,32 @@ class ToolbarController(ToolbarView):
             wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
         # If user clicks "Yes,"...
         if msg.ShowModal() == wx.ID_YES:
-            # Get the selected row from the list control. 
-            row = self.parent.fileList.getSelection()
             # Delete that row from the list control.
-            self.parent.fileList.deleteRow(row)
+            self.parent.fileList.listCtrl.RemoveObject(selected)
+            # Update the list of mappings.
+            self.parent.mappings = self.parent.fileList.listCtrl.GetObjects()
             # Disable the delete button on the toolbar.
             self.parent.toolbar.del_btn.Enable(False)
+            self.parent.toolbar.edit_btn.Enable(False)
         # Destroy the message dialog handle.
         msg.Destroy()
         #event.Skip()
     
     def onEditButtonClick(self, event):
         # Get the currently selected mapping.
-        mapping = self.parent.fileList.getSelectionTextByColumn(0)
+        selected = self.parent.fileList.listCtrl.GetSelectedObject()
         # Create a wizard to edit the selected mapping.
         wizard = ChainedDialog(parent=self, title='Edit Mapping',
-            data=self.parent.mappings[mapping][1])
+            data=selected.asTuple()[1])
         # Run the wizard and store the data which is returned.
         newMapping = wizard.run()
         # If the wizard was completed successfully...
         if newMapping:
             print 'data from wizard: ', newMapping
-            self.parent.mappings[mapping][1].update(newMapping)
-            
-            #self.parent.fileList.populateRows(self.parent.mappings)
-            #self.parent.fileList.updateRow(\
-            #    self.parent.fileList.fileListCtrl.GetFirstSelected(), newMapping)
+            # TODO
+            # Return as a tuple with an id
+            selected.up((selected.id, newMapping))
+            self.parent.fileList.listCtrl.RepopulateList()
 
         #event.Skip()
     

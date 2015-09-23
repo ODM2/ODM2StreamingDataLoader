@@ -14,6 +14,7 @@ from src.wizard.controller.frmMappingListPanel import MappingListPanel
 from src.wizard.controller.frmStatusBar import StatusBarController
 
 from src.models.YamlConfiguration import YamlConfiguration
+from src.models.Mapping import Mapping
 
 WILDCARD = "YAML file (*.yaml)|*.yaml"
 
@@ -25,9 +26,10 @@ class MainController(MainView):
 
         self.setupMenu()
 
-        supa_sizer = wx.FlexGridSizer(2, 1, 0, 0)
-        supa_sizer.SetFlexibleDirection(wx.BOTH)
-        supa_sizer.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
+        #supa_sizer = wx.FlexGridSizer(2, 1, 0, 0)
+        supa_sizer = wx.BoxSizer(wx.VERTICAL)
+        #supa_sizer.SetFlexibleDirection(wx.BOTH)
+        #supa_sizer.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
 
         # Status bar.
         self.status_bar = StatusBarController(self)
@@ -39,13 +41,13 @@ class MainController(MainView):
         #self.fileList = FileListController(self)
         self.fileList = MappingListPanel(self)
         supa_sizer.Add(self.toolbar, 0, wx.EXPAND | wx.ALL, 5)
-        supa_sizer.Add(self.fileList, 0, wx.EXPAND | wx.ALL, 5)
+        supa_sizer.Add(self.fileList, 1, wx.EXPAND | wx.ALL, 5)
 
         self.SetSizer(supa_sizer)
         self.Layout()
         self.Centre(wx.BOTH)
 
-        self.mappings = None
+        #self.mappings = []
 
     def setupMenu(self):
         self.menu_bar = wx.MenuBar()
@@ -97,7 +99,7 @@ class MainController(MainView):
         # If user chose a file and clicked the "OK" button...
         if dlg.ShowModal() == wx.ID_OK:
             # Delete everything in the mapping list control.
-            self.fileList.fileListCtrl.DeleteAllItems()
+            self.fileList.listCtrl.DeleteAllItems()
             # Get the file path(s).
             path = dlg.GetPaths()
             # Create a new YAML model object.
@@ -105,10 +107,10 @@ class MainController(MainView):
             # the user just opened.
             yamlConfiguration = YamlConfiguration(path[0],
                 ignoreBytes=False)
-            self.mappings = yamlConfiguration.get()
-            # Now try to get a list of the mappings
-            # that are inside of the file.
-            self.fileList.populateRows(self.mappings)
+            # Store a list of mappings from the file.
+            #self.mappings = yamlConfiguration.get()
+            # Update the object list view control.
+            self.fileList.setObjects(yamlConfiguration.get())
             # Change the status text at the bottom of
             # the screen to display the file name.
             self.SetStatusText('File: "' + path[0] + '"', 0)
@@ -155,7 +157,7 @@ class MainController(MainView):
     
     def onFileNewClick(self, event):
         self.SetStatusText('File: [NEW FILE]', 0)
-        self.fileList.fileListCtrl.DeleteAllItems()
+        self.fileList.listCtrl.DeleteAllItems()
         
         self.file_menu.Enable(103, False)
         self.file_menu.Enable(108, False)

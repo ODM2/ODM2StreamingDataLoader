@@ -7,7 +7,7 @@ from argparse import ArgumentParser
 import logging
 
 from models.YamlConfiguration import YamlConfiguration
-from controllers.Mapping import Mapping
+from controllers.Mapper import Mapper
 from lib.Appdirs.appdirs import user_config_dir
 
 import numpy as np
@@ -77,7 +77,7 @@ def main(arguments):
                 # Declare updatedParams to preserve scope.
                 updatedParams = configParams 
                 print configParams
-                dataMapModel = Mapping(configParams[1])
+                dataMapModel = Mapper(configParams[1])
                 # If able to connect to the database...
                 if dataMapModel.getDatabase():
                     # If able to perform a mapping...

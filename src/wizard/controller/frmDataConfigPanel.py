@@ -1,9 +1,11 @@
 
 import wx
 from copy import deepcopy
+from collections import namedtuple 
 
 from src.wizard.view.clsDataConfigPanel import DataConfigPanelView
 from src.handlers.csvHandler import CSVReader
+from src.common.functions import searchDict
 
 from src.wizard.controller.frmSeriesWizard import SeriesWizardController
 from src.wizard.controller.frmVirtualGrid import GridBase
@@ -31,7 +33,7 @@ class DataConfigPanelController(DataConfigPanelView):
         A method to populate the controls/widgets with the contents
         of the given data parameter.
         '''
-        print data
+        print "populate", data
 
         
         self.inputDict.update(data)
@@ -151,9 +153,17 @@ class DataConfigPanelController(DataConfigPanelView):
         event.Skip()
 
     def doRunResultWizard(self):
+        Credentials = namedtuple('Credentials',
+            'dbType, host, db_name, uid, pwd')
+
         resultWizard = SeriesWizardController(self,
             title=u'Create New Mapping For %s' % self.selectedColumn,
-            label=self.selectedColumn)
+            label=self.selectedColumn,
+            creds=Credentials(searchDict(self.inputDict,'Engine'),
+                searchDict(self.inputDict,'Address'),
+                searchDict(self.inputDict,'DatabaseName'),
+                searchDict(self.inputDict,'UserName'),
+                searchDict(self.inputDict,'Password')))
         configData = resultWizard.run()
         self.m_listCtrl3.Append([configData[i] for i in configData])
 

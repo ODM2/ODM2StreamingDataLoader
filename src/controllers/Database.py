@@ -29,7 +29,7 @@ class Database:
         to set up a new connection to an ODM2 database.
         '''
         self.session_factory = \
-            dbconnection.createConnection('mysql', Credentials.host,
+            dbconnection.createConnection(Credentials.dbType, Credentials.host,
                                             Credentials.db_name,
                                             Credentials.uid,
                                             Credentials.pwd)
@@ -79,3 +79,9 @@ class Database:
         cr = UpdateODM2(self.session_factory)
         cr.updateResultValidDateTime(seriesId, dateTime)
         return True
+
+    def getReadSession(self):
+        '''
+        '''
+        _session = self.session_factory.getSession()
+        return ReadODM2(self.session_factory)

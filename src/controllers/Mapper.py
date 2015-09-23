@@ -9,9 +9,9 @@ from controllers.Database import Database
 
 logger = logging.getLogger('SDL_logger')
 
-class Mapping():
+class Mapper():
     '''
-    Model class representing a mapped pandas dataframe object.
+    Class representing a mapped pandas dataframe object.
     
     Attributes:
         rawData : pandas.core.frame.DataFrame - Raw CSV data from the
@@ -43,6 +43,7 @@ class Mapping():
         Credentials = namedtuple('Credentials', 'host, db_name,\
                                     uid, pwd')
         return self.dbWriter.createConnection(Credentials(\
+                            self.mapping['Database']['Engine'],
                             self.mapping['Database']['Address'],
                             self.mapping['Database']['DatabaseName'],
                             self.mapping['Database']['UserName'],

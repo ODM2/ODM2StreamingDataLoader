@@ -8,6 +8,9 @@ class WizardPage(wx.wizard.PyWizardPage):
         self.next = None
         self.prev = None
 
+        print "SDFASDFASDFASDFASDFASDFASDF"
+        self.parent = parent
+
         self.panels = []
 
         self.sizer = wx.FlexGridSizer(0, 1, 0, 0)

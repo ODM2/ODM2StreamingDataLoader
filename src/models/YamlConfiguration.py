@@ -8,6 +8,8 @@ import logging
 import urllib2
 import tempfile
 
+from src.models.Mapping import Mapping
+
 logger = logging.getLogger('SDL_logger')
 
 class YamlConfiguration():
@@ -98,11 +100,11 @@ class YamlConfiguration():
                 # Look for the matching data file.
                 if self.yamlDict[fileDict]['Settings']['FileLocation'] == self.dataFile:
                     # only use the one file configuration.
-                    fileDictList.append((fileDict, self.yamlDict[fileDict]))
+                    fileDictList.append(Mapping((fileDict, self.yamlDict[fileDict])))
             
             # Collect all of the configurations.
             else:
-                fileDictList.append((fileDict, self.yamlDict[fileDict]))
+                fileDictList.append(Mapping((fileDict, self.yamlDict[fileDict])))
 
         return fileDictList
 
@@ -167,5 +169,4 @@ class YamlConfiguration():
         if path is not '':
             self.yamlFilePath = path
         self.rebase(self.get())
-
 

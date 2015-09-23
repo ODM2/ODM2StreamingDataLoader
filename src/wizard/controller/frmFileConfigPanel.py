@@ -158,6 +158,8 @@ class FileConfigPanelController(FileConfigPanelView):
             print "date: ", date
             self.m_datePicker3.SetValue(pydate2wxdate(date))
             self.m_timePicker1.SetValue(str(date.time()))
+
+            self.inputDict['Database'] = searchDict(data, 'Database')
         except KeyError:
             print "no data..."
 

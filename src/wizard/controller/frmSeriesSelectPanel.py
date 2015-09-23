@@ -1,5 +1,6 @@
 import wx
 
+from src.controllers.Database import Database
 from ObjectListView import ObjectListView, ColumnDefn
 
 class SeriesSelectPanel(wx.Panel):
@@ -49,7 +50,12 @@ class SeriesSelectPanel(wx.Panel):
         # The panel to use for adding a new series.
         self.label = label
         self.Bind(wx.EVT_BUTTON, self.onButtonAdd)
+
+        print "KKK", parent.parent.creds
+        self.db = Database()
+        self.db.createConnection(parent.parent.creds)
     
+
     def getSeriesData(self):
         raise NotImplementedError
 

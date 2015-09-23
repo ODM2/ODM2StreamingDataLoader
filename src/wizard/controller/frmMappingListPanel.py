@@ -15,16 +15,38 @@ class MappingListPanel(MappingListPanelView):
     def __init__(self, parent):
         # Initialize the base class.
         super(MappingListPanel, self).__init__(parent)
+        # Keep a handle to the parent.
+        self.parent = parent
         # Add the columns to the list control.
         self.listCtrl.SetColumns([
-            ColumnDefn('ID', 'left', 100, ''),
-            ColumnDefn('Server', 'left', 100, ''),
-            ColumnDefn('Database', 'left', 100, ''),
-            ColumnDefn('Data File Location', 'left', 130, ''),
-            ColumnDefn('Scheduled Period', 'left', 100, ''),
-            ColumnDefn('Scheduled Begin Time', 'left', 100, ''),
-            ColumnDefn('Last Update', 'left', 100, ''),
+            ColumnDefn('ID', 'left', 100, 'id'),
+            ColumnDefn('Server', 'left', 100, 'server'),
+            ColumnDefn('Database', 'left', 150, 'db'),
+            ColumnDefn('Data File Location', 'left', 200, 'path'),
+            ColumnDefn('Scheduled Period', 'left', 120, 'period'),
+            ColumnDefn('Scheduled Begin Time', 'left', 150, 'begin'),
+            ColumnDefn('Last Update', 'left', 100, 'update'),
         ])
         self.listCtrl.SetObjects(None)
 
+    def setObjects(self, obj):
+        '''
+            Wrapper method which calls this panel's
+            object list view control SetObjects 
+            method.
+        '''
+        self.listCtrl.SetObjects(obj)
 
+    def onSelect(self, event):
+        self.parent.toolbar.del_btn.Enable(True)
+        self.parent.toolbar.edit_btn.Enable(True)
+        event.Skip()
+
+    def onDeselect(self, event):
+        self.parent.toolbar.del_btn.Enable(False)
+        self.parent.toolbar.edit_btn.Enable(False)
+        event.Skip()
+
+    def onDoubleClick(self, event):
+        self.parent.toolbar.onEditButtonClick(event) 
+        event.Skip()
