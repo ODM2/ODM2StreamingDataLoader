@@ -28,11 +28,17 @@ class Database:
         after obtaining login credentials (Credentials) and is used
         to set up a new connection to an ODM2 database.
         '''
+        print Credentials.engine
+        print Credentials.host
+        print Credentials.db_name
+        print Credentials.uid
+        print Credentials.pwd
+
         self.session_factory = \
-            dbconnection.createConnection(Credentials.dbType, Credentials.host,
+            dbconnection.createConnection(Credentials.engine, Credentials.host,
                                             Credentials.db_name,
                                             Credentials.uid,
-                                            Credentials.pwd)
+                                            Credentials.pwd, 2.0)
         if not self.session_factory:
             logger.error("Unable to connect to database with host='%s', database='%s', user='%s', pwd='%s'." % (Credentials.host, Credentials.db_name, Credentials.uid, Credentials.pwd))
             return False

@@ -95,14 +95,14 @@ class clsDBConfiguration ( wx.Panel ):
         self.Layout()
         
         # Connect Events
-        self.btnTest.Bind( wx.EVT_BUTTON, self.OnBtnTest )
+        self.btnTest.Bind( wx.EVT_BUTTON, self.onTestConnection )
     
     def __del__( self ):
             pass
     
     
     # Virtual event handlers, overide them in your derived class
-    def OnBtnTest( self, event ):
+    def onTestConnection( self, event ):
             event.Skip()
     
     def OnBtnSave( self, event ):

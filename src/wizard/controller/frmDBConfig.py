@@ -32,6 +32,7 @@ class pnlDBConfig(clsDBConfiguration):
         self.inputDict = {}
         
     def getInput(self):
+        print "A"
         self.inputDict.update(self.getFieldValues())
         return self.inputDict
 

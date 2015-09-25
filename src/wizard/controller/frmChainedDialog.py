@@ -3,7 +3,7 @@ import wx
 
 from src.wizard.controller.frmFileConfigPanel import FileConfigPanelController
 from src.wizard.controller.frmDataConfigPanel import DataConfigPanelController
-from src.wizard.controller.frmDBConfig import pnlDBConfig
+from src.wizard.controller.frmDatabaseConfigPanel import DatabaseConfigPanel
 
 class ChainedDialog(wx.Dialog):
     def __init__(self, data={}, *args, **kwargs):
@@ -36,7 +36,7 @@ class ChainedDialog(wx.Dialog):
         # Pass any incoming data to the first panel.
         # E.g. if this custom wizard is being used
         # to edit a mapping that already exists.
-        self.panelList[self.currentPanel].populate(data=self.data)
+        self.panelList[self.currentPanel].setInput(data=self.data)
         print "Wizard data", self.data
 
     def addButtons(self):
@@ -65,7 +65,8 @@ class ChainedDialog(wx.Dialog):
         # wizard.
         filePanel = FileConfigPanelController(self)
         dataPanel = DataConfigPanelController(self)
-        dbPanel = pnlDBConfig(self, None)
+        #dbPanel = pnlDBConfig(self, None)
+        dbPanel = DatabaseConfigPanel(self)
         # Add each of them to the appropriate sizer.
         self.panelSizer.Add(filePanel)
         self.panelSizer.Add(dataPanel)
@@ -80,6 +81,7 @@ class ChainedDialog(wx.Dialog):
         self.panelList.append(dbPanel)
         self.panelList.append(filePanel)
         self.panelList.append(dataPanel)
+
 
     def run(self):
         '''
@@ -125,7 +127,7 @@ class ChainedDialog(wx.Dialog):
                 event.Skip()
                 return
             try:
-                self.panelList[self.currentPanel+1].populate(data=self.panelList[self.currentPanel].getInput())
+                self.panelList[self.currentPanel+1].setInput(data=self.panelList[self.currentPanel].getInput())
             except TypeError:
                 error_dlg = wx.MessageBox('This data does not look valid. Check to see if the configuration options match the data file.\n\nDo you want to continue anyway?', 'Data Load Error', wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
                 if error_dlg == wx.ID_NO:
@@ -134,7 +136,7 @@ class ChainedDialog(wx.Dialog):
 
             self.panelList[self.currentPanel].Hide()
             self.panelList[self.currentPanel+1].Show()
-            self.panelList[self.currentPanel+1].populate(\
+            self.panelList[self.currentPanel+1].setInput(\
                 self.panelList[self.currentPanel].getInput())
             self.currentPanel += 1
             self.mainSizer.Fit(self)

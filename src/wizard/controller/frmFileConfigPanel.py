@@ -128,7 +128,7 @@ class FileConfigPanelController(FileConfigPanelView):
         return self.inputDict
 
 
-    def populate(self, data={}):
+    def setInput(self, data={}):
         #print "data!! ", data
         # Populate the local or remote file text controls.
         try:

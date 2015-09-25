@@ -3,8 +3,8 @@ import wx
 import os
 
 import sys
-sys.path.append("/Users/Stephanie/DEV/StreamingDataLoader/src")
-sys.path.append("/Users/Stephanie/DEV/StreamingDataLoader/src/wizard")
+#sys.path.append("/Users/Stephanie/DEV/StreamingDataLoader/src")
+#sys.path.append("/Users/Stephanie/DEV/StreamingDataLoader/src/wizard")
 
 from src.wizard.view.clsMain import MainView
 

@@ -16,6 +16,7 @@ class SeriesWizardController(wiz.Wizard):
             id=wx.ID_ANY, bitmap=wx.NullBitmap,
             pos=wx.DefaultPosition, style=wx.DEFAULT_DIALOG_STYLE,
             **kwargs)
+        
         self.creds = creds
         
         # In order for validation to work on widgets within

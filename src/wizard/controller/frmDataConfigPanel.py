@@ -28,7 +28,7 @@ class DataConfigPanelController(DataConfigPanelView):
         self.inputDict['LastUpdate'] = '-'
         return self.inputDict
 
-    def populate(self, data):
+    def setInput(self, data):
         '''
         A method to populate the controls/widgets with the contents
         of the given data parameter.
@@ -153,17 +153,10 @@ class DataConfigPanelController(DataConfigPanelView):
         event.Skip()
 
     def doRunResultWizard(self):
-        Credentials = namedtuple('Credentials',
-            'dbType, host, db_name, uid, pwd')
 
         resultWizard = SeriesWizardController(self,
             title=u'Create New Mapping For %s' % self.selectedColumn,
-            label=self.selectedColumn,
-            creds=Credentials(searchDict(self.inputDict,'Engine'),
-                searchDict(self.inputDict,'Address'),
-                searchDict(self.inputDict,'DatabaseName'),
-                searchDict(self.inputDict,'UserName'),
-                searchDict(self.inputDict,'Password')))
+            label=self.selectedColumn)
         configData = resultWizard.run()
         self.m_listCtrl3.Append([configData[i] for i in configData])
 
