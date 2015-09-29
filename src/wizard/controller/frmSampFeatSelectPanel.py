@@ -33,7 +33,7 @@ class SampFeatSelectPanel(SeriesSelectPanel):
     
     def onButtonAdd(self, event):
         dlg = NewSeriesDialog(self, u'Create New ' + self.label)
-        newSampFeatPanel = AddNewSampFeatPanelController(dlg)
+        newSampFeatPanel = AddNewSampFeatPanelController(dlg, self.db)
         dlg.addPanel(newSampFeatPanel)
         dlg.CenterOnScreen()
         if dlg.ShowModal() == wx.ID_OK:

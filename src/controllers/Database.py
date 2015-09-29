@@ -86,6 +86,12 @@ class Database:
         cr.updateResultValidDateTime(seriesId, dateTime)
         return True
 
+    def getWriteSession(self):
+        '''
+        '''
+        _session = self.session_factory.getSession()
+        return CreateODM2(self.session_factory)
+    
     def getReadSession(self):
         '''
         '''

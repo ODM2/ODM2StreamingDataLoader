@@ -29,7 +29,7 @@ class ProcLevelSelectPanel(SeriesSelectPanel):
     
     def onButtonAdd(self, event):
         dlg = NewSeriesDialog(self, u'Create New ' + self.label)
-        newProcLevelPanel = AddNewProcLevelPanelController(dlg)
+        newProcLevelPanel = AddNewProcLevelPanelController(dlg, self.db)
         dlg.addPanel(newProcLevelPanel)
         dlg.CenterOnScreen()
         if dlg.ShowModal() == wx.ID_OK:
