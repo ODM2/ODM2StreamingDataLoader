@@ -6,6 +6,7 @@ from collections import namedtuple
 from src.wizard.view.clsDataConfigPanel import DataConfigPanelView
 from src.handlers.csvHandler import CSVReader
 from src.common.functions import searchDict
+from src.controllers.Database import Database
 
 from src.wizard.controller.frmSeriesWizard import SeriesWizardController
 from src.wizard.controller.frmVirtualGrid import GridBase
@@ -153,10 +154,21 @@ class DataConfigPanelController(DataConfigPanelView):
         event.Skip()
 
     def doRunResultWizard(self):
+        print "data.,.,.", self.inputDict['Database']
+
+        db = Database()
+        Credentials = namedtuple('Credentials', 'engine, host, db_name, uid, pwd')
+        db.createConnection(Credentials(\
+            self.inputDict['Database']['Engine'],
+            self.inputDict['Database']['Address'],
+            self.inputDict['Database']['DatabaseName'],
+            self.inputDict['Database']['UserName'],
+            self.inputDict['Database']['Password']))
 
         resultWizard = SeriesWizardController(self,
             title=u'Create New Mapping For %s' % self.selectedColumn,
-            label=self.selectedColumn)
+            label=self.selectedColumn,
+            db=db)
         configData = resultWizard.run()
         self.m_listCtrl3.Append([configData[i] for i in configData])
 

@@ -24,10 +24,7 @@ class UnitSelectPanel(SeriesSelectPanel):
         self.list_ctrl.SetObjects(self.getSeriesData())
 
     def getSeriesData(self):
-        # TODO use real time credentials.
-        session_factory = dbconnection.createConnection('mysql', 'jws.uwrl.usu.edu', 'odm2', 'ODM', 'ODM123!!')
-        session = session_factory.getSession()
-        read = ReadODM2(session_factory)
+        read = self.db.getReadSession()
         return read.getUnits()
     
     def onButtonAdd(self, event):

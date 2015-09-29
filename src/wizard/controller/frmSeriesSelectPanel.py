@@ -3,6 +3,8 @@ import wx
 from src.controllers.Database import Database
 from ObjectListView import ObjectListView, ColumnDefn
 
+from collections import namedtuple
+
 class SeriesSelectPanel(wx.Panel):
     '''
         The base class for a series select panel.
@@ -51,10 +53,16 @@ class SeriesSelectPanel(wx.Panel):
         self.label = label
         self.Bind(wx.EVT_BUTTON, self.onButtonAdd)
 
-        print "KKK", parent.parent.creds
-        self.db = Database()
-        self.db.createConnection(parent.parent.creds)
-    
+        print "Database handle: ", parent.parent.db
+        self.db = parent.parent.db
+        #self.db.createConnection(parent.parent.creds)
+        #Credentials = namedtuple('Credentials', 'engine, host, db_name, uid, pwd')
+        #self.db.createConnection(Credentials(\
+        #    parent.parent.creds['Engine'],
+        #    parent.parent.creds['Address'],
+        #    parent.parent.creds['DatabaseName'],
+        #    parent.parent.creds['UserName'],
+        #    parent.parent.creds['Password']))
 
     def getSeriesData(self):
         raise NotImplementedError

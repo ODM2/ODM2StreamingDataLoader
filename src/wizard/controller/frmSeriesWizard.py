@@ -11,14 +11,15 @@ from src.wizard.controller.frmVariableSelectPanel import VariableSelectPanel
 from src.wizard.controller.frmUnitSelectPanel import UnitSelectPanel
 
 class SeriesWizardController(wiz.Wizard):
-    def __init__(self, parent, label, creds, **kwargs):
+    def __init__(self, parent, label, db, **kwargs):
         super(SeriesWizardController, self).__init__(parent,
             id=wx.ID_ANY, bitmap=wx.NullBitmap,
             pos=wx.DefaultPosition, style=wx.DEFAULT_DIALOG_STYLE,
             **kwargs)
         
-        self.creds = creds
-        
+        self.db = db
+        print "credentials!", self.db
+
         # In order for validation to work on widgets within
         # a panel, you must set this extra style.
         self.SetExtraStyle(wx.WS_EX_VALIDATE_RECURSIVELY)
