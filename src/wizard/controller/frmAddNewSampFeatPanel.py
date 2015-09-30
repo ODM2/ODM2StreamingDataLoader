@@ -22,37 +22,62 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
     def populateFields(self):
         read = self.db.getReadSession()
         
-        _uuid = uuid.uuid4()
-        self.m_textCtrl30.SetValue(unicode(_uuid))
+        self._uuid = uuid.uuid4()
+        self.m_textCtrl30.SetValue(unicode(self._uuid))
         
         cv_names = [i.Name for i in read.getCVSamplingFeatureTypes()]
-        self.m_comboBox82.AppendItems(cv_names)
+        self.m_comboBox82.SetValue('Site')
         
-        sites = [i.Name for i in read.getCVSiteTypes()]
-        self.m_comboBox8.AppendItems(sites)
+        self.sites = [i.Name for i in read.getCVSiteTypes()]
+        self.m_comboBox8.AppendItems(self.sites)
         
-        sp_ref = [i.SRSName for i in read.getCVSpacialReferenceTypes()]
-        self.m_comboBox822.AppendItems(sp_ref)
+        self.sp_ref = [i.SRSName for i in read.getCVSpacialReferenceTypes()]
+        self.m_comboBox822.AppendItems(self.sp_ref)
         
         geo = [i.Name for i in read.getCVSamplingFeatureGeoTypes()]
-        self.m_comboBox821.AppendItems(geo)
+        self.m_comboBox821.SetValue('Point')
         
-        datum = [i.Name for i in read.getCVElevationDatums()]
-        self.m_comboBox8211.AppendItems(datum)
+        self.datum = [i.Name for i in read.getCVElevationDatums()]
+        self.m_comboBox8211.AppendItems(self.datum)
         
     def onOK(self, event):
         # Event handler for when the user clicks OK.
+        
         code = self.m_textCtrl301.GetValue()
-        # TODO
-        # Handle this combo box:
-        vType = self.m_comboBox82.GetSelection()
-        name = self.m_textCtrl302.GetValue()
-        description = self.m_textCtrl303.GetValue()
-        geoType = self.m_comboBox821.GetSelection()
-        elevation = self.m_textCtrl3022.GetValue()
-        elevationDatum = self.m_comboBox8211.GetSelection()
-        featureGeo = self.m_textCtrl3021.GetValue()
-        print str(code)
+        sampFeatType = 'Site'
+        siteType = self.sites[self.m_comboBox8.GetCurrentSelection()]
+        lat = self.m_textCtrl35.GetValue()
+        lon = self.m_textCtrl36.GetValue()
+        spatialRef = self.sp_ref[self.m_comboBox822.GetCurrentSelection()]
+        sampFeatName = self.m_textCtrl302.GetValue()
+        sampFeatGeo = 'Point'
+        featGeo = 'POINT(%s %s)' % (lon, lat)
+        elevation_m = self.m_textCtrl3022.GetValue()
+        elevationDatum = self.datum[self.m_comboBox8211.GetSelection()]
+        desc = self.m_textCtrl303.GetValue()
+        
+        
+        print "code",str(code)
+        print "Type",str(sampFeatType)
+        print "siteType",str(siteType)
+        print "spatialRef",str(spatialRef)
+        print "sampFeatgeotype",str(sampFeatGeo)
+        print "elevation",str(elevation_m)
+        print "datum",str(elevationDatum)
+        print "feat geom",str(featGeo)
+        print "desc",str(desc)
+
+        write = self.db.getWriteSession()
+        #sf = write.createSamplingFeature(\
+        #    code=code,
+        #    vType=sampFeatType,
+        #    name=sampFeatName,
+        #    description=desc,
+        #    geoType=sampFeatGeo,
+        #    elevation=elevation_m,
+        #    elevationDatum=elevationDatum
+        #    featureGeo=featGeo)
+
         event.Skip()
 
 
