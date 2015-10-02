@@ -67,19 +67,25 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
         print "feat geom",str(featGeo)
         print "desc",str(desc)
 
+        '''
         write = self.db.getWriteSession()
-        #sf = write.createSamplingFeature(\
-        #    code=code,
-        #    vType=sampFeatType,
-        #    name=sampFeatName,
-        #    description=desc,
-        #    geoType=sampFeatGeo,
-        #    elevation=elevation_m,
-        #    elevationDatum=elevationDatum
-        #    featureGeo=featGeo)
+        sf = write.createSamplingFeature(\
+            code=str(code),
+            vType=str(sampFeatType),
+            name=str(sampFeatName),
+            description=str(desc),
+            geoType=str(sampFeatGeo),
+            elevation=float(elevation_m),
+            elevationDatum=str(elevationDatum),
+            featureGeo=str(featGeo))
+        
+        site = write.createSamplingFeature(\
+            sfId=sf.id,
+            spatialRefId=spatialRef,
+            vType=sampFeatType,
+            latitude=float(lat),
+            longitude=float(lon))
+        '''
 
         event.Skip()
-
-
-        
 

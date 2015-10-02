@@ -37,16 +37,9 @@ class AddNewVariablePanelView ( wx.Panel ):
         bSizer28.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         m_comboBox4Choices = []
-        self.m_comboBox4 = wx.ComboBox( sbSizer9.GetStaticBox(), wx.ID_ANY, u"Select Variable Name", wx.DefaultPosition, wx.DefaultSize, m_comboBox4Choices, 0 )
-        self.m_comboBox4.SetMinSize( wx.Size( 230,-1 ) )
-        
+        self.m_comboBox4 = wx.ComboBox( sbSizer9.GetStaticBox(), wx.ID_ANY, u"Select Variable Name", wx.DefaultPosition, wx.DefaultSize, m_comboBox4Choices, wx.CB_READONLY )
+        self.m_comboBox4.SetMinSize( wx.Size( 280,-1 ) )
         bSizer28.Add( self.m_comboBox4, 0, wx.ALL, 5 )
-        
-        self.m_button41 = wx.Button( sbSizer9.GetStaticBox(), wx.ID_ANY, u"+", wx.DefaultPosition, wx.Size( 40,27 ), 0 )
-        self.m_button41.SetFont( wx.Font( 15, 70, 90, 92, False, wx.EmptyString ) )
-        
-        bSizer28.Add( self.m_button41, 0, wx.ALL, 5 )
-        
         
         sbSizer9.Add( bSizer28, 1, wx.EXPAND, 5 )
         
@@ -60,15 +53,10 @@ class AddNewVariablePanelView ( wx.Panel ):
         bSizer32.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         m_comboBox12Choices = []
-        self.m_comboBox12 = wx.ComboBox( sbSizer9.GetStaticBox(), wx.ID_ANY, u"Select Variable Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox12Choices, 0 )
-        self.m_comboBox12.SetMinSize( wx.Size( 230,-1 ) )
+        self.m_comboBox12 = wx.ComboBox( sbSizer9.GetStaticBox(), wx.ID_ANY, u"Select Variable Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox12Choices, wx.CB_READONLY )
+        self.m_comboBox12.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer32.Add( self.m_comboBox12, 0, wx.ALL, 5 )
-        
-        self.m_button4 = wx.Button( sbSizer9.GetStaticBox(), wx.ID_ANY, u"+", wx.DefaultPosition, wx.Size( 40,27 ), 0 )
-        self.m_button4.SetFont( wx.Font( 15, 70, 90, 92, False, wx.EmptyString ) )
-        
-        bSizer32.Add( self.m_button4, 0, wx.ALL, 5 )
         
         
         sbSizer9.Add( bSizer32, 1, wx.EXPAND, 5 )
@@ -105,15 +93,15 @@ class AddNewVariablePanelView ( wx.Panel ):
         bSizer29.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         m_comboBox2Choices = []
-        self.m_comboBox2 = wx.ComboBox( sbSizer6.GetStaticBox(), wx.ID_ANY, u"Select Speciation", wx.DefaultPosition, wx.DefaultSize, m_comboBox2Choices, 0 )
-        self.m_comboBox2.SetMinSize( wx.Size( 230,-1 ) )
+        self.m_comboBox2 = wx.ComboBox( sbSizer6.GetStaticBox(), wx.ID_ANY, u"Select Speciation", wx.DefaultPosition, wx.DefaultSize, m_comboBox2Choices, wx.CB_READONLY )
+        self.m_comboBox2.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer29.Add( self.m_comboBox2, 0, wx.ALL, 5 )
         
-        self.m_button42 = wx.Button( sbSizer6.GetStaticBox(), wx.ID_ANY, u"+", wx.DefaultPosition, wx.Size( 40,27 ), 0 )
-        self.m_button42.SetFont( wx.Font( 15, 70, 90, 92, False, wx.EmptyString ) )
+        #self.m_button42 = wx.Button( sbSizer6.GetStaticBox(), wx.ID_ANY, u"+", wx.DefaultPosition, wx.Size( 40,27 ), 0 )
+        #self.m_button42.SetFont( wx.Font( 15, 70, 90, 92, False, wx.EmptyString ) )
         
-        bSizer29.Add( self.m_button42, 0, wx.ALL, 5 )
+        #bSizer29.Add( self.m_button42, 0, wx.ALL, 5 )
         
         
         sbSizer6.Add( bSizer29, 1, wx.EXPAND, 5 )

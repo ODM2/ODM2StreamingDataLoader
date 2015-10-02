@@ -30,7 +30,7 @@ class VariableSelectPanel(SeriesSelectPanel):
     
     def onButtonAdd(self, event):
         dlg = NewSeriesDialog(self, u'Create New ' + self.label)
-        newVariablePanel = AddNewVariablePanelController(dlg)
+        newVariablePanel = AddNewVariablePanelController(dlg, self.db)
         dlg.addPanel(newVariablePanel)
         dlg.CenterOnScreen()
         if dlg.ShowModal() == wx.ID_OK:

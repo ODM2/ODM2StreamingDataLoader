@@ -1,13 +1,14 @@
 import wx
 
-from api.ODMconnection import dbconnection
+#from api.ODMconnection import dbconnection
 #TODO get rid of *
-from api.ODM2.services.readService import *
+#from api.ODM2.services.readService import *
 
 from src.wizard.controller.frmAddNewUnitPanel import AddNewUnitPanelController
 from src.wizard.controller.frmSeriesSelectPanel import SeriesSelectPanel
 
 from ObjectListView import ObjectListView, ColumnDefn
+from src.wizard.controller.frmNewSeriesDialog import NewSeriesDialog
 
 class UnitSelectPanel(SeriesSelectPanel):
     '''
@@ -29,7 +30,7 @@ class UnitSelectPanel(SeriesSelectPanel):
     
     def onButtonAdd(self, event):
         dlg = NewSeriesDialog(self, u'Create New ' + self.label)
-        newUnitPanel = AddNewUnitPanelController(dlg)
+        newUnitPanel = AddNewUnitPanelController(dlg, self.db)
         dlg.addPanel(newUnitPanel)
         dlg.CenterOnScreen()
         if dlg.ShowModal() == wx.ID_OK:
