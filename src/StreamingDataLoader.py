@@ -77,7 +77,7 @@ def main(arguments):
                 # Declare updatedParams to preserve scope.
                 updatedParams = configParams 
                 print configParams
-                dataMapModel = Mapper(configParams[1])
+                dataMapModel = Mapper(configParams.asTuple()[1])
                 # If able to connect to the database...
                 if dataMapModel.getDatabase():
                     # If able to perform a mapping...

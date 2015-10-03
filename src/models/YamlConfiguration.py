@@ -118,10 +118,10 @@ class YamlConfiguration():
         '''
         
         try:
-            fileSize = os.path.getsize(configFileDict[1]['Settings']\
+            fileSize = os.path.getsize(configFileDict.asTuple()[1]['Settings']\
                                                      ['FileLocation'])
         except OSError:
-            response = urllib2.urlopen(configFileDict[1]['Settings']\
+            response = urllib2.urlopen(configFileDict.asTuple()[1]['Settings']\
                 ['FileLocation'])
             data = response.read()
             temp = tempfile.NamedTemporaryFile()
@@ -130,12 +130,12 @@ class YamlConfiguration():
                 temp.seek(0)
             finally:
                 fileSize = os.path.getsize(temp.name)
-                configFileDict[1]['Mappings'][columnName]\
+                configFileDict.asTuple()[1]['Mappings'][columnName]\
                     ['LastByteRead'] = str(fileSize)
                 temp.close()
                 return configFileDict
         
-        configFileDict[1]['Mappings'][columnName]\
+        configFileDict.asTuple()[1]['Mappings'][columnName]\
                       ['LastByteRead'] = str(fileSize)
         
         return configFileDict
@@ -147,9 +147,9 @@ class YamlConfiguration():
         to the YAML configuration file.
         '''
         print "configFileDictList", configFileDictList
+        print "configFileDictList", configFileDictList[0].asTuple()
         newContent = {}
-        for i,d in reversed(configFileDictList):
-
+        for i,d in reversed([l.asTuple() for l in configFileDictList]):
             newContent[i] = d
         
         with open(self.yamlFilePath, 'w') as f:

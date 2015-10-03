@@ -1,0 +1,73 @@
+## Configuration file
+## Last modified: 2015-10-02 18:43
+---
+Custom_file_id:
+  Database:
+    Address: lbrodm2
+    DatabaseName: LBRODM2
+    Engine: mssql
+    Password: odm
+    UserName: ODM
+  Mappings:
+    AirTemperature-C:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '0'
+      ResultID: 1
+    NetRadiation-Watts/m2:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '0'
+      ResultID: 2
+    Precipitation-mm:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '0'
+      ResultID: 3
+    RelativeHumidity-%:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '0'
+      ResultID: 4
+    SnowDepth-cm:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '0'
+      ResultID: 5
+    SolarRadiation-Watts/m2:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '0'
+      ResultID: 6
+    WindDirection-Degree:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '0'
+      ResultID: 7
+    WindSpeed-m/s:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '0'
+      ResultID: 8
+  Schedule:
+    Beginning: 6/4/2014 2:30:00 PM
+    Frequency: Day
+    LastUpdate: 1/1/2015 12:00:00 AM
+    Time: 1
+  Settings:
+    DataRowPosition: 23
+    DateTimeColumnName: DateTime
+    Delimiter: ','
+    FileLocation: http://odm2vocabsandbox.uwrl.usu.edu:8000/raw.csv
+    FileLocationType: Local
+    FillGaps: false
+    HeaderRowPosition: 20
+    UTCOffset: -6

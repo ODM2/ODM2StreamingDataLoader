@@ -40,7 +40,7 @@ class Mapper():
         credentials from the YAML file object (mapping) and returns
         a named-tuple called Credentials.
         '''
-        Credentials = namedtuple('Credentials', 'host, db_name,\
+        Credentials = namedtuple('Credentials', 'engine host, db_name,\
                                     uid, pwd')
         return self.dbWriter.createConnection(Credentials(\
                             self.mapping['Database']['Engine'],
@@ -142,8 +142,8 @@ class Mapper():
                 df['TimeAggregationInterval'] = series['IntendedTimeSpacing']
                 df['TimeAggregationIntervalUnitsID'] = series['IntendedTimeSpacingUnitID']
 
-            df['QualityCodeCV'] = 'None'
-            #df['QualityCodeCV'] = 'SDL Test Data'
+            #df['QualityCodeCV'] = 'None'
+            df['QualityCodeCV'] = 'SDL Test Data'
             df['CensorCodeCV'] = 'Unknown'
             df['ResultID'] = series['ResultID']
             df['ValueDateTimeUTCOffset'] = self.mapping['Settings']['UTCOffset']

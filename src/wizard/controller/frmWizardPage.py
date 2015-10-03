@@ -8,7 +8,6 @@ class WizardPage(wx.wizard.PyWizardPage):
         self.next = None
         self.prev = None
 
-        print "SDFASDFASDFASDFASDFASDFASDF"
         self.parent = parent
 
         self.panels = []

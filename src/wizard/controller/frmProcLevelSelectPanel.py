@@ -7,7 +7,7 @@ from api.ODM2.services.readService import *
 from src.controllers.Database import Database
 from src.wizard.controller.frmAddNewProcLevelPanel import AddNewProcLevelPanelController
 from src.wizard.controller.frmSeriesSelectPanel import SeriesSelectPanel
-
+from src.wizard.controller.frmNewSeriesDialog import NewSeriesDialog
 from ObjectListView import ObjectListView, ColumnDefn
 
 class ProcLevelSelectPanel(SeriesSelectPanel):
