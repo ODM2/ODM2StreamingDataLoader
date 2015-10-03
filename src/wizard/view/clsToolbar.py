@@ -81,7 +81,7 @@ class ToolbarView(wx.Panel):
         #self.Bind(wx.EVT_ENTER_WINDOW, self.onEditButtonOver,
         #    self.edit_btn)
         parent.tb.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENUBAR)) 
-        #self.tool_bar.Realize()
+        parent.tb.Realize()
 
         #supa_sizer.Add(self.tool_bar, 0, wx.EXPAND, 5)
 
