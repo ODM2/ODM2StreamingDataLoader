@@ -12,10 +12,10 @@ class ToolbarController(ToolbarView):
     def __init__(self, daddy, **kwargs):
         super(ToolbarController, self).__init__(daddy, **kwargs)
         self.parent = daddy
-        self.del_btn.Enable(False)
-        self.ref_btn.Enable(False)
-        self.run_btn.Enable(False)
-        self.edit_btn.Enable(False)
+        #self.del_btn.Enable(False)
+        #self.ref_btn.Enable(False)
+        #self.run_btn.Enable(False)
+        #self.edit_btn.Enable(False)
     
     def onNewButtonClick(self, event):
         '''

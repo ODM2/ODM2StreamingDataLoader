@@ -10,6 +10,7 @@ class MainView(wx.Frame):
                                          style=wx.DEFAULT_FRAME_STYLE,
                                          **kwargs)
 
+        self.tb = self.CreateToolBar()
         self.SetSizeHintsSz(wx.Size(1080, 700), wx.DefaultSize)
         self.Centre(wx.BOTH)
 

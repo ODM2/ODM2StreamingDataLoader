@@ -149,7 +149,8 @@ class Mapper():
             df['ValueDateTimeUTCOffset'] = self.mapping['Settings']['UTCOffset']
 
             noDataValue = self._getNoDataValue(df['ResultID'][0])
-            
+            print "---------NoDataValue", noDataValue
+
             df = df.replace(to_replace=[np.nan, '-INF'],
                             value=[noDataValue, noDataValue],
                             regex=True)
@@ -167,6 +168,7 @@ class Mapper():
         _getNoDataValue is a wrapper method to the database object's
         getNoDataValue method.
         '''
+        print "-------resultID", resultID
         return self.dbWriter.getNoDataValue(resultID)
     
     
