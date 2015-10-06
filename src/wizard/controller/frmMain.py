@@ -3,15 +3,12 @@ import wx
 import os
 
 import sys
-#sys.path.append("/Users/Stephanie/DEV/StreamingDataLoader/src")
-#sys.path.append("/Users/Stephanie/DEV/StreamingDataLoader/src/wizard")
 
 from src.wizard.view.clsMain import MainView
 
-from src.wizard.controller.frmToolbar import ToolbarController
-#from src.wizard.controller.frmFileList import FileListController
 from src.wizard.controller.frmMappingListPanel import MappingListPanel
 from src.wizard.controller.frmStatusBar import StatusBarController
+from src.wizard.controller.frmChainedDialog import ChainedDialog
 
 from src.models.YamlConfiguration import YamlConfiguration
 from src.models.Mapping import Mapping
@@ -26,28 +23,19 @@ class MainController(MainView):
 
         self.setupMenu()
 
-        #supa_sizer = wx.FlexGridSizer(2, 1, 0, 0)
         supa_sizer = wx.BoxSizer(wx.VERTICAL)
-        #supa_sizer.SetFlexibleDirection(wx.BOTH)
-        #supa_sizer.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
 
         # Status bar.
         self.status_bar = StatusBarController(self)
         self.SetStatusBar(self.status_bar)
         
-        # Panel for the tool bar.
-        self.toolbar = ToolbarController(self)
         
-        #self.fileList = FileListController(self)
         self.fileList = MappingListPanel(self)
-        supa_sizer.Add(self.toolbar, 0, wx.EXPAND | wx.ALL, 5)
         supa_sizer.Add(self.fileList, 1, wx.EXPAND | wx.ALL, 5)
 
         self.SetSizer(supa_sizer)
         self.Layout()
         self.Centre(wx.BOTH)
-
-        #self.mappings = []
 
     def setupMenu(self):
         self.menu_bar = wx.MenuBar()
@@ -171,6 +159,77 @@ class MainController(MainView):
 
     def onHelpAboutClick(self, event):
         event.Skip()
+
+    def onNewButtonClick(self, event):
+        '''
+            This method happens when the plus button
+            is clicked on the toolbar.
+        '''
+        print "onNewButtonClick"
+        # Create a ChainedDialog.
+        wizard = ChainedDialog(parent=self, title='New Mapping Wizard', data={})
+        # Run the ChainedDialog
+        newMapping = wizard.run()
+        print 'data from wizard: ', newMapping
+        # If the wizard was completed...
+        if newMapping:
+            # Update the list control that contains the mappings.
+            #self.parent.fileList.populateRows([('tester', newMapping)])
+            # Also update the in-memory list of mappings.
+            #self.parent.mappings.append(Mapping(('test', newMapping)))
+            self.fileList.listCtrl.AddObject(Mapping(('test', newMapping)))
+            self.parent.mappings = self.parent.fileList.listCtrl.GetObjects()
+        # On Windows, calling event.Skip() makes this 
+        # event be called twice for some reason, so I'm
+        # commenting it out.
+        #event.Skip()
+
+    def onDelButtonClick(self, event):
+        '''
+            This method is called when the user clicks
+            the delete button from the toolbar.
+        '''
+        selected = self.fileList.listCtrl.GetSelectedObject()
+        # Get the id of the selected mapping.
+        msg_txt = selected.id
+        # Display a message dialog to confirm the delete operation.
+        msg = wx.MessageDialog(self,
+            "Are you sure you want to delete the mapping for '%s' from this configuration file?" % (msg_txt),
+            'Delete Mapping',
+            wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
+        # If user clicks "Yes,"...
+        if msg.ShowModal() == wx.ID_YES:
+            # Delete that row from the list control.
+            self.fileList.listCtrl.RemoveObject(selected)
+            # Update the list of mappings.
+            self.parent.mappings = self.fileList.listCtrl.GetObjects()
+            # Disable the delete button on the toolbar.
+            parent.tb.EnableTool(20, False)
+        # Destroy the message dialog handle.
+        msg.Destroy()
+        #event.Skip()
+    
+    def onEditButtonClick(self, event):
+        # Get the currently selected mapping.
+        selected = self.fileList.listCtrl.GetSelectedObject()
+        # Create a wizard to edit the selected mapping.
+        wizard = ChainedDialog(parent=self, title='Edit Mapping',
+            data=selected.asTuple()[1])
+        # Run the wizard and store the data which is returned.
+        newMapping = wizard.run()
+        # If the wizard was completed successfully...
+        if newMapping:
+            print 'data from wizard: ', newMapping
+            # TODO
+            # Return as a tuple with an id
+            selected.up((selected.id, newMapping))
+            self.fileList.listCtrl.RepopulateList()
+
+        #event.Skip()
+
+    def onRunButtonClick(self, event):
+        print 'run'
+        #event.Skip()
 
 
 if __name__ == '__main__':

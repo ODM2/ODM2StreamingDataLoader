@@ -38,15 +38,15 @@ class MappingListPanel(MappingListPanelView):
         self.listCtrl.SetObjects(obj)
 
     def onSelect(self, event):
-        self.parent.toolbar.del_btn.Enable(True)
-        self.parent.toolbar.edit_btn.Enable(True)
+        self.parent.tb.EnableTool(20, True)
+        self.parent.tb.EnableTool(30, True)
         event.Skip()
 
     def onDeselect(self, event):
-        self.parent.toolbar.del_btn.Enable(False)
-        self.parent.toolbar.edit_btn.Enable(False)
+        self.parent.tb.EnableTool(20, False)
+        self.parent.tb.EnableTool(30, False)
         event.Skip()
 
     def onDoubleClick(self, event):
-        self.parent.toolbar.onEditButtonClick(event) 
+        self.parent.onEditButtonClick(event) 
         event.Skip()
