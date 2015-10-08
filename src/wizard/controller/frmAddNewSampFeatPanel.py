@@ -25,8 +25,8 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
         self._uuid = uuid.uuid4()
         self.m_textCtrl30.SetValue(unicode(self._uuid))
         
-        cv_names = [i.Name for i in read.getCVSamplingFeatureTypes()]
-        self.m_comboBox82.SetValue('Site')
+        #cv_names = [i.Name for i in read.getCVSamplingFeatureTypes()]
+        self.m_textCtrl30.SetValue('Site')
         
         self.sites = [i.Name for i in read.getCVSiteTypes()]
         self.m_comboBox8.AppendItems(self.sites)
@@ -34,11 +34,12 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
         self.sp_ref = [i.SRSName for i in read.getCVSpacialReferenceTypes()]
         self.m_comboBox822.AppendItems(self.sp_ref)
         
-        geo = [i.Name for i in read.getCVSamplingFeatureGeoTypes()]
-        self.m_comboBox821.SetValue('Point')
+        #geo = [i.Name for i in read.getCVSamplingFeatureGeoTypes()]
+        self.m_geotypeTxt.SetValue('Point')
         
         self.datum = [i.Name for i in read.getCVElevationDatums()]
         self.m_comboBox8211.AppendItems(self.datum)
+
         
     def onOK(self, event):
         # Event handler for when the user clicks OK.
@@ -86,6 +87,6 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
             latitude=float(lat),
             longitude=float(lon))
         '''
-
+        #self.Validate()
         event.Skip()
 
