@@ -87,6 +87,8 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
             latitude=float(lat),
             longitude=float(lon))
         '''
-        #self.Validate()
+        if not self.Validate():
+            self.Refresh()
+            return
         event.Skip()
 

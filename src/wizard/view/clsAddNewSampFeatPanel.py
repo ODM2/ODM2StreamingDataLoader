@@ -4,22 +4,22 @@ from src.wizard.controller.frmRequiredValidator import RequiredValidator
 
 class AddNewSampFeatPanelView ( wx.Panel ):
     def __init__( self, parent ):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 459,626 ), style = wx.TAB_TRAVERSAL )
+        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 459,600 ), style = wx.TAB_TRAVERSAL )
                 
-        self.SetMinSize( wx.Size( 459,626 ) )
+        self.SetMinSize( wx.Size( 459,600 ) )
         self.SetExtraStyle(wx.WS_EX_VALIDATE_RECURSIVELY)        
         bSizer111 = wx.BoxSizer( wx.VERTICAL )
         
         sbSizer25 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Required Fields:" ), wx.VERTICAL )
         
-        bSizer41 = wx.BoxSizer( wx.HORIZONTAL )
+        #bSizer41 = wx.BoxSizer( wx.HORIZONTAL )
         
         #self.m_staticText35 = wx.StaticText( sbSizer25.GetStaticBox(), wx.ID_ANY, u"Sampling Feature UUID", wx.DefaultPosition, wx.DefaultSize, 0 )
         #self.m_staticText35.Wrap( -1 )
         #bSizer41.Add( self.m_staticText35, 0, wx.ALL, 5 )
         
         
-        bSizer41.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        #bSizer41.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         #self.m_textCtrl30 = wx.TextCtrl( sbSizer25.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         #self.m_textCtrl30.Enable( False )
@@ -27,7 +27,7 @@ class AddNewSampFeatPanelView ( wx.Panel ):
         #bSizer41.Add( self.m_textCtrl30, 0, wx.ALL, 5 )
         
         
-        sbSizer25.Add( bSizer41, 1, wx.EXPAND, 5 )
+        #sbSizer25.Add( bSizer41, 1, wx.EXPAND, 5 )
         
         bSizer411 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -203,7 +203,7 @@ class AddNewSampFeatPanelView ( wx.Panel ):
         
         bSizer4122.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.m_textCtrl3022 = wx.TextCtrl( sbSizer24.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 , validator=RequiredValidator())
+        self.m_textCtrl3022 = wx.TextCtrl( sbSizer24.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_textCtrl3022.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer4122.Add( self.m_textCtrl3022, 0, wx.ALL, 5 )
