@@ -22,6 +22,7 @@ class DatabaseConfigPanel(ChainedDialogPage,
     def getInput(self):
         # Implementing getInput from ChainedDialogPage.
         self.inputDict.update(self.getFieldValues())
+        print "######", self.inputDict
         return self.inputDict
 
     def setInput(self, data):

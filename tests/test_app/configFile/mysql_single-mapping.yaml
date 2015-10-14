@@ -1,61 +1,61 @@
 ## Configuration file
-## Last modified: 2015-10-02 18:43
+## Last modified: 2015-10-13 20:7
 ---
 Custom_file_id:
   Database:
-    Address: jws.uwrl.usu.edu
+    Address: localhost
     DatabaseName: odm2
     Engine: mysql
-    Password: ODM123!!
-    UserName: ODM
+    Password: odm
+    UserName: odm
   Mappings:
     AirTemperature-C:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '0'
+      LastByteRead: '2413'
       ResultID: 1
     NetRadiation-Watts/m2:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '0'
+      LastByteRead: '2413'
       ResultID: 2
     Precipitation-mm:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '0'
+      LastByteRead: '2413'
       ResultID: 3
     RelativeHumidity-%:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '0'
+      LastByteRead: '2413'
       ResultID: 4
     SnowDepth-cm:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '0'
+      LastByteRead: '2413'
       ResultID: 5
     SolarRadiation-Watts/m2:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '0'
+      LastByteRead: '2413'
       ResultID: 6
     WindDirection-Degree:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '0'
+      LastByteRead: '2413'
       ResultID: 7
     WindSpeed-m/s:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '0'
+      LastByteRead: '2413'
       ResultID: 8
   Schedule:
     Beginning: 6/4/2014 2:30:00 PM

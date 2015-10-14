@@ -131,6 +131,8 @@ class FileConfigPanelController(FileConfigPanelView):
     def setInput(self, data={}):
         #print "data!! ", data
         # Populate the local or remote file text controls.
+        print "!!!", data
+        self.inputDict.update(data)
         try:
             if searchDict(data, 'FileLocation').startswith('http'):
                 self.remote_file_txt.SetValue(searchDict(data, 'FileLocation'))
@@ -160,6 +162,7 @@ class FileConfigPanelController(FileConfigPanelView):
             self.m_timePicker1.SetValue(str(date.time()))
 
             self.inputDict['Database'] = searchDict(data, 'Database')
+            print self.inputDict
         except KeyError:
             print "no data..."
 

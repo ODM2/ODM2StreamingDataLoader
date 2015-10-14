@@ -144,7 +144,8 @@ class Mapper():
 
             #df['QualityCodeCV'] = 'None'
             df['QualityCodeCV'] = 'SDL Test Data'
-            df['CensorCodeCV'] = 'Unknown'
+            #df['CensorCodeCV'] = 'Unknown'
+            df['CensorCodeCV'] = 'Non-detect'
             df['ResultID'] = series['ResultID']
             df['ValueDateTimeUTCOffset'] = self.mapping['Settings']['UTCOffset']
 
