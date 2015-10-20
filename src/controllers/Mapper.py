@@ -141,9 +141,12 @@ class Mapper():
             else:
                 df['TimeAggregationInterval'] = series['IntendedTimeSpacing']
                 df['TimeAggregationIntervalUnitsID'] = series['IntendedTimeSpacingUnitID']
-
+            
+            # FIXME change to none when released.
+            # SDL Test Data is just for our testing purposes.
             #df['QualityCodeCV'] = 'None'
             df['QualityCodeCV'] = 'SDL Test Data'
+            # TODO add unknown to database.
             #df['CensorCodeCV'] = 'Unknown'
             df['CensorCodeCV'] = 'Non-detect'
             df['ResultID'] = series['ResultID']

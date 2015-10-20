@@ -44,51 +44,57 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
     def onOK(self, event):
         # Event handler for when the user clicks OK.
         
-        code = self.m_textCtrl301.GetValue()
-        sampFeatType = 'Site'
-        siteType = self.sites[self.m_comboBox8.GetCurrentSelection()]
-        lat = self.m_textCtrl35.GetValue()
-        lon = self.m_textCtrl36.GetValue()
-        spatialRef = self.sp_ref[self.m_comboBox822.GetCurrentSelection()]
-        sampFeatName = self.m_textCtrl302.GetValue()
-        sampFeatGeo = 'Point'
-        featGeo = 'POINT(%s %s)' % (lon, lat)
-        elevation_m = self.m_textCtrl3022.GetValue()
-        elevationDatum = self.datum[self.m_comboBox8211.GetSelection()]
-        desc = self.m_textCtrl303.GetValue()
-        
-        
-        print "code",str(code)
-        print "Type",str(sampFeatType)
-        print "siteType",str(siteType)
-        print "spatialRef",str(spatialRef)
-        print "sampFeatgeotype",str(sampFeatGeo)
-        print "elevation",str(elevation_m)
-        print "datum",str(elevationDatum)
-        print "feat geom",str(featGeo)
-        print "desc",str(desc)
-
-        '''
-        write = self.db.getWriteSession()
-        sf = write.createSamplingFeature(\
-            code=str(code),
-            vType=str(sampFeatType),
-            name=str(sampFeatName),
-            description=str(desc),
-            geoType=str(sampFeatGeo),
-            elevation=float(elevation_m),
-            elevationDatum=str(elevationDatum),
-            featureGeo=str(featGeo))
-        
-        site = write.createSamplingFeature(\
-            sfId=sf.id,
-            spatialRefId=spatialRef,
-            vType=sampFeatType,
-            latitude=float(lat),
-            longitude=float(lon))
-        '''
+        # Try to validate the form.
         if not self.Validate():
             self.Refresh()
             return
+        else:
+            # Move the data into the value dictionaries.
+            # All data should be valid at this point.
+            self.getFieldValues() 
+            try:
+                # Create the variable in the database.
+                write = self.db.getWriteSession()
+                sf = write.createSamplingFeature(\
+                    uuid=str(self._uuid),
+                    code=str(code),
+                    vType=str(sampFeatType),
+                    name=str(sampFeatName),
+                    description=str(desc),
+                    geoType=str(sampFeatGeo),
+                    elevation=float(elevation_m),
+                    elevationDatum=str(elevationDatum),
+                    featureGeo=str(featGeo))
+                
+                site = write.createSite(\
+                    sfId=sf.SamplingFeatureID,
+                    spatialRefId=spatialRef,
+                    vType=siteType,
+                    latitude=float(lat),
+                    longitude=float(lon))
+            except Exception as e:
+                print e
         event.Skip()
 
+    def getFieldValues(self):
+        # Stores all of the required field values.
+        # Default is None.
+        self.requiredValues = {'uuid':None, # Required
+                  'code':None, # Required
+                  'vType':'Site',# Required
+                  'spatialRef':None,# Required
+                  'lat':None, # Required
+                  'long':None,# Required
+                  }
+        self.optionalValues = {
+                  'name':None, 
+                  'desc':None,
+                  'geoType':'Point',
+                  'elevation':None,
+                  'elevationDatum':None,
+                  'featureGeo':None,
+                  }
+        
+        self.requiredValues['uuid'] = str(uuid.uuid4())
+        self.requiredValues['code'] = self.m_textCtrl301.GetValue()
+        self.sp_ref[self.m_comboBox822.GetCurrentSelection()]

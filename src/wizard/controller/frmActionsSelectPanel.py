@@ -3,7 +3,7 @@ import wx
 from api.ODMconnection import dbconnection
 #TODO get rid of *
 from api.ODM2.services.readService import *
-
+from src.wizard.controller.frmNewSeriesDialog import NewSeriesDialog
 from src.wizard.controller.frmAddNewActionsPanel import AddNewActionsPanelController
 from src.wizard.controller.frmSeriesSelectPanel import SeriesSelectPanel
 
