@@ -22,7 +22,6 @@ class DatabaseConfigPanel(ChainedDialogPage,
     def getInput(self):
         # Implementing getInput from ChainedDialogPage.
         self.inputDict.update(self.getFieldValues())
-        print "######", self.inputDict
         return self.inputDict
 
     def setInput(self, data):
@@ -50,10 +49,10 @@ class DatabaseConfigPanel(ChainedDialogPage,
     def getFieldValues(self):
         conn_dict = {}
         conn_dict['Engine'] = self.choices[self.cbDatabaseType.GetValue()] if self.cbDatabaseType.GetValue() != ''  else ''
-        conn_dict['UserName'] = self.txtUser.GetValue()
-        conn_dict['Password'] = self.txtPass.GetValue()
-        conn_dict['Address'] = self.txtServer.GetValue()
-        conn_dict['DatabaseName'] = self.txtDBName.GetValue()
+        conn_dict['UserName'] = str(self.txtUser.GetValue())
+        conn_dict['Password'] = str(self.txtPass.GetValue())
+        conn_dict['Address'] = str(self.txtServer.GetValue())
+        conn_dict['DatabaseName'] = str(self.txtDBName.GetValue())
         return {'Database': conn_dict}
 
     def validateInput(self, conn_dict):

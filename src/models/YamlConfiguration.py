@@ -170,3 +170,10 @@ class YamlConfiguration():
             self.yamlFilePath = path
         self.rebase(self.get())
 
+    def addMapping(self, mapping):
+        '''
+        Add a new mapping to self.yamlDict
+        Used by the wizard.
+        '''
+        print "existing data", self.yamlDict
+        self.yamlDict[mapping[0]] = mapping[1]

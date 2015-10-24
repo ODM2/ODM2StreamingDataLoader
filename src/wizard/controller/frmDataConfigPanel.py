@@ -26,7 +26,7 @@ class DataConfigPanelController(DataConfigPanelView):
         A method which returns a dict of data.
         Used to share data between panels.
         '''
-        self.inputDict['LastUpdate'] = '-'
+        #self.inputDict['LastUpdate'] = '-'
         return self.inputDict
 
     def setInput(self, data):
@@ -52,9 +52,12 @@ class DataConfigPanelController(DataConfigPanelView):
             csv = CSVReader()
             
             try:
-                df = csv.dataFrameReader(data['FileLocation'],
-                    header=data['HeaderRowPosition'], sep=data['Delimiter'],
-                    dataBegin=data['DataRowPosition'])
+                df = csv.dataFrameReader(searchDict(data, 'FileLocation'),
+                    header=searchDict(data, 'HeaderRowPosition'), sep=searchDict(data, 'Delimiter'),
+                    dataBegin=searchDict(data, 'DataRowPosition'))
+                #df = csv.dataFrameReader(data['FileLocation'],
+                #    header=data['HeaderRowPosition'], sep=data['Delimiter'],
+                #    dataBegin=data['DataRowPosition'])
                 
                 columns = csv.getColumnNames(df)
 

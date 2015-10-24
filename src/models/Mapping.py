@@ -6,7 +6,6 @@ class Mapping:
         self.up(tup)
         
     def asTuple(self):
-        print "asTuple", self.tup
         return tuple(self.tup)
     
     def up(self, tup):
@@ -22,9 +21,7 @@ class Mapping:
                 searchDict(tup[1], 'Frequency'))
         except KeyError as e:
             print e
-    
-    #def __str__(self):
-    #    return unicode(self).encode('utf-8')
 
     def __unicode__(self):
         return unicode(self).encode('utf-8')
+

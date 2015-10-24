@@ -36,6 +36,17 @@ class MappingListPanel(MappingListPanelView):
             method.
         '''
         self.listCtrl.SetObjects(obj)
+    
+    def getObjects(self):
+        '''
+            Wrapper method which calls this panel's
+            object list view control GetObjects 
+            method.
+        '''
+        return self.listCtrl.GetObjects()
+
+    def addObject(self, model_object):
+        self.listCtrl.AddObject(model_object)
 
     def onSelect(self, event):
         self.parent.tb.EnableTool(20, True)

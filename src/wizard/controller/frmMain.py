@@ -93,12 +93,12 @@ class MainController(MainView):
             # Create a new YAML model object.
             # This will represent the file that
             # the user just opened.
-            yamlConfiguration = YamlConfiguration(path[0],
+            self.yamlConfiguration = YamlConfiguration(path[0],
                 ignoreBytes=False)
             # Store a list of mappings from the file.
             #self.mappings = yamlConfiguration.get()
             # Update the object list view control.
-            self.fileList.setObjects(yamlConfiguration.get())
+            self.fileList.setObjects(self.yamlConfiguration.get())
             # Change the status text at the bottom of
             # the screen to display the file name.
             self.SetStatusText('File: "' + path[0] + '"', 0)
@@ -127,7 +127,9 @@ class MainController(MainView):
             # Get the file path.
             path = dlg.GetPath()
             # Call the YamlConfiguration object's save method.
-            self.mappings.save(path)
+            self.yamlConfiguration.save(path)
+            print self.fileList.getObjects()
+            #self.mappings.save(path)
             # Change the status text to reflect the new file name. 
             self.SetStatusText('File: "' + path + '"', 0)
         # Destroy the dialog handle.
@@ -165,7 +167,6 @@ class MainController(MainView):
             This method happens when the plus button
             is clicked on the toolbar.
         '''
-        print "onNewButtonClick"
         # Create a ChainedDialog.
         wizard = ChainedDialog(parent=self, title='New Mapping Wizard', data={})
         # Run the ChainedDialog
@@ -173,12 +174,30 @@ class MainController(MainView):
         print 'data from wizard: ', newMapping
         # If the wizard was completed...
         if newMapping:
+            '''
+            # Enable the "Save As" menu option.
+            self.file_menu.Enable(103, True)
+            # Enable the "Save" menu option.
+            self.file_menu.Enable(108, True)
             # Update the list control that contains the mappings.
-            #self.parent.fileList.populateRows([('tester', newMapping)])
             # Also update the in-memory list of mappings.
             #self.parent.mappings.append(Mapping(('test', newMapping)))
-            self.fileList.listCtrl.AddObject(Mapping(('test', newMapping)))
-            self.parent.mappings = self.parent.fileList.listCtrl.GetObjects()
+            #self.fileList.listCtrl.AddObject(Mapping(('test', newMapping)))
+            #self.parent.mappings = self.parent.fileList.listCtrl.GetObjects()
+            '''
+            # First add it to the object list view.
+            new_mapping = Mapping(('new_id', newMapping))
+            self.fileList.addObject(new_mapping)
+            # Then add it to the yamlConfiguration model.
+            self.yamlConfiguration = YamlConfiguration()
+            self.yamlConfiguration.addMapping(new_mapping.asTuple())
+            # Enable the "New Configuration File" menu option.
+            self.file_menu.Enable(101, True)
+            # Enable the "Save As" menu option.
+            self.file_menu.Enable(103, True)
+            # Enable the "Save" menu option.
+            self.file_menu.Enable(108, True)
+            
         # On Windows, calling event.Skip() makes this 
         # event be called twice for some reason, so I'm
         # commenting it out.

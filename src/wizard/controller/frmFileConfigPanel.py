@@ -61,9 +61,9 @@ class FileConfigPanelController(FileConfigPanelView):
     def _getDataFilePath(self):
         # Decide which radio box is checked.
         if self.local_file_radio.GetValue():
-            path = self.local_file_txt.GetValue()
+            path = str(self.local_file_txt.GetValue())
             return path or None
-        path = self.remote_file_txt.GetValue()
+        path = str(self.remote_file_txt.GetValue())
         if path.startswith('http://') == False:
             path = 'http://' + path
         return path or None
@@ -117,13 +117,18 @@ class FileConfigPanelController(FileConfigPanelView):
         begin = self._getBegin()
 
         if dataFilePath:
-            self.inputDict['FileLocation'] = dataFilePath
-            self.inputDict['DataRowPosition'] = dataBegin
-            self.inputDict['HeaderRowPosition'] = columnBegin
-            self.inputDict['Delimiter'] = delimiter
-            self.inputDict['Time'] = time
-            self.inputDict['Frequency'] = frequency
-            self.inputDict['Beginning'] = begin
+            if not self.inputDict.has_key('Schedule'):
+                self.inputDict['Schedule'] = {}
+            self.inputDict['Schedule']['Time'] = time
+            self.inputDict['Schedule']['Frequency'] = str(frequency)
+            self.inputDict['Schedule']['Beginning'] = begin
+            
+            if not self.inputDict.has_key('Settings'):
+                self.inputDict['Settings'] = {}
+            self.inputDict['Settings']['FileLocation'] = dataFilePath
+            self.inputDict['Settings']['DataRowPosition'] = dataBegin
+            self.inputDict['Settings']['HeaderRowPosition'] = columnBegin
+            self.inputDict['Settings']['Delimiter'] = delimiter
         
         return self.inputDict
 

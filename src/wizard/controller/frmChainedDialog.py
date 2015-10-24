@@ -128,9 +128,11 @@ class ChainedDialog(wx.Dialog):
                 return
             try:
                 self.panelList[self.currentPanel+1].setInput(data=self.panelList[self.currentPanel].getInput())
-            except TypeError:
+            except TypeError as e:
+                print e
                 error_dlg = wx.MessageBox('This data does not look valid. Check to see if the configuration options match the data file.\n\nDo you want to continue anyway?', 'Data Load Error', wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
-                if error_dlg == wx.ID_NO:
+                if error_dlg == wx.NO:
+                    print "no"
                     event.Skip()
                     return
 
