@@ -146,12 +146,9 @@ class YamlConfiguration():
         A public method which writes the changes made in memory
         to the YAML configuration file.
         '''
-        print "configFileDictList", configFileDictList
-        print "configFileDictList", configFileDictList[0].asTuple()
         newContent = {}
         for i,d in reversed([l.asTuple() for l in configFileDictList]):
             newContent[i] = d
-        
         with open(self.yamlFilePath, 'w') as f:
             f.write('## Configuration file\n## Last modified: %s\n---\n' %\
                     (str(datetime.date.today()) +\
@@ -162,12 +159,16 @@ class YamlConfiguration():
             f.write(yaml.dump(newContent, default_flow_style=False, allow_unicode=True,))
 
 
-    def save(self, path=""):
+    def save(self, path=''):
+        if path == '' and self.yamlFilePath == '':
+            raise ValueError('Cannot save to empty path')
+            return
         logger.info("Writing to '%s'" % path)
-        print self.yamlDict
+        print "Writing to '%s'" % path
+        print "about to save this: ", self.yamlDict
 
-        if path is not '':
-            self.yamlFilePath = path
+        #if self.yamlFilePath == '':
+        self.yamlFilePath = path
         self.rebase(self.get())
 
     def addMapping(self, mapping):
@@ -175,5 +176,22 @@ class YamlConfiguration():
         Add a new mapping to self.yamlDict
         Used by the wizard.
         '''
-        print "existing data", self.yamlDict
         self.yamlDict[mapping[0]] = mapping[1]
+    
+    def deleteMapping(self, mapping):
+        '''
+        Delete a mapping from self.yamlDict
+        Used by the wizard.
+        '''
+        print mapping.asTuple()
+        print "mapping[0]", mapping.asTuple()[0]
+        print "mapping[1]", mapping.asTuple()[1]
+        del self.yamlDict[mapping.asTuple()[0]]
+    
+    def deleteMappings(self):
+        '''
+        Delete all mappings from self.yamlDict
+        Used by the wizard.
+        '''
+        self.yamlDict = {}
+

@@ -20,19 +20,20 @@ class MainController(MainView):
         super(MainController, self).__init__(daddy,
                         title='Streaming Data Loader Wizard',
                         **kwargs)
-
+        # Container for mappings.
+        self.yamlConfiguration = YamlConfiguration()
+        # Set up the window menu.
         self.setupMenu()
-
+        # Create the main sizer.
         supa_sizer = wx.BoxSizer(wx.VERTICAL)
-
         # Status bar.
         self.status_bar = StatusBarController(self)
         self.SetStatusBar(self.status_bar)
-        
-        
+        # Initialize the model list view table. TODO change the name.
         self.fileList = MappingListPanel(self)
+        # Add it to the sizer.
         supa_sizer.Add(self.fileList, 1, wx.EXPAND | wx.ALL, 5)
-
+        # Set the sizer to the window.
         self.SetSizer(supa_sizer)
         self.Layout()
         self.Centre(wx.BOTH)
@@ -146,9 +147,9 @@ class MainController(MainView):
         self.SetStatusText(text.replace('*', ''), 0)
     
     def onFileNewClick(self, event):
-        self.SetStatusText('File: [NEW FILE]', 0)
+        self.SetStatusText('File: <NEW FILE> (No name yet)', 0)
         self.fileList.listCtrl.DeleteAllItems()
-        
+        self.yamlConfiguration.deleteMappings() 
         self.file_menu.Enable(103, False)
         self.file_menu.Enable(108, False)
         self.file_menu.Enable(101, False)
@@ -171,25 +172,28 @@ class MainController(MainView):
         wizard = ChainedDialog(parent=self, title='New Mapping Wizard', data={})
         # Run the ChainedDialog
         newMapping = wizard.run()
-        print 'data from wizard: ', newMapping
         # If the wizard was completed...
         if newMapping:
-            '''
-            # Enable the "Save As" menu option.
-            self.file_menu.Enable(103, True)
-            # Enable the "Save" menu option.
-            self.file_menu.Enable(108, True)
-            # Update the list control that contains the mappings.
-            # Also update the in-memory list of mappings.
-            #self.parent.mappings.append(Mapping(('test', newMapping)))
-            #self.fileList.listCtrl.AddObject(Mapping(('test', newMapping)))
-            #self.parent.mappings = self.parent.fileList.listCtrl.GetObjects()
-            '''
-            # First add it to the object list view.
-            new_mapping = Mapping(('new_id', newMapping))
+            # Ask for an id
+            idDialog = wx.TextEntryDialog(parent=self, message="Enter a unique ID for the new mapping.",
+                                          caption="Mapping ID",
+                                          pos=wx.DefaultPosition)
+            # Inline function to make sure that
+            # a valid id is entered.
+            def fn():
+                idDialog.ShowModal()
+                if self.fileList.exists(idDialog.GetValue()):
+                    wx.MessageBox('A mapping with ID "%s" already exists in this file.' % idDialog.GetValue(),\
+                    'Unique ID Error')
+                    fn()
+                return idDialog.GetValue()
+            # Store id for mapping as a str.
+            mappingId = str(fn()) 
+            # Create a Mapping object with the new info. 
+            new_mapping = Mapping((mappingId, newMapping))
+            # Then add it to the object list view table.
             self.fileList.addObject(new_mapping)
             # Then add it to the yamlConfiguration model.
-            self.yamlConfiguration = YamlConfiguration()
             self.yamlConfiguration.addMapping(new_mapping.asTuple())
             # Enable the "New Configuration File" menu option.
             self.file_menu.Enable(101, True)
@@ -219,9 +223,9 @@ class MainController(MainView):
         # If user clicks "Yes,"...
         if msg.ShowModal() == wx.ID_YES:
             # Delete that row from the list control.
-            self.fileList.listCtrl.RemoveObject(selected)
-            # Update the list of mappings.
-            self.parent.mappings = self.fileList.listCtrl.GetObjects()
+            self.fileList.removeObject(selected)
+            # Delete it from the yamlConfiguration model too.
+            self.yamlConfiguration.deleteMapping(selected) 
             # Disable the delete button on the toolbar.
             parent.tb.EnableTool(20, False)
         # Destroy the message dialog handle.

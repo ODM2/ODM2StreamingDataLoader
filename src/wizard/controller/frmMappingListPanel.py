@@ -44,9 +44,21 @@ class MappingListPanel(MappingListPanelView):
             method.
         '''
         return self.listCtrl.GetObjects()
+    
+    def exists(self, idValue):
+        '''
+        Check if the id value exists in the table.
+        '''
+        for obj in self.getObjects():
+            if obj.getId() == idValue:
+                return True
+        return False
 
     def addObject(self, model_object):
         self.listCtrl.AddObject(model_object)
+    
+    def removeObject(self, model_object):
+        self.listCtrl.RemoveObject(model_object)
 
     def onSelect(self, event):
         self.parent.tb.EnableTool(20, True)
@@ -61,3 +73,4 @@ class MappingListPanel(MappingListPanelView):
     def onDoubleClick(self, event):
         self.parent.onEditButtonClick(event) 
         event.Skip()
+

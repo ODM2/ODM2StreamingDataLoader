@@ -130,6 +130,7 @@ class Mapper():
         and raw data (rawData).
         '''
         for col, series in self.mapping['Mappings'].iteritems():
+            logger.info("*********doing column: %s" % col)
             df = self.rawData[col].reset_index()
             df.columns = ['ValueDateTime', 'DataValue']
             
@@ -153,7 +154,6 @@ class Mapper():
             df['ValueDateTimeUTCOffset'] = self.mapping['Settings']['UTCOffset']
 
             noDataValue = self._getNoDataValue(df['ResultID'][0])
-            print "---------NoDataValue", noDataValue
 
             df = df.replace(to_replace=[np.nan, '-INF'],
                             value=[noDataValue, noDataValue],
@@ -182,6 +182,7 @@ class Mapper():
         getTables is a public method that returns a Pandas dataframe.
         It should be called after a mapping has been made.
         '''
+        logger.info("TABLES: %s" % self.tables)
         return self.tables
     
     

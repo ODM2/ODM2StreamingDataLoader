@@ -21,6 +21,9 @@ class Mapping:
                 searchDict(tup[1], 'Frequency'))
         except KeyError as e:
             print e
+    
+    def getId(self):
+        return self.id
 
     def __unicode__(self):
         return unicode(self).encode('utf-8')
