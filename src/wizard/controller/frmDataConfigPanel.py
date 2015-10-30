@@ -11,6 +11,8 @@ from src.controllers.Database import Database
 from src.wizard.controller.frmSeriesWizard import SeriesWizardController
 from src.wizard.controller.frmVirtualGrid import GridBase
 
+from src.wizard.controller.frmSeriesDialog import SeriesSelectDialog
+
 class DataConfigPanelController(DataConfigPanelView):
     def __init__(self, daddy, **kwargs):
         super(DataConfigPanelController, self).__init__(daddy, **kwargs)
@@ -132,7 +134,8 @@ class DataConfigPanelController(DataConfigPanelView):
             if self.selectedColumn == self.selectedDateColumn:
                 msg = wx.MessageBox('This column is not mappable because you have chosen it as your date time column.', 'Configuration Error')
             else:
-                self.doRunResultWizard()
+                self.runSeriesSelectDialog()
+                #self.doRunResultWizard()
         event.Skip()
     
     def onTimeSelect(self, event):
@@ -175,4 +178,18 @@ class DataConfigPanelController(DataConfigPanelView):
         configData = resultWizard.run()
         self.m_listCtrl3.Append([configData[i] for i in configData])
 
+    def runSeriesSelectDialog(self):
+        db = Database()
+        Credentials = namedtuple('Credentials', 'engine, host, db_name, uid, pwd')
+        db.createConnection(Credentials(\
+            self.inputDict['Database']['Engine'],
+            self.inputDict['Database']['Address'],
+            self.inputDict['Database']['DatabaseName'],
+            self.inputDict['Database']['UserName'],
+            self.inputDict['Database']['Password']))
+        dlg = SeriesSelectDialog(self,
+                variable=self.selectedColumn,
+                database=db)
+        if dlg.ShowModal() == wx.ID_OK:
+            print "OK"
 

@@ -130,7 +130,6 @@ class MainController(MainView):
             # Call the YamlConfiguration object's save method.
             self.yamlConfiguration.save(path)
             print self.fileList.getObjects()
-            #self.mappings.save(path)
             # Change the status text to reflect the new file name. 
             self.SetStatusText('File: "' + path + '"', 0)
         # Destroy the dialog handle.
