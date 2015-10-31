@@ -10,7 +10,7 @@ class SeriesSelectDialog(CustomDialog):
     def __init__(self, parent, variable, database):
         super(SeriesSelectDialog, self).__init__(\
             parent=parent,
-            title="Select Series for %s" % variable)
+            title="Select Result for %s" % variable)
         self.database = database
 
         read = database.getReadSession()

@@ -7,6 +7,8 @@ from src.wizard.controller.frmNewSeriesDialog import NewSeriesDialog
 from src.wizard.controller.frmAddNewResultsPanel import AddNewResultsPanelController
 from src.wizard.controller.frmSeriesSelectPanel import SeriesSelectPanel
 
+from src.wizard.view.clsResultPage import ResultPageView
+
 from ObjectListView import ObjectListView, ColumnDefn
 
 class ResultsSelectPanel(SeriesSelectPanel):
@@ -14,6 +16,7 @@ class ResultsSelectPanel(SeriesSelectPanel):
     '''
     def __init__( self, parent, label):
         super(ResultsSelectPanel, self).__init__(parent, label)
+        '''
         self.parent = parent
         self.list_ctrl.SetColumns([
             ColumnDefn('ID', 'left', 120, 'ResultID'),
@@ -23,12 +26,18 @@ class ResultsSelectPanel(SeriesSelectPanel):
             ColumnDefn('Units ID', 'left', 120, 'UnitsID'),
         ])
         self.list_ctrl.SetObjects(self.getSeriesData())
+        '''
+        self.list_ctrl.Show(False)
+        self.new_button.Show(False) 
+        sizer = self.GetSizer()
+        sizer.Add(ResultPageView, 0, wx.ALL, 5)
 
     def getSeriesData(self):
         read = self.db.getReadSession()
         return read.getResults()
     
     def onButtonAdd(self, event):
+        '''
         dlg = NewSeriesDialog(self, u'Create New ' + self.label)
         newResultsPanel = AddNewResultsPanelController(dlg)
         dlg.addPanel(newResultsPanel)
@@ -38,6 +47,7 @@ class ResultsSelectPanel(SeriesSelectPanel):
         else:
             pass
         dlg.Destroy()
+        '''
         event.Skip()
     
     def __del__( self ):

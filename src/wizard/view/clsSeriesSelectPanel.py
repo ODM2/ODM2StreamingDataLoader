@@ -38,15 +38,16 @@ class SeriesSelectPanelView(wx.Panel):
             ColumnDefn('Samp. Feat. Code','left',110,'samplingFeatureCode'),
             ColumnDefn('Samp. Feat. Name','left',110,'samplingFeatureName'),
             ColumnDefn('Variable Code','left',100,'variableCode'),
-            ColumnDefn('Variable Type','left',100,'variableType'),
+            ColumnDefn('Variable Name','left',100,'variableNameCV'),
             ColumnDefn('Units Name','left',80,'unitsName'),
             ColumnDefn('Method Code','left',100,'methodCode'),
             ColumnDefn('Method Name','left',100,'methodName'),
             ColumnDefn('Proc. Level Code','left',110,'processingLevelCode'),
+            ColumnDefn('Proc. Level Def.','left',110,'processingLevelDef'),
         ])
 
         self.newBtn = wx.Button(self, wx.ID_ANY,
-                                "Add New Series",
+                                "Create New Result",
                                 wx.DefaultPosition,
                                 wx.DefaultSize,
                                 style=0)
