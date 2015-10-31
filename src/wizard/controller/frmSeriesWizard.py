@@ -10,6 +10,8 @@ from src.wizard.controller.frmResultsSelectPanel import ResultsSelectPanel
 from src.wizard.controller.frmVariableSelectPanel import VariableSelectPanel
 from src.wizard.controller.frmUnitSelectPanel import UnitSelectPanel
 
+from src.wizard.view.clsResultPage import ResultPageView
+
 class SeriesWizardController(wiz.Wizard):
     def __init__(self, parent, label, db, **kwargs):
         super(SeriesWizardController, self).__init__(parent,
@@ -44,14 +46,16 @@ class SeriesWizardController(wiz.Wizard):
         procLevelSelectPanel = ProcLevelSelectPanel(page4,
             u'Processing Level')
         actionsSelectPanel = ActionsSelectPanel(page5, u'Actions')
-        resultsSelectPanel = ResultsSelectPanel(page6, u'Results')
+        #resultsSelectPanel = ResultsSelectPanel(page6, u'Results')
+
+        resultsPage = ResultPageView(page6)
 
         page1.addPanel(sampFeatSelectPanel)
         page2.addPanel(variableSelectPanel)
         page3.addPanel(unitsSelectPanel)
         page4.addPanel(procLevelSelectPanel)
         page5.addPanel(actionsSelectPanel)
-        page6.addPanel(resultsSelectPanel)
+        page6.addPanel(resultsPage)
 
         page1.SetNext(page2)
         page2.SetPrev(page1)
