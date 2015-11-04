@@ -13,8 +13,8 @@ from src.wizard.controller.frmNewSeriesDialog import NewSeriesDialog
 class UnitSelectPanel(SeriesSelectPanel):
     '''
     '''
-    def __init__( self, parent, label):
-        super(UnitSelectPanel, self).__init__(parent, label)
+    def __init__( self, parent):
+        super(UnitSelectPanel, self).__init__(parent)
         self.parent = parent
         self.list_ctrl.SetColumns([
             ColumnDefn('Abbreviation', 'left', 120, 'UnitsAbbreviation'),
@@ -25,11 +25,11 @@ class UnitSelectPanel(SeriesSelectPanel):
         self.list_ctrl.SetObjects(self.getSeriesData())
 
     def getSeriesData(self):
-        read = self.db.getReadSession()
-        return read.getUnits()
-    
+        #read = self.db.getReadSession()
+        #return read.getUnits()
+        pass
     def onButtonAdd(self, event):
-        dlg = NewSeriesDialog(self, u'Create New ' + self.label)
+        dlg = NewSeriesDialog(self, u'Create New Unit')
         newUnitPanel = AddNewUnitPanelController(dlg, self.db)
         dlg.addPanel(newUnitPanel)
         dlg.CenterOnScreen()

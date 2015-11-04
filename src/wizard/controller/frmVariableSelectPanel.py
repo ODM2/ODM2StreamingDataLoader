@@ -13,8 +13,8 @@ from ObjectListView import ObjectListView, ColumnDefn
 class VariableSelectPanel(SeriesSelectPanel):
     '''
     '''
-    def __init__( self, parent, label):
-        super(VariableSelectPanel, self).__init__(parent, label)
+    def __init__( self, parent):
+        super(VariableSelectPanel, self).__init__(parent)
         self.parent = parent
         self.list_ctrl.SetColumns([
             ColumnDefn('Code', 'left', 120, 'VariableCode'),
@@ -25,11 +25,11 @@ class VariableSelectPanel(SeriesSelectPanel):
         self.list_ctrl.SetObjects(self.getSeriesData())
 
     def getSeriesData(self):
-        read = self.db.getReadSession()
-        return read.getVariables()
-    
+        #read = self.db.getReadSession()
+        #return read.getVariables()
+        pass
     def onButtonAdd(self, event):
-        dlg = NewSeriesDialog(self, u'Create New ' + self.label)
+        dlg = NewSeriesDialog(self, u'Create New ...')
         newVariablePanel = AddNewVariablePanelController(dlg, self.db)
         dlg.addPanel(newVariablePanel)
         dlg.CenterOnScreen()

@@ -11,10 +11,8 @@ from src.wizard.controller.frmNewSeriesDialog import NewSeriesDialog
 from ObjectListView import ObjectListView, ColumnDefn
 
 class ProcLevelSelectPanel(SeriesSelectPanel):
-    '''
-    '''
-    def __init__( self, parent, label):
-        super(ProcLevelSelectPanel, self).__init__(parent, label)
+    def __init__( self, parent, label="Processing Level"):
+        super(ProcLevelSelectPanel, self).__init__(parent)
         self.parent = parent
         self.list_ctrl.SetColumns([
             ColumnDefn('Code', 'left', 120, 'ProcessingLevelCode'),
@@ -24,11 +22,12 @@ class ProcLevelSelectPanel(SeriesSelectPanel):
         self.list_ctrl.SetObjects(self.getSeriesData())
 
     def getSeriesData(self):
-        read = self.db.getReadSession()
-        return read.getProcessingLevels()
-    
+        #read = self.db.getReadSession()
+        #return read.getProcessingLevels()
+        pass
+
     def onButtonAdd(self, event):
-        dlg = NewSeriesDialog(self, u'Create New ' + self.label)
+        dlg = NewSeriesDialog(self, u'Create New Processing Level')
         newProcLevelPanel = AddNewProcLevelPanelController(dlg, self.db)
         dlg.addPanel(newProcLevelPanel)
         dlg.CenterOnScreen()

@@ -12,8 +12,8 @@ from ObjectListView import ObjectListView, ColumnDefn
 class ActionsSelectPanel(SeriesSelectPanel):
     '''
     '''
-    def __init__( self, parent, label):
-        super(ActionsSelectPanel, self).__init__(parent, label)
+    def __init__( self, parent):
+        super(ActionsSelectPanel, self).__init__(parent)
         self.parent = parent
         self.list_ctrl.SetColumns([
             ColumnDefn('Code', 'left', 120, 'SamplingFeatureCode'),
@@ -26,11 +26,12 @@ class ActionsSelectPanel(SeriesSelectPanel):
         self.list_ctrl.SetObjects(self.getSeriesData())
 
     def getSeriesData(self):
-        read = self.db.getReadSession()
-        return read.getSamplingFeatures()
-    
+        #read = self.db.getReadSession()
+        #return read.getSamplingFeatures()
+        pass
+
     def onButtonAdd(self, event):
-        dlg = NewSeriesDialog(self, u'Create New ' + self.label)
+        dlg = NewSeriesDialog(self, u'Create New Action')
         newActionsPanel = AddNewActionsPanelController(dlg)
         dlg.addPanel(newActionsPanel)
         dlg.CenterOnScreen()

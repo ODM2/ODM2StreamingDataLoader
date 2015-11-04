@@ -14,8 +14,8 @@ from ObjectListView import ObjectListView, ColumnDefn
 class SampFeatSelectPanel(SeriesSelectPanel):
     '''
     '''
-    def __init__( self, parent, label):
-        super(SampFeatSelectPanel, self).__init__(parent, label)
+    def __init__( self, parent):
+        super(SampFeatSelectPanel, self).__init__(parent)
         self.parent = parent
         self.list_ctrl.SetColumns([
             ColumnDefn('Code', 'left', 120, 'SamplingFeatureCode'),
@@ -28,11 +28,11 @@ class SampFeatSelectPanel(SeriesSelectPanel):
         self.list_ctrl.SetObjects(self.getSeriesData())
 
     def getSeriesData(self):
-        read = self.db.getReadSession()
-        return read.getSamplingFeatures()
-    
+        #read = self.db.getReadSession()
+        #return read.getSamplingFeatures()
+        pass
     def onButtonAdd(self, event):
-        dlg = NewSeriesDialog(self, u'Create New ' + self.label)
+        dlg = NewSeriesDialog(self, u'Create New Sampling Feature')
         newSampFeatPanel = AddNewSampFeatPanelController(dlg, self.db)
         dlg.addPanel(newSampFeatPanel)
         dlg.CenterOnScreen()
