@@ -46,7 +46,7 @@ class WizardDialog(wx.Dialog):
                           wx.ALL|wx.ALIGN_RIGHT, 5)
 
         self.mainSizer.Add(self.pnlSizer, 1, wx.ALL|wx.EXPAND, 10)
-        self.mainSizer.Add(self.btnSizer, 0, wx.ALL|wx.ALIGN_RIGHT)
+        self.mainSizer.Add(self.btnSizer, 0, wx.ALL|wx.ALIGN_RIGHT, 10)
 
         self.btnPrev.Enable(False)
         self.btnNext.Bind(wx.EVT_BUTTON, self.onFinish)

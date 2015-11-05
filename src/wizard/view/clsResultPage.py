@@ -82,7 +82,7 @@ class ResultPageView ( wx.Panel ):
         bSizerResultDT.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         self.datePickerResult = wx.DatePickerCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.DP_DEFAULT )
-        self.datePickerResult.SetMinSize( wx.Size( 149,-1 ) )
+        self.datePickerResult.SetMinSize( wx.Size( 119,-1 ) )
         
         bSizerResultDT.Add( self.datePickerResult, 0, wx.ALL, 5 )
         
@@ -108,7 +108,7 @@ class ResultPageView ( wx.Panel ):
         bSizerValid.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         self.dateValidDT = wx.DatePickerCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.DP_DEFAULT )
-        self.dateValidDT.SetMinSize( wx.Size( 149,-1 ) )
+        self.dateValidDT.SetMinSize( wx.Size( 119,-1 ) )
         
         bSizerValid.Add( self.dateValidDT, 0, wx.ALL, 5 )
         
@@ -135,7 +135,7 @@ class ResultPageView ( wx.Panel ):
         
         comboStatusChoices = []
         self.comboStatus = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Select Status", wx.DefaultPosition, wx.DefaultSize, comboStatusChoices, 0 )
-        self.comboStatus.SetMinSize( wx.Size( 280,-1 ) )
+        self.comboStatus.SetMinSize( wx.Size( 250,-1 ) )
         
         bSizerStatus.Add( self.comboStatus, 0, wx.ALL, 5 )
         
