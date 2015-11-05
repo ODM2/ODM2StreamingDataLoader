@@ -152,7 +152,7 @@ class ResultPageView ( wx.Panel ):
         bSizerX.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         self.txtX = wx.TextCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.txtX.SetMinSize( wx.Size( 99,-1 ) )
+        self.txtX.SetMinSize( wx.Size( 70,-1 ) )
         
         bSizerX.Add( self.txtX, 0, wx.ALL, 5 )
         
@@ -179,7 +179,7 @@ class ResultPageView ( wx.Panel ):
         bSizerY.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         self.txtY = wx.TextCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.txtY.SetMinSize( wx.Size( 99,-1 ) )
+        self.txtY.SetMinSize( wx.Size( 70,-1 ) )
         
         bSizerY.Add( self.txtY, 0, wx.ALL, 5 )
         
@@ -206,7 +206,7 @@ class ResultPageView ( wx.Panel ):
         bSizerZ.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         self.txtZ = wx.TextCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.txtZ.SetMinSize( wx.Size( 99,-1 ) )
+        self.txtZ.SetMinSize( wx.Size( 70,-1 ) )
         
         bSizerZ.Add( self.txtZ, 0, wx.ALL, 5 )
         
@@ -233,7 +233,7 @@ class ResultPageView ( wx.Panel ):
         bSizerIntended.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         self.txtIntended = wx.TextCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.txtIntended.SetMinSize( wx.Size( 99,-1 ) )
+        self.txtIntended.SetMinSize( wx.Size( 70,-1 ) )
         
         bSizerIntended.Add( self.txtIntended, 0, wx.ALL, 5 )
         
