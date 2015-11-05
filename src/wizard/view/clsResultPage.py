@@ -135,7 +135,7 @@ class ResultPageView ( wx.Panel ):
         
         comboStatusChoices = []
         self.comboStatus = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Select Status", wx.DefaultPosition, wx.DefaultSize, comboStatusChoices, 0 )
-        self.comboStatus.SetMinSize( wx.Size( 250,-1 ) )
+        self.comboStatus.SetMinSize( wx.Size( 260,-1 ) )
         
         bSizerStatus.Add( self.comboStatus, 0, wx.ALL, 5 )
         

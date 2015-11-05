@@ -45,8 +45,8 @@ class WizardDialog(wx.Dialog):
         self.btnSizer.Add(self.btnNext, 0, 
                           wx.ALL|wx.ALIGN_RIGHT, 5)
 
-        self.mainSizer.Add(self.pnlSizer, 1, wx.ALL|wx.EXPAND, 10)
-        self.mainSizer.Add(self.btnSizer, 0, wx.ALL|wx.ALIGN_RIGHT, 10)
+        self.mainSizer.Add(self.pnlSizer, 1, wx.ALL|wx.EXPAND, 5)
+        self.mainSizer.Add(self.btnSizer, 0, wx.ALL|wx.ALIGN_RIGHT, 5)
 
         self.btnPrev.Enable(False)
         self.btnNext.Bind(wx.EVT_BUTTON, self.onFinish)
@@ -56,7 +56,7 @@ class WizardDialog(wx.Dialog):
         newPnl = pnl(self)
         newPnl.Hide()
         self.pnlList.append(newPnl)
-        self.pnlSizer.Add(newPnl, 1, wx.ALL|wx.EXPAND, 10)
+        self.pnlSizer.Add(newPnl, 1, wx.ALL|wx.EXPAND, 5)
 
         if len(self.pnlList) == 1:
             self.btnNext.Unbind(wx.EVT_BUTTON)
