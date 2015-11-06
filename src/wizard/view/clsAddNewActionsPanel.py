@@ -3,13 +3,34 @@ import wx
 from ObjectListView import ObjectListView, ColumnDefn
 
 class Test():
-    def __init__(self, name, org):
+    def __init__(self, name, org, orgId):
         self.name = name
         self.org = org
+        self.orgId = orgId
+
+class AffiliationsList(ObjectListView):
+    def __init__(self, *args, **kwargs):
+        ObjectListView.__init__(self, *args, **kwargs)
+
+    def FinishCellEdit(self):
+        print "Finished Edit"
+        super(AffiliationsList, self).FinishCellEdit()
+        row = self.GetFocusedRow() 
+        length = len(self.GetObjects())
+        print length
+
+        if row == length-1:
+            affObj = self.GetObjectAt(row)
+            if affObj.name != "" \
+                and affObj.org != "" \
+                    and affObj.orgId != "":
+                self.AddObject(Test("","",""))
+            else:
+                self.Select(row)
 
 class AddNewActionsPanelView ( wx.Panel ):
     def __init__( self, parent ):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 414,566 ), style = wx.TAB_TRAVERSAL )
+        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 414,766 ), style = wx.TAB_TRAVERSAL )
                 
         self.SetMinSize( wx.Size( 414,400 ) )
         
@@ -106,18 +127,19 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         
         #sbSizer22.Add( bSizer3541, 1, wx.EXPAND, 5 )
-        self.affList = ObjectListView(sbSizer22.GetStaticBox(),
+        self.affList = AffiliationsList(sbSizer22.GetStaticBox(),
             wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(-1, 100),
             style=wx.LC_REPORT|wx.SUNKEN_BORDER)
         self.affList.cellEditMode = self.affList.CELLEDIT_DOUBLECLICK
         isLeadColumn = ColumnDefn(title='Lead', valueGetter='', align='centre', width=50)
         self.affList.SetColumns([
             ColumnDefn(title='Name', valueGetter='name', align='left', width=100, isEditable=True),
+            ColumnDefn('Org. ID', 'left', -1,'orgId'),
             ColumnDefn('Organization', 'left', -1,'org'),
             isLeadColumn,
         ])
         self.affList.InstallCheckStateColumn(isLeadColumn)
-        self.affList.AddObject(Test("",
+        self.affList.AddObject(Test("","",
             ""))
         
         self.affList.SetEmptyListMsg("Affiliations")
@@ -268,3 +290,12 @@ class AddNewActionsPanelView ( wx.Panel ):
     
     def __del__( self ):
         pass
+
+if __name__ == '__main__':
+    app = wx.App()
+    frame = wx.Frame(None)
+    frame.SetSizer(wx.BoxSizer(wx.VERTICAL)) 
+    pnl = AddNewActionsPanelView(frame)
+    frame.CenterOnScreen()
+    frame.Show()
+    app.MainLoop()

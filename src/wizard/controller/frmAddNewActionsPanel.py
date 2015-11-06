@@ -3,6 +3,11 @@ import wx
 
 from src.wizard.view.clsAddNewActionsPanel import AddNewActionsPanelView
 
+class Test:
+    def __init__(self, name, org):
+        self.name = name
+        self.org = org
+
 class AddNewActionsPanelController(AddNewActionsPanelView):
     def __init__(self, daddy, db, **kwargs):
         super(AddNewActionsPanelController, self).__init__(daddy,
@@ -13,6 +18,7 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         self.m_comboBox13.Bind(wx.EVT_COMBOBOX, self.onActionTypeSelect)
         self.affList.Bind(wx.EVT_LEFT_DOWN, self.onAffListClick)    
         self.affList.Bind(wx.EVT_LIST_INSERT_ITEM, self.onAffInsert)    
+        self.affList.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onAffSelect)    
         self.read = self.db.getReadSession()
         
         self.populateFields()
@@ -30,10 +36,14 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         
     def onAffListClick(self, event):
         print "clicked"
-        #self.affList.AddObject()
+        self.affList.AddObject(Test("",""))
         event.Skip()
     
     def onAffInsert(self, event):
         print "new item added"
         #self.affList.AddObject(None)
+        event.Skip()
+    
+    def onAffSelect(self, event):
+        print "selected"
         event.Skip()
