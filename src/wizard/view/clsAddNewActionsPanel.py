@@ -12,6 +12,10 @@ class AffiliationsList(ObjectListView):
     def __init__(self, *args, **kwargs):
         ObjectListView.__init__(self, *args, **kwargs)
 
+    def StartCellEdit(self, rowIndex, subItemIndex):
+        print "Beginning cell edit"
+        super(AffiliationsList, self).StartCellEdit(rowIndex, subItemIndex)
+
     def FinishCellEdit(self):
         print "Finished Edit"
         super(AffiliationsList, self).FinishCellEdit()
@@ -134,7 +138,7 @@ class AddNewActionsPanelView ( wx.Panel ):
         isLeadColumn = ColumnDefn(title='Lead', valueGetter='', align='centre', width=50)
         self.affList.SetColumns([
             ColumnDefn(title='Name', valueGetter='name', align='left', width=100, isEditable=True),
-            ColumnDefn('Org. ID', 'left', -1,'orgId'),
+            ColumnDefn('Org. ID', 'left', -1,'orgId', autoCompleteComboBoxCellEditor=True),
             ColumnDefn('Organization', 'left', -1,'org'),
             isLeadColumn,
         ])
