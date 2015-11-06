@@ -4,37 +4,49 @@ import wx
 #TODO get rid of *
 #from api.ODM2.services.readService import *
 
-from src.wizard.controller.frmAddNewUnitPanel import AddNewUnitPanelController
-from src.wizard.controller.frmSeriesSelectPanel import SeriesSelectPanel
-
+from src.wizard.controller.frmAddNewUnitPanel \
+    import AddNewUnitPanelController
+from src.wizard.controller.frmSeriesSelectPanel \
+    import SeriesSelectPanel
 from ObjectListView import ObjectListView, ColumnDefn
-from src.wizard.controller.frmNewSeriesDialog import NewSeriesDialog
+from src.wizard.controller.frmNewSeriesDialog \
+    import NewSeriesDialog
 
 class UnitSelectPanel(SeriesSelectPanel):
-    '''
-    '''
     def __init__( self, parent):
-        super(UnitSelectPanel, self).__init__(parent)
+        super(UnitSelectPanel, self).__init__(parent,
+            "Unit")
         self.parent = parent
         self.list_ctrl.SetColumns([
-            ColumnDefn('Abbreviation', 'left', 120, 'UnitsAbbreviation'),
-            ColumnDefn('Name', 'left', 120, 'UnitsName'),
-            ColumnDefn('Type', 'left', 120, 'UnitsTypeCV'),
-            ColumnDefn('Link', 'left', 120, 'UnitsLink'),
+            ColumnDefn('Abbreviation', 'left', 120,
+                'UnitsAbbreviation'),
+            ColumnDefn('Name', 'left', 120,
+                'UnitsName'),
+            ColumnDefn('Type', 'left', 120,
+                'UnitsTypeCV'),
+            ColumnDefn('Link', 'left', 120,
+                'UnitsLink'),
         ])
         self.list_ctrl.SetObjects(self.getSeriesData())
+        if not self.parent.database:
+            self.new_button.Enable(False)
 
     def getSeriesData(self):
-        #read = self.db.getReadSession()
-        #return read.getUnits()
-        pass
+        if self.parent.database:
+            read = self.parent.database.getReadSession()
+            return read.getUnits()
+        return []
+
     def onButtonAdd(self, event):
-        dlg = NewSeriesDialog(self, u'Create New Unit')
-        newUnitPanel = AddNewUnitPanelController(dlg, self.db)
+        dlg = NewSeriesDialog(self,
+            u'Create New Unit')
+        newUnitPanel = AddNewUnitPanelController(dlg,
+            self.parent.database)
         dlg.addPanel(newUnitPanel)
         dlg.CenterOnScreen()
+
         if dlg.ShowModal() == wx.ID_OK:
-            print 'OK'
+            self.list_ctrl.SetObjects(self.getSeriesData())
         else:
             pass
         dlg.Destroy()

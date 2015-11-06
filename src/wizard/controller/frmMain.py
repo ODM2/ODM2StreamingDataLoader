@@ -170,6 +170,7 @@ class MainController(MainView):
         # Create a ChainedDialog.
         wizard = ChainedDialog(parent=self, title='New Mapping Wizard', data={})
         # Run the ChainedDialog
+        wizard.CenterOnScreen()
         newMapping = wizard.run()
         # If the wizard was completed...
         if newMapping:
@@ -257,6 +258,7 @@ class MainController(MainView):
 if __name__ == '__main__':
     app = wx.App()
     frame = MainController(None)
+    frame.CenterOnScreen()
     frame.Show()
     app.MainLoop()
 

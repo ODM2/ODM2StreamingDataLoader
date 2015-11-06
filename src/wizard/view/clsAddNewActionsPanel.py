@@ -1,10 +1,17 @@
 import wx
 
+from ObjectListView import ObjectListView, ColumnDefn
+
+class Test():
+    def __init__(self, name, org):
+        self.name = name
+        self.org = org
+
 class AddNewActionsPanelView ( wx.Panel ):
     def __init__( self, parent ):
         wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 414,566 ), style = wx.TAB_TRAVERSAL )
                 
-        self.SetMinSize( wx.Size( 414,566 ) )
+        self.SetMinSize( wx.Size( 414,400 ) )
         
         bSizer80 = wx.BoxSizer( wx.VERTICAL )
         
@@ -46,77 +53,94 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         sbSizer22.Add( bSizer354, 1, wx.EXPAND, 5 )
         
-        bSizer351 = wx.BoxSizer( wx.HORIZONTAL )
+        #bSizer351 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.m_staticText311 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Method Type", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText311.Wrap( -1 )
-        bSizer351.Add( self.m_staticText311, 0, wx.ALL, 5 )
-        
-        
-        bSizer351.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
-        
-        m_comboBox131Choices = []
-        self.m_comboBox131 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Method Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox131Choices, 0 )
-        self.m_comboBox131.SetMinSize( wx.Size( 280,-1 ) )
-        
-        bSizer351.Add( self.m_comboBox131, 0, wx.ALL, 5 )
+        #self.m_staticText311 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Method Type", wx.DefaultPosition, wx.DefaultSize, 0 )
+        #self.m_staticText311.Wrap( -1 )
+        #bSizer351.Add( self.m_staticText311, 0, wx.ALL, 5 )
         
         
-        sbSizer22.Add( bSizer351, 1, wx.EXPAND, 5 )
+        #bSizer351.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        bSizer352 = wx.BoxSizer( wx.HORIZONTAL )
+        #m_comboBox131Choices = []
+        #self.m_comboBox131 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Method Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox131Choices, 0 )
+        #self.m_comboBox131.SetMinSize( wx.Size( 280,-1 ) )
         
-        self.m_staticText312 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Bridge ID", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText312.Wrap( -1 )
-        bSizer352.Add( self.m_staticText312, 0, wx.ALL, 5 )
-        
-        
-        bSizer352.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
-        
-        m_comboBox132Choices = []
-        self.m_comboBox132 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Bridge ID", wx.DefaultPosition, wx.DefaultSize, m_comboBox132Choices, 0 )
-        self.m_comboBox132.SetMinSize( wx.Size( 280,-1 ) )
-        
-        bSizer352.Add( self.m_comboBox132, 0, wx.ALL, 5 )
+        #bSizer351.Add( self.m_comboBox131, 0, wx.ALL, 5 )
         
         
-        sbSizer22.Add( bSizer352, 1, wx.EXPAND, 5 )
+        #sbSizer22.Add( bSizer351, 1, wx.EXPAND, 5 )
         
-        bSizer3541 = wx.BoxSizer( wx.HORIZONTAL )
+        #bSizer352 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.m_staticText3141 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Affiliation", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText3141.Wrap( -1 )
-        bSizer3541.Add( self.m_staticText3141, 0, wx.ALL, 5 )
-        
-        
-        bSizer3541.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
-        
-        m_comboBox1341Choices = []
-        self.m_comboBox1341 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Affiliation", wx.DefaultPosition, wx.DefaultSize, m_comboBox1341Choices, 0 )
-        self.m_comboBox1341.SetMinSize( wx.Size( 280,-1 ) )
-        
-        bSizer3541.Add( self.m_comboBox1341, 0, wx.ALL, 5 )
+        #self.m_staticText312 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Bridge ID", wx.DefaultPosition, wx.DefaultSize, 0 )
+        #self.m_staticText312.Wrap( -1 )
+        #bSizer352.Add( self.m_staticText312, 0, wx.ALL, 5 )
         
         
+        #bSizer352.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        
+        #m_comboBox132Choices = []
+        #self.m_comboBox132 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Bridge ID", wx.DefaultPosition, wx.DefaultSize, m_comboBox132Choices, 0 )
+        #self.m_comboBox132.SetMinSize( wx.Size( 280,-1 ) )
+        
+        #bSizer352.Add( self.m_comboBox132, 0, wx.ALL, 5 )
+        
+        
+        #sbSizer22.Add( bSizer352, 1, wx.EXPAND, 5 )
+        
+        bSizer3541 = wx.BoxSizer( wx.VERTICAL )
+        
+        #self.m_staticText3141 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Affiliation", wx.DefaultPosition, wx.DefaultSize, 0 )
+        #self.m_staticText3141.Wrap( -1 )
+        #bSizer3541.Add( self.m_staticText3141, 0, wx.ALL, 5 )
+        
+        
+        #bSizer3541.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        
+        #m_comboBox1341Choices = []
+        #self.m_comboBox1341 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Affiliation", wx.DefaultPosition, wx.DefaultSize, m_comboBox1341Choices, 0 )
+        #self.m_comboBox1341.SetMinSize( wx.Size( 280,-1 ) )
+        
+        #bSizer3541.Add( self.m_comboBox1341, 0, wx.ALL, 5 )
+        
+        
+        #sbSizer22.Add( bSizer3541, 1, wx.EXPAND, 5 )
+        self.affList = ObjectListView(sbSizer22.GetStaticBox(),
+            wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(-1, 100),
+            style=wx.LC_REPORT|wx.SUNKEN_BORDER)
+        self.affList.cellEditMode = self.affList.CELLEDIT_DOUBLECLICK
+        isLeadColumn = ColumnDefn(title='Lead', valueGetter='', align='centre', width=50)
+        self.affList.SetColumns([
+            ColumnDefn(title='Name', valueGetter='name', align='left', width=100, isEditable=True),
+            ColumnDefn('Organization', 'left', -1,'org'),
+            isLeadColumn,
+        ])
+        self.affList.InstallCheckStateColumn(isLeadColumn)
+        self.affList.AddObject(Test("",
+            ""))
+        
+        self.affList.SetEmptyListMsg("Affiliations")
+        bSizer3541.Add(self.affList, 1, wx.ALL|wx.EXPAND, 5)
         sbSizer22.Add( bSizer3541, 1, wx.EXPAND, 5 )
+
+        #bSizer27 = wx.BoxSizer( wx.HORIZONTAL )
         
-        bSizer27 = wx.BoxSizer( wx.HORIZONTAL )
-        
-        self.m_staticText24 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Is Action Lead", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText24.Wrap( -1 )
-        bSizer27.Add( self.m_staticText24, 0, wx.ALL, 5 )
-        
-        
-        bSizer27.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
-        
-        self.m_radioBtn3 = wx.RadioButton( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Yes", wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer27.Add( self.m_radioBtn3, 0, wx.ALL, 5 )
-        
-        self.m_radioBtn4 = wx.RadioButton( sbSizer22.GetStaticBox(), wx.ID_ANY, u"No", wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer27.Add( self.m_radioBtn4, 0, wx.ALL, 5 )
+        #self.m_staticText24 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Is Action Lead", wx.DefaultPosition, wx.DefaultSize, 0 )
+        #self.m_staticText24.Wrap( -1 )
+        #bSizer27.Add( self.m_staticText24, 0, wx.ALL, 5 )
         
         
-        sbSizer22.Add( bSizer27, 1, wx.EXPAND, 5 )
+        #bSizer27.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        
+        #self.m_radioBtn3 = wx.RadioButton( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Yes", wx.DefaultPosition, wx.DefaultSize, 0 )
+        #bSizer27.Add( self.m_radioBtn3, 0, wx.ALL, 5 )
+        
+        #self.m_radioBtn4 = wx.RadioButton( sbSizer22.GetStaticBox(), wx.ID_ANY, u"No", wx.DefaultPosition, wx.DefaultSize, 0 )
+        #bSizer27.Add( self.m_radioBtn4, 0, wx.ALL, 5 )
+        
+        
+        #sbSizer22.Add( bSizer27, 1, wx.EXPAND, 5 )
         
         bSizer271 = wx.BoxSizer( wx.HORIZONTAL )
         

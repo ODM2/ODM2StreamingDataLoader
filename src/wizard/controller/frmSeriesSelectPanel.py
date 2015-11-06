@@ -24,7 +24,7 @@ class SeriesSelectPanel(wx.Panel):
         same across all classes, so those details
         are defined in this base class.
     '''
-    def __init__( self, parent):
+    def __init__( self, parent, label=""):
         wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 644,330 ), style = wx.TAB_TRAVERSAL )
         
         fgSizer1 = wx.FlexGridSizer( 0, 1, 0, 0 )
@@ -32,7 +32,7 @@ class SeriesSelectPanel(wx.Panel):
         fgSizer1.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
         
         self.static_txt = wx.StaticText(self, wx.ID_ANY,
-                u"Select or create new...", wx.DefaultPosition,
+                u"Select or create new %s." % label, wx.DefaultPosition,
                 wx.DefaultSize, 0)
         self.static_txt.Wrap(-1)
         fgSizer1.Add(self.static_txt, 0, wx.ALL, 5)
@@ -43,7 +43,7 @@ class SeriesSelectPanel(wx.Panel):
         fgSizer1.Add(self.list_ctrl, 0, wx.ALL|wx.EXPAND)
 
         self.new_button = wx.Button(self, wx.ID_ANY,
-                u"Add New ...", wx.DefaultPosition,
+                u"New %s" % label, wx.DefaultPosition,
                 wx.Size(-1,-1), 0)
         fgSizer1.Add(self.new_button, 0, wx.ALIGN_RIGHT|wx.ALL, 5)
         

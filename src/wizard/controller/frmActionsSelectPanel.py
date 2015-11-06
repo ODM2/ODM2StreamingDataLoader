@@ -3,40 +3,53 @@ import wx
 from api.ODMconnection import dbconnection
 #TODO get rid of *
 from api.ODM2.services.readService import *
-from src.wizard.controller.frmNewSeriesDialog import NewSeriesDialog
-from src.wizard.controller.frmAddNewActionsPanel import AddNewActionsPanelController
-from src.wizard.controller.frmSeriesSelectPanel import SeriesSelectPanel
+from src.wizard.controller.frmNewSeriesDialog \
+    import NewSeriesDialog
+from src.wizard.controller.frmAddNewActionsPanel \
+    import AddNewActionsPanelController
+from src.wizard.controller.frmSeriesSelectPanel \
+    import SeriesSelectPanel
 
 from ObjectListView import ObjectListView, ColumnDefn
 
 class ActionsSelectPanel(SeriesSelectPanel):
-    '''
-    '''
     def __init__( self, parent):
-        super(ActionsSelectPanel, self).__init__(parent)
+        super(ActionsSelectPanel, self).__init__(parent,
+            "Action")
         self.parent = parent
         self.list_ctrl.SetColumns([
-            ColumnDefn('Code', 'left', 120, 'SamplingFeatureCode'),
-            ColumnDefn('Name', 'left', 120, 'SamplingFeatureName'),
-            ColumnDefn('Type', 'left', 120, 'SamplingFeatureTypeCV'),
-            ColumnDefn('Description', 'left', 120, 'SamplingFeatureDescription'),
-            ColumnDefn('Geotype', 'left', 120, 'SamplingFeatureGeotypeCV'),
-            ColumnDefn('Elevation', 'left', 120, 'Elevation_m'),
+            ColumnDefn('Id', 'left', 70,
+                'ActionID'),
+            ColumnDefn('Type', 'left', 100,
+                'ActionTypeCV'),
+            ColumnDefn('Description', 'left', 500,
+                'ActionDescription'),
+            ColumnDefn('Method Id', 'left', 90,
+                'MethodID'),
+            ColumnDefn('Begin Time', 'left', 125,
+                'BeginDateTime'),
+            ColumnDefn('End Time', 'left', 125,
+                'EndDateTime'),
         ])
         self.list_ctrl.SetObjects(self.getSeriesData())
+        if not self.parent.database:
+            self.new_button.Enable(False)
 
     def getSeriesData(self):
-        #read = self.db.getReadSession()
-        #return read.getSamplingFeatures()
-        pass
+        if self.parent.database:
+            read = self.parent.database.getReadSession()
+            return read.getActions()
+        return []
 
     def onButtonAdd(self, event):
-        dlg = NewSeriesDialog(self, u'Create New Action')
-        newActionsPanel = AddNewActionsPanelController(dlg)
+        dlg = NewSeriesDialog(self,
+            u'Create New Action')
+        newActionsPanel = AddNewActionsPanelController(dlg,
+            self.parent.database)
         dlg.addPanel(newActionsPanel)
         dlg.CenterOnScreen()
         if dlg.ShowModal() == wx.ID_OK:
-            print 'OK'
+            self.list_ctrl.SetObjects(self.getSeriesData())
         else:
             pass
         dlg.Destroy()

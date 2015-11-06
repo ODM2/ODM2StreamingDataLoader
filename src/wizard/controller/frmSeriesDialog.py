@@ -6,6 +6,23 @@ from src.wizard.view.clsCustomDialog \
     import CustomDialog
 from src.wizard.controller.frmSeriesWizard \
     import SeriesWizardController
+
+from src.wizard.controller.WizardDialog \
+    import WizardDialog
+
+from src.wizard.controller.frmSampFeatSelectPanel \
+    import SampFeatSelectPanel
+from src.wizard.controller.frmVariableSelectPanel \
+    import VariableSelectPanel
+from src.wizard.controller.frmUnitSelectPanel \
+    import UnitSelectPanel
+from src.wizard.controller.frmProcLevelSelectPanel \
+    import ProcLevelSelectPanel
+from src.wizard.controller.frmActionsSelectPanel \
+    import ActionsSelectPanel
+from src.wizard.controller.frmResultSummaryPanel \
+    import ResultSummaryPanel
+
 class SeriesSelectDialog(CustomDialog):
     def __init__(self, parent, variable, database):
         super(SeriesSelectDialog, self).__init__(\
@@ -27,22 +44,20 @@ class SeriesSelectDialog(CustomDialog):
     # ================== #
 
     def onNew(self, event):
-        # Launch the SeriesWizardController
-        resultWizard = SeriesWizardController(self,
-            title="New Time Series Result Wizard",
-            label="",
-            db=self.database)
-        resultWizard.run()
+        wiz = WizardDialog(self,
+            database=self.database,
+            title="New Result Wizard")
+        
+        wiz.addPage(SampFeatSelectPanel) 
+        wiz.addPage(VariableSelectPanel) 
+        wiz.addPage(UnitSelectPanel) 
+        wiz.addPage(ProcLevelSelectPanel) 
+        wiz.addPage(ActionsSelectPanel) 
+        #wiz.addPage(ResultPageView)
+        wiz.addPage(ResultSummaryPanel)
+        
+        wiz.CenterOnScreen()
+        wiz.ShowModal()
+        
         event.Skip()
 
-if __name__ == '__main__':
-
-    import api 
-    from api.ODMconnection import dbconnection
-    from api.ODM2.services.readService import ReadODM2
-    app = wx.App()
-    frame = SeriesSelectDialog(parent=None,
-                               variable="test",
-                               database=dbconnection.createConnection("mysql", "rambo.bluezone.usu.edu", "odm2", "odm", "odm"))
-    frame.ShowModal()
-    app.MainLoop()
