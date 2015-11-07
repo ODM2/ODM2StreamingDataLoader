@@ -34,9 +34,9 @@ class AffiliationsList(ObjectListView):
 
 class AddNewActionsPanelView ( wx.Panel ):
     def __init__( self, parent ):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 414,766 ), style = wx.TAB_TRAVERSAL )
+        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 414,570 ), style = wx.TAB_TRAVERSAL )
                 
-        self.SetMinSize( wx.Size( 414,400 ) )
+        self.SetMinSize( wx.Size( 414,570 ) )
         
         bSizer80 = wx.BoxSizer( wx.VERTICAL )
         
@@ -56,9 +56,7 @@ class AddNewActionsPanelView ( wx.Panel ):
         self.m_comboBox13.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer35.Add( self.m_comboBox13, 0, wx.ALL, 5 )
-        
-        
-        sbSizer22.Add( bSizer35, 1, wx.EXPAND, 5 )
+        sbSizer22.Add( bSizer35, 0, wx.EXPAND, 5 )
         
         bSizer354 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -76,7 +74,7 @@ class AddNewActionsPanelView ( wx.Panel ):
         bSizer354.Add( self.m_comboBox134, 0, wx.ALL, 5 )
         
         
-        sbSizer22.Add( bSizer354, 1, wx.EXPAND, 5 )
+        sbSizer22.Add( bSizer354, 0, wx.EXPAND, 5 )
         
         #bSizer351 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -115,13 +113,17 @@ class AddNewActionsPanelView ( wx.Panel ):
         #sbSizer22.Add( bSizer352, 1, wx.EXPAND, 5 )
         
         bSizer3541 = wx.BoxSizer( wx.VERTICAL )
+        affSizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.m_staticText3141 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Affiliations", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText3141.Wrap( -1 )
+        affSizer.Add(self.m_staticText3141, 0, wx.ALL, 5)
+
         
-        #self.m_staticText3141 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Affiliation", wx.DefaultPosition, wx.DefaultSize, 0 )
-        #self.m_staticText3141.Wrap( -1 )
-        #bSizer3541.Add( self.m_staticText3141, 0, wx.ALL, 5 )
+        self.m_b = wx.Button( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Create Affiliation", wx.DefaultPosition, wx.DefaultSize, 0 )
+        #self.m_b.SetFont( wx.Font( 15, 70, 90, 92, False, wx.EmptyString ) )
         
-        
-        #bSizer3541.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        affSizer.Add(self.m_b, 0, wx.ALL, 5)
+        bSizer3541.Add( affSizer, 0, wx.ALL, 5 )
         
         #m_comboBox1341Choices = []
         #self.m_comboBox1341 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Affiliation", wx.DefaultPosition, wx.DefaultSize, m_comboBox1341Choices, 0 )
@@ -131,20 +133,19 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         
         #sbSizer22.Add( bSizer3541, 1, wx.EXPAND, 5 )
-        self.affList = AffiliationsList(sbSizer22.GetStaticBox(),
+        self.affList = ObjectListView(sbSizer22.GetStaticBox(),
             wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(-1, 100),
             style=wx.LC_REPORT|wx.SUNKEN_BORDER)
         self.affList.cellEditMode = self.affList.CELLEDIT_DOUBLECLICK
         isLeadColumn = ColumnDefn(title='Lead', valueGetter='', align='centre', width=50)
         self.affList.SetColumns([
-            ColumnDefn(title='Name', valueGetter='name', align='left', width=100, isEditable=True),
-            ColumnDefn('Org. ID', 'left', -1,'orgId', autoCompleteComboBoxCellEditor=True),
-            ColumnDefn('Organization', 'left', -1,'org'),
             isLeadColumn,
+            ColumnDefn(title='Person', valueGetter='name', align='left', width=100, isEditable=True),
+            ColumnDefn('Organization', 'left', 120,'organization'),
         ])
         self.affList.InstallCheckStateColumn(isLeadColumn)
-        self.affList.AddObject(Test("","",
-            ""))
+        #self.affList.AddObject(Test("","",
+        #    ""))
         
         self.affList.SetEmptyListMsg("Affiliations")
         bSizer3541.Add(self.affList, 1, wx.ALL|wx.EXPAND, 5)
@@ -192,10 +193,10 @@ class AddNewActionsPanelView ( wx.Panel ):
         bSizer271.Add( self.m_textCtrl46, 0, wx.ALL, 5 )
         
         
-        sbSizer22.Add( bSizer271, 1, wx.EXPAND, 5 )
+        sbSizer22.Add( bSizer271, 0, wx.EXPAND, 5 )
         
         
-        bSizer80.Add( sbSizer22, 1, wx.EXPAND, 5 )
+        bSizer80.Add( sbSizer22, 0, wx.EXPAND, 5 )
         
         sbSizer23 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Optional Fields:" ), wx.VERTICAL )
         
@@ -223,7 +224,7 @@ class AddNewActionsPanelView ( wx.Panel ):
         bSizer2711.Add( self.m_textCtrl461, 0, wx.ALL, 5 )
         
         
-        sbSizer23.Add( bSizer2711, 1, wx.EXPAND, 5 )
+        sbSizer23.Add( bSizer2711, 0, wx.EXPAND, 5 )
         
         bSizer274 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -240,7 +241,7 @@ class AddNewActionsPanelView ( wx.Panel ):
         bSizer274.Add( self.m_textCtrl234, 0, wx.ALL, 5 )
         
         
-        sbSizer23.Add( bSizer274, 1, wx.EXPAND, 5 )
+        sbSizer23.Add( bSizer274, 0, wx.EXPAND, 5 )
         
         bSizer272 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -274,10 +275,10 @@ class AddNewActionsPanelView ( wx.Panel ):
         bSizer273.Add( self.m_textCtrl233, 0, wx.ALL, 5 )
         
         
-        sbSizer23.Add( bSizer273, 1, wx.EXPAND, 5 )
+        sbSizer23.Add( bSizer273, 0, wx.EXPAND, 5 )
         
         
-        bSizer80.Add( sbSizer23, 1, wx.EXPAND, 5 )
+        bSizer80.Add( sbSizer23, 0, wx.EXPAND, 5 )
         
         m_sdbSizer10 = wx.StdDialogButtonSizer()
         self.m_sdbSizer10OK = wx.Button( self, wx.ID_OK )
