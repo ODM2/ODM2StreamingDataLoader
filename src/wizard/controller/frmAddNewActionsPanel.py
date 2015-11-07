@@ -33,7 +33,8 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         actionTypes = [i.Name for i in self.read.getCVActionTypes()]
         self.m_comboBox13.AppendItems(actionTypes)
 
-        self.affList.SetObjects(self.read.getDetailedAffiliationInfo(1))
+        #self.affList.SetObjects(self.read.getDetailedAffiliationInfo())
+        self.affList.AddObjects(self.read.getDetailedAffiliationInfo())
 
     def onActionTypeSelect(self, event):
         print "Filter by", event.GetString()

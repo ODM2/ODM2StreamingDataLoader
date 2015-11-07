@@ -11,32 +11,25 @@ class Test():
 class AffiliationsList(ObjectListView):
     def __init__(self, *args, **kwargs):
         ObjectListView.__init__(self, *args, **kwargs)
-
-    def StartCellEdit(self, rowIndex, subItemIndex):
-        print "Beginning cell edit"
-        super(AffiliationsList, self).StartCellEdit(rowIndex, subItemIndex)
-
-    def FinishCellEdit(self):
-        print "Finished Edit"
-        super(AffiliationsList, self).FinishCellEdit()
-        row = self.GetFocusedRow() 
-        length = len(self.GetObjects())
-        print length
-
-        if row == length-1:
-            affObj = self.GetObjectAt(row)
-            if affObj.name != "" \
-                and affObj.org != "" \
-                    and affObj.orgId != "":
-                self.AddObject(Test("","",""))
-            else:
-                self.Select(row)
+        self.selectedItems = []
+        self.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onClick)
+    def onClick(self, event):
+        selection = self.GetSelectedObject()
+        print "$$$$",selection
+        if selection not in self.selectedItems:
+            self.selectedItems.append(selection)
+        else:
+            self.selectedItems.remove(selection)
+            
+        for i in self.selectedItems:
+            self.SelectObject(i, deselectOthers=False)
+        event.Skip()
 
 class AddNewActionsPanelView ( wx.Panel ):
     def __init__( self, parent ):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 414,570 ), style = wx.TAB_TRAVERSAL )
+        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 414,650 ), style = wx.TAB_TRAVERSAL )
                 
-        self.SetMinSize( wx.Size( 414,570 ) )
+        self.SetMinSize( wx.Size( 414,650 ) )
         
         bSizer80 = wx.BoxSizer( wx.VERTICAL )
         
@@ -133,17 +126,16 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         
         #sbSizer22.Add( bSizer3541, 1, wx.EXPAND, 5 )
-        self.affList = ObjectListView(sbSizer22.GetStaticBox(),
-            wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(-1, 100),
+        self.affList = AffiliationsList(sbSizer22.GetStaticBox(),
+            wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(-1, 150),
             style=wx.LC_REPORT|wx.SUNKEN_BORDER)
-        self.affList.cellEditMode = self.affList.CELLEDIT_DOUBLECLICK
-        isLeadColumn = ColumnDefn(title='Lead', valueGetter='', align='centre', width=50)
+        #self.affList.cellEditMode = self.affList.CELLEDIT_DOUBLECLICK
+        #isLeadColumn = ColumnDefn(title='Lead', valueGetter='', align='centre', width=50)
         self.affList.SetColumns([
-            isLeadColumn,
-            ColumnDefn(title='Person', valueGetter='name', align='left', width=100, isEditable=True),
+            ColumnDefn(title='Person', valueGetter='name', align='left', width=100),
             ColumnDefn('Organization', 'left', 120,'organization'),
         ])
-        self.affList.InstallCheckStateColumn(isLeadColumn)
+        #self.affList.InstallCheckStateColumn(isLeadColumn)
         #self.affList.AddObject(Test("","",
         #    ""))
         
