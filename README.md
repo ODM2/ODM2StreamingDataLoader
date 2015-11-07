@@ -1,7 +1,10 @@
-ODMStreamingDataLoader
+ODM2StreamingDataLoader
 ======================
 
-A program for streaming continuous sensor data into an instance of the Observations Data Model (ODM)
+A program for streaming continuous sensor data into an instance of Version 2 of the Observations Data Model (ODM2). The ODM2 Streaming Data Loader is written in Python and our goal is to make sure that it is compatible with Windows, Mac, and Linux platforms. The ODM2 Streaming Data Loader consists of two programs:
+
+1. An executable data loader that reads a configuration file, performs the work of loading the data, and can be scheduled according to a user-defined schedule.
+2. A graphical user interface wizard that enables users to map a delimited datalogger text file to an ODM2 database and create a configuration file.
 
 ### Credits
 
