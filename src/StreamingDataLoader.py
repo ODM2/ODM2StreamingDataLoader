@@ -14,6 +14,8 @@ import numpy as np
 import os
 import glob
 
+import time
+
 def _get_file(filename):
         #fn = util.resource_path('connection.config')
         fn = os.path.join(user_config_dir("SDL", "UCHIC"), filename)
@@ -131,6 +133,8 @@ if __name__ == "__main__":
         help="Specify a single CSV data file to target instead of the one listed in the configuration file.", required=False, action="store")
     args = parser.parse_args()
 
+    start_time = time.time()
     main(args)
+    print ("!!!! seconds: %s !!!!" % (time.time() - start_time))
 
 

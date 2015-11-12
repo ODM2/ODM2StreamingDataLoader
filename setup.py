@@ -43,7 +43,7 @@ MAKE_FILE = os.path.realpath(__file__)
 VERSION_FILE = os.path.join(SETUP_DIR, "version.txt")
 
 HOOK_DIR = os.path.join(SETUP_DIR, "hooks")
-
+print "@@@@@@Hook dir", HOOK_DIR
 # Location of Innosetup Installer
 INNO_SCRIPT = os.path.join(WIN_DIR, "sdl_setup.iss")
 INNO_EXECUTABLE = '"C:\\Program Files (x86)\\Inno Setup 5\\ISCC.exe"'
@@ -157,10 +157,10 @@ def run_pyinstaller( Name= None, File = None, console=False):
             ## Console Version
             os.system('pyinstaller '
                 '--clean '
+                '--additional-hooks-dir=%s'% HOOK_DIR +
                 '--distpath=%s ' % WIN_DIR +
                 '--workpath=%s ' % WORK_DIR +
                 '--name=%s ' % 'SDLLoader' + #TODO add if statement if name is none
-                '--additional-hooks-dir=%s'% HOOK_DIR +
                 '--specpath=%s ' % WIN_DIR +
                 '--upx-dir=%s ' % BASE_DIR +
                 '--icon=%s ' % WIN_ICON_FILE +
@@ -192,7 +192,7 @@ def mac_pyinstaller(Name = None, File = None):
             '--clean '
             '--distpath=%s ' % MAC_DIST_DIR +
             '--additional-hooks-dir=%s '% HOOK_DIR +
-            #'--hidden-import=sqlalchemy.orm '
+
             '--workpath=%s ' % MAC_WORK_DIR +
             '--specpath=%s ' % MAC_DIR +
             '--upx-dir=%s ' % BASE_DIR +

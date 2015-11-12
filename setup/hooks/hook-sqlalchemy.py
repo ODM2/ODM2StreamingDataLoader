@@ -1,5 +1,3 @@
-
-
 __author__ = 'stephanie'
 # Copyright (C) 2009, Giovanni Bajo
 # Based on previous work under copyright (c) 2001, 2002 McMillan Enterprises, Inc.
@@ -25,7 +23,7 @@ from PyInstaller.hooks.hookutils import exec_statement
 # include most common database bindings
 # some database bindings are detected and include some
 # are not. We should explicitly include database backends.
-hiddenimports = ['pysqlite2', 'MySQLdb', 'psycopg2', 'pyodbc', 'pymysql']
+hiddenimports = ['pysqlite2', 'MySQLdb']#, 'psycopg2', 'pyodbc', 'pymysql']
 
 print "in custom sql alchemy hook "
 

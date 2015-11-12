@@ -63,7 +63,7 @@ class Mapper():
             if self._readFile(self.mapping['Settings']['FileLocation']):
                 self._buildTables()
             #self._buildTables()
-        except KeyError:
+        except KeyError as e:
             logger.error("Unable to create mapping. Check your data & configuration files.")
             return False
         return True
@@ -172,7 +172,7 @@ class Mapper():
         _getNoDataValue is a wrapper method to the database object's
         getNoDataValue method.
         '''
-        print "-------resultID", resultID
+        #print "-------resultID", resultID
         return self.dbWriter.getNoDataValue(resultID)
     
     
@@ -182,7 +182,7 @@ class Mapper():
         getTables is a public method that returns a Pandas dataframe.
         It should be called after a mapping has been made.
         '''
-        logger.info("TABLES: %s" % self.tables)
+        #logger.info("TABLES: %s" % self.tables)
         return self.tables
     
     

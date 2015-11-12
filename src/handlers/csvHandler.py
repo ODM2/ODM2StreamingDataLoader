@@ -106,8 +106,10 @@ class CSVReader():
                         logger.info('No new data.')
 
                     df = pd.read_csv(StringIO(finished_data),
+                                        index_col=False,
                                         sep=str(sep),
                                         engine='python')
+                    df.rename(columns=lambda x: x.strip(), inplace=True)
                     df.set_index(datecol, inplace=True)
                 else:
                     # Just begin at the start of the file.
@@ -115,12 +117,14 @@ class CSVReader():
                     finished_data = f.read()
                     
                     logger.info('New data.')
-                    logger.debug(finished_data)
+                    #logger.debug(finished_data)
                     
                     df = pd.read_csv(StringIO(finished_data),
+                                        index_col=False,
                                         header=(header - 1),
                                         sep=str(sep),
                                         engine='python')
+                    df.rename(columns=lambda x: x.strip(), inplace=True)
                     df = df.ix[(dataBegin - header) - 1:]
                     df.set_index(datecol, inplace=True)
 
