@@ -1,0 +1,469 @@
+## Configuration file
+## Last modified: 2015-11-12 15:38
+---
+Custom_file_id:
+  Database:
+    Address: iutahqc.uwrl.usu.edu
+    DatabaseName: ODM2_Race
+    Engine: mssql
+    Password: iUTAH123!!
+    UserName: qc
+  Mappings:
+    AirTemp_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 1
+    AirTemp_Max:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 83
+    AirTemp_Min:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 82
+    AirTemp_ST110_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 71
+    AirTemp_ST110_Max:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 72
+    AirTemp_ST110_Min:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 73
+    BP_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 5
+    BattVolt:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 62
+    DeltaTemp:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 34
+    DewPt_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 3
+    Door_Tot:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 65
+    Evapotrans_ETo:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 77
+    Evapotrans_ETr:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 76
+    GeonorHeater_Manual_Tot:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 81
+    GeonorHeater_Tot:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 80
+    Heater_on:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 33
+    InletTemp_avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 78
+    JuddAvgCounter:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 85
+    JuddDepth_1:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 68
+    JuddDepth_2:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 69
+    JuddDepth_3:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 70
+    JuddDepth_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 11
+    JuddOffset:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 67
+    JuddTemp_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 12
+    LWIn_Cor_NR01_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 15
+    LWIn_UnCor_NR01_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 29
+    LWOut_Cor_NR01_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 22
+    LWOut_UnCor_NR01_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 30
+    NetRad_NR01_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 28
+    PARIn_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 35
+    PAROut_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 36
+    Panel_Temp:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 63
+    Permittivity_100cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 61
+    Permittivity_10cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 49
+    Permittivity_20cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 53
+    Permittivity_50cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 57
+    Permittivity_5cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 45
+    Precip_Freq_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 10
+    Precip_HrDiff:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 75
+    Precip_Tot_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 9
+    Precip_offset:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 74
+    RH:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 2
+    RH_enc:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 64
+    SWIn_NR01_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 13
+    SWIn_SP230_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 32
+    SWOut_NR01_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 14
+    SoilCond_100cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 60
+    SoilCond_10cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 48
+    SoilCond_20cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 52
+    SoilCond_50cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 56
+    SoilCond_5cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 44
+    SoilTemp_100cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 59
+    SoilTemp_10cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 47
+    SoilTemp_20cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 51
+    SoilTemp_50cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 55
+    SoilTemp_5cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 43
+    Tachometer_TS100:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 79
+    TargTemp_SI111_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 37
+    TargV_SI111_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 41
+    Temp_NR01_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 31
+    Temp_SI111_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 38
+    VWC_100cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 58
+    VWC_10cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 46
+    VWC_20cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 50
+    VWC_50cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 54
+    VWC_5cm_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 42
+    VaporPress_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 4
+    WindDir_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 7
+    WindDir_Std:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 8
+    WindSp_Avg:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 6
+    WindSp_Max:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 84
+    b_SI111:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 40
+    m_SI111:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 39
+    n:
+      CalculateAggInterval: false
+      IntendedTimeSpacing: 15
+      IntendedTimeSpacingUnitID: 102
+      LastByteRead: '18985349'
+      ResultID: 66
+  Schedule:
+    Beginning: 6/4/2014 2:30:00 PM
+    Frequency: Day
+    LastUpdate: 1/1/2015 12:00:00 AM
+    Time: 1
+  Settings:
+    DataRowPosition: 110
+    DateTimeColumnName: LocalDateTime
+    Delimiter: ','
+    FileLocation: C:\Users\Stephanie\Desktop\SDLrace\iUTAH_GAMUT_RB_TM_C_RawData_2014.csv
+    FileLocationType: Local
+    FillGaps: false
+    HeaderRowPosition: 109
+    UTCOffset: -6
