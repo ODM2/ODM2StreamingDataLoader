@@ -11,10 +11,10 @@ class MyFrame(wx.Frame):
 
         title = wx.StaticText(panel, label="PyCollapsiblePane")
         title.SetFont(wx.Font(18, wx.SWISS, wx.NORMAL, wx.BOLD))
+        title2 = wx.StaticText(panel, label="PyCollapsiblePane")
         title.SetForegroundColour("black")
 
         self.cp = cp = PCP.PyCollapsiblePane(panel, label="Some Data",
-                                             agwStyle=wx.CP_GTK_EXPANDER,
                                              style=wx.CP_DEFAULT_STYLE)
 
         self.MakePaneContent(cp.GetPane())
@@ -22,6 +22,7 @@ class MyFrame(wx.Frame):
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(title, 0, wx.ALL, 25)
         sizer.Add(cp, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 25)
+        sizer.Add(title2, 0, wx.ALL, 25)
 
         panel.SetSizer(sizer)
         sizer.Layout()
