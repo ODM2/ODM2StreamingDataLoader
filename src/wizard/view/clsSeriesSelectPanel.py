@@ -26,10 +26,12 @@ class SeriesSelectPanelView(wx.Panel):
         self.listCtrl = \
             ObjectListView(self, id=wx.ID_ANY,
                            pos=wx.DefaultPosition,
-                           size=wx.Size(800,-1),
+                           size=wx.Size(800,300),
                            style=wx.LC_REPORT|wx.SUNKEN_BORDER)
         # Customize the list control's message
         # when it is empty.
+        self.listCtrl.oddRowsBackColor = wx.Colour(255, 248, 229)
+        self.listCtrl.evenRowsBackColor = wx.Colour(204, 229, 255)
         self.listCtrl.SetEmptyListMsg(\
             "No existing time series results.")
         self.listCtrl.SetObjects(None)
@@ -55,9 +57,9 @@ class SeriesSelectPanelView(wx.Panel):
         # Sizer at the bottom with the Ok and 
         # Cancel buttons.
         dlgBtnSizer = wx.StdDialogButtonSizer()
-        okBtn = wx.Button(self, wx.ID_OK)
+        self.okBtn = wx.Button(self, wx.ID_OK)
         cancelBtn = wx.Button(self, wx.ID_CANCEL)
-        dlgBtnSizer.AddButton(okBtn)
+        dlgBtnSizer.AddButton(self.okBtn)
         dlgBtnSizer.AddButton(cancelBtn)
         dlgBtnSizer.Realize()
         # Add it to the sizer.

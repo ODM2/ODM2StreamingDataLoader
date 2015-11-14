@@ -6,6 +6,8 @@ from src.controllers.Database import Database
 
 
 from src.wizard.view.clsAddNewActionsPanel import AddNewActionsPanelView
+from src.wizard.view.clsAddAffiliationPanel import NewAffiliationView
+from src.wizard.view.clsCustomDialog import CustomDialog
 
 class Test:
     def __init__(self, name, org):
@@ -20,6 +22,7 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         self.db = db
         
         self.m_comboBox13.Bind(wx.EVT_COMBOBOX, self.onActionTypeSelect)
+        self.m_b.Bind(wx.EVT_BUTTON, self.onNewAffiliation)
         #self.affList.Bind(wx.EVT_LEFT_DOWN, self.onAffListClick)    
         #self.affList.Bind(wx.EVT_LIST_INSERT_ITEM, self.onAffInsert)    
         #self.affList.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onAffSelect)    
@@ -41,6 +44,11 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         methodTypes = [i.MethodName for i in self.read.getMethodsByType(event.GetString())]
         self.m_comboBox134.SetItems(methodTypes)
        
+    def onNewAffiliation(self, event):
+        dlg = CustomDialog(self, "New Affiliation")
+        dlg.addPanel(NewAffiliationView(dlg))
+        dlg.ShowModal()
+        event.Skip()
 
 if __name__ == '__main__':
     db = Database()

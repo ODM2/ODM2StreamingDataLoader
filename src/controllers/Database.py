@@ -63,6 +63,7 @@ class Database:
             dt = rc.getResultValidDateTime(data['ResultID'][0])
             finished_data = data[data['ValueDateTime'] > dt[0]]
 
+        print "FINISHED DATA:",finished_data
         if cr.createTimeSeriesResultValues(finished_data) is None:
             return False
         return True
@@ -75,7 +76,7 @@ class Database:
 
         rc = ReadODM2(self.session_factory)
         result = rc.getResultByID(int(resultID))
-        #print "result-----",result
+        print "result-----",result
         if result is None:
             logger.error("No matching result ID in database.")
             return None

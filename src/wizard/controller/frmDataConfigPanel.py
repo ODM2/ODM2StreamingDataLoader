@@ -21,7 +21,7 @@ class DataConfigPanelController(DataConfigPanelView):
         self.prev_data = {}
         self.inputDict = {}
 
-        self.m_button8.Enable(False)
+        #self.m_button8.Enable(False)
 
     def getInput(self):
         '''
@@ -90,13 +90,13 @@ class DataConfigPanelController(DataConfigPanelView):
                 #    zip(range(len(columns)), columns)]
 
 
-                self.m_listCtrl3.ClearAll()
-                self.m_listCtrl3.InsertColumn(0, 'Value Column')
-                self.m_listCtrl3.InsertColumn(1, 'Variable')
-                self.m_listCtrl3.InsertColumn(2, 'Units')
-                self.m_listCtrl3.InsertColumn(3, 'Processing Level')
-                self.m_listCtrl3.InsertColumn(4, 'Actions')
-                self.m_listCtrl3.InsertColumn(5, 'Results')
+                #self.m_listCtrl3.ClearAll()
+                #self.m_listCtrl3.InsertColumn(0, 'Value Column')
+                #self.m_listCtrl3.InsertColumn(1, 'Variable')
+                #self.m_listCtrl3.InsertColumn(2, 'Units')
+                #self.m_listCtrl3.InsertColumn(3, 'Processing Level')
+                #self.m_listCtrl3.InsertColumn(4, 'Actions')
+                #self.m_listCtrl3.InsertColumn(5, 'Results')
 
                 index = self.m_choice3.GetSelection()
                 self.selectedDateColumn = \
@@ -108,11 +108,11 @@ class DataConfigPanelController(DataConfigPanelView):
         self.prev_data = deepcopy(data)
 
     def onAddNew(self, event):
-        self.doRunResultWizard()
+        self.runSeriesSelectDialog()
         event.Skip()
    
     def onCellClick(self, event):
-        self.m_button8.Enable(False)
+        #self.m_button8.Enable(False)
         event.Skip()
     
     def onColClick(self, event): 
@@ -121,10 +121,10 @@ class DataConfigPanelController(DataConfigPanelView):
             self.selectedColumn = \
                 self.m_listCtrl1.GetColLabelValue(event.GetCol())
             # Enable the 'add' button.
-            self.m_button8.Enable(True)
-        else:
-            self.m_button8.Enable(False)
-        event.Skip()
+            #self.m_button8.Enable(True)
+        #else:
+            #self.m_button8.Enable(False)
+        event.Skip#()
     
     def onColDoubleClick(self, event):
         if event.GetCol() > -1:
@@ -135,7 +135,6 @@ class DataConfigPanelController(DataConfigPanelView):
                 msg = wx.MessageBox('This column is not mappable because you have chosen it as your date time column.', 'Configuration Error')
             else:
                 self.runSeriesSelectDialog()
-                #self.doRunResultWizard()
         event.Skip()
     
     def onTimeSelect(self, event):
@@ -159,24 +158,6 @@ class DataConfigPanelController(DataConfigPanelView):
         print self.selectedDateColumn 
         event.Skip()
 
-    def doRunResultWizard(self):
-        print "data.,.,.", self.inputDict['Database']
-
-        db = Database()
-        Credentials = namedtuple('Credentials', 'engine, host, db_name, uid, pwd')
-        db.createConnection(Credentials(\
-            self.inputDict['Database']['Engine'],
-            self.inputDict['Database']['Address'],
-            self.inputDict['Database']['DatabaseName'],
-            self.inputDict['Database']['UserName'],
-            self.inputDict['Database']['Password']))
-
-        resultWizard = SeriesWizardController(self,
-            title=u'Create New Mapping For %s' % self.selectedColumn,
-            label=self.selectedColumn,
-            db=db)
-        configData = resultWizard.run()
-        self.m_listCtrl3.Append([configData[i] for i in configData])
 
     def runSeriesSelectDialog(self):
         db = Database()
@@ -191,5 +172,9 @@ class DataConfigPanelController(DataConfigPanelView):
                 variable=self.selectedColumn,
                 database=db)
         if dlg.ShowModal() == wx.ID_OK:
-            print "OK"
+            print "Result...", dlg.selectedResult
+            dlg.selectedResult.variableName = self.selectedColumn
+            self.m_listCtrl3.AddObject(dlg.selectedResult)
+        dlg.Destroy()
+
 

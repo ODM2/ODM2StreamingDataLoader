@@ -161,8 +161,10 @@ class Mapper():
             
             replaced = df.isin([noDataValue]).sum().sum()
 
+            print "BEFORE",df.ValueDateTime
             df.ValueDateTime = pd.to_datetime(\
                                 pd.Series(df.ValueDateTime))
+            print "AFTER",df.ValueDateTime
             self.tables.append((col, df))
             
             logger.info('Result: %s Total Values: %d, Non-data Values: %d' % (col, len(df), replaced))

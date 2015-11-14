@@ -1,6 +1,7 @@
 
 import wx
-import wx.lib.agw.ultimatelistctrl as ULC
+#import wx.lib.agw.ultimatelistctrl as ULC
+from ObjectListView import ObjectListView, ColumnDefn
 
 from src.wizard.controller.frmVirtualList import VirtualList
 from src.wizard.controller.frmVirtualGrid import VirtualGrid, GridBase
@@ -10,7 +11,7 @@ class DataConfigPanelView(wx.Panel):
     def __init__(self, parent, **kwargs):
         super(DataConfigPanelView, self).__init__(parent, **kwargs)
 
-        supa_sizer = wx.FlexGridSizer(2, 1, 0, 0)
+        supa_sizer = wx.FlexGridSizer(3, 1, 10, 10)
         supa_sizer.SetFlexibleDirection(wx.BOTH)
         supa_sizer.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
 
@@ -21,15 +22,19 @@ class DataConfigPanelView(wx.Panel):
         self.m_listCtrl1 = VirtualGrid(self, id=wx.ID_ANY,
             pos=wx.DefaultPosition, size=wx.Size(1000, 400))
         
-        supa_sizer.Add( self.m_listCtrl1, 0, wx.ALL, 5 )
+        self.infoTxt = wx.StaticText(self, wx.ID_ANY, u"Double-click column headings to create mapping.", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.infoTxt.Wrap( -1 )
+        supa_sizer.Add( self.infoTxt, 0, wx.ALL, 10 )
+        
+        supa_sizer.Add( self.m_listCtrl1, 0, wx.ALL, 10 )
                 
-        fgSizer13 = wx.FlexGridSizer( 0, 2, 0, 0 )
+        fgSizer13 = wx.FlexGridSizer( 0, 2, 10, 10 )
         fgSizer13.SetFlexibleDirection( wx.BOTH )
         fgSizer13.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
         
         sbSizer3 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Date Time:" ), wx.HORIZONTAL )
         
-        fgSizer10 = wx.FlexGridSizer( 3, 2, 0, 0 )
+        fgSizer10 = wx.FlexGridSizer( 3, 2, 10, 10 )
         fgSizer10.SetFlexibleDirection( wx.BOTH )
         fgSizer10.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
         
@@ -50,64 +55,90 @@ class DataConfigPanelView(wx.Panel):
 
         self.m_choice4 = wx.Choice( sbSizer3.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, [], 0 )
         self.m_choice4.SetSelection( 0 )
-        fgSizer10.Add( self.m_choice4, 0, wx.ALL, 5 )
+        fgSizer10.Add( self.m_choice4, 0, wx.ALL, 10 )
         self.m_choice4.SetMinSize( wx.Size( 170,-1 ) )
         
         self.m_choice4.Enable(False)
 
         self.m_staticText6 = wx.StaticText( sbSizer3.GetStaticBox(), wx.ID_ANY, u"Time Zone", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText6.Wrap( -1 )
-        fgSizer10.Add( self.m_staticText6, 0, wx.ALL, 5 )
+        fgSizer10.Add( self.m_staticText6, 0, wx.ALL, 10 )
 
         boxSizer = wx.BoxSizer(wx.HORIZONTAL)        
 
         m_choice5Choices = [ u"-7" ]
         self.m_choice5 = wx.Choice( sbSizer3.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice5Choices, 0 )
         self.m_choice5.SetSelection( 0 )
-        boxSizer.Add( self.m_choice5, 0, wx.ALL, 5 )
+        boxSizer.Add( self.m_choice5, 0, wx.ALL, 10 )
                 
 
-        fgSizer10.Add(boxSizer, 0, wx.ALL, 5)     
+        fgSizer10.Add(boxSizer, 0, wx.ALL, 10)     
         
-        sbSizer3.Add( fgSizer10, 1, wx.EXPAND, 5 )
+        sbSizer3.Add( fgSizer10, 1, wx.EXPAND, 10 )
         
-        fgSizer13.Add( sbSizer3, 1, wx.EXPAND, 5 )
+        fgSizer13.Add( sbSizer3, 1, wx.EXPAND, 10 )
         
-        fgSizer12 = wx.FlexGridSizer( 0, 2, 0, 0 )
+        fgSizer12 = wx.FlexGridSizer( 0, 2, 10, 10 )
         fgSizer12.SetFlexibleDirection( wx.BOTH )
         fgSizer12.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
         
-        self.m_listCtrl3 = ULC.UltimateListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 685,150 ), agwStyle=wx.LC_VRULES | wx.LC_HRULES | wx.LC_REPORT )
-        fgSizer12.Add( self.m_listCtrl3, 0, wx.ALL, 5 )
-        
-        button_right_sizer = wx.BoxSizer( wx.VERTICAL )
-                
-        self.m_button8 = wx.Button( self, wx.ID_ANY, u"Add", wx.DefaultPosition, wx.Size( 50,-1 ), 0 )
-        self.m_button8.SetForegroundColour( wx.Colour( 91, 196, 117 ) )
-        self.m_button8.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
-        
-        button_right_sizer.Add( self.m_button8, 0, wx.ALL, 5 )
-        
-        self.m_button9 = wx.Button( self, wx.ID_ANY, u"Edit", wx.DefaultPosition, wx.Size( 50,-1 ), 0 )
-        button_right_sizer.Add( self.m_button9, 0, wx.ALL, 5 )
-        
-        self.m_button10 = wx.Button( self, wx.ID_ANY, u"Delete", wx.DefaultPosition, wx.Size( 50,-1 ), 0 )
-        self.m_button10.SetForegroundColour( wx.Colour( 255, 88, 88 ) )
-        
-        button_right_sizer.Add( self.m_button10, 0, wx.ALL, 5 )
-        
-        
-        fgSizer12.Add( button_right_sizer, 1, wx.EXPAND, 5 )
-        
-        
-        fgSizer13.Add( fgSizer12, 1, wx.EXPAND, 5 )        
+        #self.m_listCtrl3 = ULC.UltimateListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 685,150 ), agwStyle=wx.LC_VRULES | wx.LC_HRULES | wx.LC_REPORT )
 
-        supa_sizer.Add(fgSizer13, 1, wx.EXPAND, 5)
+        # ObjectListView table.
+        self.m_listCtrl3 = \
+                ObjectListView(self, id=wx.ID_ANY,
+                           pos=wx.DefaultPosition,
+                           size=wx.Size(700,-1),
+                           style=wx.LC_REPORT|wx.SUNKEN_BORDER)
+        # Customize the list control's message
+        # when it is empty.
+        self.m_listCtrl3.oddRowsBackColor = wx.Colour(255, 248, 229)
+        self.m_listCtrl3.evenRowsBackColor = wx.Colour(204, 229, 255)
+        self.m_listCtrl3.SetEmptyListMsg(\
+            "No columns mapped")
+        self.m_listCtrl3.SetObjects(None)
+        self.m_listCtrl3.SetColumns([
+            ColumnDefn('Data Column','left',150,'variableName'),
+            ColumnDefn('Result ID','left',70,'resultID'),
+            ColumnDefn('Samp. Feat. Code','left',110,'samplingFeatureCode'),
+            ColumnDefn('Samp. Feat. Name','left',110,'samplingFeatureName'),
+            ColumnDefn('Variable Code','left',100,'variableCode'),
+            ColumnDefn('Variable Name','left',100,'variableNameCV'),
+            ColumnDefn('Units Name','left',80,'unitsName'),
+            ColumnDefn('Method Code','left',100,'methodCode'),
+            ColumnDefn('Method Name','left',100,'methodName'),
+            ColumnDefn('Proc. Level Code','left',110,'processingLevelCode'),])  
+        
+        fgSizer12.Add( self.m_listCtrl3, 0, wx.ALL, 10 )
+        
+        #button_right_sizer = wx.BoxSizer( wx.VERTICAL )
+                
+        #self.m_button8 = wx.Button( self, wx.ID_ANY, u"Add", wx.DefaultPosition, wx.Size( 50,-1 ), 0 )
+        #self.m_button8.SetForegroundColour( wx.Colour( 91, 196, 117 ) )
+        #self.m_button8.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+        
+        #button_right_sizer.Add( self.m_button8, 0, wx.ALL, 5 )
+        
+        #self.m_button9 = wx.Button( self, wx.ID_ANY, u"Edit", wx.DefaultPosition, wx.Size( 50,-1 ), 0 )
+        #button_right_sizer.Add( self.m_button9, 0, wx.ALL, 5 )
+        
+        #self.m_button10 = wx.Button( self, wx.ID_ANY, u"Delete", wx.DefaultPosition, wx.Size( 50,-1 ), 0 )
+        #self.m_button10.SetForegroundColour( wx.Colour( 255, 88, 88 ) )
+        
+        #button_right_sizer.Add( self.m_button10, 0, wx.ALL, 5 )
+        
+        
+        #fgSizer12.Add( button_right_sizer, 1, wx.EXPAND, 5 )
+        
+        
+        fgSizer13.Add( fgSizer12, 1, wx.EXPAND, 10 )        
+
+        supa_sizer.Add(fgSizer13, 1, wx.EXPAND, 10)
         
         self.SetSizer(supa_sizer)
         self.Layout()
 
-        self.Bind(wx.EVT_BUTTON, self.onAddNew, self.m_button8)
+        #self.Bind(wx.EVT_BUTTON, self.onAddNew, self.m_button8)
         self.Bind(wx.grid.EVT_GRID_LABEL_LEFT_CLICK, self.onColClick,
             self.m_listCtrl1)
         self.Bind(wx.grid.EVT_GRID_CELL_LEFT_CLICK, self.onCellClick,
