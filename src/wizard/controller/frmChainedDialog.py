@@ -44,18 +44,18 @@ class ChainedDialog(wx.Dialog):
         self.cancelButton = wx.Button(self, label="Cancel")
         self.cancelButton.Bind(wx.EVT_BUTTON, self.onClose)
         self.buttonSizer.Add(self.cancelButton, 0,
-            wx.ALL| wx.EXPAND | wx.ALIGN_RIGHT, 5)
+            wx.ALL| wx.EXPAND | wx.ALIGN_RIGHT, 10)
         self.prevButton = wx.Button(self, label="< Back")
         self.prevButton.Bind(wx.EVT_BUTTON, self.onPrev)
         self.buttonSizer.Add(self.prevButton, 0,
-            wx.ALL| wx.EXPAND | wx.ALIGN_RIGHT, 5)
+            wx.ALL| wx.EXPAND | wx.ALIGN_RIGHT, 10)
         self.nextButton = wx.Button(self, label="Next >")
         self.nextButton.Bind(wx.EVT_BUTTON, self.onNext)
         self.buttonSizer.Add(self.nextButton, 0,
-            wx.ALL| wx.EXPAND | wx.ALIGN_RIGHT, 5)
+            wx.ALL| wx.EXPAND | wx.ALIGN_RIGHT, 10)
         # Add the buttons and sizers to the main sizer.
-        self.mainSizer.Add(self.panelSizer, 1, wx.EXPAND)
-        self.mainSizer.Add(self.buttonSizer, 0, wx.ALIGN_RIGHT)
+        self.mainSizer.Add(self.panelSizer, 1, wx.EXPAND, 10)
+        self.mainSizer.Add(self.buttonSizer, 0, wx.ALIGN_RIGHT, 10)
         self.SetSizer(self.mainSizer)
         # Disable the 'back' button.
         self.prevButton.Enable(False)

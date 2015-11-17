@@ -72,35 +72,22 @@ class DataConfigPanelController(DataConfigPanelView):
                 self.m_listCtrl1.setTable(base)
               
                 # Refresh the values
-                self.m_choice4.Clear()
-                self.m_choice3.Clear()
+                #self.m_choice4.Clear()
+                #self.m_choice3.Clear()
                 # Set the values of the time choice controls.
-                [self.m_choice4.Append(column) \
+                [self.choiceTimeCol.Append(column) \
                     for column in columns]
-                self.m_choice4.SetSelection(0)
-                [self.m_choice3.Append(column) \
-                    for column in columns]
-                self.m_choice3.SetSelection(0)
+                self.choiceTimeCol.SetSelection(0)
+                #[self..Append(column) \
+                #    for column in columns]
+                #self.choiceTimeCol.SetSelection(0)
 
                 for column in range(self.m_listCtrl1.GetNumberCols()):
                     self.m_listCtrl1.AutoSizeColLabelSize(column)
                 
-                #[self.m_choice4.SetString(n, unicode(string)) \
-                #    for n, string in \
-                #    zip(range(len(columns)), columns)]
-
-
-                #self.m_listCtrl3.ClearAll()
-                #self.m_listCtrl3.InsertColumn(0, 'Value Column')
-                #self.m_listCtrl3.InsertColumn(1, 'Variable')
-                #self.m_listCtrl3.InsertColumn(2, 'Units')
-                #self.m_listCtrl3.InsertColumn(3, 'Processing Level')
-                #self.m_listCtrl3.InsertColumn(4, 'Actions')
-                #self.m_listCtrl3.InsertColumn(5, 'Results')
-
-                index = self.m_choice3.GetSelection()
+                index = self.choiceTimeCol.GetSelection()
                 self.selectedDateColumn = \
-                    self.m_choice3.GetString(index)
+                    self.choiceTimeCol.GetString(index)
             except:
                 raise
         # Important to make a deep copy, or else
@@ -138,18 +125,18 @@ class DataConfigPanelController(DataConfigPanelView):
         event.Skip()
     
     def onTimeSelect(self, event):
-        if event.GetEventObject() == self.m_radioBtn3:
-            self.m_choice3.Enable(True)
-            self.m_choice4.Enable(False)
-
-            index = self.m_choice3.GetSelection()
-            self.selectedDateColumn = self.m_choice3.GetString(index)
-        if event.GetEventObject() == self.m_radioBtn4:
-            self.m_choice3.Enable(False)
-            self.m_choice4.Enable(True)
+        #if event.GetEventObject() == self.m_radioBtn3:
+        #    #self.m_choice3.Enable(True)
+        #    #self.m_choice4.Enable(False)
+        
+        index = self.choiceTimeCol.GetSelection()
+        self.selectedDateColumn = self.choiceTimeCol.GetString(index)
+        #if event.GetEventObject() == self.m_radioBtn4:
+        #    self.m_choice3.Enable(False)
+        #    self.m_choice4.Enable(True)
             
-            index = self.m_choice4.GetSelection()
-            self.selectedDateColumn = self.m_choice4.GetString(index)
+        #    index = self.m_choice4.GetSelection()
+        #    self.selectedDateColumn = self.m_choice4.GetString(index)
 
         event.Skip()
    
