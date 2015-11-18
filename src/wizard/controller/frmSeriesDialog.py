@@ -23,6 +23,24 @@ from src.wizard.controller.frmActionsSelectPanel \
 from src.wizard.controller.frmResultSummaryPanel \
     import ResultSummaryPanel
 
+from api.ODM2.services.readService \
+    import DetailedResult
+
+class ResultMapping(DetailedResult):
+    def __init__(self, result, samplingFeature,
+        method, variable, processingLevel,
+        unit, variableName=""):
+
+        self.resultID=result
+        self.samplingFeatureCode=samplingFeature
+        self.methodCode=method
+        self.variableCode=variable
+        self.processingLevelCode=processingLevel
+        self.unitsName=unit
+        self.variableName = variableName
+
+
+
 class SeriesSelectDialog(CustomDialog):
     def __init__(self, parent, variable, database):
         super(SeriesSelectDialog, self).__init__(\
@@ -32,12 +50,13 @@ class SeriesSelectDialog(CustomDialog):
 
         read = database.getReadSession()
         #read.getDetailedResultInfo("Time series coverage")
-        seriesSelectPanel = SeriesSelectPanelView(self)
-        self.addPanel(seriesSelectPanel)
+        self.seriesSelectPanel = SeriesSelectPanelView(self)
+        self.addPanel(self.seriesSelectPanel)
 
-        seriesSelectPanel.newBtn.Bind(wx.EVT_BUTTON, self.onNew)
+        self.seriesSelectPanel.newBtn.Bind(wx.EVT_BUTTON, self.onNew)
+        self.seriesSelectPanel.okBtn.Bind(wx.EVT_BUTTON, self.onOK)
 
-        seriesSelectPanel.listCtrl.SetObjects(read.getDetailedResultInfo("Time series coverage"))
+        self.seriesSelectPanel.listCtrl.SetObjects(read.getDetailedResultInfo("Time series coverage"))
 
     # ================== #
     # > Event Handlers < #
@@ -60,4 +79,20 @@ class SeriesSelectDialog(CustomDialog):
         wiz.ShowModal()
         
         event.Skip()
+
+    def onOK(self, event):
+        obj = self.seriesSelectPanel.listCtrl.GetSelectedObject()
+        
+        mapping = ResultMapping(obj.resultID,
+            obj.samplingFeatureCode,
+            obj.methodCode,
+            obj.variableCode,
+            obj.processingLevelCode,
+            obj.unitsName)
+
+        self.selectedResult = mapping
+
+        event.Skip()
+
+
 

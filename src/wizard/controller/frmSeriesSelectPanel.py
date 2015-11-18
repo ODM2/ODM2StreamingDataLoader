@@ -25,7 +25,7 @@ class SeriesSelectPanel(wx.Panel):
         are defined in this base class.
     '''
     def __init__( self, parent, label=""):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 644,330 ), style = wx.TAB_TRAVERSAL )
+        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 644,430 ), style = wx.TAB_TRAVERSAL )
         
         fgSizer1 = wx.FlexGridSizer( 0, 1, 0, 0 )
         fgSizer1.SetFlexibleDirection( wx.BOTH )
@@ -38,7 +38,7 @@ class SeriesSelectPanel(wx.Panel):
         fgSizer1.Add(self.static_txt, 0, wx.ALL, 5)
         
         self.list_ctrl = ObjectListView(self, wx.ID_ANY,
-            pos=wx.DefaultPosition, size=wx.Size(630,250),
+            pos=wx.DefaultPosition, size=wx.Size(630,350),
             style=wx.LC_REPORT|wx.SUNKEN_BORDER)
         fgSizer1.Add(self.list_ctrl, 0, wx.ALL|wx.EXPAND)
 
