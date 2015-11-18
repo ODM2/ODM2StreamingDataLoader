@@ -75,7 +75,7 @@ class Database:
 
         rc = ReadODM2(self.session_factory)
         result = rc.getResultByID(int(resultID))
-        #print "result-----",result
+        print "result-----",result
         if result is None:
             logger.error("No matching result ID in database.")
             return None

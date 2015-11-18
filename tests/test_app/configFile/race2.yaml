@@ -1,61 +1,61 @@
 ## Configuration file
-## Last modified: 2015-11-12 16:34
+## Last modified: 2015-11-17 14:29
 ---
 Custom_file_id:
   Database:
-    Address: rambo.bluezone.usu.edu
-    DatabaseName: odm2
-    Engine: mysql
-    Password: odm
-    UserName: odm
+    Address: iutahqc.uwrl.usu.edu
+    DatabaseName: ODM2_Race
+    Engine: mssql
+    Password: iUTAH123!!
+    UserName: qc
   Mappings:
     AirTemperature-C:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '22483161'
+      LastByteRead: '22483137'
       ResultID: 86
     NetRadiation-Watts/m2:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '22483161'
+      LastByteRead: '22483137'
       ResultID: 87
     Precipitation-mm:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '22483161'
+      LastByteRead: '22483137'
       ResultID: 88
     RelativeHumidity-%:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '22483161'
+      LastByteRead: '22483137'
       ResultID: 89
     SnowDepth-cm:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '22483161'
+      LastByteRead: '22483137'
       ResultID: 90
     SolarRadiation-Watts/m2:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '22483161'
+      LastByteRead: '22483137'
       ResultID: 91
     WindDirection-Degree:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '22483161'
+      LastByteRead: '22483137'
       ResultID: 92
     WindSpeed-m/s:
       CalculateAggInterval: false
       IntendedTimeSpacing: 15
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '22483161'
+      LastByteRead: '22483137'
       ResultID: 93
   Schedule:
     Beginning: 6/4/2014 2:30:00 PM
