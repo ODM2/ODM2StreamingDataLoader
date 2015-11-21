@@ -15,6 +15,7 @@ class FileConfigPanelController(FileConfigPanelView):
         self.inputDict = {}
         self.dataFileRadioSelected = self.local_file_radio
         self.remote_file_txt.SetValidator(wx.DefaultValidator)
+        self.local_file_txt.SetValidator(wx.DefaultValidator)
 
         self.timeValue = {0: 'Hour', 1: 'Minute'}
         self.delimValue = {'Comma': ',', 'Tab': '\t', 'Custom': None}
@@ -134,13 +135,14 @@ class FileConfigPanelController(FileConfigPanelView):
 
 
     def setInput(self, data={}):
-        #print "data!! ", data
         # Populate the local or remote file text controls.
         print "!!!", data
         self.inputDict.update(data)
         try:
             if searchDict(data, 'FileLocation').startswith('http'):
-                self.remote_file_txt.SetValue(searchDict(data, 'FileLocation'))
+                self.remote_file_txt.SetValue(\
+                    searchDict(data, 'FileLocation'))
+                
                 self.remote_file_txt.Enable(True)
                 self.local_file_txt.Enable(False)
                 self.local_file_btn.Enable(False)
@@ -148,16 +150,27 @@ class FileConfigPanelController(FileConfigPanelView):
                 self.local_file_radio.SetValue(False)
                 self.dataFileRadioSelected = self.remote_file_radio
             else:
-                self.local_file_txt.SetValue(searchDict(data, 'FileLocation'))
+                self.remote_file_radio.SetValue(False)
+                self.local_file_radio.SetValue(True)
+                
+                self.local_file_txt.SetValue(\
+                    searchDict(data, 'FileLocation'))
             
-            self.m_spinCtrl4.SetValue(searchDict(data, 'DataRowPosition'))
-            self.m_spinCtrl2.SetValue(searchDict(data, 'HeaderRowPosition'))
+            self.m_spinCtrl4.SetValue(\
+                searchDict(data, 'DataRowPosition'))
+            
+            self.m_spinCtrl2.SetValue(\
+                searchDict(data, 'HeaderRowPosition'))
+            
             for key, value in self.delimValue.iteritems():
                 if value == searchDict(data, 'Delimiter'):
                     index = self.m_choice1.FindString(key)
                     self.m_choice1.SetSelection(index)
             self.m_spinCtrl1.SetValue(searchDict(data, 'Time'))
-            index = self.m_choice2.FindString(searchDict(data, 'Frequency'))
+            
+            index = self.m_choice2.FindString(\
+                searchDict(data, 'Frequency'))
+            
             self.m_choice2.SetSelection(index)
 
             date = datetime.strptime(searchDict(data, 'Beginning'),
