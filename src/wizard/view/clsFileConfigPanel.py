@@ -8,7 +8,7 @@ from src.wizard.controller.frmURLValidator import URLValidator
 
 class FileConfigPanelView(wx.Panel):
     def __init__(self, parent, **kwargs):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 700,253 ), style = wx.TAB_TRAVERSAL )
+        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 700,263 ), style = wx.TAB_TRAVERSAL )
                 
         fgSizer1 = wx.FlexGridSizer( 0, 1, 0, 0 )
         fgSizer1.SetFlexibleDirection( wx.BOTH )
@@ -28,7 +28,7 @@ class FileConfigPanelView(wx.Panel):
         
         fgSizer3.Add( self.local_file_txt, 0, wx.ALL, 5 )
         
-        self.local_file_btn = wx.Button( sbSizer1.GetStaticBox(), wx.ID_ANY, u"Choose File...", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+        self.local_file_btn = wx.Button( sbSizer1.GetStaticBox(), wx.ID_ANY, u"File...", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
         fgSizer3.Add( self.local_file_btn, 0, wx.ALIGN_RIGHT|wx.ALL, 5 )
         
         self.remote_file_radio = wx.RadioButton( sbSizer1.GetStaticBox(), wx.ID_ANY, u"Remote File", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -40,10 +40,10 @@ class FileConfigPanelView(wx.Panel):
         fgSizer3.Add( self.remote_file_txt, 0, wx.ALL, 5 )
         
         
-        sbSizer1.Add( fgSizer3, 1, wx.EXPAND, 5 )
+        sbSizer1.Add( fgSizer3, 1, wx.EXPAND|wx.ALL, 5 )
         
         
-        fgSizer1.Add( sbSizer1, 1, wx.EXPAND, 5 )
+        fgSizer1.Add( sbSizer1, 1, wx.EXPAND|wx.ALL, 5 )
         
         sbSizer2 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Options:" ), wx.VERTICAL )
         
@@ -92,7 +92,7 @@ class FileConfigPanelView(wx.Panel):
         
         self.m_staticText6 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, u"Start Date", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText6.Wrap( -1 )
-        bSizer4.Add( self.m_staticText6, 0, wx.ALL, 5 )
+        bSizer4.Add( self.m_staticText6, 0, wx.ALL|wx.EXPAND, 5 )
         
         
         bSizer4.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
@@ -100,7 +100,7 @@ class FileConfigPanelView(wx.Panel):
         self.m_datePicker3 = wx.DatePickerCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.DP_DEFAULT )
         self.m_datePicker3.SetMinSize( wx.Size( 100,-1 ) )
         
-        bSizer4.Add( self.m_datePicker3, 0, wx.TOP, 5 )
+        bSizer4.Add( self.m_datePicker3, 0, wx.EXPAND, 5 )
         
         
         gSizer1.Add( bSizer4, 1, wx.EXPAND, 5 )
@@ -109,7 +109,7 @@ class FileConfigPanelView(wx.Panel):
         
         self.m_staticText71 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, u"Start Time", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText71.Wrap( -1 )
-        bSizer7.Add( self.m_staticText71, 0, wx.ALL, 5 )
+        bSizer7.Add( self.m_staticText71, 0, wx.EXPAND, 5 )
         
         
         bSizer7.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
@@ -137,13 +137,13 @@ class FileConfigPanelView(wx.Panel):
         bSizer7.Add( self.spinner, 0, wx.TOP, 5 )
         
         
-        gSizer1.Add( bSizer7, 1, wx.EXPAND, 5 )
+        gSizer1.Add( bSizer7, 0, wx.EXPAND, 5 )
         
         bSizer6 = wx.BoxSizer( wx.HORIZONTAL )
         
         self.m_staticText3 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, u"Delimiter", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText3.Wrap( -1 )
-        bSizer6.Add( self.m_staticText3, 0, wx.ALL, 5 )
+        bSizer6.Add( self.m_staticText3, 0, wx.EXPAND, 5 )
         
         
         bSizer6.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
@@ -153,16 +153,16 @@ class FileConfigPanelView(wx.Panel):
         self.m_choice1.SetSelection( 0 )
         self.m_choice1.SetMinSize( wx.Size( 100,-1 ) )
         
-        bSizer6.Add( self.m_choice1, 0, wx.TOP, 5 )
+        bSizer6.Add( self.m_choice1, 0, wx.EXPAND, 5 )
         
         
-        gSizer1.Add( bSizer6, 1, wx.EXPAND, 5 )
+        gSizer1.Add( bSizer6, 1, wx.EXPAND|wx.ALL, 5 )
         
         bSizer5 = wx.BoxSizer( wx.HORIZONTAL )
         
         self.m_staticText2 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, u"Run Every", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText2.Wrap( -1 )
-        bSizer5.Add( self.m_staticText2, 0, wx.ALL, 5 )
+        bSizer5.Add( self.m_staticText2, 0, wx.ALL|wx.EXPAND, 5 )
         
         
         bSizer5.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
@@ -172,17 +172,17 @@ class FileConfigPanelView(wx.Panel):
         self.m_spinCtrl1.SetRange(1,999)
         self.m_spinCtrl1.SetValue(15)        
         
-        bSizer5.Add( self.m_spinCtrl1, 0, wx.ALL|wx.TOP, 5 )
+        bSizer5.Add( self.m_spinCtrl1, 0, wx.TOP, 5 )
         
         m_choice2Choices = [ u"Hour", u"Minute", u"Day"]
         self.m_choice2 = wx.Choice( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice2Choices, 0 )
         self.m_choice2.SetSelection( 1 )
         self.m_choice2.SetMinSize( wx.Size( 100,-1 ) )
         
-        bSizer5.Add( self.m_choice2, 0, wx.TOP, 5 )
+        bSizer5.Add( self.m_choice2, 1, wx.EXPAND, 5 )
         gSizer1.Add( bSizer5, 1, wx.EXPAND, 5 )
-        sbSizer2.Add( gSizer1, 1, wx.EXPAND, 5 )
-        fgSizer1.Add( sbSizer2, 1, wx.EXPAND, 5 )
+        sbSizer2.Add( gSizer1, 1, wx.EXPAND|wx.ALL, 5 )
+        fgSizer1.Add( sbSizer2, 1, wx.EXPAND|wx.ALL, 5 )
        
         self.remote_file_txt.Enable(False)
         
