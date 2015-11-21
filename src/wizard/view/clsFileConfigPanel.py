@@ -8,7 +8,7 @@ from src.wizard.controller.frmURLValidator import URLValidator
 
 class FileConfigPanelView(wx.Panel):
     def __init__(self, parent, **kwargs):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 670,253 ), style = wx.TAB_TRAVERSAL )
+        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 690,253 ), style = wx.TAB_TRAVERSAL )
                 
         fgSizer1 = wx.FlexGridSizer( 0, 1, 0, 0 )
         fgSizer1.SetFlexibleDirection( wx.BOTH )
