@@ -19,7 +19,12 @@ class FileConfigPanelController(FileConfigPanelView):
 
         self.timeValue = {0: 'Hour', 1: 'Minute'}
         self.delimValue = {'Comma': ',', 'Tab': '\t', 'Custom': None}
-    
+
+    def onColumnSpin(self, event):
+        val = int(event.GetEventObject().GetValue())
+        self.m_spinCtrl4.SetValue(val+1)
+
+        event.Skip()
     
     def onFileSelect(self, event):
         '''

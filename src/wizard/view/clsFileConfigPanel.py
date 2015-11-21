@@ -8,7 +8,7 @@ from src.wizard.controller.frmURLValidator import URLValidator
 
 class FileConfigPanelView(wx.Panel):
     def __init__(self, parent, **kwargs):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 690,253 ), style = wx.TAB_TRAVERSAL )
+        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 700,253 ), style = wx.TAB_TRAVERSAL )
                 
         fgSizer1 = wx.FlexGridSizer( 0, 1, 0, 0 )
         fgSizer1.SetFlexibleDirection( wx.BOTH )
@@ -61,7 +61,7 @@ class FileConfigPanelView(wx.Panel):
         self.m_spinCtrl2 = wx.SpinCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 50,-1 ), wx.SP_ARROW_KEYS, 0, 0, 0 )
         self.m_spinCtrl2.SetMinSize( wx.Size( 100,-1 ) )
         self.m_spinCtrl2.SetRange(0,999)
-        self.m_spinCtrl2.SetValue(0)
+        self.m_spinCtrl2.SetValue(1)
 
         bSizer2.Add( self.m_spinCtrl2, 0, wx.TOP, 5 )
         
@@ -81,7 +81,7 @@ class FileConfigPanelView(wx.Panel):
         self.m_spinCtrl4.SetMinSize( wx.Size( 100,-1 ) )
 
         self.m_spinCtrl4.SetRange(0,999)
-        self.m_spinCtrl4.SetValue(0)        
+        self.m_spinCtrl4.SetValue(2)        
 
         bSizer3.Add( self.m_spinCtrl4, 0, wx.TOP, 5 )
         
@@ -169,6 +169,8 @@ class FileConfigPanelView(wx.Panel):
         
         self.m_spinCtrl1 = wx.SpinCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 50,-1 ), wx.SP_ARROW_KEYS, 0, 10, 4 )
         self.m_spinCtrl1.SetMinSize( wx.Size( 70,-1 ) )
+        self.m_spinCtrl1.SetRange(1,999)
+        self.m_spinCtrl1.SetValue(15)        
         
         bSizer5.Add( self.m_spinCtrl1, 0, wx.ALL|wx.TOP, 5 )
         
@@ -190,7 +192,9 @@ class FileConfigPanelView(wx.Panel):
             self.remote_file_radio)
         self.Bind(wx.EVT_BUTTON, self.onFileSelectPath,
             self.local_file_btn) 
-        
+        self.m_spinCtrl2.Bind(wx.EVT_SPINCTRL, self.onColumnSpin)
+        self.m_spinCtrl2.Bind(wx.EVT_TEXT, self.onColumnSpin)
+
         self.SetSizer( fgSizer1 )
         self.Layout()
 
@@ -198,6 +202,9 @@ class FileConfigPanelView(wx.Panel):
         event.Skip()
     
     def onFileSelectPath(self, event):
+        event.Skip()
+    
+    def onColumnSpin(self, event):
         event.Skip()
 
     def __del__(self):
