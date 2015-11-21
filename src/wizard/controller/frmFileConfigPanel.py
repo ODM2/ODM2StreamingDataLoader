@@ -15,7 +15,8 @@ class FileConfigPanelController(FileConfigPanelView):
         self.inputDict = {}
         self.dataFileRadioSelected = self.local_file_radio
         self.remote_file_txt.SetValidator(wx.DefaultValidator)
-        self.local_file_txt.SetValidator(wx.DefaultValidator)
+        self.local_file_txt.SetValidator(FilePathValidator())
+        self.local_file_radio.SetValue(True)
 
         self.timeValue = {0: 'Hour', 1: 'Minute'}
         self.delimValue = {'Comma': ',', 'Tab': '\t', 'Custom': None}
@@ -145,6 +146,10 @@ class FileConfigPanelController(FileConfigPanelView):
         self.inputDict.update(data)
         try:
             if searchDict(data, 'FileLocation').startswith('http'):
+                
+                self.local_file_txt.SetValidator(wx.DefaultValidator)
+                self.remote_file_txt.SetValidator(URLValidator())
+                
                 self.remote_file_txt.SetValue(\
                     searchDict(data, 'FileLocation'))
                 
@@ -157,6 +162,9 @@ class FileConfigPanelController(FileConfigPanelView):
             else:
                 self.remote_file_radio.SetValue(False)
                 self.local_file_radio.SetValue(True)
+                
+                self.local_file_txt.SetValidator(FilePathValidator())
+                self.remote_file_txt.SetValidator(wx.DefaultValidator)
                 
                 self.local_file_txt.SetValue(\
                     searchDict(data, 'FileLocation'))
