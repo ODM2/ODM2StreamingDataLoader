@@ -22,7 +22,8 @@ class CSVReader():
             data = response.read()
             filepath = StringIO(data)
         
-        df = pd.read_csv(filepath, header=(header - 1), sep=sep)
+        df = pd.read_csv(filepath, skipinitialspace=True, header=(header - 1), sep=sep)
+        df.rename(columns=lambda x: x.strip(), inplace=True)
         df = df.ix[(dataBegin - header) - 1:]
         return df
 

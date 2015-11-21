@@ -26,10 +26,12 @@ from src.wizard.controller.frmResultSummaryPanel \
 from api.ODM2.services.readService \
     import DetailedResult
 
+from src.wizard.models.ResultMapping import ResultMapping
+"""
 class ResultMapping(DetailedResult):
     def __init__(self, result, samplingFeature,
         method, variable, processingLevel,
-        unit, variableName=""):
+        unit, variableName=None):
 
         self.resultID=result
         self.samplingFeatureCode=samplingFeature
@@ -38,7 +40,7 @@ class ResultMapping(DetailedResult):
         self.processingLevelCode=processingLevel
         self.unitsName=unit
         self.variableName = variableName
-
+"""
 
 
 class SeriesSelectDialog(CustomDialog):

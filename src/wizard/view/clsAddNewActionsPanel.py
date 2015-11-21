@@ -11,14 +11,14 @@ class Test():
 class AffiliationsList(ObjectListView):
     def __init__(self, *args, **kwargs):
         ObjectListView.__init__(self, *args, **kwargs)
-        self.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onSelect)
+        #self.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onSelect)
         #self.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onDeselect)
         #self.Bind(wx.EVT_LEFT_DOWN, self.onClick)
         self.selected = set()
         self.selectedItems = []
         self.lastSelected = -1
         self.deleting = -1
-
+    """
     def onClick(self, event):
         event.Skip()
         # Get selected items
@@ -62,6 +62,7 @@ class AffiliationsList(ObjectListView):
                 self.selectedItems.append(self.GetObjectAt(thisIndex))
         for i in self.selectedItems:
             self.Select(self.GetIndexOf(i))
+    """
 
 class AddNewActionsPanelView ( wx.Panel ):
     def __init__( self, parent ):
@@ -107,41 +108,6 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         sbSizer22.Add( bSizer354, 0, wx.EXPAND, 5 )
         
-        #bSizer351 = wx.BoxSizer( wx.HORIZONTAL )
-        
-        #self.m_staticText311 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Method Type", wx.DefaultPosition, wx.DefaultSize, 0 )
-        #self.m_staticText311.Wrap( -1 )
-        #bSizer351.Add( self.m_staticText311, 0, wx.ALL, 5 )
-        
-        
-        #bSizer351.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
-        
-        #m_comboBox131Choices = []
-        #self.m_comboBox131 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Method Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox131Choices, 0 )
-        #self.m_comboBox131.SetMinSize( wx.Size( 280,-1 ) )
-        
-        #bSizer351.Add( self.m_comboBox131, 0, wx.ALL, 5 )
-        
-        
-        #sbSizer22.Add( bSizer351, 1, wx.EXPAND, 5 )
-        
-        #bSizer352 = wx.BoxSizer( wx.HORIZONTAL )
-        
-        #self.m_staticText312 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Bridge ID", wx.DefaultPosition, wx.DefaultSize, 0 )
-        #self.m_staticText312.Wrap( -1 )
-        #bSizer352.Add( self.m_staticText312, 0, wx.ALL, 5 )
-        
-        
-        #bSizer352.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
-        
-        #m_comboBox132Choices = []
-        #self.m_comboBox132 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Bridge ID", wx.DefaultPosition, wx.DefaultSize, m_comboBox132Choices, 0 )
-        #self.m_comboBox132.SetMinSize( wx.Size( 280,-1 ) )
-        
-        #bSizer352.Add( self.m_comboBox132, 0, wx.ALL, 5 )
-        
-        
-        #sbSizer22.Add( bSizer352, 1, wx.EXPAND, 5 )
         
         bSizer3541 = wx.BoxSizer( wx.VERTICAL )
         affSizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -155,13 +121,6 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         affSizer.Add(self.m_b, 0, wx.ALL, 5)
         bSizer3541.Add( affSizer, 0, wx.ALL, 5 )
-        
-        #m_comboBox1341Choices = []
-        #self.m_comboBox1341 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Affiliation", wx.DefaultPosition, wx.DefaultSize, m_comboBox1341Choices, 0 )
-        #self.m_comboBox1341.SetMinSize( wx.Size( 280,-1 ) )
-        
-        #bSizer3541.Add( self.m_comboBox1341, 0, wx.ALL, 5 )
-        
         
         #sbSizer22.Add( bSizer3541, 1, wx.EXPAND, 5 )
         self.affList = AffiliationsList(sbSizer22.GetStaticBox(),
@@ -181,23 +140,6 @@ class AddNewActionsPanelView ( wx.Panel ):
         bSizer3541.Add(self.affList, 1, wx.ALL|wx.EXPAND, 5)
         sbSizer22.Add( bSizer3541, 1, wx.EXPAND, 5 )
 
-        #bSizer27 = wx.BoxSizer( wx.HORIZONTAL )
-        
-        #self.m_staticText24 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Is Action Lead", wx.DefaultPosition, wx.DefaultSize, 0 )
-        #self.m_staticText24.Wrap( -1 )
-        #bSizer27.Add( self.m_staticText24, 0, wx.ALL, 5 )
-        
-        
-        #bSizer27.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
-        
-        #self.m_radioBtn3 = wx.RadioButton( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Yes", wx.DefaultPosition, wx.DefaultSize, 0 )
-        #bSizer27.Add( self.m_radioBtn3, 0, wx.ALL, 5 )
-        
-        #self.m_radioBtn4 = wx.RadioButton( sbSizer22.GetStaticBox(), wx.ID_ANY, u"No", wx.DefaultPosition, wx.DefaultSize, 0 )
-        #bSizer27.Add( self.m_radioBtn4, 0, wx.ALL, 5 )
-        
-        
-        #sbSizer22.Add( bSizer27, 1, wx.EXPAND, 5 )
         
         bSizer271 = wx.BoxSizer( wx.HORIZONTAL )
         

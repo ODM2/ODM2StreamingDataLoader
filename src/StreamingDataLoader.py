@@ -3,6 +3,15 @@
 
 __author__ = 'Denver'
 
+from pandas.io.sql import SQLTable
+
+def _execute_insert(self, conn, keys, data_iter):
+    print "Using monkey-patched _execute_insert"
+    data = [dict((k, v) for k, v in zip(keys, row)) for row in data_iter]
+    conn.execute(self.insert_statement().values(data))
+
+SQLTable._execute_insert = _execute_insert
+
 from argparse import ArgumentParser
 import logging
 

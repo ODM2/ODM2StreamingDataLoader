@@ -13,6 +13,8 @@ from src.wizard.controller.frmVirtualGrid import GridBase
 
 from src.wizard.controller.frmSeriesDialog import SeriesSelectDialog
 
+from src.wizard.models.ResultMapping import ResultMapping
+
 class DataConfigPanelController(DataConfigPanelView):
     def __init__(self, daddy, **kwargs):
         super(DataConfigPanelController, self).__init__(daddy, **kwargs)
@@ -36,10 +38,13 @@ class DataConfigPanelController(DataConfigPanelView):
         A method to populate the controls/widgets with the contents
         of the given data parameter.
         '''
-        print "populate", data
 
         
         self.inputDict.update(data)
+        
+
+        
+        
         # Update the list control only if the new data is different.
         if cmp(self.prev_data, data) != 0:
             # Here is what happens in here:
@@ -51,8 +56,9 @@ class DataConfigPanelController(DataConfigPanelView):
             # a virtual list ctrl.
             # Give the virtual list ctrl a data source.
             # Adjust column width.
-            csv = CSVReader()
             
+            csv = CSVReader()
+
             try:
                 df = csv.dataFrameReader(searchDict(data, 'FileLocation'),
                     header=searchDict(data, 'HeaderRowPosition'), sep=searchDict(data, 'Delimiter'),
@@ -88,6 +94,36 @@ class DataConfigPanelController(DataConfigPanelView):
                 index = self.choiceTimeCol.GetSelection()
                 self.selectedDateColumn = \
                     self.choiceTimeCol.GetString(index)
+                
+                self.db = Database()
+                Credentials = namedtuple('Credentials', 'engine, host, db_name, uid, pwd')
+                self.db.createConnection(Credentials(\
+                    self.inputDict['Database']['Engine'],
+                    self.inputDict['Database']['Address'],
+                    self.inputDict['Database']['DatabaseName'],
+                    self.inputDict['Database']['UserName'],
+                    self.inputDict['Database']['Password']))
+                
+                read = self.db.getReadSession()
+                
+                try:
+                    for k,v in self.inputDict['Mappings'].iteritems():
+                        mapping = read.getDetailedResultInfo(\
+                            "Time series coverage",
+                            v['ResultID'])
+                        variable = k
+                        mapped = mapping[0]
+                        self.m_listCtrl3.AddObject(
+                            ResultMapping(mapped.resultID,
+                                mapped.samplingFeatureCode,
+                                mapped.methodCode,
+                                mapped.variableCode,
+                                mapped.processingLevelCode,
+                                mapped.unitsName,
+                                variable))
+                except KeyError:
+                    print "oops"
+
             except:
                 raise
         # Important to make a deep copy, or else
@@ -147,20 +183,39 @@ class DataConfigPanelController(DataConfigPanelView):
 
 
     def runSeriesSelectDialog(self):
-        db = Database()
-        Credentials = namedtuple('Credentials', 'engine, host, db_name, uid, pwd')
-        db.createConnection(Credentials(\
-            self.inputDict['Database']['Engine'],
-            self.inputDict['Database']['Address'],
-            self.inputDict['Database']['DatabaseName'],
-            self.inputDict['Database']['UserName'],
-            self.inputDict['Database']['Password']))
+        #db = Database()
+        #Credentials = namedtuple('Credentials', 'engine, host, db_name, uid, pwd')
+        #db.createConnection(Credentials(\
+        #    self.inputDict['Database']['Engine'],
+        #    self.inputDict['Database']['Address'],
+        #    self.inputDict['Database']['DatabaseName'],
+        #    self.inputDict['Database']['UserName'],
+        #    self.inputDict['Database']['Password']))
         dlg = SeriesSelectDialog(self,
                 variable=self.selectedColumn,
-                database=db)
+                database=self.db)
         if dlg.ShowModal() == wx.ID_OK:
-            print "Result...", dlg.selectedResult
             dlg.selectedResult.variableName = self.selectedColumn
+            import pprint
+            
+            if "Mappings" not in self.inputDict.keys():
+                self.inputDict.update({'Mappings':{}})
+            if self.selectedColumn not in \
+                self.inputDict["Mappings"].keys():
+                self.inputDict['Mappings'].update(\
+                    {str(self.selectedColumn):{\
+                        'ResultID':int(dlg.selectedResult.resultID),
+                        'LastByteRead':0,
+                        'CalculateAggInterval':'false',
+                        'IntendedTimeSpacing':15,
+                        'IntendedTimeSpacingUnitID':102}})
+            #try:
+            #    self.inputDict['Mappings'][dlg.selectedResult.variableName]['ResultID'] = int(dlg.selectedResult.resultID)
+            #except KeyError
+            
+            
+            pprint.pprint(self.inputDict)
+            
             self.m_listCtrl3.AddObject(dlg.selectedResult)
         dlg.Destroy()
 
