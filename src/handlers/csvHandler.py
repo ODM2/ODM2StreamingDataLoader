@@ -21,11 +21,33 @@ class CSVReader():
             response = urllib2.urlopen(filepath)
             data = response.read()
             filepath = StringIO(data)
-        
-        df = pd.read_csv(filepath, skipinitialspace=True, header=(header - 1), sep=sep)
-        df.rename(columns=lambda x: x.strip(), inplace=True)
-        df = df.ix[(dataBegin - header) - 1:]
-        return df
+
+
+        # Note: Because some data files are rugged (meaning
+        #       the number of columns are not always the same
+        #       for each row) I decided that the safest way to
+        #       get all of the data is to use the 'names' argument
+        #       so that this method will be able to handle rugged
+        #       data files.
+        try:
+            df = pd.read_csv(filepath, na_values=[' '],
+                             skipinitialspace=True,
+                             header=(header - 1),
+                             sep=sep)
+            df.rename(columns=lambda x: x.strip(), inplace=True)
+            df = df.ix[(dataBegin - header) - 1:]
+            return df
+        except pd.parser.CParserError:
+            # See above note for this case.
+            columnHeadings = pd.read_csv(filepath, header=(header - 1), sep=sep, nrows=1)
+            df = pd.read_csv(filepath, na_values=[' '],
+                             skipinitialspace=True,
+                             skiprows=(dataBegin - 1),#header=(header - 1),
+                             names=columnHeadings.columns.tolist(),
+                             sep=sep)
+            df.rename(columns=lambda x: x.strip(), inplace=True)
+            df = df.ix[(dataBegin - header) - 1:]
+            return df
 
     def getData(self, df):
         return df.applymap(unicode).values.tolist()
@@ -91,7 +113,7 @@ class CSVReader():
                     # Read lines from the file until we get the 
                     # CSV headers. This loop should not be too
                     # expensive because the headers are almost
-                    # always gaurenteed to be within about 100
+                    # always gaurenteed to be within about 200
                     # lines.
                     for i in range(header):
                         header_names = f.next()
@@ -118,7 +140,6 @@ class CSVReader():
                     finished_data = f.read()
                     
                     logger.info('New data.')
-                    #logger.debug(finished_data)
                     
                     df = pd.read_csv(StringIO(finished_data),
                                         index_col=False,
