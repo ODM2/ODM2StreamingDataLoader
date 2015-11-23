@@ -158,7 +158,7 @@ class CSVReader():
             # watch for an Exception, Pandas freaks out about
             # something. Figure out why that is.
             logger.error('Exception: %s' % e2.message)
-
+        
         return df
     
 

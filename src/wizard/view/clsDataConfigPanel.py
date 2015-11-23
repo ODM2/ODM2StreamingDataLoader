@@ -15,6 +15,7 @@ class DataConfigPanelView(wx.Panel):
         bSizerMain = wx.BoxSizer( wx.VERTICAL )
         
         bSizerTop = wx.BoxSizer( wx.HORIZONTAL )
+        bSizerTopLeft = wx.BoxSizer( wx.VERTICAL )
         
         sbSizerTime = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Date Time Column:" ), wx.VERTICAL )
         
@@ -22,14 +23,52 @@ class DataConfigPanelView(wx.Panel):
         self.choiceTimeCol = wx.Choice( sbSizerTime.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.Size( 160,-1 ), choiceTimeColChoices, 0 )
         self.choiceTimeCol.SetSelection( 0 )
         sbSizerTime.Add( self.choiceTimeCol, 0, wx.ALL, 10 )
+       
+        bSizerUTC = wx.BoxSizer(wx.HORIZONTAL)
+
+        lblUTC = wx.StaticText(sbSizerTime.GetStaticBox(), wx.ID_ANY,u"UTC Offset", wx.DefaultPosition, wx.DefaultSize, 0)
         
+        bSizerUTC.Add(lblUTC, 0, wx.ALL, 10)
+        bSizerUTC.AddSpacer((0, 0), 1, wx.EXPAND)
+
         self.spinUTCOffset = wx.SpinCtrl( sbSizerTime.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-        self.spinUTCOffset.SetMinSize( wx.Size( 160,-1 ) )
+        self.spinUTCOffset.SetMinSize( wx.Size( 50,-1 ) )
+        self.spinUTCOffset.SetRange(-12,12) 
         
-        sbSizerTime.Add( self.spinUTCOffset, 0, wx.ALL, 10 )
+        bSizerUTC.Add(self.spinUTCOffset, 0, wx.ALL, 10)
+
+        sbSizerTime.Add(bSizerUTC, 0, wx.EXPAND)
         
         
-        bSizerTop.Add( sbSizerTime, 0, wx.EXPAND, 10 )
+        bSizerTopLeft.Add( sbSizerTime, 0, wx.EXPAND, 10 )
+        
+        
+        
+        sbSizerSpacing = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Intended Time Spacing:" ), wx.VERTICAL )
+        
+        self.spinTimeSpacing = wx.SpinCtrl( sbSizerSpacing.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+        self.spinTimeSpacing.SetMinSize( wx.Size( 160,-1 ) )
+        self.spinTimeSpacing.SetRange(0,100) 
+        sbSizerSpacing.Add( self.spinTimeSpacing, 0, wx.ALL, 10 )
+        
+        bSizerUnit = wx.BoxSizer(wx.HORIZONTAL)
+        
+        lblUnitID = wx.StaticText(sbSizerSpacing.GetStaticBox(), wx.ID_ANY,u"Unit ID", wx.DefaultPosition, wx.DefaultSize, 0)
+
+        bSizerUnit.Add(lblUnitID, 0, wx.ALL, 10)
+        bSizerUnit.AddSpacer((0, 0), 1, wx.EXPAND)
+
+        self.choiceUnitID = wx.Choice( sbSizerSpacing.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.Size( 50,-1 ), choiceTimeColChoices, 0)
+        self.choiceUnitID.SetSelection(0)
+        bSizerUnit.Add(self.choiceUnitID, 0, wx.ALL, 10)
+
+        sbSizerSpacing.Add(bSizerUnit, 0, wx.EXPAND)
+
+        bSizerTopLeft.Add( sbSizerSpacing, 0, wx.EXPAND, 10)
+        
+        bSizerTop.Add(bSizerTopLeft, 0, wx.EXPAND)
+
+        
         
         sbSizerData = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Data Columns:" ), wx.VERTICAL )
         
