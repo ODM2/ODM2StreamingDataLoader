@@ -84,6 +84,7 @@ class DatabaseConfigPanel(ChainedDialogPage,
             ico = wx.OK|wx.ICON_INFORMATION
             title = "Connection Successfull"
             connected = True
+            self.parent.db = self.dbConnection
         else:
             connected = False
 

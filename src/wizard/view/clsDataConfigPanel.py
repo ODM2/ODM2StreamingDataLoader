@@ -53,12 +53,12 @@ class DataConfigPanelView(wx.Panel):
         
         bSizerUnit = wx.BoxSizer(wx.HORIZONTAL)
         
-        lblUnitID = wx.StaticText(sbSizerSpacing.GetStaticBox(), wx.ID_ANY,u"Unit ID", wx.DefaultPosition, wx.DefaultSize, 0)
+        lblUnitID = wx.StaticText(sbSizerSpacing.GetStaticBox(), wx.ID_ANY,u"Unit", wx.DefaultPosition, wx.DefaultSize, 0)
 
         bSizerUnit.Add(lblUnitID, 0, wx.ALL, 10)
         bSizerUnit.AddSpacer((0, 0), 1, wx.EXPAND)
 
-        self.choiceUnitID = wx.Choice( sbSizerSpacing.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.Size( 50,-1 ), choiceTimeColChoices, 0)
+        self.choiceUnitID = wx.Choice( sbSizerSpacing.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.Size( 120,-1 ), choiceTimeColChoices, 0)
         self.choiceUnitID.SetSelection(0)
         bSizerUnit.Add(self.choiceUnitID, 0, wx.ALL, 10)
 

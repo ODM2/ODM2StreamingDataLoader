@@ -15,6 +15,8 @@ from src.wizard.controller.frmSeriesDialog import SeriesSelectDialog
 
 from src.wizard.models.ResultMapping import ResultMapping
 
+from api.ODM2.services.readService import ReadODM2
+
 class DataConfigPanelController(DataConfigPanelView):
     def __init__(self, daddy, **kwargs):
         super(DataConfigPanelController, self).__init__(daddy, **kwargs)
@@ -30,7 +32,25 @@ class DataConfigPanelController(DataConfigPanelView):
         A method which returns a dict of data.
         Used to share data between panels.
         '''
-        #self.inputDict['LastUpdate'] = '-'
+        try:
+            lastUpdate = str(self.inputDict['Schedule']['LastUpdate'])
+        except KeyError: 
+            self.inputDict['Schedule']['LastUpdate'] = "--"
+        i = self.choiceTimeCol.GetSelection()
+        self.inputDict['Settings']['DateTimeColumnName'] = \
+            str(self.choiceTimeCol.GetString(i))
+        self.inputDict['Settings']['FillGaps'] = 'false'
+        for k,v in self.inputDict['Mappings'].iteritems():
+            print v
+            v['IntendedTimeSpacing'] = self.spinTimeSpacing.GetValue()
+            i = self.choiceUnitID.GetSelection()
+            v['IntendedTimeSpacingUnitID'] = int(\
+                filter(\
+                str.isdigit,
+                str(self.choiceUnitID.GetString(i))))
+        print self.inputDict
+        self.inputDict['Settings']['UTCOffset'] = \
+            self.spinUTCOffset.GetValue()
         return self.inputDict
 
     def setInput(self, data):
@@ -42,7 +62,6 @@ class DataConfigPanelController(DataConfigPanelView):
         
         self.inputDict.update(data)
         
-
         
         
         # Update the list control only if the new data is different.
@@ -60,12 +79,45 @@ class DataConfigPanelController(DataConfigPanelView):
             csv = CSVReader()
 
             try:
+                read = self.parent.db.getReadSession()
+                timeUnits = read.getUnitsByTypeCV('time')
+                for unit in timeUnits:
+                    self.choiceUnitID.Append(unit.UnitsName+" (id "+str(unit.UnitsID)+")")
+                self.choiceUnitID.SetSelection(0)
+               
+                try:
+                    self.spinTimeSpacing.SetValue(\
+                        searchDict(self.inputDict['Mappings'],
+                            'IntendedTimeSpacing'))
+                except KeyError:
+                    pass
+                try:
+                    unitID = searchDict(self.inputDict['Mappings'],
+                        'IntendedTimeSpacingUnitID')
+                    unit = read.getUnitById(int(unitID))
+                    self.choiceUnitID.Append(unit.UnitsName+" (id "+str(unit.UnitsID)+")")
+                    i = self.choiceUnitID.FindString(unit.UnitsName+" (id "+str(unit.UnitsID)+")")
+                    self.choiceUnitID.SetSelection(i)
+                except KeyError:
+                    pass
+                
+                try:
+                    offset = self.inputDict['Settings']['UTCOffset']
+                    self.spinUTCOffset.SetValue(int(offset))
+                except KeyError:
+                    pass
+                
+                try:
+                    dateCol = self.inputDict['Settings']['DateTimeColumnName']
+                    i = self.choiceTimeCol.FindString(str(dateCol))
+                    self.choiceTimeCol.SetSelection(i)
+                except KeyError:
+                    pass
+                
+                
                 df = csv.dataFrameReader(searchDict(data, 'FileLocation'),
                     header=searchDict(data, 'HeaderRowPosition'), sep=searchDict(data, 'Delimiter'),
                     dataBegin=searchDict(data, 'DataRowPosition'))
-                #df = csv.dataFrameReader(data['FileLocation'],
-                #    header=data['HeaderRowPosition'], sep=data['Delimiter'],
-                #    dataBegin=data['DataRowPosition'])
                 
                 columns = csv.getColumnNames(df)
 
@@ -77,16 +129,9 @@ class DataConfigPanelController(DataConfigPanelView):
                 # Assign the table to the grid control.
                 self.m_listCtrl1.setTable(base)
               
-                # Refresh the values
-                #self.m_choice4.Clear()
-                #self.m_choice3.Clear()
-                # Set the values of the time choice controls.
                 [self.choiceTimeCol.Append(column) \
                     for column in columns]
                 self.choiceTimeCol.SetSelection(0)
-                #[self..Append(column) \
-                #    for column in columns]
-                #self.choiceTimeCol.SetSelection(0)
 
                 for column in range(self.m_listCtrl1.GetNumberCols()):
                     self.m_listCtrl1.AutoSizeColLabelSize(column)
@@ -95,16 +140,7 @@ class DataConfigPanelController(DataConfigPanelView):
                 self.selectedDateColumn = \
                     self.choiceTimeCol.GetString(index)
                 
-                self.db = Database()
-                Credentials = namedtuple('Credentials', 'engine, host, db_name, uid, pwd')
-                self.db.createConnection(Credentials(\
-                    self.inputDict['Database']['Engine'],
-                    self.inputDict['Database']['Address'],
-                    self.inputDict['Database']['DatabaseName'],
-                    self.inputDict['Database']['UserName'],
-                    self.inputDict['Database']['Password']))
-                
-                read = self.db.getReadSession()
+                read = self.parent.db.getReadSession()
                 
                 try:
                     for k,v in self.inputDict['Mappings'].iteritems():
@@ -143,11 +179,7 @@ class DataConfigPanelController(DataConfigPanelView):
             # Get the column header.
             self.selectedColumn = \
                 self.m_listCtrl1.GetColLabelValue(event.GetCol())
-            # Enable the 'add' button.
-            #self.m_button8.Enable(True)
-        #else:
-            #self.m_button8.Enable(False)
-        event.Skip#()
+        event.Skip
     
     def onColDoubleClick(self, event):
         if event.GetCol() > -1:
@@ -161,18 +193,8 @@ class DataConfigPanelController(DataConfigPanelView):
         event.Skip()
     
     def onTimeSelect(self, event):
-        #if event.GetEventObject() == self.m_radioBtn3:
-        #    #self.m_choice3.Enable(True)
-        #    #self.m_choice4.Enable(False)
-        
         index = self.choiceTimeCol.GetSelection()
         self.selectedDateColumn = self.choiceTimeCol.GetString(index)
-        #if event.GetEventObject() == self.m_radioBtn4:
-        #    self.m_choice3.Enable(False)
-        #    self.m_choice4.Enable(True)
-            
-        #    index = self.m_choice4.GetSelection()
-        #    self.selectedDateColumn = self.m_choice4.GetString(index)
 
         event.Skip()
    
@@ -183,17 +205,9 @@ class DataConfigPanelController(DataConfigPanelView):
 
 
     def runSeriesSelectDialog(self):
-        #db = Database()
-        #Credentials = namedtuple('Credentials', 'engine, host, db_name, uid, pwd')
-        #db.createConnection(Credentials(\
-        #    self.inputDict['Database']['Engine'],
-        #    self.inputDict['Database']['Address'],
-        #    self.inputDict['Database']['DatabaseName'],
-        #    self.inputDict['Database']['UserName'],
-        #    self.inputDict['Database']['Password']))
         dlg = SeriesSelectDialog(self,
                 variable=self.selectedColumn,
-                database=self.db)
+                database=self.parent.db)
         if dlg.ShowModal() == wx.ID_OK:
             dlg.selectedResult.variableName = self.selectedColumn
             import pprint
@@ -206,13 +220,7 @@ class DataConfigPanelController(DataConfigPanelView):
                     {str(self.selectedColumn):{\
                         'ResultID':int(dlg.selectedResult.resultID),
                         'LastByteRead':0,
-                        'CalculateAggInterval':'false',
-                        'IntendedTimeSpacing':15,
-                        'IntendedTimeSpacingUnitID':102}})
-            #try:
-            #    self.inputDict['Mappings'][dlg.selectedResult.variableName]['ResultID'] = int(dlg.selectedResult.resultID)
-            #except KeyError
-            
+                        'CalculateAggInterval':'false'}})
             
             pprint.pprint(self.inputDict)
             
