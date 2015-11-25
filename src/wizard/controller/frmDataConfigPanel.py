@@ -152,9 +152,13 @@ class DataConfigPanelController(DataConfigPanelView):
                         self.m_listCtrl3.AddObject(
                             ResultMapping(mapped.resultID,
                                 mapped.samplingFeatureCode,
+                                mapped.samplingFeatureName,
                                 mapped.methodCode,
+                                mapped.methodName,
                                 mapped.variableCode,
+                                mapped.variableNameCV,
                                 mapped.processingLevelCode,
+                                mapped.processingLevelDef,
                                 mapped.unitsName,
                                 variable))
                 except KeyError:
@@ -210,6 +214,7 @@ class DataConfigPanelController(DataConfigPanelView):
                 database=self.parent.db)
         if dlg.ShowModal() == wx.ID_OK:
             dlg.selectedResult.variableName = self.selectedColumn
+            print dlg.selectedResult.variableNameCV
             import pprint
             
             if "Mappings" not in self.inputDict.keys():

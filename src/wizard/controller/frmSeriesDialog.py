@@ -77,19 +77,24 @@ class SeriesSelectDialog(CustomDialog):
         #wiz.addPage(ResultPageView)
         wiz.addPage(ResultSummaryPanel)
         
-        wiz.CenterOnScreen()
+        #wiz.CenterOnScreen()
         wiz.ShowModal()
         
         event.Skip()
 
     def onOK(self, event):
         obj = self.seriesSelectPanel.listCtrl.GetSelectedObject()
-        
+        print obj.variableNameCV
+
         mapping = ResultMapping(obj.resultID,
             obj.samplingFeatureCode,
+            obj.samplingFeatureName,
             obj.methodCode,
+            obj.methodName,
             obj.variableCode,
+            obj.variableNameCV,
             obj.processingLevelCode,
+            obj.processingLevelDef,
             obj.unitsName)
 
         self.selectedResult = mapping

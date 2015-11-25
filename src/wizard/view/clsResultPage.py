@@ -1,5 +1,6 @@
 import wx
 import wx.xrc
+import wx.richtext as rt
 
 ###########################################################################
 ## Class AddNewResult
@@ -18,7 +19,7 @@ class ResultPageView ( wx.Panel ):
         
         bSizerSum = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.txtSum = wx.TextCtrl( sbSizerSum.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.TE_READONLY|wx.STATIC_BORDER|wx.VSCROLL )
+        self.txtSum = rt.RichTextCtrl( sbSizerSum.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.TE_READONLY|wx.STATIC_BORDER|wx.VSCROLL )
         self.txtSum.SetMinSize( wx.Size( 440,100 ) )
         
         bSizerSum.Add( self.txtSum, 0, wx.ALL, 5 )

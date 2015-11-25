@@ -63,7 +63,15 @@ class WizardDialog(wx.Dialog):
             self.btnNext.Unbind(wx.EVT_BUTTON)
             self.btnNext.SetLabel("Next >")
             self.btnNext.Bind(wx.EVT_BUTTON, self.onNext)
-            
+    
+    def getSelections(self):
+        data = []
+        for pnl in self.pnlList:
+            try:
+                data.append(pnl.list_ctrl.GetSelectedObject())
+            except AttributeError:
+                continue
+        return data
 
     def ShowModal(self):
         if self.pnlList:
