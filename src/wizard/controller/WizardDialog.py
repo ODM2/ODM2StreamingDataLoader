@@ -65,10 +65,12 @@ class WizardDialog(wx.Dialog):
             self.btnNext.Bind(wx.EVT_BUTTON, self.onNext)
     
     def getSelections(self):
-        data = []
+        data = {}
+        i = 0
         for pnl in self.pnlList:
             try:
-                data.append(pnl.list_ctrl.GetSelectedObject())
+                data[i] = pnl.list_ctrl.GetSelectedObject()
+                i = i + 1
             except AttributeError:
                 continue
         return data
@@ -85,7 +87,8 @@ class WizardDialog(wx.Dialog):
     # ********************** #
 
     def onFinish(self, event):
-        self.Close()
+        if self.pnlList[-1].createResult():
+            self.Close()
         event.Skip()
 
     def onPrev(self, event):

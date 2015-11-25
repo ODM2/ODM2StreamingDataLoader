@@ -8,6 +8,8 @@ from api.ODM2.services.readService import *
 #from src.wizard.controller.frmSeriesSelectPanel import SeriesSelectPanel
 
 from src.wizard.view.clsResultPage import ResultPageView
+from api.ODM2.services.readService import *
+from api.ODM2.services.createService import *
 
 from ObjectListView import ObjectListView, ColumnDefn
 
@@ -18,6 +20,7 @@ class ResultSummaryPanel(ResultPageView):
         self.parent = parent
    
         self.fontColor = wx.Colour(67, 79, 112)
+        self.populateFields()
 
     def getSeriesData(self):
         read = self.parent.database.getReadSession()
@@ -26,20 +29,60 @@ class ResultSummaryPanel(ResultPageView):
     def onButtonAdd(self, event):
         event.Skip()
     
+    def createResult(self):
+        selections = self.parent.getSelections()
+        
+        samplingFeatureID = selections[0].SamplingFeatureID
+        actionID = selections[4].ActionID
+
+        write = self.parent.database.getWriteSession()
+        
+        featureAction = write.createFeatureAction(\
+            samplingFeatureID, actionID)
+
+        print featureAction
+
+        return True
+
+
     def onShow(self, event):
         if event.GetShow() is True:
-            for i in self.parent.getSelections():
-                if "SamplingFeatures" in str(i):
-                    self.getSamplingFeatureSummary(i)
-                elif "Variables" in str(i):
-                    self.getVariablesSummary(i)
-                elif "Units" in str(i):
-                    self.getUnitsSummary(i)
-                elif "ProcessingLevels" in str(i):
-                    self.getProcessingLevelSummary(i)
-                elif "Actions" in str(i):
-                    self.getActionsSummary(i)
+            selections = self.parent.getSelections()
+            
+            self.getSamplingFeatureSummary(\
+                selections[0])
+            self.getVariablesSummary(\
+                selections[1])
+            self.getUnitsSummary(\
+                selections[2])
+            self.getProcessingLevelSummary(\
+                selections[3])
+            self.getActionsSummary(\
+                selections[4])
+
         event.Skip()
+
+    def populateFields(self):
+        read = self.parent.database.getReadSession()
+
+        mediums = read.getCVMediumTypes()
+        mediumNames = [obj.Term for obj in mediums]
+        self.comboSamp.AppendItems(mediumNames)
+
+        aggStat = read.getCVAggregationStatistics()
+        aggStatTerms = [obj.Term for obj in aggStat]
+        self.comboAgg.AppendItems(aggStatTerms)
+
+        status = read.getCVStatus();
+        statusTerms = [obj.Term for obj in status]
+        self.comboStatus.AppendItems(statusTerms)
+
+        timeUnits = read.getUnitsByTypeCV("length")
+        timeUnitsName = [obj.UnitsName for obj in timeUnits]
+        self.comboXUnits.AppendItems(timeUnitsName)
+        self.comboYUnits.AppendItems(timeUnitsName)
+        self.comboZUnits.AppendItems(timeUnitsName)
+        self.comboIntendedUnits.AppendItems(timeUnitsName)
 
     def getSamplingFeatureSummary(self, obj):
         self.txtSum.Freeze()

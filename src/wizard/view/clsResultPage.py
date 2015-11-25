@@ -93,6 +93,7 @@ class ResultPageView ( wx.Panel ):
         
         self.spinUTCResult = wx.SpinCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         self.spinUTCResult.SetMinSize( wx.Size( 50,-1 ) )
+        self.spinUTCResult.SetRange(-20,20)
         
         bSizerResultDT.Add( self.spinUTCResult, 0, wx.ALL, 5 )
         
@@ -119,6 +120,7 @@ class ResultPageView ( wx.Panel ):
         
         self.spinUTCValid = wx.SpinCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         self.spinUTCValid.SetMinSize( wx.Size( 50,-1 ) )
+        self.spinUTCValid.SetRange(-20,20)
         
         bSizerValid.Add( self.spinUTCValid, 0, wx.ALL, 5 )
         
@@ -157,7 +159,7 @@ class ResultPageView ( wx.Panel ):
         
         bSizerX.Add( self.txtX, 0, wx.ALL, 5 )
         
-        self.staticXUnits = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Units ID", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.staticXUnits = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Units", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.staticXUnits.Wrap( -1 )
         bSizerX.Add( self.staticXUnits, 0, wx.ALL, 5 )
         
@@ -184,7 +186,7 @@ class ResultPageView ( wx.Panel ):
         
         bSizerY.Add( self.txtY, 0, wx.ALL, 5 )
         
-        self.staticYUnits = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Units ID", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.staticYUnits = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Units", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.staticYUnits.Wrap( -1 )
         bSizerY.Add( self.staticYUnits, 0, wx.ALL, 5 )
         
@@ -211,7 +213,7 @@ class ResultPageView ( wx.Panel ):
         
         bSizerZ.Add( self.txtZ, 0, wx.ALL, 5 )
         
-        self.m_staticText422110 = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Units ID", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText422110 = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Units", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText422110.Wrap( -1 )
         bSizerZ.Add( self.m_staticText422110, 0, wx.ALL, 5 )
         
@@ -238,7 +240,7 @@ class ResultPageView ( wx.Panel ):
         
         bSizerIntended.Add( self.txtIntended, 0, wx.ALL, 5 )
         
-        self.m_staticText4221101 = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Units ID", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText4221101 = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Units", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_staticText4221101.Wrap( -1 )
         bSizerIntended.Add( self.m_staticText4221101, 0, wx.ALL, 5 )
         
