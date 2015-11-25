@@ -22,8 +22,8 @@ class ProcLevelSelectPanel(SeriesSelectPanel):
                 'ProcessingLevelCode'),
             ColumnDefn('Definition', 'left', 120,
                 'Definition'),
-            ColumnDefn('Explaination', 'left', 120,
-                'Explaination'),
+            ColumnDefn('Explanation', 'left', 120,
+                'Explanation'),
         ])
         self.list_ctrl.SetObjects(self.getSeriesData())
         if not self.parent.database:
