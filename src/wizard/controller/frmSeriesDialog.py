@@ -9,7 +9,6 @@ from src.wizard.controller.frmSeriesWizard \
 
 from src.wizard.controller.WizardDialog \
     import WizardDialog
-
 from src.wizard.controller.frmSampFeatSelectPanel \
     import SampFeatSelectPanel
 from src.wizard.controller.frmVariableSelectPanel \
@@ -27,27 +26,13 @@ from api.ODM2.services.readService \
     import DetailedResult
 
 from src.wizard.models.ResultMapping import ResultMapping
-"""
-class ResultMapping(DetailedResult):
-    def __init__(self, result, samplingFeature,
-        method, variable, processingLevel,
-        unit, variableName=None):
-
-        self.resultID=result
-        self.samplingFeatureCode=samplingFeature
-        self.methodCode=method
-        self.variableCode=variable
-        self.processingLevelCode=processingLevel
-        self.unitsName=unit
-        self.variableName = variableName
-"""
-
 
 class SeriesSelectDialog(CustomDialog):
     def __init__(self, parent, variable, database):
         super(SeriesSelectDialog, self).__init__(\
             parent=parent,
-            title="Select Result for %s" % variable)
+            title="Select Result for %s" % variable,
+            size=wx.Size(700, 500))
         self.database = database
 
         read = database.getReadSession()
@@ -77,8 +62,22 @@ class SeriesSelectDialog(CustomDialog):
         #wiz.addPage(ResultPageView)
         wiz.addPage(ResultSummaryPanel)
         
-        #wiz.CenterOnScreen()
-        wiz.ShowModal()
+        wiz.CenterOnParent()
+        if wiz.ShowModal() == wx.ID_OK:
+            read = self.database.getReadSession()
+            r = read.getDetailedResultInfo("Time series coverage", 
+                                            wiz.result.ResultID)
+            r_id = r[0].resultID
+            detailedResults = read.getDetailedResultInfo("Time series coverage")
+            self.seriesSelectPanel.listCtrl.SetObjects(detailedResults)
+
+            for i in detailedResults:
+                if i.resultID == r_id:
+                    self.seriesSelectPanel.listCtrl.SelectObject(\
+                        i, deselectOthers=True,
+                        ensureVisible=True)
+        else:
+            wx.MessageBox('An error occurred while creating a new result', 'Error')
         
         event.Skip()
 

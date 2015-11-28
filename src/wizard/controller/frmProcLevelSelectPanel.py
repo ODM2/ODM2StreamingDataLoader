@@ -28,6 +28,19 @@ class ProcLevelSelectPanel(SeriesSelectPanel):
         self.list_ctrl.SetObjects(self.getSeriesData())
         if not self.parent.database:
             self.new_button.Enable(False)
+        self.list_ctrl.Bind(wx.EVT_LIST_ITEM_SELECTED, self.enable)
+        self.list_ctrl.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.disable)
+
+        if not self.list_ctrl.GetSelectedObject():
+            self.parent.btnNext.Enable(False)
+    
+    def enable(self, event):
+        self.parent.btnNext.Enable(True)
+        event.Skip()
+    
+    def disable(self, event):
+        self.parent.btnNext.Enable(False)
+        event.Skip()
 
     def getSeriesData(self):
         if self.parent.database:

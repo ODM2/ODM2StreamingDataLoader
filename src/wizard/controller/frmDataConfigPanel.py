@@ -212,6 +212,7 @@ class DataConfigPanelController(DataConfigPanelView):
         dlg = SeriesSelectDialog(self,
                 variable=self.selectedColumn,
                 database=self.parent.db)
+        dlg.CenterOnParent()
         if dlg.ShowModal() == wx.ID_OK:
             dlg.selectedResult.variableName = self.selectedColumn
             print dlg.selectedResult.variableNameCV

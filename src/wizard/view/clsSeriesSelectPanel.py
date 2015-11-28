@@ -14,7 +14,7 @@ class SeriesSelectPanelView(wx.Panel):
         # Init base class.
         wx.Panel.__init__(self, parent, id=wx.ID_ANY,
                           pos=wx.DefaultPosition,
-                          size=wx.DefaultSize)
+                          size=wx.Size(900, 500))
         # A sizer that is oriented vertically.
         fgSizer = wx.BoxSizer(wx.VERTICAL)
         # A sizer with a line around it.
@@ -24,9 +24,9 @@ class SeriesSelectPanelView(wx.Panel):
             wx.VERTICAL)
         # ObjectListView table.
         self.listCtrl = \
-            ObjectListView(self, id=wx.ID_ANY,
+            ObjectListView(sbSizer.GetStaticBox(), id=wx.ID_ANY,
                            pos=wx.DefaultPosition,
-                           size=wx.Size(800,300),
+                           size=wx.DefaultSize,
                            style=wx.LC_REPORT|wx.SUNKEN_BORDER)
         # Customize the list control's message
         # when it is empty.
@@ -48,7 +48,8 @@ class SeriesSelectPanelView(wx.Panel):
             ColumnDefn('Proc. Level Def.','left',110,'processingLevelDef'),
         ])
 
-        self.newBtn = wx.Button(self, wx.ID_ANY,
+        self.newBtn = wx.Button(sbSizer.GetStaticBox(),
+                                wx.ID_ANY,
                                 "Create New Result",
                                 wx.DefaultPosition,
                                 wx.DefaultSize,
@@ -67,8 +68,8 @@ class SeriesSelectPanelView(wx.Panel):
         # enable the list to fill the panel.
         sbSizer.Add(self.listCtrl, 1, wx.ALL|wx.EXPAND, 5)
         sbSizer.Add(self.newBtn, 0, wx.ALL|wx.ALIGN_RIGHT, 5)
-        fgSizer.Add(sbSizer, 0, wx.ALL, 5)
-        fgSizer.Add(dlgBtnSizer, 1, wx.ALL|wx.ALIGN_RIGHT, 5)
+        fgSizer.Add(sbSizer, 1, wx.EXPAND, 5)
+        fgSizer.Add(dlgBtnSizer, 0, wx.ALL|wx.ALIGN_RIGHT, 5)
         # Assign the sizer to the panel.
         self.SetSizer(fgSizer)
         self.Layout()

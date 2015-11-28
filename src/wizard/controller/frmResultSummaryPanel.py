@@ -39,10 +39,30 @@ class ResultSummaryPanel(ResultPageView):
         
         featureAction = write.createFeatureAction(\
             samplingFeatureID, actionID)
+        featureActionID = featureAction.FeatureActionID
 
-        print featureAction
+        variableID = selections[1].VariableID
+        unitID = selections[2].UnitsID
 
-        return True
+        processingLevelID = selections[3].ProcessingLevelID
+
+        valueCount = 1 # ???
+
+        sampledMedium = str(self.comboSamp.GetStringSelection())
+        
+        resultTypeCV = "Time series coverage"
+
+        result = \
+            write.createResult(featureactionid=featureActionID,
+                           variableid=variableID,
+                           unitid=unitID,
+                           processinglevelid=processingLevelID,
+                           valuecount=valueCount,
+                           sampledmedium=sampledMedium,
+                           resulttypecv=resultTypeCV)
+
+        print result
+        return result
 
 
     def onShow(self, event):
@@ -65,13 +85,16 @@ class ResultSummaryPanel(ResultPageView):
     def populateFields(self):
         read = self.parent.database.getReadSession()
 
-        mediums = read.getCVMediumTypes()
-        mediumNames = [obj.Term for obj in mediums]
-        self.comboSamp.AppendItems(mediumNames)
+        self.mediums = {} #read.getCVMediumTypes()
+        [self.mediums.update({obj.Term:obj}) \
+            for obj in read.getCVMediumTypes()]
 
-        aggStat = read.getCVAggregationStatistics()
-        aggStatTerms = [obj.Term for obj in aggStat]
-        self.comboAgg.AppendItems(aggStatTerms)
+        self.comboSamp.AppendItems(self.mediums.keys())
+
+        self.aggStat = {} #read.getCVAggregationStatistics()
+        [self.aggStat.update({obj.Term:obj}) \
+            for obj in read.getCVAggregationStatistics()]
+        self.comboAgg.AppendItems(self.aggStat.keys())
 
         status = read.getCVStatus();
         statusTerms = [obj.Term for obj in status]

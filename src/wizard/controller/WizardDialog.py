@@ -34,6 +34,8 @@ class WizardDialog(wx.Dialog):
         self.SetSizer(self.mainSizer)
         self.mainSizer.Fit(self)
 
+        self.returnValue = wx.ID_ANY
+
     def addButtons(self):
         self.btnCancel = wx.Button(self, wx.ID_CANCEL, "Cancel")
         self.btnNext = wx.Button(self, wx.ID_ANY, "Finish")
@@ -50,6 +52,7 @@ class WizardDialog(wx.Dialog):
         self.mainSizer.Add(self.btnSizer, 0, wx.ALL|wx.ALIGN_RIGHT, 5)
 
         self.btnPrev.Enable(False)
+        self.btnNext.Enable(False)
         self.btnNext.Bind(wx.EVT_BUTTON, self.onFinish)
         self.btnPrev.Bind(wx.EVT_BUTTON, self.onPrev)
     
@@ -81,13 +84,16 @@ class WizardDialog(wx.Dialog):
             self.currentPnl.Show()
         self.mainSizer.Fit(self)
         super(WizardDialog, self).ShowModal()
+        return self.returnValue
 
     # ********************** #
     # *** Event Handlers *** #
     # ********************** #
 
     def onFinish(self, event):
-        if self.pnlList[-1].createResult():
+        self.result = self.pnlList[-1].createResult()
+        if self.result:
+            self.returnValue = wx.ID_OK
             self.Close()
         event.Skip()
 
@@ -136,7 +142,7 @@ class WizardDialog(wx.Dialog):
             self.btnNext.Unbind(wx.EVT_BUTTON)
             self.btnNext.Bind(wx.EVT_BUTTON, self.onNext)
             
-        
+        self.btnNext.Enable(False)
         event.Skip() 
 
 

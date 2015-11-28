@@ -7,29 +7,13 @@ from collections import namedtuple
 
 class SeriesSelectPanel(wx.Panel):
     '''
-        The base class for a series select panel.
-        There are six types of series represented by
-        this base class:
-            - SamplingFeature
-            - Variable
-            - Units
-            - Processing Level
-            - Actions
-            - Results
-        Each of these types of series implements
-        the Object List View differently, so those
-        details are abstracted out of this class.
-
-        On the other hand, some functionality is the
-        same across all classes, so those details
-        are defined in this base class.
     '''
     def __init__( self, parent, label=""):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 644,430 ), style = wx.TAB_TRAVERSAL )
+        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 774,360 ), style = wx.TAB_TRAVERSAL )
         
-        fgSizer1 = wx.FlexGridSizer( 0, 1, 0, 0 )
-        fgSizer1.SetFlexibleDirection( wx.BOTH )
-        fgSizer1.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+        fgSizer1 = wx.BoxSizer(wx.VERTICAL)#wx.FlexGridSizer( 0, 1, 0, 0 )
+        #fgSizer1.SetFlexibleDirection( wx.BOTH )
+        #fgSizer1.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
         
         self.static_txt = wx.StaticText(self, wx.ID_ANY,
                 u"Select or create new %s." % label, wx.DefaultPosition,
@@ -38,9 +22,9 @@ class SeriesSelectPanel(wx.Panel):
         fgSizer1.Add(self.static_txt, 0, wx.ALL, 5)
         
         self.list_ctrl = ObjectListView(self, wx.ID_ANY,
-            pos=wx.DefaultPosition, size=wx.Size(630,350),
-            style=wx.LC_REPORT|wx.SUNKEN_BORDER)
-        fgSizer1.Add(self.list_ctrl, 0, wx.ALL|wx.EXPAND)
+            pos=wx.DefaultPosition, size=wx.DefaultSize,
+            style=wx.LC_REPORT|wx.SUNKEN_BORDER|wx.EXPAND)
+        fgSizer1.Add(self.list_ctrl, 1, wx.ALL|wx.EXPAND)
 
         self.new_button = wx.Button(self, wx.ID_ANY,
                 u"New %s" % label, wx.DefaultPosition,

@@ -93,7 +93,7 @@ class ResultPageView ( wx.Panel ):
         
         self.spinUTCResult = wx.SpinCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         self.spinUTCResult.SetMinSize( wx.Size( 50,-1 ) )
-        self.spinUTCResult.SetRange(-20,20)
+        self.spinUTCResult.SetRange(-12,14)
         
         bSizerResultDT.Add( self.spinUTCResult, 0, wx.ALL, 5 )
         
@@ -120,7 +120,7 @@ class ResultPageView ( wx.Panel ):
         
         self.spinUTCValid = wx.SpinCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         self.spinUTCValid.SetMinSize( wx.Size( 50,-1 ) )
-        self.spinUTCValid.SetRange(-20,20)
+        self.spinUTCValid.SetRange(-12,14)
         
         bSizerValid.Add( self.spinUTCValid, 0, wx.ALL, 5 )
         
@@ -168,7 +168,6 @@ class ResultPageView ( wx.Panel ):
         self.comboXUnits.SetMinSize( wx.Size( 115,-1 ) )
         
         bSizerX.Add( self.comboXUnits, 0, wx.ALL, 5 )
-        
         
         sbSizerOpt.Add( bSizerX, 1, wx.EXPAND, 5 )
         

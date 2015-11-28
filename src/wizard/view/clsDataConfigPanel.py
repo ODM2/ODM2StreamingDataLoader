@@ -10,7 +10,7 @@ from src.wizard.controller.frmVirtualGrid import VirtualGrid, GridBase
 
 class DataConfigPanelView(wx.Panel):
     def __init__( self, parent ):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 922,519 ), style = wx.TAB_TRAVERSAL )
+        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 972,569 ), style = wx.TAB_TRAVERSAL )
         
         bSizerMain = wx.BoxSizer( wx.VERTICAL )
         

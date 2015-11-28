@@ -16,7 +16,7 @@ class CustomDialog(wx.Dialog):
         self.sizer.Fit(self)
 
     def addPanel(self, pnl):
-        self.sizer.Add(pnl, 0, wx.ALL, 5)
+        self.sizer.Add(pnl, 1, wx.ALL|wx.EXPAND, 5)
         self.sizer.Layout()
         self.sizer.Fit(self)
 
