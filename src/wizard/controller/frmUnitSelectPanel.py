@@ -31,11 +31,16 @@ class UnitSelectPanel(SeriesSelectPanel):
         if not self.parent.database:
             self.new_button.Enable(False)
         self.list_ctrl.Bind(wx.EVT_LIST_ITEM_SELECTED, self.enable)
-        self.list_ctrl.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.disable)
+        #self.list_ctrl.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.disable)
+        self.Bind(wx.EVT_SHOW, self.onShow)
 
-        if not self.list_ctrl.GetSelectedObject():
-            self.parent.btnNext.Enable(False) 
-    
+    def onShow(self, event):
+        if self.list_ctrl.GetSelectedObject():
+            self.parent.btnNext.Enable(True)  
+        else:
+            self.parent.btnNext.Enable(False)  
+        event.Skip()
+  
     def enable(self, event):
         self.parent.btnNext.Enable(True)
         event.Skip()

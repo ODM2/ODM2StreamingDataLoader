@@ -122,13 +122,14 @@ class WizardDialog(wx.Dialog):
         event.Skip()
 
     def onNext(self, event):
+        self.btnNext.Enable(False)
         self.currentPnl.Hide()
         self.currentPnl = self.pnlList[self.pnlList.index( \
             self.currentPnl)+1]
         self.currentPnl.Show()
         self.Layout()
         self.mainSizer.Fit(self)
-        
+
         if self.currentPnl == self.pnlList[0]:
             self.btnPrev.Enable(False)
         else:
@@ -142,7 +143,6 @@ class WizardDialog(wx.Dialog):
             self.btnNext.Unbind(wx.EVT_BUTTON)
             self.btnNext.Bind(wx.EVT_BUTTON, self.onNext)
             
-        self.btnNext.Enable(False)
         event.Skip() 
 
 

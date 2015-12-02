@@ -50,6 +50,25 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         dlg.ShowModal()
         event.Skip()
 
+    def onOK(self, event):
+        # Try to validate the form.
+        if not self.Validate():
+            self.Refresh()
+            return
+        else:
+            # Move the data into the value dictionaries.
+            # All data should be valid at this point.
+            self.getFieldValues() 
+            try:
+
+            except Exception as e:
+                print e
+
+    def getFieldValues(self):
+        self.actionType = str(self.m_comboBox13.GetStringSelection())
+        self.method = str(self.m_comboBox134.GetStringSelection())
+
+
 if __name__ == '__main__':
     db = Database()
     Credentials = namedtuple('Credentials', 'engine, host, db_name, uid, pwd')

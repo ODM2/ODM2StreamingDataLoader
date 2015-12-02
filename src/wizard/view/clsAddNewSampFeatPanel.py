@@ -1,7 +1,8 @@
 import wx
 from src.wizard.controller.frmDigitOnly import DigitValidator
-from src.wizard.controller.decorator.frmValidatorDecorator import ValidatorDecorator, RequiredValidator, DigitValidator
-from src.wizard.controller.decorator.frmCustomValidator import CustomValidator
+from src.wizard.controller.frmRequiredValidator import RequiredValidator
+#from src.wizard.controller.decorator.frmValidatorDecorator import ValidatorDecorator, RequiredValidator, DigitValidator
+#from src.wizard.controller.decorator.frmCustomValidator import CustomValidator
 from src.wizard.controller.frmRequiredComboValidator import RequiredComboValidator
 
 class AddNewSampFeatPanelView ( wx.Panel ):
@@ -40,7 +41,7 @@ class AddNewSampFeatPanelView ( wx.Panel ):
         
         bSizer411.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.m_textCtrl301 = wx.TextCtrl( sbSizer25.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, validator=RequiredValidator(RequiredValidator(CustomValidator())) )
+        self.m_textCtrl301 = wx.TextCtrl( sbSizer25.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, validator=RequiredValidator())
         self.m_textCtrl301.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer411.Add( self.m_textCtrl301, 0, wx.ALL, 5 )
@@ -97,7 +98,7 @@ class AddNewSampFeatPanelView ( wx.Panel ):
         
         bSizer68.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.m_textCtrl35 = wx.TextCtrl( sbSizer25.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 , validator=wx.DefaultValidator)
+        self.m_textCtrl35 = wx.TextCtrl( sbSizer25.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 , validator=DigitValidator())
         self.m_textCtrl35.SetMinSize( wx.Size( 102,-1 ) )
         
         bSizer68.Add( self.m_textCtrl35, 0, wx.ALL, 5 )
@@ -106,7 +107,7 @@ class AddNewSampFeatPanelView ( wx.Panel ):
         self.m_staticText53.Wrap( -1 )
         bSizer68.Add( self.m_staticText53, 0, wx.ALL, 5 )
         
-        self.m_textCtrl36 = wx.TextCtrl( sbSizer25.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 , validator=wx.DefaultValidator)
+        self.m_textCtrl36 = wx.TextCtrl( sbSizer25.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 , validator=DigitValidator())
         self.m_textCtrl36.SetMinSize( wx.Size( 102,-1 ) )
         
         bSizer68.Add( self.m_textCtrl36, 0, wx.ALL, 5 )

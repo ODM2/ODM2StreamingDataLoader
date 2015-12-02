@@ -18,51 +18,6 @@ class AffiliationsList(ObjectListView):
         self.selectedItems = []
         self.lastSelected = -1
         self.deleting = -1
-    """
-    def onClick(self, event):
-        event.Skip()
-        # Get selected items
-        selection = self.GetSelectedObjects()
-        for i in selection:
-            # If item that is selected is not in
-            # the list, add it and select it.
-            if i not in self.selectedItems:
-                self.selectedItems.append(i)
-                #self.Select(self.GetIndexOf(i))
-                self.SelectObject(i, deselectOthers=False)
-           
-            if self.GetIndexOf(i) == event.m_itemIndex:
-                print "now"
-        if self.GetObjectAt(event.m_itemIndex) in self.selectedItems:
-            self.selectedItems.remove(self.GetObjectAt(event.m_itemIndex))
-            #self.SelectObject(i, deselectOthers=False)
-            #self.SetItemState(self.GetIndexOf(i), 0, wx.LIST_STATE_SELECTED)
-            self.Select(self.GetIndexOf(i),0)
-                #self.Select(self.GetIndexOf(i), 0)
-                
-        for i in self.selectedItems:
-            #self.SelectObject(i, deselectOthers=False)
-            self.Select(self.GetIndexOf(i))
-
-        self.lastSelected = event.m_itemIndex
-
-    def onDeselect(self, event):
-        event.Skip()
-
-    def onSelect(self, event):
-        event.Skip()
-        thisIndex = event.m_itemIndex
-        selectedObjects = self.GetSelectedObjects()
-        if len(selectedObjects) == 1:
-            self.selectedItems.append(self.GetObjectAt(thisIndex))
-        elif len(selectedObjects) > 1:
-            if self.GetObjectAt(thisIndex) in selectedObjects:
-                self.selectedItems.remove(self.GetObjectAt(thisIndex))
-            else:
-                self.selectedItems.append(self.GetObjectAt(thisIndex))
-        for i in self.selectedItems:
-            self.Select(self.GetIndexOf(i))
-    """
 
 class AddNewActionsPanelView ( wx.Panel ):
     def __init__( self, parent ):
@@ -260,7 +215,7 @@ class AddNewActionsPanelView ( wx.Panel ):
         m_sdbSizer10.Realize();
         
         bSizer80.Add( m_sdbSizer10, 1, wx.EXPAND, 5 )
-        
+        self.m_sdbSizer10OK.Bind(wx.EVT_BIND, self.onOK)        
         
         self.SetSizer( bSizer80 )
         self.Layout() 

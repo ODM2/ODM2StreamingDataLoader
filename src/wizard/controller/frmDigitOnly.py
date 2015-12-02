@@ -21,8 +21,6 @@ class DigitValidator(wx.PyValidator):
     def Validate(self, win):
         textControl = self.GetWindow()
         value = textControl.GetValue()
-        print "Validating!", value
-        print value.count('.')
         if not len(value):
             #textControl.SetBackgroundColour('#C5EFFF')
             textControl.SetBackgroundColour('#FFFAC5')
@@ -56,8 +54,6 @@ class DigitValidator(wx.PyValidator):
 
         text = self.GetWindow().GetValue()
 
-        print text
-
         if text.count('.') == 1 and chr(key) == '.':
             return
         
@@ -78,7 +74,6 @@ class DigitValidator(wx.PyValidator):
         return
     
     def onClick(self, event):
-        print self.GetWindow().GetInsertionPoint()
         control = self.GetWindow()
         control.SetBackgroundColour(wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW))
         control.Refresh()

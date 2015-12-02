@@ -31,8 +31,11 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
         self.sites = [i.Name for i in read.getCVSiteTypes()]
         self.m_comboBox8.AppendItems(self.sites)
         
-        self.sp_ref = [i.SRSName for i in read.getCVSpacialReferenceTypes()]
-        self.m_comboBox822.AppendItems(self.sp_ref)
+        self.sp_ref = [{i.SRSName:i.SpatialReferenceID}\
+            for i in read.getCVSpacialReferenceTypes()]
+        self.m_comboBox822.AppendItems(\
+            [y for x in [i.keys() for i in self.sp_ref] for y in x]
+            )
         
         #geo = [i.Name for i in read.getCVSamplingFeatureGeoTypes()]
         self.m_geotypeTxt.SetValue('Point')
@@ -57,21 +60,23 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
                 write = self.db.getWriteSession()
                 sf = write.createSamplingFeature(\
                     uuid=str(self._uuid),
-                    code=str(code),
-                    vType=str(sampFeatType),
-                    name=str(sampFeatName),
-                    description=str(desc),
-                    geoType=str(sampFeatGeo),
-                    elevation=float(elevation_m),
-                    elevationDatum=str(elevationDatum),
-                    featureGeo=str(featGeo))
+                    code=self.requiredValues['code'],
+                    vType=self.requiredValues['vType'],
+                    name=self.optionalValues['name'],
+                    description=self.optionalValues['desc'],
+                    geoType=self.optionalValues['geoType'],
+                    elevation=self.optionalValues['elevation'],
+                    elevationDatum=self.optionalValues['elevationDatum'],
+                    featureGeo=self.optionalValues['featureGeo'])
                 
                 site = write.createSite(\
                     sfId=sf.SamplingFeatureID,
-                    spatialRefId=spatialRef,
-                    vType=siteType,
-                    latitude=float(lat),
-                    longitude=float(lon))
+                    spatialRefId=self.requiredValues['spatialRef'],
+                    vType=self.requiredValues['siteType'],
+                    latitude=self.requiredValues['lat'],
+                    longitude=self.requiredValues['long'])
+
+                self.sf = sf
             except Exception as e:
                 print e
         event.Skip()
@@ -79,12 +84,13 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
     def getFieldValues(self):
         # Stores all of the required field values.
         # Default is None.
-        self.requiredValues = {'uuid':None, # Required
+        self.requiredValues = {'uuid':'', # Required
                   'code':None, # Required
                   'vType':'Site',# Required
                   'spatialRef':None,# Required
                   'lat':None, # Required
                   'long':None,# Required
+                  'siteType':None
                   }
         self.optionalValues = {
                   'name':None, 
@@ -96,5 +102,29 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
                   }
         
         self.requiredValues['uuid'] = str(uuid.uuid4())
-        self.requiredValues['code'] = self.m_textCtrl301.GetValue()
-        self.sp_ref[self.m_comboBox822.GetCurrentSelection()]
+        self.requiredValues['code'] = str(self.m_textCtrl301.GetValue())
+        
+        keys = [y for x in [i.keys() for i in self.sp_ref] for y in x]
+        vals = [y for x in [i.values() for i in self.sp_ref] for y in x]
+        d = dict(zip(keys, vals))
+
+        self.requiredValues['spatialRef'] = \
+            d[self.m_comboBox822.GetStringSelection()]
+        self.requiredValues['lat'] = float(self.m_textCtrl35.GetValue())
+        self.requiredValues['long'] = float(self.m_textCtrl36.GetValue())
+        if self.m_comboBox8211.GetStringSelection() != '':
+            self.optionalValues['elevationDatum'] = \
+                str(self.datum[self.m_comboBox8211.GetSelection()])
+        
+        self.requiredValues['siteType'] = \
+            str(self.m_comboBox8.GetStringSelection())
+        
+        if str(self.m_textCtrl302.GetValue()) != '':
+            self.optionalValues['name'] = str(self.m_textCtrl302.GetValue())
+        if str(self.m_textCtrl3022.GetValue()) != '':
+            self.optionalValues['elevation'] = str(self.m_textCtrl3022.GetValue())
+       
+        if str(self.m_comboBox8211.GetStringSelection()) != '':
+            self.optionalValues['elevationDatum'] = str(self.m_comboBox8211.GetStringSelection())
+        if str(self.m_textCtrl303.GetValue()) != '':
+            self.optionalValues['desc'] = str(self.m_textCtrl303.GetValue())

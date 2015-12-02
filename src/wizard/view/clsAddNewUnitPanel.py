@@ -1,4 +1,8 @@
 import wx
+from src.wizard.controller.frmRequiredValidator \
+    import RequiredValidator
+from src.wizard.controller.frmRequiredComboValidator \
+    import RequiredComboValidator
 
 class AddNewUnitPanelView ( wx.Panel ):
     def __init__( self, parent ):
@@ -19,7 +23,7 @@ class AddNewUnitPanelView ( wx.Panel ):
         
         bSizer34.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.m_textCtrl26 = wx.TextCtrl( sbSizer7.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 280,-1 ), 0 )
+        self.m_textCtrl26 = wx.TextCtrl( sbSizer7.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 280,-1 ), validator=RequiredValidator())
         bSizer34.Add( self.m_textCtrl26, 0, wx.ALL, 5 )
         
         
@@ -35,7 +39,7 @@ class AddNewUnitPanelView ( wx.Panel ):
         bSizer35.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         m_comboBox13Choices = []
-        self.m_comboBox13 = wx.ComboBox( sbSizer7.GetStaticBox(), wx.ID_ANY, u"Select Units Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox13Choices, 0 )
+        self.m_comboBox13 = wx.ComboBox( sbSizer7.GetStaticBox(), wx.ID_ANY, u"Select Units Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox13Choices, validator=RequiredComboValidator())
         self.m_comboBox13.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer35.Add( self.m_comboBox13, 0, wx.ALL, 5 )
@@ -52,7 +56,7 @@ class AddNewUnitPanelView ( wx.Panel ):
         
         bSizer341.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.m_textCtrl261 = wx.TextCtrl( sbSizer7.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 280,-1 ), 0 )
+        self.m_textCtrl261 = wx.TextCtrl( sbSizer7.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 280,-1 ),validator=RequiredValidator() )
         bSizer341.Add( self.m_textCtrl261, 0, wx.ALL, 5 )
         
         
@@ -91,7 +95,7 @@ class AddNewUnitPanelView ( wx.Panel ):
         m_sdbSizer3.Realize();
         
         bSizer33.Add( m_sdbSizer3, 1, wx.EXPAND, 5 )
-        
+        self.m_sdbSizer3OK.Bind(wx.EVT_BUTTON, self.onOK)        
         
         self.SetSizer( bSizer33 )
         self.Layout() 

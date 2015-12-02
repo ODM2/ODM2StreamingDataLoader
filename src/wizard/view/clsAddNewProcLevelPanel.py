@@ -1,4 +1,6 @@
 import wx
+from src.wizard.controller.frmRequiredValidator \
+    import RequiredValidator
 
 class AddNewProcLevelPanelView ( wx.Panel ):
     def __init__( self, parent ):
@@ -19,7 +21,7 @@ class AddNewProcLevelPanelView ( wx.Panel ):
         
         bSizer41.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.m_textCtrl30 = wx.TextCtrl( sbSizer9.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl30 = wx.TextCtrl( sbSizer9.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, validator=RequiredValidator() )
         self.m_textCtrl30.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer41.Add( self.m_textCtrl30, 0, wx.ALL, 5 )
@@ -77,7 +79,7 @@ class AddNewProcLevelPanelView ( wx.Panel ):
         m_sdbSizer4.Realize();
         
         bSizer40.Add( m_sdbSizer4, 1, wx.EXPAND, 5 )
-        
+        self.m_sdbSizer4OK.Bind(wx.EVT_BUTTON, self.onOK) 
         
         self.SetSizer( bSizer40 )
         self.Layout()

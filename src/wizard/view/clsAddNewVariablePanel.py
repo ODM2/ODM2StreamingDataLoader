@@ -1,4 +1,10 @@
 import wx
+from src.wizard.controller.frmRequiredComboValidator \
+    import RequiredComboValidator
+from src.wizard.controller.frmRequiredValidator \
+    import RequiredValidator
+from src.wizard.controller.frmDigitOnly \
+    import DigitValidator
 
 class AddNewVariablePanelView ( wx.Panel ):
     def __init__( self, parent ):
@@ -19,7 +25,7 @@ class AddNewVariablePanelView ( wx.Panel ):
         
         bSizer27.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.m_textCtrl23 = wx.TextCtrl( sbSizer9.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl23 = wx.TextCtrl( sbSizer9.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize,validator=RequiredValidator())
         self.m_textCtrl23.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer27.Add( self.m_textCtrl23, 0, wx.ALL, 5 )
@@ -37,7 +43,7 @@ class AddNewVariablePanelView ( wx.Panel ):
         bSizer28.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         m_comboBox4Choices = []
-        self.m_comboBox4 = wx.ComboBox( sbSizer9.GetStaticBox(), wx.ID_ANY, u"Select Variable Name", wx.DefaultPosition, wx.DefaultSize, m_comboBox4Choices, wx.CB_READONLY )
+        self.m_comboBox4 = wx.ComboBox( sbSizer9.GetStaticBox(), wx.ID_ANY, u"Select Variable Name", wx.DefaultPosition, wx.DefaultSize, m_comboBox4Choices, wx.CB_READONLY, validator=RequiredComboValidator() )
         self.m_comboBox4.SetMinSize( wx.Size( 280,-1 ) )
         bSizer28.Add( self.m_comboBox4, 0, wx.ALL, 5 )
         
@@ -53,7 +59,7 @@ class AddNewVariablePanelView ( wx.Panel ):
         bSizer32.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         m_comboBox12Choices = []
-        self.m_comboBox12 = wx.ComboBox( sbSizer9.GetStaticBox(), wx.ID_ANY, u"Select Variable Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox12Choices, wx.CB_READONLY )
+        self.m_comboBox12 = wx.ComboBox( sbSizer9.GetStaticBox(), wx.ID_ANY, u"Select Variable Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox12Choices, wx.CB_READONLY , validator=RequiredComboValidator())
         self.m_comboBox12.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer32.Add( self.m_comboBox12, 0, wx.ALL, 5 )
@@ -70,7 +76,7 @@ class AddNewVariablePanelView ( wx.Panel ):
         
         bSizer20.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.m_textCtrl15 = wx.TextCtrl( sbSizer9.GetStaticBox(), wx.ID_ANY, u"-9999", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_textCtrl15 = wx.TextCtrl( sbSizer9.GetStaticBox(), wx.ID_ANY, u"-9999", wx.DefaultPosition, wx.DefaultSize, validator=DigitValidator())
         self.m_textCtrl15.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer20.Add( self.m_textCtrl15, 0, wx.ALL, 5 )
@@ -134,7 +140,7 @@ class AddNewVariablePanelView ( wx.Panel ):
         m_sdbSizer2.Realize();
         
         bSizer13.Add( m_sdbSizer2, 1, wx.EXPAND, 5 )
-        
+        self.m_sdbSizer2OK.Bind(wx.EVT_BUTTON, self.onOK)        
         
         self.SetSizer( bSizer13 )
         self.Layout() 

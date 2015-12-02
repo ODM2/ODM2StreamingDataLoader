@@ -25,3 +25,40 @@ class AddNewVariablePanelController(AddNewVariablePanelView):
         
         speciations = [i.Name for i in read.getCVSpeciations()]
         self.m_comboBox2.AppendItems(speciations)
+
+    def onOK(self, event):
+        if not self.Validate():
+            self.Refresh()
+            return
+        self.getFieldValues()
+        try:
+            write = self.db.getWriteSession()
+
+            write.createVariable(\
+                code=self.variableCode,
+                name=self.variableName,
+                vType=self.variableType,
+                nodv=self.ndv,
+                speciation=self.speciation,
+                definition=self.definition)
+
+        except Exception as e:
+            print e
+
+        event.Skip()
+
+    def getFieldValues(self):
+        self.variableCode = str(self.m_textCtrl23.GetValue())
+        self.variableName = str(self.m_comboBox4.GetStringSelection())
+        self.variableType = str(self.m_comboBox12.GetStringSelection())
+        self.ndv = float(self.m_textCtrl15.GetValue())
+        
+        if str(self.m_comboBox2.GetStringSelection()) != '':
+            self.speciation = str(self.m_comboBox2.GetStringSelection())
+        else:
+            self.speciation = None
+        if str(self.m_textCtrl24.GetValue()) != '':
+            self.definition = str(self.m_textCtrl24.GetValue())
+        else:
+            self.definition = None
+        
