@@ -142,7 +142,6 @@ class FileConfigPanelController(FileConfigPanelView):
 
     def setInput(self, data={}):
         # Populate the local or remote file text controls.
-        print "!!!", data
         self.inputDict.update(data)
         try:
             if searchDict(data, 'FileLocation').startswith('http'):
@@ -186,14 +185,23 @@ class FileConfigPanelController(FileConfigPanelView):
             
             self.m_choice2.SetSelection(index)
 
-            date = datetime.strptime(searchDict(data, 'Beginning'),
-                '%m/%d/%Y %I:%M:%S %p')
-            print "date: ", date
-            self.m_datePicker3.SetValue(pydate2wxdate(date))
-            self.m_timePicker1.SetValue(str(date.time()))
-
+            #date = datetime.strptime(searchDict(data, 'Beginning'),
+            #    '%m/%d/%Y %I:%M:%S %p')
+            try:
+                date = datetime.strptime(\
+                    str(searchDict(data, 'Beginning')),
+                    '%Y-%m-%d %H:%M:%S')
+                print "date: ", date
+                self.m_datePicker3.SetValue(pydate2wxdate(date))
+                self.m_timePicker1.SetValue(str(date.time()))
+            except ValueError:
+                date = datetime.strptime(\
+                    str(searchDict(data, 'Beginning')),
+                    '%m/%d/%Y %I:%M:%S %p')
+                self.m_datePicker3.SetValue(pydate2wxdate(date))
+                self.m_timePicker1.SetValue(str(date.time()))
+                
             self.inputDict['Database'] = searchDict(data, 'Database')
-            print self.inputDict
         except KeyError:
             print "no data..."
 

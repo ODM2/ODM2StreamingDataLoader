@@ -3,7 +3,8 @@ import wx
 from copy import deepcopy
 from collections import namedtuple 
 
-from src.wizard.view.clsDataConfigPanel import DataConfigPanelView
+from src.wizard.view.clsDataConfigPanel \
+    import DataConfigPanelView, MyColLabelRenderer
 from src.handlers.csvHandler import CSVReader
 from src.common.functions import searchDict
 from src.controllers.Database import Database
@@ -24,8 +25,23 @@ class DataConfigPanelController(DataConfigPanelView):
         
         self.prev_data = {}
         self.inputDict = {}
-
         #self.m_button8.Enable(False)
+        self.m_listCtrl3.Bind(wx.EVT_LIST_ITEM_RIGHT_CLICK, self.rightClick)
+
+    def rightClick(self, event):
+        menu = wx.Menu()
+        menu.Append(11, "Edit Mapping")
+        menu.Append(12, "Delete Mapping")
+        wx.EVT_MENU(menu, 11, self.editMapping)
+        wx.EVT_MENU(menu, 12, self.deleteMapping)
+        self.PopupMenu(menu, event.GetPoint())
+        menu.Destroy()
+        event.Skip()
+
+    def editMapping(self, event):
+        event.Skip()
+    def deleteMapping(self, event):
+        event.Skip()
 
     def getInput(self):
         '''
@@ -41,14 +57,14 @@ class DataConfigPanelController(DataConfigPanelView):
             str(self.choiceTimeCol.GetString(i))
         self.inputDict['Settings']['FillGaps'] = 'false'
         for k,v in self.inputDict['Mappings'].iteritems():
-            print v
+            #print v
             v['IntendedTimeSpacing'] = self.spinTimeSpacing.GetValue()
             i = self.choiceUnitID.GetSelection()
             v['IntendedTimeSpacingUnitID'] = int(\
                 filter(\
                 str.isdigit,
                 str(self.choiceUnitID.GetString(i))))
-        print self.inputDict
+        #print self.inputDict
         self.inputDict['Settings']['UTCOffset'] = \
             self.spinUTCOffset.GetValue()
         return self.inputDict
@@ -162,8 +178,17 @@ class DataConfigPanelController(DataConfigPanelView):
                                 mapped.unitsName,
                                 variable))
                 except KeyError:
-                    print "oops"
-
+                    pass
+                try:
+                    for i in range(0, self.m_listCtrl1.GetNumberCols()):
+                        if str(self.m_listCtrl1.GetColLabelValue(i))\
+                        in self.inputDict['Mappings'].keys():
+                            self.m_listCtrl1.SetColLabelRenderer(\
+                                i,
+                                MyColLabelRenderer('#50c061'))
+                    self.m_listCtrl1.Refresh()
+                except KeyError:
+                    pass
             except:
                 raise
         # Important to make a deep copy, or else
@@ -193,7 +218,11 @@ class DataConfigPanelController(DataConfigPanelView):
             if self.selectedColumn == self.selectedDateColumn:
                 msg = wx.MessageBox('This column is not mappable because you have chosen it as your date time column.', 'Configuration Error')
             else:
-                self.runSeriesSelectDialog()
+                if self.runSeriesSelectDialog():
+                    self.m_listCtrl1.SetColLabelRenderer(\
+                        int(event.GetCol()),
+                        MyColLabelRenderer('#50c061'))
+                    self.m_listCtrl1.Refresh()
         event.Skip()
     
     def onTimeSelect(self, event):
@@ -215,8 +244,8 @@ class DataConfigPanelController(DataConfigPanelView):
         dlg.CenterOnParent()
         if dlg.ShowModal() == wx.ID_OK:
             dlg.selectedResult.variableName = self.selectedColumn
-            print dlg.selectedResult.variableNameCV
-            import pprint
+            #print dlg.selectedResult.variableNameCV
+            #import pprint
             
             if "Mappings" not in self.inputDict.keys():
                 self.inputDict.update({'Mappings':{}})
@@ -228,9 +257,16 @@ class DataConfigPanelController(DataConfigPanelView):
                         'LastByteRead':0,
                         'CalculateAggInterval':'false'}})
             
-            pprint.pprint(self.inputDict)
-            
+            #pprint.pprint(self.inputDict)
+            for m in self.m_listCtrl3.GetObjects():
+                if m.variableName == dlg.selectedResult.variableName:
+                    self.m_listCtrl3.RemoveObjects([m])
+                    break
+
             self.m_listCtrl3.AddObject(dlg.selectedResult)
+            dlg.Destroy()
+            return True
         dlg.Destroy()
+        return False
 
 

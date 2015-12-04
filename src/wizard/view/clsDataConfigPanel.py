@@ -2,11 +2,29 @@
 import wx
 #import wx.lib.agw.ultimatelistctrl as ULC
 from ObjectListView import ObjectListView, ColumnDefn
-
+import wx.lib.mixins.gridlabelrenderer as glr
 from src.wizard.controller.frmVirtualList import VirtualList
 from src.wizard.controller.frmVirtualGrid import VirtualGrid, GridBase
 #from lib.ObjectListView.ObjectListView import VirtualObjectListView
 
+
+class MyGrid(VirtualGrid, glr.GridWithLabelRenderersMixin):
+    def __init__(self, *args, **kw):
+        VirtualGrid.__init__(self, *args, **kw)
+        glr.GridWithLabelRenderersMixin.__init__(self)
+
+class MyColLabelRenderer(glr.GridLabelRenderer):
+    def __init__(self, bgcolor):
+        self._bgcolor = bgcolor
+        
+    def Draw(self, grid, dc, rect, col):
+        dc.SetBrush(wx.Brush(self._bgcolor))
+        dc.SetPen(wx.TRANSPARENT_PEN)
+        dc.DrawRectangleRect(rect)
+        hAlign, vAlign = grid.GetColLabelAlignment()
+        text = grid.GetColLabelValue(col)
+        self.DrawBorder(grid, dc, rect)
+        self.DrawText(grid, dc, rect, text, hAlign, vAlign)
 
 class DataConfigPanelView(wx.Panel):
     def __init__( self, parent ):
@@ -72,7 +90,9 @@ class DataConfigPanelView(wx.Panel):
         
         sbSizerData = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Data Columns:" ), wx.VERTICAL )
         
-        self.m_listCtrl1 = VirtualGrid(self, id=wx.ID_ANY,
+        #self.m_listCtrl1 = VirtualGrid(self, id=wx.ID_ANY,
+        #    pos=wx.DefaultPosition, size=wx.Size(-1, 250))
+        self.m_listCtrl1 = MyGrid(self, id=wx.ID_ANY,
             pos=wx.DefaultPosition, size=wx.Size(-1, 250))
         
         sbSizerData.Add(self.m_listCtrl1, 0, wx.ALL, 10)
