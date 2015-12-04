@@ -89,6 +89,12 @@ def main(arguments):
                 updatedParams = configParams 
                 print configParams
                 dataMapModel = Mapper(configParams.asTuple()[1])
+                
+                # If it's time to run...
+                if not dataMapModel.isTimeToRun():
+                    configParamsList.append(updatedParams)
+                    continue
+                
                 # If able to connect to the database...
                 if dataMapModel.getDatabase():
                     # If able to perform a mapping...
@@ -99,7 +105,8 @@ def main(arguments):
                             # If able to save table to database...
                             if dataMapModel.save(table[1]):
                                 # Update the latest date time for the table.
-                                dataMapModel.updateDateTime(table[1]['ResultID'][0], np.max(table[1]['ValueDateTime'])) 
+                                dataMapModel.updateDateTime(table[1]['ResultID'][0],
+                                    np.max(table[1]['ValueDateTime'])) 
                                 logger.debug('...Success!')
                                 # Update the last byte read.
                                 updatedParams = yamlModel.updateLastRead(\
@@ -144,6 +151,8 @@ if __name__ == "__main__":
 
     start_time = time.time()
     main(args)
-    print ("!!!! seconds: %s !!!!" % (time.time() - start_time))
+
+    logger = logging.getLogger('SDL_logger')
+    logger.info("Running time: %s seconds" % (time.time() - start_time))
 
 

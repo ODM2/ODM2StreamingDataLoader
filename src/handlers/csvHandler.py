@@ -128,10 +128,15 @@ class CSVReader():
                     else:
                         logger.info('No new data.')
 
+
+                    columnHeadings = pd.read_csv(filepath, header=(header - 1), sep=sep, nrows=1)
                     df = pd.read_csv(StringIO(finished_data),
+                                        na_values=[' '],
+                                        skipinitialspace=True,
+                                        skiprows=(dataBegin - 1),
                                         index_col=False,
-                                        sep=str(sep),
-                                        engine='python')
+                                        names=columnHeadings.columns.tolist(),
+                                        sep=str(sep))
                     df.rename(columns=lambda x: x.strip(), inplace=True)
                     df.set_index(datecol, inplace=True)
                 else:
@@ -141,11 +146,14 @@ class CSVReader():
                     
                     logger.info('New data.')
                     
+                    columnHeadings = pd.read_csv(filepath, header=(header - 1), sep=sep, nrows=1)
                     df = pd.read_csv(StringIO(finished_data),
+                                        na_values=[' '],
+                                        skipinitialspace=True,
+                                        skiprows=(dataBegin - 1),
+                                        names=columnHeadings.columns.tolist(),
                                         index_col=False,
-                                        header=(header - 1),
-                                        sep=str(sep),
-                                        engine='python')
+                                        sep=str(sep))
                     df.rename(columns=lambda x: x.strip(), inplace=True)
                     df = df.ix[(dataBegin - header) - 1:]
                     df.set_index(datecol, inplace=True)
@@ -157,7 +165,7 @@ class CSVReader():
             # TODO: There is something fishy because if I don't
             # watch for an Exception, Pandas freaks out about
             # something. Figure out why that is.
-            logger.error('Exception: %s' % e2.message)
+            logger.error('Exception: %s' % e2)
         
         return df
     

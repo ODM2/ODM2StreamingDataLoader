@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 from collections import namedtuple
 import logging
-
+import datetime
+from dateutil.parser import parse
 from handlers.csvHandler import CSVReader
 from controllers.Database import Database
 
@@ -31,8 +32,57 @@ class Mapper():
 
         self.dbWriter = Database()
         self.performDuplicateValueChecks = False
-    
-    
+
+    def isTimeToRun(self):
+        """
+        isTimeToRun is a public method that checks whether this
+        configuration should run or not (based on it's schedule.)
+        """
+        startDate = parse(str(self.mapping['Schedule']['Beginning']))
+        lastUpdate = str(self.mapping['Schedule']['LastUpdate'])
+        if str(lastUpdate) == '--':
+            lastUpdate = parse(str(self.mapping['Schedule']['Beginning']))
+        else:
+            lastUpdate = parse(str(self.mapping['Schedule']['LastUpdate']))
+            
+        print "last updated:", lastUpdate
+        period = self.mapping['Schedule']['Time']
+        periodUnit = self.mapping['Schedule']['Frequency']
+        # Get period in terms of seconds.
+        if periodUnit == 'Week':
+            period = period * 604800
+        elif periodUnit == 'Day':
+            period = period * 86400
+        elif periodUnit == 'Hour':
+            period = period * 3600
+        elif periodUnit == 'Minute':
+            period = period * 60
+        elif periodUnit == 'Second':
+            period = period * 1
+        else:
+            logger.error("Unknown frequency: %s" % periodUnit)
+            return False
+
+        now = parse(datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S'))
+        print "current time:", now
+        delta = lastUpdate + datetime.timedelta(seconds=period)
+        print "Due:", delta
+        if startDate > now:
+            logger.debug("Not beginning until %s" % startDate)
+            return False
+        if delta <= now:
+            self.recordLastUpdate(now)
+            return True
+        else:
+            logger.debug("Not running until %s" % delta)
+            return False
+
+    def recordLastUpdate(self, time):
+        """
+        Updates the "LastUpdate" atribute of the config file.
+        """
+        self.mapping['Schedule']['LastUpdate'] = str(time)
+
     def getDatabase(self):
         '''
         getDatabase is a public method that should be called before
