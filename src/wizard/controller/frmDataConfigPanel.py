@@ -29,18 +29,43 @@ class DataConfigPanelController(DataConfigPanelView):
         self.m_listCtrl3.Bind(wx.EVT_LIST_ITEM_RIGHT_CLICK, self.rightClick)
 
     def rightClick(self, event):
+        if len(event.GetEventObject().GetSelectedObjects()) < 1:
+            return
+
         menu = wx.Menu()
         menu.Append(11, "Edit Mapping")
         menu.Append(12, "Delete Mapping")
+        
         wx.EVT_MENU(menu, 11, self.editMapping)
         wx.EVT_MENU(menu, 12, self.deleteMapping)
-        self.PopupMenu(menu, event.GetPoint())
+        
+        if len(event.GetEventObject().GetSelectedObjects()) > 1:
+            menu.Enable(11, False)
+            menu.SetLabel(12, "Delete Mappings")
+
+        self.PopupMenu(menu)
         menu.Destroy()
         event.Skip()
 
     def editMapping(self, event):
+        self.selectedColumn = \
+            self.m_listCtrl3.GetSelectedObject().variableName
+        self.runSeriesSelectDialog()
         event.Skip()
+    
     def deleteMapping(self, event):
+        names = [obj.variableName for obj in \
+            self.m_listCtrl3.GetSelectedObjects()]
+        for i in range(0, self.m_listCtrl1.GetNumberCols()):
+            if str(self.m_listCtrl1.GetColLabelValue(i)) in names:
+                self.m_listCtrl1.SetColLabelRenderer(\
+                    i,
+                    MyColLabelRenderer(wx.SystemSettings.GetColour(wx.SYS_COLOUR_BACKGROUND)))
+                self.m_listCtrl1.Refresh()
+        
+        self.m_listCtrl3.RemoveObjects(\
+            self.m_listCtrl3.GetSelectedObjects())
+        self.m_listCtrl3.RepopulateList()
         event.Skip()
 
     def getInput(self):
