@@ -33,7 +33,7 @@ class DataConfigPanelView(wx.Panel):
 
         self.spinUTCOffset = wx.SpinCtrl( sbSizerTime.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         self.spinUTCOffset.SetMinSize( wx.Size( 50,-1 ) )
-        self.spinUTCOffset.SetRange(-12,12) 
+        self.spinUTCOffset.SetRange(-12,14) 
         
         bSizerUTC.Add(self.spinUTCOffset, 0, wx.ALL, 10)
 

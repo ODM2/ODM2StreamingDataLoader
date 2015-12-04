@@ -31,6 +31,7 @@ class AddNewProcLevelPanelController(AddNewProcLevelPanelView):
                     explanation=self.explanation)
             except Exception as e:
                 print e
+        event.Skip()
 
     def getFieldValues(self):
         self.procLevelCode = str(self.m_textCtrl30.GetValue())

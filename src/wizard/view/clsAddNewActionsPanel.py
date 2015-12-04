@@ -1,6 +1,13 @@
 import wx
-
+from src.wizard.controller.frmRequiredComboValidator \
+    import RequiredComboValidator
+from src.wizard.controller.frmRequiredValidator \
+    import RequiredValidator
+from src.wizard.controller.frmDigitOnly \
+    import DigitValidator
 from ObjectListView import ObjectListView, ColumnDefn
+
+import wx.lib.masked as masked
 
 class Test():
     def __init__(self, name, org, orgId):
@@ -39,7 +46,7 @@ class AddNewActionsPanelView ( wx.Panel ):
         bSizer35.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         m_comboBox13Choices = []
-        self.m_comboBox13 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Action Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox13Choices, 0 )
+        self.m_comboBox13 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Action Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox13Choices, validator=RequiredComboValidator())
         self.m_comboBox13.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer35.Add( self.m_comboBox13, 0, wx.ALL, 5 )
@@ -47,7 +54,7 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         bSizer354 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.m_staticText314 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Method", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText314 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Method", wx.DefaultPosition, wx.DefaultSize,0)
         self.m_staticText314.Wrap( -1 )
         bSizer354.Add( self.m_staticText314, 0, wx.ALL, 5 )
         
@@ -55,7 +62,7 @@ class AddNewActionsPanelView ( wx.Panel ):
         bSizer354.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         m_comboBox134Choices = []
-        self.m_comboBox134 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Method", wx.DefaultPosition, wx.DefaultSize, m_comboBox134Choices, 0 )
+        self.m_comboBox134 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Method", wx.DefaultPosition, wx.DefaultSize, m_comboBox134Choices, validator=RequiredComboValidator() )
         self.m_comboBox134.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer354.Add( self.m_comboBox134, 0, wx.ALL, 5 )
@@ -67,9 +74,9 @@ class AddNewActionsPanelView ( wx.Panel ):
         bSizer3541 = wx.BoxSizer( wx.VERTICAL )
         affSizer = wx.BoxSizer(wx.HORIZONTAL)
         self.m_staticText3141 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Affiliations", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText3141.Wrap( -1 )
+        #self.m_staticText3141.Wrap( -1 )
         affSizer.Add(self.m_staticText3141, 0, wx.ALL, 5)
-
+        
         
         self.m_b = wx.Button( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Create Affiliation", wx.DefaultPosition, wx.DefaultSize, 0 )
         #self.m_b.SetFont( wx.Font( 15, 70, 90, 92, False, wx.EmptyString ) )
@@ -82,12 +89,13 @@ class AddNewActionsPanelView ( wx.Panel ):
             wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(-1, 150),
             style=wx.LC_REPORT|wx.SUNKEN_BORDER)
         #self.affList.cellEditMode = self.affList.CELLEDIT_DOUBLECLICK
-        #isLeadColumn = ColumnDefn(title='Lead', valueGetter='', align='centre', width=50)
+        isLeadColumn = ColumnDefn(title='Lead', valueGetter='', align='centre', width=50)
         self.affList.SetColumns([
+            isLeadColumn,
             ColumnDefn(title='Person', valueGetter='name', align='left', width=100),
-            ColumnDefn('Organization', 'left', 120,'organization'),
+            ColumnDefn('Organization', 'left', 500,'organization'),
         ])
-        #self.affList.InstallCheckStateColumn(isLeadColumn)
+        self.affList.InstallCheckStateColumn(isLeadColumn)
         #self.affList.AddObject(Test("","",
         #    ""))
         
@@ -110,19 +118,47 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         bSizer271.Add( self.m_datePicker5, 0, wx.ALL, 5 )
         
-        self.m_staticText68 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"UTC Offset", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText68.Wrap( -1 )
-        bSizer271.Add( self.m_staticText68, 0, wx.ALL, 5 )
-        
-        self.m_textCtrl46 = wx.TextCtrl( sbSizer22.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_textCtrl46.SetMinSize( wx.Size( 50,-1 ) )
-        
-        bSizer271.Add( self.m_textCtrl46, 0, wx.ALL, 5 )
+        self.m_timePicker1 = masked.TimeCtrl(\
+            sbSizer22.GetStaticBox(), wx.ID_ANY,
+            '00:00:00', wx.DefaultPosition,
+            wx.DefaultSize, wx.TE_PROCESS_TAB,
+            validator=wx.DefaultValidator,
+            name = 'time',
+            format = 'HHMMSS')
+    
+        h = self.m_timePicker1.GetSize().height
+    
+        self.spinner = wx.SpinButton(\
+            sbSizer22.GetStaticBox(), wx.ID_ANY,
+            wx.DefaultPosition, (-1,h), wx.SP_VERTICAL)
+    
+        self.m_timePicker1.BindSpinButton(self.spinner)
+   
+        self.m_timePicker1.SetMinSize( wx.Size( 100,-1 ) )
+
+        bSizer271.Add( self.m_timePicker1, 0, wx.TOP, 5 )
+        bSizer271.Add( self.spinner, 0, wx.TOP, 5 )
         
         
         sbSizer22.Add( bSizer271, 0, wx.EXPAND, 5 )
         
+        bSizerTime = wx.BoxSizer( wx.HORIZONTAL )
         
+        self.m_staticText68 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"UTC Offset", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText68.Wrap( -1 )
+        bSizer271.Add( self.m_staticText68, 0, wx.ALL, 5 )
+        
+
+        self.spinUTCBegin = wx.SpinCtrl( sbSizer22.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+        self.spinUTCBegin.SetMinSize( wx.Size( 50,-1 ) ) 
+        self.spinUTCBegin.SetRange(-12,14)       
+        
+        bSizerTime.Add(self.m_staticText68, 0, wx.ALL, 5)
+        bSizerTime.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        bSizerTime.Add(self.spinUTCBegin, 0, wx.ALL, 5)
+
+        sbSizer22.Add(bSizerTime, 0, wx.EXPAND, 5)
+
         bSizer80.Add( sbSizer22, 0, wx.EXPAND, 5 )
         
         sbSizer23 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Optional Fields:" ), wx.VERTICAL )
@@ -136,19 +172,44 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         bSizer2711.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.m_datePicker51 = wx.DatePickerCtrl( sbSizer23.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.DP_DEFAULT )
+        self.m_datePicker51 = wx.DatePickerCtrl( sbSizer23.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize,wx.DP_ALLOWNONE )
         self.m_datePicker51.SetMinSize( wx.Size( 149,-1 ) )
-        
+        self.m_datePicker51.SetValue(wx.DateTime()) 
         bSizer2711.Add( self.m_datePicker51, 0, wx.ALL, 5 )
         
-        self.m_staticText681 = wx.StaticText( sbSizer23.GetStaticBox(), wx.ID_ANY, u"UTC Offset", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText681.Wrap( -1 )
-        bSizer2711.Add( self.m_staticText681, 0, wx.ALL, 5 )
+        self.m_timePicker2 = masked.TimeCtrl(\
+            sbSizer23.GetStaticBox(), wx.ID_ANY,
+            '00:00:00', wx.DefaultPosition,
+            wx.DefaultSize, wx.TE_PROCESS_TAB,
+            validator=wx.DefaultValidator,
+            name = 'time',
+            format = 'HHMMSS')
+    
+        h = self.m_timePicker2.GetSize().height
+    
+        self.spinner2 = wx.SpinButton(\
+            sbSizer23.GetStaticBox(), wx.ID_ANY,
+            wx.DefaultPosition, (-1,h), wx.SP_VERTICAL)
+    
+        self.m_timePicker2.BindSpinButton(self.spinner2)
+   
+        self.m_timePicker2.SetMinSize( wx.Size( 100,-1 ) )
+
+        bSizer2711.Add( self.m_timePicker2, 0, wx.TOP, 5 )
+        bSizer2711.Add( self.spinner2, 0, wx.TOP, 5 )
+        #self.m_staticText681 = wx.StaticText( sbSizer23.GetStaticBox(), wx.ID_ANY, u"UTC Offset", wx.DefaultPosition, wx.DefaultSize, 0 )
+        #self.m_staticText681.Wrap( -1 )
+        #bSizer2711.Add( self.m_staticText681, 0, wx.ALL, 5 )
         
-        self.m_textCtrl461 = wx.TextCtrl( sbSizer23.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_textCtrl461.SetMinSize( wx.Size( 50,-1 ) )
+        #self.spinUTCEnd = wx.SpinCtrl( sbSizer23.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+        #self.spinUTCEnd.SetMinSize( wx.Size( 50,-1 ) ) 
+        #self.spinUTCEnd.SetRange(-12,14)       
         
-        bSizer2711.Add( self.m_textCtrl461, 0, wx.ALL, 5 )
+
+        #self.m_textCtrl461 = wx.TextCtrl( sbSizer23.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        #self.m_textCtrl461.SetMinSize( wx.Size( 50,-1 ) )
+        
+        #bSizer2711.Add( self.spinUTCEnd, 0, wx.ALL, 5 )
         
         
         sbSizer23.Add( bSizer2711, 0, wx.EXPAND, 5 )
@@ -215,7 +276,7 @@ class AddNewActionsPanelView ( wx.Panel ):
         m_sdbSizer10.Realize();
         
         bSizer80.Add( m_sdbSizer10, 1, wx.EXPAND, 5 )
-        self.m_sdbSizer10OK.Bind(wx.EVT_BIND, self.onOK)        
+        self.m_sdbSizer10OK.Bind(wx.EVT_BUTTON, self.onOK)        
         
         self.SetSizer( bSizer80 )
         self.Layout() 
