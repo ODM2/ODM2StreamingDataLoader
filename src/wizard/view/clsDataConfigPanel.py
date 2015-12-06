@@ -1,4 +1,4 @@
-
+import sys
 import wx
 #import wx.lib.agw.ultimatelistctrl as ULC
 from ObjectListView import ObjectListView, ColumnDefn
@@ -92,9 +92,13 @@ class DataConfigPanelView(wx.Panel):
         
         #self.m_listCtrl1 = VirtualGrid(self, id=wx.ID_ANY,
         #    pos=wx.DefaultPosition, size=wx.Size(-1, 250))
-        self.m_listCtrl1 = MyGrid(self, id=wx.ID_ANY,
-            pos=wx.DefaultPosition, size=wx.Size(-1, 250))
-        
+        if sys.platform == 'darwin':
+            self.m_listCtrl1 = MyGrid(self, id=wx.ID_ANY,
+                pos=wx.DefaultPosition, size=wx.Size(820, 250))
+        else:
+            self.m_listCtrl1 = MyGrid(self, id=wx.ID_ANY,
+                pos=wx.DefaultPosition, size=wx.Size(-1, 250))
+            
         sbSizerData.Add(self.m_listCtrl1, 0, wx.ALL, 10)
         
         bSizerTop.Add( sbSizerData, 1, wx.EXPAND, 10 )

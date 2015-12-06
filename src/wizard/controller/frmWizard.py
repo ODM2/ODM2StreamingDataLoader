@@ -24,21 +24,21 @@ class WizardController(wiz.Wizard):
         
         page1 = WizardPage(self)
         page2 = WizardPage(self)
-        #page3 = WizardPage(self)
+        page3 = WizardPage(self)
         
         databasePanel = pnlDBConfig(page1, None)        
-        filePanel = FileConfigPanelController(page1)
-        dataPanel = DataConfigPanelController(page2)
+        filePanel = FileConfigPanelController(page2)
+        dataPanel = DataConfigPanelController(page3)
 
-        page1.addPanel(filePanel)
         page1.addPanel(databasePanel)
-        page2.addPanel(dataPanel)
+        page2.addPanel(filePanel)
+        page3.addPanel(dataPanel)
 
         page2.SetPrev(page1)
         page1.SetNext(page2)
         
-        #page2.SetNext(page3)
-        #page3.SetPrev(page2)
+        page2.SetNext(page3)
+        page3.SetPrev(page2)
 
         self.Bind(wiz.EVT_WIZARD_PAGE_CHANGING, self.onPageChange)
         self.Bind(wiz.EVT_WIZARD_PAGE_CHANGED, self.onPageChanged)
@@ -61,12 +61,11 @@ class WizardController(wiz.Wizard):
                 for pp in prev_panels:
                     for p in panels:
                         p.populate(data=pp.getInput())
-
             except AttributeError as e:
                 print 'Attribute Error'
                 for p in panels:
                     p.populate(data=self.metadata)
-
+                    
         event.Skip()
     
     def onPageChange(self, event):

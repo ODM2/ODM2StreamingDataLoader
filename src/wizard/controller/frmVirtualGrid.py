@@ -44,3 +44,5 @@ class VirtualGrid(Grid.Grid):
 
     def Reset(self):
         self._table.ResetView(self)
+
+

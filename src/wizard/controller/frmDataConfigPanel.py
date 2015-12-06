@@ -28,6 +28,7 @@ class DataConfigPanelController(DataConfigPanelView):
         #self.m_button8.Enable(False)
         self.m_listCtrl3.Bind(wx.EVT_LIST_ITEM_RIGHT_CLICK, self.rightClick)
 
+
     def rightClick(self, event):
         if len(event.GetEventObject().GetSelectedObjects()) < 1:
             return
@@ -63,6 +64,9 @@ class DataConfigPanelController(DataConfigPanelView):
                     MyColLabelRenderer(wx.SystemSettings.GetColour(wx.SYS_COLOUR_BACKGROUND)))
                 self.m_listCtrl1.Refresh()
         
+        for name in self.m_listCtrl3.GetSelectedObjects():
+            self.inputDict['Mappings'].pop(name.variableName)
+
         self.m_listCtrl3.RemoveObjects(\
             self.m_listCtrl3.GetSelectedObjects())
         self.m_listCtrl3.RepopulateList()
@@ -89,7 +93,6 @@ class DataConfigPanelController(DataConfigPanelView):
                 filter(\
                 str.isdigit,
                 str(self.choiceUnitID.GetString(i))))
-        #print self.inputDict
         self.inputDict['Settings']['UTCOffset'] = \
             self.spinUTCOffset.GetValue()
         return self.inputDict
@@ -99,11 +102,7 @@ class DataConfigPanelController(DataConfigPanelView):
         A method to populate the controls/widgets with the contents
         of the given data parameter.
         '''
-
-        
         self.inputDict.update(data)
-        
-        
         
         # Update the list control only if the new data is different.
         if cmp(self.prev_data, data) != 0:
@@ -117,12 +116,17 @@ class DataConfigPanelController(DataConfigPanelView):
             # Give the virtual list ctrl a data source.
             # Adjust column width.
             
+            self.m_listCtrl3.DeleteAllItems()
+            self.m_listCtrl3.RepopulateList()
+
+
             csv = CSVReader()
 
             try:
                 read = self.parent.db.getReadSession()
                 timeUnits = read.getUnitsByTypeCV('time')
                 for unit in timeUnits:
+                    #self.choiceUnitID.Append(unit.UnitsName+" (id "+str(unit.UnitsID)+")")
                     self.choiceUnitID.Append(unit.UnitsName+" (id "+str(unit.UnitsID)+")")
                 self.choiceUnitID.SetSelection(0)
                
@@ -148,6 +152,7 @@ class DataConfigPanelController(DataConfigPanelView):
                 except KeyError:
                     pass
                 
+                self.choiceTimeCol.Clear()
                 try:
                     dateCol = self.inputDict['Settings']['DateTimeColumnName']
                     i = self.choiceTimeCol.FindString(str(dateCol))
@@ -161,12 +166,12 @@ class DataConfigPanelController(DataConfigPanelView):
                     dataBegin=searchDict(data, 'DataRowPosition'))
                 
                 columns = csv.getColumnNames(df)
-
+                print columns
                 # Create the underlying table of data for
                 # the grid control. Having a virtual table
                 # enables the control to display millions of
                 # cells of data efficiently.
-                base = GridBase(csv.getData(df), columns)
+                base = GridBase(csv.getData(df[:50]), columns)
                 # Assign the table to the grid control.
                 self.m_listCtrl1.setTable(base)
               
@@ -181,27 +186,33 @@ class DataConfigPanelController(DataConfigPanelView):
                 self.selectedDateColumn = \
                     self.choiceTimeCol.GetString(index)
                 
+
                 read = self.parent.db.getReadSession()
-                
+                 
                 try:
                     for k,v in self.inputDict['Mappings'].iteritems():
-                        mapping = read.getDetailedResultInfo(\
-                            "Time series coverage",
-                            v['ResultID'])
                         variable = k
-                        mapped = mapping[0]
-                        self.m_listCtrl3.AddObject(
-                            ResultMapping(mapped.resultID,
-                                mapped.samplingFeatureCode,
-                                mapped.samplingFeatureName,
-                                mapped.methodCode,
-                                mapped.methodName,
-                                mapped.variableCode,
-                                mapped.variableNameCV,
-                                mapped.processingLevelCode,
-                                mapped.processingLevelDef,
-                                mapped.unitsName,
-                                variable))
+                        for i in range(0, self.m_listCtrl1.GetNumberCols()):
+                            if variable == str(self.m_listCtrl1.GetColLabelValue(i)):
+                                mapping = read.getDetailedResultInfo(\
+                                    "Time series coverage",
+                                    v['ResultID'])
+                                mapped = mapping[0]
+                                self.m_listCtrl3.AddObject(
+                                    ResultMapping(mapped.resultID,
+                                        mapped.samplingFeatureCode,
+                                        mapped.samplingFeatureName,
+                                        mapped.methodCode,
+                                        mapped.methodName,
+                                        mapped.variableCode,
+                                        mapped.variableNameCV,
+                                        mapped.processingLevelCode,
+                                        mapped.processingLevelDef,
+                                        mapped.unitsName,
+                                        variable))
+                            #else:
+                            #    self.inputDict['Mappings'].pop(variable)
+                                
                 except KeyError:
                     pass
                 try:
@@ -211,6 +222,10 @@ class DataConfigPanelController(DataConfigPanelView):
                             self.m_listCtrl1.SetColLabelRenderer(\
                                 i,
                                 MyColLabelRenderer('#50c061'))
+                        else:
+                            self.m_listCtrl1.SetColLabelRenderer(\
+                                i,
+                                MyColLabelRenderer(wx.SystemSettings.GetColour(wx.SYS_COLOUR_BACKGROUND)))
                     self.m_listCtrl1.Refresh()
                 except KeyError:
                     pass
