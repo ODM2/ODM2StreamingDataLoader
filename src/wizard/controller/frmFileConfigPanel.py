@@ -107,7 +107,6 @@ class FileConfigPanelController(FileConfigPanelView):
             begin = begin + ' ' + str(time)
         except ValueError:
             date = str(date)
-            print date
             date = date.replace("'PMt'", '')
             date = date.replace("'AMt'", '')
             begin = datetime.strptime(date, '%A, %B %d, %Y %X %p').strftime('%m/%d/%Y')
@@ -141,6 +140,7 @@ class FileConfigPanelController(FileConfigPanelView):
 
 
     def setInput(self, data={}):
+        print "Dings"
         # Populate the local or remote file text controls.
         self.inputDict.update(data)
         try:
@@ -191,7 +191,6 @@ class FileConfigPanelController(FileConfigPanelView):
                 date = datetime.strptime(\
                     str(searchDict(data, 'Beginning')),
                     '%Y-%m-%d %H:%M:%S')
-                print "date: ", date
                 self.m_datePicker3.SetValue(pydate2wxdate(date))
                 self.m_timePicker1.SetValue(str(date.time()))
             except ValueError:

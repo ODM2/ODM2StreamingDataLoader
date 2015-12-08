@@ -25,6 +25,7 @@ class DatabaseConfigPanel(ChainedDialogPage,
         return self.inputDict
 
     def setInput(self, data):
+        print "Ding2"
         # Implementing setInput from ChainedDialogPage.
         self.choices = {"Microsoft SQL Server": 'mssql', "MySQL": 'mysql', "PostgreSQL":"postgresql", "SQLite":"sqlite"}
         self.cbDatabaseType.AppendItems(self.choices.keys())
@@ -39,7 +40,6 @@ class DatabaseConfigPanel(ChainedDialogPage,
 
     def onTestConnection(self, event):
         conn_dict = self.getFieldValues()
-        print conn_dict['Database']
         if self.validateInput(conn_dict['Database']):
             self.conn_dict = conn_dict
             self.parent.nextButton.Enable(True) 

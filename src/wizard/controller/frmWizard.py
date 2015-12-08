@@ -12,7 +12,6 @@ class WizardController(wiz.Wizard):
             id=wx.ID_ANY, bitmap=wx.NullBitmap,
             pos=wx.DefaultPosition, style=wx.DEFAULT_DIALOG_STYLE,
             **kwargs)
-        
         # In order for validation to work on widgets within
         # a panel, you must set this extra style.
         self.SetExtraStyle(wx.WS_EX_VALIDATE_RECURSIVELY)

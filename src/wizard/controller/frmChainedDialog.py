@@ -127,19 +127,22 @@ class ChainedDialog(wx.Dialog):
                 event.Skip()
                 return
             try:
-                self.panelList[self.currentPanel+1].setInput(data=self.panelList[self.currentPanel].getInput())
+                self.panelList[self.currentPanel+1].\
+                    setInput(data=self.panelList[self.currentPanel].getInput())
             except TypeError as e:
                 print e
-                error_dlg = wx.MessageBox('This data does not look valid. Check to see if the configuration options match the data file.\n\nDo you want to continue anyway?', 'Data Load Error', wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
-                if error_dlg == wx.NO:
-                    print "no"
-                    event.Skip()
-                    return
+                event.Skip()
+                return
+                #error_dlg = wx.MessageBox('This data does not look valid. Check to see if the configuration options match the data file.\n\nDo you want to continue anyway?', 'Data Load Error', wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)
+                #if error_dlg == wx.NO:
+                #    print "no"
+                #    event.Skip()
+                #    return
 
             self.panelList[self.currentPanel].Hide()
             self.panelList[self.currentPanel+1].Show()
-            self.panelList[self.currentPanel+1].setInput(\
-                self.panelList[self.currentPanel].getInput())
+            #self.panelList[self.currentPanel+1].setInput(\
+            #    self.panelList[self.currentPanel].getInput())
             self.currentPanel += 1
             self.mainSizer.Fit(self)
             self.buttonCheck()
@@ -147,7 +150,6 @@ class ChainedDialog(wx.Dialog):
             for panel in self.panelList:
                 self.data.update(panel.getInput())
                 panel.Destroy()
-            print "end"
             self.EndModal(wx.ID_OK)
 
         event.Skip()

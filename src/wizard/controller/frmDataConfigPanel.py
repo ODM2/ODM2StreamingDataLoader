@@ -2,20 +2,15 @@
 import wx
 from copy import deepcopy
 from collections import namedtuple 
-
 from src.wizard.view.clsDataConfigPanel \
     import DataConfigPanelView, MyColLabelRenderer
 from src.handlers.csvHandler import CSVReader
 from src.common.functions import searchDict
 from src.controllers.Database import Database
-
 from src.wizard.controller.frmSeriesWizard import SeriesWizardController
 from src.wizard.controller.frmVirtualGrid import GridBase
-
 from src.wizard.controller.frmSeriesDialog import SeriesSelectDialog
-
 from src.wizard.models.ResultMapping import ResultMapping
-
 from api.ODM2.services.readService import ReadODM2
 
 class DataConfigPanelController(DataConfigPanelView):
@@ -25,7 +20,6 @@ class DataConfigPanelController(DataConfigPanelView):
         
         self.prev_data = {}
         self.inputDict = {}
-        #self.m_button8.Enable(False)
         self.m_listCtrl3.Bind(wx.EVT_LIST_ITEM_RIGHT_CLICK, self.rightClick)
 
 
@@ -71,7 +65,7 @@ class DataConfigPanelController(DataConfigPanelView):
             self.m_listCtrl3.GetSelectedObjects())
         self.m_listCtrl3.RepopulateList()
         event.Skip()
-
+    
     def getInput(self):
         '''
         A method which returns a dict of data.
@@ -89,151 +83,189 @@ class DataConfigPanelController(DataConfigPanelView):
             #print v
             v['IntendedTimeSpacing'] = self.spinTimeSpacing.GetValue()
             i = self.choiceUnitID.GetSelection()
-            v['IntendedTimeSpacingUnitID'] = int(\
-                filter(\
-                str.isdigit,
-                str(self.choiceUnitID.GetString(i))))
+            unitID = self.timeUnits[str(self.choiceUnitID.GetString(i))]
+            v['IntendedTimeSpacingUnitID'] = unitID
         self.inputDict['Settings']['UTCOffset'] = \
             self.spinUTCOffset.GetValue()
         return self.inputDict
 
+    """
     def setInput(self, data):
-        '''
-        A method to populate the controls/widgets with the contents
-        of the given data parameter.
-        '''
-        self.inputDict.update(data)
-        
         # Update the list control only if the new data is different.
         if cmp(self.prev_data, data) != 0:
-            # Here is what happens in here:
-            # Create a CSV reader object.
-            # Clear the list control of previous data.
-            # Read the file to get the csv data.
-            # Get column headers and InsertColumn for each of them.
-            # Set the number of items because this is
-            # a virtual list ctrl.
-            # Give the virtual list ctrl a data source.
-            # Adjust column width.
-            
-            self.m_listCtrl3.DeleteAllItems()
-            self.m_listCtrl3.RepopulateList()
-
-
-            csv = CSVReader()
-
             try:
-                read = self.parent.db.getReadSession()
-                timeUnits = read.getUnitsByTypeCV('time')
-                for unit in timeUnits:
-                    #self.choiceUnitID.Append(unit.UnitsName+" (id "+str(unit.UnitsID)+")")
-                    self.choiceUnitID.Append(unit.UnitsName+" (id "+str(unit.UnitsID)+")")
-                self.choiceUnitID.SetSelection(0)
-               
-                try:
-                    self.spinTimeSpacing.SetValue(\
-                        searchDict(self.inputDict['Mappings'],
-                            'IntendedTimeSpacing'))
-                except KeyError:
-                    pass
-                try:
-                    unitID = searchDict(self.inputDict['Mappings'],
-                        'IntendedTimeSpacingUnitID')
-                    unit = read.getUnitById(int(unitID))
-                    self.choiceUnitID.Append(unit.UnitsName+" (id "+str(unit.UnitsID)+")")
-                    i = self.choiceUnitID.FindString(unit.UnitsName+" (id "+str(unit.UnitsID)+")")
-                    self.choiceUnitID.SetSelection(i)
-                except KeyError:
-                    pass
-                
-                try:
-                    offset = self.inputDict['Settings']['UTCOffset']
-                    self.spinUTCOffset.SetValue(int(offset))
-                except KeyError:
-                    pass
-                
-                self.choiceTimeCol.Clear()
-                try:
-                    dateCol = self.inputDict['Settings']['DateTimeColumnName']
-                    i = self.choiceTimeCol.FindString(str(dateCol))
-                    self.choiceTimeCol.SetSelection(i)
-                except KeyError:
-                    pass
-                
-                
-                df = csv.dataFrameReader(searchDict(data, 'FileLocation'),
-                    header=searchDict(data, 'HeaderRowPosition'), sep=searchDict(data, 'Delimiter'),
-                    dataBegin=searchDict(data, 'DataRowPosition'))
-                
-                columns = csv.getColumnNames(df)
-                print columns
-                # Create the underlying table of data for
-                # the grid control. Having a virtual table
-                # enables the control to display millions of
-                # cells of data efficiently.
-                base = GridBase(csv.getData(df[:50]), columns)
-                # Assign the table to the grid control.
-                self.m_listCtrl1.setTable(base)
-              
-                [self.choiceTimeCol.Append(column) \
-                    for column in columns]
-                self.choiceTimeCol.SetSelection(0)
-
-                for column in range(self.m_listCtrl1.GetNumberCols()):
-                    self.m_listCtrl1.AutoSizeColLabelSize(column)
-                
-                index = self.choiceTimeCol.GetSelection()
-                self.selectedDateColumn = \
-                    self.choiceTimeCol.GetString(index)
-                
-
-                read = self.parent.db.getReadSession()
-                 
-                try:
-                    for k,v in self.inputDict['Mappings'].iteritems():
-                        variable = k
-                        for i in range(0, self.m_listCtrl1.GetNumberCols()):
-                            if variable == str(self.m_listCtrl1.GetColLabelValue(i)):
-                                mapping = read.getDetailedResultInfo(\
-                                    "Time series coverage",
-                                    v['ResultID'])
-                                mapped = mapping[0]
-                                self.m_listCtrl3.AddObject(
-                                    ResultMapping(mapped.resultID,
-                                        mapped.samplingFeatureCode,
-                                        mapped.samplingFeatureName,
-                                        mapped.methodCode,
-                                        mapped.methodName,
-                                        mapped.variableCode,
-                                        mapped.variableNameCV,
-                                        mapped.processingLevelCode,
-                                        mapped.processingLevelDef,
-                                        mapped.unitsName,
-                                        variable))
-                            #else:
-                            #    self.inputDict['Mappings'].pop(variable)
-                                
-                except KeyError:
-                    pass
-                try:
-                    for i in range(0, self.m_listCtrl1.GetNumberCols()):
-                        if str(self.m_listCtrl1.GetColLabelValue(i))\
-                        in self.inputDict['Mappings'].keys():
-                            self.m_listCtrl1.SetColLabelRenderer(\
-                                i,
-                                MyColLabelRenderer('#50c061'))
-                        else:
-                            self.m_listCtrl1.SetColLabelRenderer(\
-                                i,
-                                MyColLabelRenderer(wx.SystemSettings.GetColour(wx.SYS_COLOUR_BACKGROUND)))
-                    self.m_listCtrl1.Refresh()
-                except KeyError:
-                    pass
-            except:
-                raise
+                for i in range(0, self.m_listCtrl1.GetNumberCols()):
+                    if str(self.m_listCtrl1.GetColLabelValue(i))\
+                    in self.inputDict['Mappings'].keys():
+                        self.m_listCtrl1.SetColLabelRenderer(\
+                            i,
+                            MyColLabelRenderer('#50c061'))
+                    else:
+                        self.m_listCtrl1.SetColLabelRenderer(\
+                            i,
+                            MyColLabelRenderer(wx.SystemSettings.GetColour(wx.SYS_COLOUR_BACKGROUND)))
+                self.m_listCtrl1.Refresh()
+            except KeyError:
+                pass
         # Important to make a deep copy, or else
         # data gets changed.
         self.prev_data = deepcopy(data)
+    """
+
+    def setInput(self, data):
+        """
+        setInput: Populates the form with pre-existing data.
+        """
+        print "ding"
+        read = self.parent.db.getReadSession()
+        self.inputDict.update(data)
+        
+        self.setInputGrid(data)
+        self.setInputTimeColumn()
+        self.setInputMappingList(self.inputDict, read)
+        self.setInputIntendedTimeSpacing()
+        self.setInputUTCOffset()
+        self.setInputUnit(read)
+
+    def setInputGrid(self, data):
+        """
+        getInputGrid: Populate the grid that
+        displays the csv data file.
+        """
+        csv = CSVReader()
+        df = csv.dataFrameReader(searchDict(data, 'FileLocation'),
+            header=searchDict(data, 'HeaderRowPosition'), sep=searchDict(data, 'Delimiter'),
+            dataBegin=searchDict(data, 'DataRowPosition'))
+        
+        self.columns = csv.getColumnNames(df)
+        # Create the underlying table of data for
+        # the grid control. Having a virtual table
+        # enables the control to display millions of
+        # cells of data efficiently.
+        base = GridBase(csv.getData(df[:50]), self.columns)
+        # Assign the table to the grid control.
+        self.m_listCtrl1.setTable(base)
+
+        for column in range(self.m_listCtrl1.GetNumberCols()):
+            self.m_listCtrl1.AutoSizeColLabelSize(column)
+
+    def setInputMappingList(self, existingData, read):
+        """
+        setInputMappingList: Populates the list of mappings
+        with any mappings that already exist *and*
+        match the variables from the configuration file. 
+        """
+        try:
+            existingData["Mappings"]
+        except KeyError:
+            existingData.update({"Mappings": {}})
+        
+        self.m_listCtrl3.DeleteAllItems()
+        self.m_listCtrl3.RepopulateList()
+        
+        popThese = []
+        # Iterate through the mappings 
+        for variableName, values in existingData["Mappings"].iteritems():
+            # Fist check if the variable name appears in the data file.
+            if str(variableName) not in self.columns:
+                # If it doesn't exist, then remove it.
+                popThese.append(variableName)
+                continue
+            # Add the variable name to the mapping list.
+            mapping = read.getDetailedResultInfo(\
+                "Time series coverage",
+                values['ResultID'])
+            mapped = mapping[0]
+            self.m_listCtrl3.AddObject(
+                ResultMapping(mapped.resultID,
+                    mapped.samplingFeatureCode,
+                    mapped.samplingFeatureName,
+                    mapped.methodCode,
+                    mapped.methodName,
+                    mapped.variableCode,
+                    mapped.variableNameCV,
+                    mapped.processingLevelCode,
+                    mapped.processingLevelDef,
+                    mapped.unitsName,
+                    variableName))
+        if popThese:
+            wx.MessageBox("Mappings for the following variables exist, but do not appear in the selected data file:\n'%s'\n\nThese mappings will be deleted if you continue." \
+                % (", ".join(popThese)),
+                "No matching variables")
+            print self.columns
+            for var in popThese:
+                existingData["Mappings"].pop(var)
+        # Color columns with mappings.
+        for i in range(0, self.m_listCtrl1.GetNumberCols()):
+            if str(self.m_listCtrl1.GetColLabelValue(i)) \
+            in self.inputDict["Mappings"].keys():
+                self.m_listCtrl1.SetColLabelRenderer(\
+                    i,
+                    MyColLabelRenderer('#50c061'))
+                
+
+    
+    
+    def setInputTimeColumn(self):
+        """
+        setInputTimeColumn: Populates the combo box
+        used to define which column is the time column.
+        """
+        self.choiceTimeCol.Clear()
+        [self.choiceTimeCol.Append(column) \
+            for column in self.columns]
+        try:
+            dateCol = self.inputDict['Settings']['DateTimeColumnName']
+            i = self.choiceTimeCol.FindString(str(dateCol))
+            self.choiceTimeCol.SetSelection(i)
+        except KeyError:
+            self.choiceTimeCol.SetSelection(0)
+
+    def setInputIntendedTimeSpacing(self):
+        """
+        setInputUTCOffset: Attempts to set the value of 
+        intended time spacing spin ctrl to a pre-existing number.
+        """
+        try:
+            self.spinTimeSpacing.SetValue(\
+                searchDict(self.inputDict['Mappings'],
+                    'IntendedTimeSpacing'))
+        except KeyError:
+            self.spinTimeSpacing.SetValue(0)
+
+    def setInputUTCOffset(self):
+        """
+        setInputUTCOffset: Attempts to set the value of 
+        UTC offset to a pre-existing number.
+        """
+        try:
+            offset = self.inputDict['Settings']['UTCOffset']
+            self.spinUTCOffset.SetValue(int(offset))
+        except KeyError:
+            self.spinUTCOffset.SetValue(0)
+
+    def setInputUnit(self, read):
+        """
+        setInputUTCOffset: Attempts to set the units
+        combo box to a pre-existing value.
+        """
+        self.choiceUnitID.Clear()
+        timeUnits = read.getUnitsByTypeCV('time')
+        self.timeUnits = {}
+        [self.timeUnits.update({i.UnitsName:i.UnitsID}) for i in timeUnits]
+        print self.timeUnits
+        for unit in timeUnits:
+            #self.choiceUnitID.Append(unit.UnitsName+" (id "+str(unit.UnitsID)+")")
+            self.choiceUnitID.Append(unit.UnitsName)
+        try:
+            unitID = searchDict(self.inputDict['Mappings'],
+                'IntendedTimeSpacingUnitID')
+            unit = read.getUnitById(int(unitID))
+            i = self.choiceUnitID.FindString(unit.UnitsName)
+            self.choiceUnitID.SetSelection(i)
+        except KeyError:
+            self.choiceUnitID.SetSelection(0)
+
 
     def onAddNew(self, event):
         self.runSeriesSelectDialog()
@@ -255,7 +287,7 @@ class DataConfigPanelController(DataConfigPanelView):
             self.selectedColumn = \
                 self.m_listCtrl1.GetColLabelValue(event.GetCol())
             print self.selectedColumn 
-            if self.selectedColumn == self.selectedDateColumn:
+            if self.selectedColumn == str(self.choiceTimeCol.GetStringSelection()):
                 msg = wx.MessageBox('This column is not mappable because you have chosen it as your date time column.', 'Configuration Error')
             else:
                 if self.runSeriesSelectDialog():
