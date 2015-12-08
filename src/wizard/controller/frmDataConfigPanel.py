@@ -57,13 +57,19 @@ class DataConfigPanelController(DataConfigPanelView):
                     i,
                     MyColLabelRenderer(wx.SystemSettings.GetColour(wx.SYS_COLOUR_BACKGROUND)))
                 self.m_listCtrl1.Refresh()
-        
+       
+        # Instead of deleting from mapping right now,
+        # add to a list that can be deleted when finish
+        # button is clicked.
         for name in self.m_listCtrl3.GetSelectedObjects():
-            self.inputDict['Mappings'].pop(name.variableName)
+            self.deletedMappings.append(name.variableName)
+        #for name in self.m_listCtrl3.GetSelectedObjects():
+        #    self.inputDict['Mappings'].pop(name.variableName)
 
         self.m_listCtrl3.RemoveObjects(\
             self.m_listCtrl3.GetSelectedObjects())
         self.m_listCtrl3.RepopulateList()
+        
         event.Skip()
     
     def getInput(self):
@@ -75,18 +81,31 @@ class DataConfigPanelController(DataConfigPanelView):
             lastUpdate = str(self.inputDict['Schedule']['LastUpdate'])
         except KeyError: 
             self.inputDict['Schedule']['LastUpdate'] = "--"
+        
         i = self.choiceTimeCol.GetSelection()
         self.inputDict['Settings']['DateTimeColumnName'] = \
             str(self.choiceTimeCol.GetString(i))
+        
         self.inputDict['Settings']['FillGaps'] = 'false'
+        
+        # Add mappings.
+        for mapping in self.newMappings:
+            self.inputDict['Mappings'].update(mapping)
+        
+        # Delete mappings.
+        for mapping in self.deletedMappings:
+            self.inputDict['Mappings'].pop(mapping)
+        
         for k,v in self.inputDict['Mappings'].iteritems():
             #print v
             v['IntendedTimeSpacing'] = self.spinTimeSpacing.GetValue()
             i = self.choiceUnitID.GetSelection()
             unitID = self.timeUnits[str(self.choiceUnitID.GetString(i))]
             v['IntendedTimeSpacingUnitID'] = unitID
+        
         self.inputDict['Settings']['UTCOffset'] = \
             self.spinUTCOffset.GetValue()
+        
         return self.inputDict
 
     """
@@ -116,7 +135,8 @@ class DataConfigPanelController(DataConfigPanelView):
         """
         setInput: Populates the form with pre-existing data.
         """
-        print "ding"
+        self.deletedMappings = []
+        self.newMappings = []
         read = self.parent.db.getReadSession()
         self.inputDict.update(data)
         
@@ -198,12 +218,16 @@ class DataConfigPanelController(DataConfigPanelView):
         # Color columns with mappings.
         for i in range(0, self.m_listCtrl1.GetNumberCols()):
             if str(self.m_listCtrl1.GetColLabelValue(i)) \
-            in self.inputDict["Mappings"].keys():
+            in existingData["Mappings"].keys():
+                print "here"
                 self.m_listCtrl1.SetColLabelRenderer(\
                     i,
                     MyColLabelRenderer('#50c061'))
+            else:
+                self.m_listCtrl1.SetColLabelRenderer(i,
+                    MyColLabelRenderer(\
+                    wx.SystemSettings.GetColour(wx.SYS_COLOUR_BACKGROUND)))
                 
-
     
     
     def setInputTimeColumn(self):
@@ -218,7 +242,8 @@ class DataConfigPanelController(DataConfigPanelView):
             dateCol = self.inputDict['Settings']['DateTimeColumnName']
             i = self.choiceTimeCol.FindString(str(dateCol))
             self.choiceTimeCol.SetSelection(i)
-        except KeyError:
+        except Exception as e:
+            print "exception", e
             self.choiceTimeCol.SetSelection(0)
 
     def setInputIntendedTimeSpacing(self):
@@ -272,7 +297,6 @@ class DataConfigPanelController(DataConfigPanelView):
         event.Skip()
    
     def onCellClick(self, event):
-        #self.m_button8.Enable(False)
         event.Skip()
     
     def onColClick(self, event): 
@@ -319,15 +343,23 @@ class DataConfigPanelController(DataConfigPanelView):
             #print dlg.selectedResult.variableNameCV
             #import pprint
             
-            if "Mappings" not in self.inputDict.keys():
-                self.inputDict.update({'Mappings':{}})
-            if self.selectedColumn not in \
-                self.inputDict["Mappings"].keys():
-                self.inputDict['Mappings'].update(\
-                    {str(self.selectedColumn):{\
-                        'ResultID':int(dlg.selectedResult.resultID),
-                        'LastByteRead':0,
-                        'CalculateAggInterval':'false'}})
+            # Instead of adding immediately to mappings
+            # add it to a list to be added when finish button
+            # is clicked.
+            self.newMappings.append({str(self.selectedColumn):{\
+                'ResultID':int(dlg.selectedResult.resultID),
+                'LastByteRead':0,
+                'CalculateAggInterval':'false'}})
+            #if "Mappings" not in self.inputDict.keys():
+            #    self.inputDict.update({'Mappings':{}})
+            
+            #if self.selectedColumn not in \
+            #self.inputDict["Mappings"].keys():
+            #    self.inputDict['Mappings'].update(\
+            #        {str(self.selectedColumn):{\
+            #            'ResultID':int(dlg.selectedResult.resultID),
+            #            'LastByteRead':0,
+            #            'CalculateAggInterval':'false'}})
             
             #pprint.pprint(self.inputDict)
             for m in self.m_listCtrl3.GetObjects():
