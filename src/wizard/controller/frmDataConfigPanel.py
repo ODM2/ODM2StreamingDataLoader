@@ -55,7 +55,7 @@ class DataConfigPanelController(DataConfigPanelView):
             if str(self.m_listCtrl1.GetColLabelValue(i)) in names:
                 self.m_listCtrl1.SetColLabelRenderer(\
                     i,
-                    MyColLabelRenderer(wx.SystemSettings.GetColour(wx.SYS_COLOUR_BACKGROUND)))
+                    MyColLabelRenderer('#f0f0f0'))
                 self.m_listCtrl1.Refresh()
        
         # Instead of deleting from mapping right now,
@@ -212,21 +212,18 @@ class DataConfigPanelController(DataConfigPanelView):
             wx.MessageBox("Mappings for the following variables exist, but do not appear in the selected data file:\n'%s'\n\nThese mappings will be deleted if you continue." \
                 % (", ".join(popThese)),
                 "No matching variables")
-            print self.columns
             for var in popThese:
                 existingData["Mappings"].pop(var)
         # Color columns with mappings.
         for i in range(0, self.m_listCtrl1.GetNumberCols()):
             if str(self.m_listCtrl1.GetColLabelValue(i)) \
             in existingData["Mappings"].keys():
-                print "here"
                 self.m_listCtrl1.SetColLabelRenderer(\
                     i,
                     MyColLabelRenderer('#50c061'))
             else:
                 self.m_listCtrl1.SetColLabelRenderer(i,
-                    MyColLabelRenderer(\
-                    wx.SystemSettings.GetColour(wx.SYS_COLOUR_BACKGROUND)))
+                    MyColLabelRenderer('#f0f0f0'))
                 
     
     
@@ -243,7 +240,6 @@ class DataConfigPanelController(DataConfigPanelView):
             i = self.choiceTimeCol.FindString(str(dateCol))
             self.choiceTimeCol.SetSelection(i)
         except Exception as e:
-            print "exception", e
             self.choiceTimeCol.SetSelection(0)
 
     def setInputIntendedTimeSpacing(self):
@@ -278,7 +274,6 @@ class DataConfigPanelController(DataConfigPanelView):
         timeUnits = read.getUnitsByTypeCV('time')
         self.timeUnits = {}
         [self.timeUnits.update({i.UnitsName:i.UnitsID}) for i in timeUnits]
-        print self.timeUnits
         for unit in timeUnits:
             #self.choiceUnitID.Append(unit.UnitsName+" (id "+str(unit.UnitsID)+")")
             self.choiceUnitID.Append(unit.UnitsName)
