@@ -17,7 +17,7 @@ from zipfile import ZipFile, ZIP_DEFLATED
 
 ## Update odmtools.meta.data whenever creating a release
 from src.meta import data
-sys.path.insert(0, '/Users/stephanie/DEV/ODM2PythonAPI')
+# sys.path.insert(0, '/Users/stephanie/DEV/ODM2PythonAPI')
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 SETUP_DIR= os.path.join(BASE_DIR, "setup")
@@ -36,9 +36,11 @@ ICON_DIR = os.path.join('src', 'common', "icons")
 WIN_ICON_FILE = os.path.join(ICON_DIR, "SDL.ico")
 MAC_ICON_FILE = os.path.join(ICON_DIR, "SDL.icns")
 
-APP_DIR = os.path.join(MAC_DIR, 'Dist', "SDLLoader.app")
+APP_LOADER_DIR = os.path.join(MAC_DIR, 'Dist', "SDLLoader.app")
 # Location of Windows files
-APP_FILE = os.path.join(BASE_DIR, 'src', "StreamingDataLoader.py")
+APP_LOADER_FILE = os.path.join(BASE_DIR, 'src', "StreamingDataLoader.py")
+
+
 MAKE_FILE = os.path.realpath(__file__)
 VERSION_FILE = os.path.join(SETUP_DIR, "version.txt")
 
@@ -106,7 +108,7 @@ def printInfo():
     print "\n= Platform: {platform}, {architecture}".format(platform=sys.platform, architecture=platform.architecture()), "\n="
     print "============================================================="
     print "Environment Variables: "
-    print ("APP_FILE: ", APP_FILE)
+    print ("APP_FILE: ", APP_LOADER_FILE)
     print ("MAKE_FILE: ", MAKE_FILE)
     print ("BASE_DIR: ", BASE_DIR)
     print ("SETUP_DIR: ", SETUP_DIR)
@@ -153,6 +155,10 @@ def delete_old_out_dir():
 
 def run_pyinstaller( Name= None, File = None, console=False):
     try:
+        if Name is None:
+            Name = 'SDLLoader'
+        if File is None:
+            File = APP_LOADER_FILE
         if console:
             ## Console Version
             os.system('pyinstaller '
@@ -160,18 +166,18 @@ def run_pyinstaller( Name= None, File = None, console=False):
                 '--additional-hooks-dir=%s'% HOOK_DIR +
                 '--distpath=%s ' % WIN_DIR +
                 '--workpath=%s ' % WORK_DIR +
-                '--name=%s ' % 'SDLLoader' + #TODO add if statement if name is none
+                '--name=%s ' % Name +
                 '--specpath=%s ' % WIN_DIR +
                 '--upx-dir=%s ' % BASE_DIR +
                 '--icon=%s ' % WIN_ICON_FILE +
                 '--version-file=%s ' % VERSION_FILE +
-                '--noconfirm ' + APP_FILE)
+                '--noconfirm ' + File)
         else:
             ## Non Console Version
             val = os.system('pyinstaller '
                 '--clean '
                 '--distpath=%s ' % WIN_DIR +
-                '--name=%s ' % 'SDLLoader' +
+                '--name=%s ' % Name +
                 '--workpath=%s ' % WORK_DIR +
                 '--additional-hooks-dir=%s'% HOOK_DIR +
                 '--specpath=%s ' % WIN_DIR +
@@ -179,7 +185,7 @@ def run_pyinstaller( Name= None, File = None, console=False):
                 '--icon=%s ' % WIN_ICON_FILE +
                 '--version-file=%s ' % VERSION_FILE +
                 '--noconsole '
-                '--noconfirm ' + APP_FILE)
+                '--noconfirm ' + File)
 
         return True
     except Exception as e:
@@ -188,19 +194,22 @@ def run_pyinstaller( Name= None, File = None, console=False):
 
 def mac_pyinstaller(Name = None, File = None):
     try:
+        if Name is None:
+            Name = 'SDLLoader'
+        if File is None:
+            File = APP_LOADER_FILE
         os.system('pyinstaller '
             '--clean '
             '--distpath=%s ' % MAC_DIST_DIR +
             '--additional-hooks-dir=%s '% HOOK_DIR +
-
             '--workpath=%s ' % MAC_WORK_DIR +
             '--specpath=%s ' % MAC_DIR +
             '--upx-dir=%s ' % BASE_DIR +
             '--icon=%s ' % MAC_ICON_FILE +
             '--version-file=%s ' % VERSION_FILE +
-            '--name=%s ' % 'SDLLoader' +
+            '--name=%s ' % Name +
             '--windowed '
-            '--noconfirm ' + APP_FILE)
+            '--noconfirm ' + File)
 
 
         #os.system("cp /anaconda/envs/odmtools/lib/libwx_osx_cocoau-3.0.0.0.0.dylib %s" % os.path.join(APP_DIR, "Contents", "MacOS"))
@@ -246,8 +255,9 @@ def main():
     if sys.platform == 'win32':
 
         print "Creating Windows Executable..."
-        if run_pyinstaller():
-            run_inno()
+        if run_pyinstaller('SDLLoader', os.path.join(BASE_DIR, 'src', "StreamingDataLoader.py")):
+            if run_pyinstaller('SDLWizard', os.path.join(BASE_DIR, 'src', 'wizard', 'controller', "frmMain.py")):
+                run_inno()
         '''
         print "Creating Windows Executable Console..."
         if run_pyinstaller(console=True):
