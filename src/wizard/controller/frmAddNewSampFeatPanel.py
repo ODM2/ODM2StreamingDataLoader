@@ -8,6 +8,8 @@ from api.ODM2.services.readService import *
 from api.ODMconnection import dbconnection
 
 from src.wizard.view.clsAddNewSampFeatPanel import AddNewSampFeatPanelView
+from src.wizard.view.clsAddSpatialReferences import NewSpatialReferenceView
+from src.wizard.view.clsCustomDialog import CustomDialog
 
 class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
     def __init__(self, daddy, db, **kwargs):
@@ -15,6 +17,8 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
             **kwargs)
         self.parent = daddy
         self.db = db
+        
+        self.m_button411.Bind(wx.EVT_BUTTON, self.onCreateSpatialReference)
 
         self.populateFields()
         
@@ -43,6 +47,11 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
         self.datum = [i.Name for i in read.getCVElevationDatums()]
         self.m_comboBox8211.AppendItems(self.datum)
 
+    def onCreateSpatialReference(self, event):
+        dlg = CustomDialog(self, "New Spatial Reference")
+        dlg.addPanel(NewSpatialReferenceView(dlg))
+        dlg.ShowModal()
+        event.Skip()
         
     def onOK(self, event):
         # Event handler for when the user clicks OK.

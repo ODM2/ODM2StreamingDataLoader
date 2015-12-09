@@ -7,8 +7,8 @@ from src.wizard.controller.frmUnitSelectPanel \
     import UnitSelectPanel
 from src.wizard.controller.frmProcLevelSelectPanel \
     import ProcLevelSelectPanel
-from src.wizard.controller.frmActionsSelectPanel \
-    import ActionsSelectPanel
+#from src.wizard.controller.frmActionsSelectPanel \
+#    import ActionsSelectPanel
 from src.wizard.view.clsResultPage import ResultPageView
 
 class WizardDialog(wx.Dialog):

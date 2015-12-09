@@ -69,8 +69,8 @@ class ActionsSelectPanel(SeriesSelectPanel):
         if dlg.ShowModal() == wx.ID_OK:
             self.list_ctrl.SetObjects(self.getSeriesData())
 
-        else:
-            pass
+        #else:
+        #    pass
         dlg.Destroy()
         event.Skip()
     

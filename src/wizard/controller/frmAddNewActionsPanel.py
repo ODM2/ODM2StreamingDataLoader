@@ -8,8 +8,12 @@ from src.controllers.Database import Database
 from src.common.functions import wxdate2pydate
 
 from src.wizard.view.clsAddNewActionsPanel import AddNewActionsPanelView
-from src.wizard.view.clsAddAffiliationPanel import NewAffiliationView
-from src.wizard.view.clsCustomDialog import CustomDialog
+#from src.wizard.view.clsAddAffiliationPanel import NewAffiliationView
+#from src.wizard.controller.frmAffiliationDialog import AffiliationDialog
+from src.wizard.controller.frmPersonPanel import PersonPanel
+from src.wizard.controller.frmOrganizationPanel import OrganizationPanel
+from src.wizard.controller.WizardDialog \
+    import WizardDialog
 
 class Test:
     def __init__(self, name, org):
@@ -52,9 +56,17 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         #self.m_comboBox134.SetItems(methodTypes)
        
     def onNewAffiliation(self, event):
-        dlg = CustomDialog(self, "New Affiliation")
-        dlg.addPanel(NewAffiliationView(dlg))
-        dlg.ShowModal()
+        wiz = WizardDialog(self,
+            database=self.db,
+            title="Create New Affiliation")
+        wiz.addPage(PersonPanel)
+        wiz.addPage(OrganizationPanel)
+        if wiz.ShowModal() == wx.ID_OK:
+            print "ok"
+        #dlg = AffiliationDialog(self, "New Affiliation")
+        #dlg.addPanel(NewAffiliationView(dlg))
+        #dlg.initControls()
+        #dlg.ShowModal()
         event.Skip()
 
     def onOK(self, event):

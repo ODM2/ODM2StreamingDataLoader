@@ -19,4 +19,5 @@ class CustomDialog(wx.Dialog):
         self.sizer.Add(pnl, 1, wx.ALL|wx.EXPAND, 5)
         self.sizer.Layout()
         self.sizer.Fit(self)
+        self.view = pnl
 

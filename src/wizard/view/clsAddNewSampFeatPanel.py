@@ -9,28 +9,11 @@ class AddNewSampFeatPanelView ( wx.Panel ):
     def __init__( self, parent ):
         wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 459,600 ), style = wx.TAB_TRAVERSAL )
                 
-        self.SetMinSize( wx.Size( 459,600 ) )
+        self.SetMinSize( wx.Size( 470,530 ) )
         self.SetExtraStyle(wx.WS_EX_VALIDATE_RECURSIVELY)        
         bSizer111 = wx.BoxSizer( wx.VERTICAL )
         
         sbSizer25 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Required Fields:" ), wx.VERTICAL )
-        
-        #bSizer41 = wx.BoxSizer( wx.HORIZONTAL )
-        
-        #self.m_staticText35 = wx.StaticText( sbSizer25.GetStaticBox(), wx.ID_ANY, u"Sampling Feature UUID", wx.DefaultPosition, wx.DefaultSize, 0 )
-        #self.m_staticText35.Wrap( -1 )
-        #bSizer41.Add( self.m_staticText35, 0, wx.ALL, 5 )
-        
-        
-        #bSizer41.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
-        
-        #self.m_textCtrl30 = wx.TextCtrl( sbSizer25.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-        #self.m_textCtrl30.Enable( False )
-        
-        #bSizer41.Add( self.m_textCtrl30, 0, wx.ALL, 5 )
-        
-        
-        #sbSizer25.Add( bSizer41, 1, wx.EXPAND, 5 )
         
         bSizer411 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -62,10 +45,6 @@ class AddNewSampFeatPanelView ( wx.Panel ):
         self.m_textCtrl30.Enable(False)
         self.m_textCtrl30.SetMinSize( wx.Size( 280,-1 ) )
 
-        #m_comboBox82Choices = []
-        #self.m_comboBox82 = wx.ComboBox( sbSizer25.GetStaticBox(), wx.ID_ANY, u"Select Sampling Feature Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox82Choices, 0 )
-        #self.m_comboBox82.SetMinSize( wx.Size( 280,-1 ) )
-        
         bSizer532.Add( self.m_textCtrl30, 0, wx.ALL, 5 )
         
         
@@ -169,10 +148,6 @@ class AddNewSampFeatPanelView ( wx.Panel ):
         
         bSizer5321.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        #m_comboBox821Choices = []
-        #self.m_comboBox821 = wx.ComboBox( sbSizer24.GetStaticBox(), wx.ID_ANY, u"Select Sampling Feature Geotype", wx.DefaultPosition, wx.DefaultSize, m_comboBox821Choices, 0 )
-        #self.m_comboBox821.SetMinSize( wx.Size( 280,-1 ) )
-        
         self.m_geotypeTxt = wx.TextCtrl( sbSizer24.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_geotypeTxt.Enable( False )
         self.m_geotypeTxt.SetMinSize( wx.Size( 280,-1 ) )
@@ -180,22 +155,6 @@ class AddNewSampFeatPanelView ( wx.Panel ):
         
         sbSizer24.Add( bSizer5321, 1, wx.EXPAND, 5 )
         
-        bSizer4121 = wx.BoxSizer( wx.HORIZONTAL )
-        
-        #self.m_staticText3521 = wx.StaticText( sbSizer24.GetStaticBox(), wx.ID_ANY, u"Feature Geometry", wx.DefaultPosition, wx.DefaultSize, 0 )
-        #self.m_staticText3521.Wrap( -1 )
-        #bSizer4121.Add( self.m_staticText3521, 0, wx.ALL, 5 )
-        
-        
-        #bSizer4121.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
-        
-        #self.m_textCtrl3021 = wx.TextCtrl( sbSizer24.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-        #self.m_textCtrl3021.SetMinSize( wx.Size( 280,-1 ) )
-        
-        #bSizer4121.Add( self.m_textCtrl3021, 0, wx.ALL, 5 )
-        
-        
-        #sbSizer24.Add( bSizer4121, 1, wx.EXPAND, 5 )
         
         bSizer4122 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -242,15 +201,13 @@ class AddNewSampFeatPanelView ( wx.Panel ):
         bSizer413.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         self.m_textCtrl303 = wx.TextCtrl( sbSizer24.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
-        self.m_textCtrl303.SetMinSize( wx.Size( 280,-1 ) )
+        self.m_textCtrl303.SetMinSize( wx.Size( 280,70 ) )
         
         bSizer413.Add( self.m_textCtrl303, 0, wx.ALL, 5 )
         
+        sbSizer24.Add( bSizer413, 0, wx.EXPAND, 5 )
         
-        sbSizer24.Add( bSizer413, 1, wx.EXPAND, 5 )
-        
-        
-        bSizer111.Add( sbSizer24, 1, wx.EXPAND, 5 )
+        bSizer111.Add( sbSizer24, 0, wx.EXPAND, 5 ) # Denver
         
         m_sdbSizer11 = wx.StdDialogButtonSizer()
         self.m_sdbSizer11OK = wx.Button( self, wx.ID_OK )
