@@ -7,6 +7,7 @@
 #define MyAppURL "https://github.com/ODM2/ODM2StreamingDataLoader"
 #define MyAppExeName "SDLLoader.exe"
 #define MyAppDir "D:\DEV\StreamingDataLoader"
+#define MyWizExeName "SDLWizard.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -37,15 +38,18 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "{#MyAppDir}\setup\Windows\StreamingDataLoader\SDLLoader.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#MyAppDir}\setup\Windows\StreamingDataLoader\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#MyAppDir}\setup\Windows\SDLLoader\SDLLoader.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MyAppDir}\setup\Windows\SDLWizard\SDLWizard.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MyAppDir}\setup\Windows\SDLLoader\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#MyAppDir}\setup\Windows\SDLWizard\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{group}\{#MyWizExeName}"; Filename: "{app}\{#MyWizExeName}"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{commondesktop}\{#MyWizExeName}"; Filename: "{app}\{#MyWizExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#MyWizExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
