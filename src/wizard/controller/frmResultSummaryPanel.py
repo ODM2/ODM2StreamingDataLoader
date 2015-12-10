@@ -86,13 +86,13 @@ class ResultSummaryPanel(ResultPageView):
         read = self.parent.database.getReadSession()
 
         self.mediums = {} #read.getCVMediumTypes()
-        [self.mediums.update({obj.Term:obj}) \
+        [self.mediums.update({obj.Name:obj}) \
             for obj in read.getCVMediumTypes()]
 
         self.comboSamp.AppendItems(self.mediums.keys())
 
         self.aggStat = {} #read.getCVAggregationStatistics()
-        [self.aggStat.update({obj.Term:obj}) \
+        [self.aggStat.update({obj.Name:obj}) \
             for obj in read.getCVAggregationStatistics()]
         self.comboAgg.AppendItems(self.aggStat.keys())
 

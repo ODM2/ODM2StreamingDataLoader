@@ -211,8 +211,8 @@ def mac_pyinstaller(Name = None, File = None):
             '--windowed '
             '--noconfirm ' + File)
 
-
-        #os.system("cp /anaconda/envs/odmtools/lib/libwx_osx_cocoau-3.0.0.0.0.dylib %s" % os.path.join(APP_DIR, "Contents", "MacOS"))
+        APP_DIR = os.path.join(MAC_DIR, 'Dist', Name+".app")
+        os.system("cp /anaconda/envs/sdl/lib/libwx_osx_cocoau-3.0.0.0.0.dylib %s" % os.path.join(APP_DIR, "Contents", "MacOS"))
 
         return True
     except Exception as e:
@@ -270,11 +270,11 @@ def main():
         ## Create File
         ## Zip Executable
 
-
     elif sys.platform =='darwin':
         print "Creating Mac Executable"
-        if(mac_pyinstaller()):
-            run_iceberg()
+        if mac_pyinstaller('SDLLoader', os.path.join(BASE_DIR, 'src', "StreamingDataLoader.py")):
+            if mac_pyinstaller('SDLWizard', os.path.join(BASE_DIR, 'src', 'wizard', 'controller', "frmMain.py")):
+                run_iceberg()
 
     # elif sys.platform == 'linux2':
     #     ## Testing, not officially supported

@@ -91,6 +91,22 @@
 									<key>GID</key>
 									<integer>80</integer>
 									<key>Path</key>
+									<string>Dist/SDLWizard.app</string>
+									<key>Path Type</key>
+									<integer>2</integer>
+									<key>Privileges</key>
+									<integer>493</integer>
+									<key>Type</key>
+									<integer>3</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>Children</key>
+									<array/>
+									<key>GID</key>
+									<integer>80</integer>
+									<key>Path</key>
 									<string>Utilities</string>
 									<key>Path Type</key>
 									<integer>1</integer>
