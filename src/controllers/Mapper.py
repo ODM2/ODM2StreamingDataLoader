@@ -183,8 +183,8 @@ class Mapper():
             logger.info("*********doing column: %s" % col)
             df = self.rawData[col].reset_index()
             df.columns = ['ValueDateTime', 'DataValue']
-            
-            if series['CalculateAggInterval']:
+           
+            if series['CalculateAggInterval'] not in [False, 'False', 'false']:
 
                 df['TimeAggregationInterval'] = 0
                 df['TimeAggregationIntervalUnitsID'] = 0
