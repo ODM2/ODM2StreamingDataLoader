@@ -8,7 +8,7 @@ class AddNewUnitPanelView ( wx.Panel ):
     def __init__( self, parent ):
         wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 409,257 ), style = wx.TAB_TRAVERSAL )
                 
-        self.SetMinSize(wx.Size(409, 257))
+        self.SetMinSize(wx.Size(420, 257))
 
         bSizer33 = wx.BoxSizer( wx.VERTICAL )
         

@@ -8,7 +8,8 @@ class PersonPanel(PersonPanelView):
         super(PersonPanel, self).__init__(parent)
         self.parent = parent
         self.Bind(wx.EVT_SHOW, self.onShow)
-        
+        self.m_comboBox13.Bind(wx.EVT_COMBOBOX, self.onPrePerson)
+
         self.parent.btnNext.Enable(True)
         
         read = self.parent.database.getReadSession()
@@ -23,9 +24,37 @@ class PersonPanel(PersonPanelView):
         else:
             self.m_comboBox13.AppendItems(self.people.keys()) 
 
-    def onShow(self, event):
-        print "Show"
+    def getData(self):
+        if str(self.m_comboBox13.GetStringSelection()) == '':
+            write = self.parent.database.getWriteSession()
+            
+            first = str(self.textFirst.GetValue())
+            last = str(self.textLast.GetValue())
+            middle = str(self.textMiddle.GetValue())
+
+            person = write.createPerson(firstName=first,
+                lastName=last, middleName=middle)
+
+            self.personID = person.PersonID
+            self.personName = first + " " + middle + " " + last
+
+        return dict({"Person":{"Name":self.personName, "ID":self.personID}})
+
+    def onPrePerson(self, event):
+        self.textFirst.SetValidator(wx.DefaultValidator)
+        self.textLast.SetValidator(wx.DefaultValidator)
+
+        self.personID = self.people[self.m_comboBox13.GetStringSelection()]
+        self.personName = self.m_comboBox13.GetStringSelection()
         
+        event.Skip()
+
+    def Validate(self):
+        if super(PersonPanel, self).Validate():
+            return True
+        return False
+
+    def onShow(self, event):
         event.Skip()
   
     def enable(self, event):

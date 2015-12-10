@@ -10,7 +10,7 @@ class AddNewVariablePanelView ( wx.Panel ):
     def __init__( self, parent ):
         wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 407,336 ), style = wx.TAB_TRAVERSAL )
                 
-        self.SetMinSize( wx.Size( 407,336 ) )
+        self.SetMinSize( wx.Size( 415,356 ) )
         
         bSizer13 = wx.BoxSizer( wx.VERTICAL )
         
@@ -31,7 +31,7 @@ class AddNewVariablePanelView ( wx.Panel ):
         bSizer27.Add( self.m_textCtrl23, 0, wx.ALL, 5 )
         
         
-        sbSizer9.Add( bSizer27, 1, wx.EXPAND, 5 )
+        sbSizer9.Add( bSizer27, 0, wx.EXPAND, 5 )
         
         bSizer28 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -47,7 +47,7 @@ class AddNewVariablePanelView ( wx.Panel ):
         self.m_comboBox4.SetMinSize( wx.Size( 280,-1 ) )
         bSizer28.Add( self.m_comboBox4, 0, wx.ALL, 5 )
         
-        sbSizer9.Add( bSizer28, 1, wx.EXPAND, 5 )
+        sbSizer9.Add( bSizer28, 0, wx.EXPAND, 5 )
         
         bSizer32 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -65,7 +65,7 @@ class AddNewVariablePanelView ( wx.Panel ):
         bSizer32.Add( self.m_comboBox12, 0, wx.ALL, 5 )
         
         
-        sbSizer9.Add( bSizer32, 1, wx.EXPAND, 5 )
+        sbSizer9.Add( bSizer32, 0, wx.EXPAND, 5 )
         
         bSizer20 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -82,10 +82,10 @@ class AddNewVariablePanelView ( wx.Panel ):
         bSizer20.Add( self.m_textCtrl15, 0, wx.ALL, 5 )
         
         
-        sbSizer9.Add( bSizer20, 1, wx.EXPAND, 5 )
+        sbSizer9.Add( bSizer20, 0, wx.EXPAND, 5 )
         
         
-        bSizer13.Add( sbSizer9, 1, wx.EXPAND, 5 )
+        bSizer13.Add( sbSizer9, 0, wx.EXPAND, 5 )
         
         sbSizer6 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Optional Fields:" ), wx.VERTICAL )
         
@@ -110,7 +110,7 @@ class AddNewVariablePanelView ( wx.Panel ):
         #bSizer29.Add( self.m_button42, 0, wx.ALL, 5 )
         
         
-        sbSizer6.Add( bSizer29, 1, wx.EXPAND, 5 )
+        sbSizer6.Add( bSizer29, 0, wx.EXPAND, 5 )
         
         bSizer31 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -121,16 +121,16 @@ class AddNewVariablePanelView ( wx.Panel ):
         
         bSizer31.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.m_textCtrl24 = wx.TextCtrl( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
-        self.m_textCtrl24.SetMinSize( wx.Size( 280,-1 ) )
+        self.m_textCtrl24 = wx.TextCtrl( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(280, 70), wx.TE_MULTILINE )
+        #self.m_textCtrl24.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer31.Add( self.m_textCtrl24, 0, wx.ALL, 5 )
         
         
-        sbSizer6.Add( bSizer31, 1, wx.EXPAND, 5 )
+        sbSizer6.Add( bSizer31, 0, wx.EXPAND, 5 )
         
         
-        bSizer13.Add( sbSizer6, 1, wx.EXPAND, 5 )
+        bSizer13.Add( sbSizer6, 0, wx.EXPAND, 5 )
         
         m_sdbSizer2 = wx.StdDialogButtonSizer()
         self.m_sdbSizer2OK = wx.Button( self, wx.ID_OK )

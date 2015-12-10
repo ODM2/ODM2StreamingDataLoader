@@ -30,7 +30,7 @@ class AddNewActionsPanelView ( wx.Panel ):
     def __init__( self, parent ):
         wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 414,650 ), style = wx.TAB_TRAVERSAL )
                 
-        self.SetMinSize( wx.Size( 414,650 ) )
+        self.SetMinSize( wx.Size( 414,675 ) )
         
         bSizer80 = wx.BoxSizer( wx.VERTICAL )
         
@@ -131,7 +131,8 @@ class AddNewActionsPanelView ( wx.Panel ):
         self.spinner = wx.SpinButton(\
             sbSizer22.GetStaticBox(), wx.ID_ANY,
             wx.DefaultPosition, (-1,h), wx.SP_VERTICAL)
-    
+        self.spinner.SetValue(0)
+
         self.m_timePicker1.BindSpinButton(self.spinner)
    
         self.m_timePicker1.SetMinSize( wx.Size( 100,-1 ) )
@@ -152,6 +153,7 @@ class AddNewActionsPanelView ( wx.Panel ):
         self.spinUTCBegin = wx.SpinCtrl( sbSizer22.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         self.spinUTCBegin.SetMinSize( wx.Size( 50,-1 ) ) 
         self.spinUTCBegin.SetRange(-12,14)       
+        self.spinUTCBegin.SetValue(0)       
         
         bSizerTime.Add(self.m_staticText68, 0, wx.ALL, 5)
         bSizerTime.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
@@ -240,8 +242,8 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         bSizer272.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.m_textCtrl232 = wx.TextCtrl( sbSizer23.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
-        self.m_textCtrl232.SetMinSize( wx.Size( 280,-1 ) )
+        self.m_textCtrl232 = wx.TextCtrl( sbSizer23.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(280, 70), wx.TE_MULTILINE )
+        #self.m_textCtrl232.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer272.Add( self.m_textCtrl232, 0, wx.ALL, 5 )
         
@@ -257,8 +259,8 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         bSizer273.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.m_textCtrl233 = wx.TextCtrl( sbSizer23.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
-        self.m_textCtrl233.SetMinSize( wx.Size( 280,-1 ) )
+        self.m_textCtrl233 = wx.TextCtrl( sbSizer23.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(280, 70), wx.TE_MULTILINE )
+        #self.m_textCtrl233.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer273.Add( self.m_textCtrl233, 0, wx.ALL, 5 )
         

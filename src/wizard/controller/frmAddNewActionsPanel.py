@@ -12,8 +12,9 @@ from src.wizard.view.clsAddNewActionsPanel import AddNewActionsPanelView
 #from src.wizard.controller.frmAffiliationDialog import AffiliationDialog
 from src.wizard.controller.frmPersonPanel import PersonPanel
 from src.wizard.controller.frmOrganizationPanel import OrganizationPanel
-from src.wizard.controller.WizardDialog \
-    import WizardDialog
+from src.wizard.controller.frmAffiliationPanel import AffiliationPanel
+from src.wizard.controller.AffiliationWizard \
+    import AffiliationWizard
 
 class Test:
     def __init__(self, name, org):
@@ -56,17 +57,16 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         #self.m_comboBox134.SetItems(methodTypes)
        
     def onNewAffiliation(self, event):
-        wiz = WizardDialog(self,
+        wiz = AffiliationWizard(self,
             database=self.db,
             title="Create New Affiliation")
         wiz.addPage(PersonPanel)
         wiz.addPage(OrganizationPanel)
+        wiz.addPage(AffiliationPanel)
         if wiz.ShowModal() == wx.ID_OK:
-            print "ok"
-        #dlg = AffiliationDialog(self, "New Affiliation")
-        #dlg.addPanel(NewAffiliationView(dlg))
-        #dlg.initControls()
-        #dlg.ShowModal()
+            read = self.db.getReadSession()
+            newAffiliations = read.getDetailedAffiliationInfo()
+            self.affList.SetObjects(newAffiliations)
         event.Skip()
 
     def onOK(self, event):
