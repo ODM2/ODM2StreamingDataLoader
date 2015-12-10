@@ -1,5 +1,6 @@
 import os
 import wx
+from ..media.images import blue_add, blue_remove, blue_edit, blue_run
 
 class MainView(wx.Frame):
     def __init__(self, parent, **kwargs):
@@ -14,23 +15,28 @@ class MainView(wx.Frame):
 
 
         tsize = (30, 30)
-        path = os.path.dirname(\
-            os.path.dirname(os.path.realpath(__file__)))
-        new_bmp = scaleBitmap(wx.Bitmap(\
-            path + '/media/blue_add.png',\
-            wx.BITMAP_TYPE_PNG), tsize)
-        del_bmp = scaleBitmap(wx.Bitmap(\
-            path + '/media/blue_remove.png',\
-            wx.BITMAP_TYPE_PNG), tsize)
-        edit_bmp = scaleBitmap(wx.Bitmap(\
-            path + '/media/blue_edit.png',\
-            wx.BITMAP_TYPE_PNG), tsize)
-        #ref_bmp = scaleBitmap(wx.Bitmap(\
-        #    path + '//media/ic_autorenew_black_24dp.png',\
-        #    wx.BITMAP_TYPE_PNG), tsize)
-        run_bmp = scaleBitmap(wx.Bitmap(\
-            path + '//media/blue_run.png',\
-            wx.BITMAP_TYPE_PNG), tsize)
+        # path = os.path.dirname(\
+        #     os.path.dirname(os.path.realpath(__file__)))
+        # new_bmp = scaleBitmap(wx.Bitmap(\
+        #     path + '/media/blue_add.png',\
+        #     wx.BITMAP_TYPE_PNG), tsize)
+        # del_bmp = scaleBitmap(wx.Bitmap(\
+        #     path + '/media/blue_remove.png',\
+        #     wx.BITMAP_TYPE_PNG), tsize)
+        # edit_bmp = scaleBitmap(wx.Bitmap(\
+        #     path + '/media/blue_edit.png',\
+        #     wx.BITMAP_TYPE_PNG), tsize)
+        # #ref_bmp = scaleBitmap(wx.Bitmap(\
+        # #    path + '//media/ic_autorenew_black_24dp.png',\
+        # #    wx.BITMAP_TYPE_PNG), tsize)
+        # run_bmp = scaleBitmap(wx.Bitmap(\
+        #     path + '//media/blue_run.png',\
+        #     wx.BITMAP_TYPE_PNG), tsize)
+        new_bmp= blue_add.getBitmap()
+        del_bmp=blue_remove.getBitmap()
+        edit_bmp= blue_edit.getBitmap()
+        run_bmp= blue_run.getBitmap()
+
 
         self.tb.AddLabelTool(10, 'New Data File Configuration', new_bmp)      
         self.tb.AddLabelTool(20, 'Delete Data File Configuration', del_bmp)           

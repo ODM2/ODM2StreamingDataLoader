@@ -6,6 +6,7 @@ import sys
 
 from src.wizard.view.clsMain import MainView
 
+import ObjectListView
 from src.wizard.controller.frmMappingListPanel import MappingListPanel
 from src.wizard.controller.frmStatusBar import StatusBarController
 from src.wizard.controller.frmChainedDialog import ChainedDialog
