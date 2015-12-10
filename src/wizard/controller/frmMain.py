@@ -13,7 +13,7 @@ from src.wizard.controller.frmChainedDialog import ChainedDialog
 
 from src.models.YamlConfiguration import YamlConfiguration
 from src.models.Mapping import Mapping
-import ObjectListView
+
 
 WILDCARD = "YAML file (*.yaml)|*.yaml"
 

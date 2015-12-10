@@ -14,7 +14,7 @@ class MainView(wx.Frame):
         self.tb = self.CreateToolBar()
 
 
-        tsize = (30, 30)
+        #tsize = (30, 30)
         # path = os.path.dirname(\
         #     os.path.dirname(os.path.realpath(__file__)))
         # new_bmp = scaleBitmap(wx.Bitmap(\
@@ -32,10 +32,10 @@ class MainView(wx.Frame):
         # run_bmp = scaleBitmap(wx.Bitmap(\
         #     path + '//media/blue_run.png',\
         #     wx.BITMAP_TYPE_PNG), tsize)
-        new_bmp= blue_add.getBitmap()
-        del_bmp=blue_remove.getBitmap()
-        edit_bmp= blue_edit.getBitmap()
-        run_bmp= blue_run.getBitmap()
+        new_bmp= blue_add.GetImage().Rescale(30, 30).ConvertToBitmap()#.getBitmap()
+        del_bmp=blue_remove.GetImage().Rescale(30, 30).ConvertToBitmap()#.getBitmap()
+        edit_bmp= blue_edit.GetImage().Rescale(30, 30).ConvertToBitmap()#.getBitmap()
+        run_bmp= blue_run.GetImage().Rescale(30, 30).ConvertToBitmap()#.getBitmap()
 
 
         self.tb.AddLabelTool(10, 'New Data File Configuration', new_bmp)      
