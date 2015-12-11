@@ -6,7 +6,6 @@ import sys
 
 from src.wizard.view.clsMain import MainView
 
-import ObjectListView
 from src.wizard.controller.frmMappingListPanel import MappingListPanel
 from src.wizard.controller.frmStatusBar import StatusBarController
 from src.wizard.controller.frmChainedDialog import ChainedDialog
@@ -14,6 +13,9 @@ from src.wizard.controller.frmChainedDialog import ChainedDialog
 from src.models.YamlConfiguration import YamlConfiguration
 from src.models.Mapping import Mapping
 import ObjectListView
+import pyodbc
+import pymysql
+import sqlite3
 
 WILDCARD = "YAML file (*.yaml)|*.yaml"
 

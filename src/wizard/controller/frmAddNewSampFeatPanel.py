@@ -8,7 +8,8 @@ from api.ODM2.services.readService import *
 from api.ODMconnection import dbconnection
 
 from src.wizard.view.clsAddNewSampFeatPanel import AddNewSampFeatPanelView
-from src.wizard.view.clsAddSpatialReferences import NewSpatialReferenceView
+#from src.wizard.view.clsAddSpatialReferences import NewSpatialReferenceView
+from src.wizard.controller.frmAddSpatialReference import NewSpatialReferenceController
 from src.wizard.view.clsCustomDialog import CustomDialog
 
 class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
@@ -49,8 +50,15 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
 
     def onCreateSpatialReference(self, event):
         dlg = CustomDialog(self, "New Spatial Reference")
-        dlg.addPanel(NewSpatialReferenceView(dlg))
-        dlg.ShowModal()
+        dlg.addPanel(NewSpatialReferenceController(dlg, self.db))
+        if dlg.ShowModal() == wx.ID_OK:
+            read = self.db.getReadSession()
+            self.sp_ref = [{i.SRSName:i.SpatialReferenceID}\
+                for i in read.getCVSpacialReferenceTypes()]
+            self.m_comboBox822.Clear()
+            self.m_comboBox822.AppendItems(\
+                [y for x in [i.keys() for i in self.sp_ref] for y in x]
+                )
         event.Skip()
         
     def onOK(self, event):

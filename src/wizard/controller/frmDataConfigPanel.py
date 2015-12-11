@@ -247,6 +247,7 @@ class DataConfigPanelController(DataConfigPanelView):
         setInputUTCOffset: Attempts to set the value of 
         intended time spacing spin ctrl to a pre-existing number.
         """
+
         try:
             self.spinTimeSpacing.SetValue(\
                 searchDict(self.inputDict['Mappings'],
@@ -271,11 +272,15 @@ class DataConfigPanelController(DataConfigPanelView):
         combo box to a pre-existing value.
         """
         self.choiceUnitID.Clear()
-        timeUnits = read.getUnitsByTypeCV('time')
+
+        timeUnits = read.getUnitsByTypeCV('Time')
         self.timeUnits = {}
-        [self.timeUnits.update({i.UnitsName:i.UnitsID}) for i in timeUnits]
+        try:
+            [self.timeUnits.update({i.UnitsName:i.UnitsID}) for i in timeUnits]
+        except Exception:
+            wx.MessageBox("Error reading time units from database.", "Time Units Error")
+
         for unit in timeUnits:
-            #self.choiceUnitID.Append(unit.UnitsName+" (id "+str(unit.UnitsID)+")")
             self.choiceUnitID.Append(unit.UnitsName)
         try:
             unitID = searchDict(self.inputDict['Mappings'],

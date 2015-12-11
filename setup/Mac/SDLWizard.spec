@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['/Users/denversmith/Documents/Programming/ODM2StreamingDataLoader/src/StreamingDataLoader.py'],
+a = Analysis(['/Users/denversmith/Documents/Programming/ODM2StreamingDataLoader/src/wizard/controller/frmMain.py'],
              pathex=['/Users/denversmith/Documents/Programming/ODM2StreamingDataLoader/setup/Mac'],
              hiddenimports=[],
              hookspath=['/Users/denversmith/Documents/Programming/ODM2StreamingDataLoader/setup/hooks'],
@@ -15,7 +15,7 @@ pyz = PYZ(a.pure,
 exe = EXE(pyz,
           a.scripts,
           exclude_binaries=True,
-          name='SDLLoader',
+          name='SDLWizard',
           debug=False,
           strip=None,
           upx=True,
@@ -26,8 +26,8 @@ coll = COLLECT(exe,
                a.datas,
                strip=None,
                upx=True,
-               name='SDLLoader')
+               name='SDLWizard')
 app = BUNDLE(coll,
-             name='SDLLoader.app',
+             name='SDLWizard.app',
              icon='src/common/icons/SDL.icns',
              bundle_identifier=None)

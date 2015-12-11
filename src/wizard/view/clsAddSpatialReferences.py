@@ -26,7 +26,7 @@ class NewSpatialReferenceView(wx.Panel):
         bSizer35.Add(self.textCode, 1, wx.ALL, 5)
         
         
-        bSizer80.Add(bSizer35, 1, wx.EXPAND, 5 )
+        bSizer80.Add(bSizer35, 0, wx.EXPAND, 5 )
         
         bSizer36 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -44,7 +44,7 @@ class NewSpatialReferenceView(wx.Panel):
         bSizer36.Add(self.textName, 1, wx.ALL, 5)
         
         
-        bSizer80.Add(bSizer36, 1, wx.EXPAND, 5 )
+        bSizer80.Add(bSizer36, 0, wx.EXPAND, 5 )
         
         bSizer37 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -61,7 +61,7 @@ class NewSpatialReferenceView(wx.Panel):
         bSizer37.Add(self.textDesc, 1, wx.ALL, 5)
         
         
-        bSizer80.Add(bSizer37, 1, wx.EXPAND, 5 )
+        bSizer80.Add(bSizer37, 0, wx.EXPAND, 5 )
         
         bSizer38 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -78,7 +78,7 @@ class NewSpatialReferenceView(wx.Panel):
         bSizer38.Add(self.textLink, 1, wx.ALL, 5)
         
         
-        bSizer80.Add(bSizer38, 1, wx.EXPAND, 5 )
+        bSizer80.Add(bSizer38, 0, wx.EXPAND, 5 )
         
         m_sdbSizer10 = wx.StdDialogButtonSizer()
         self.m_sdbSizer10OK = wx.Button( self, wx.ID_OK )
@@ -87,7 +87,7 @@ class NewSpatialReferenceView(wx.Panel):
         m_sdbSizer10.AddButton( self.m_sdbSizer10Cancel )
         m_sdbSizer10.Realize();
         
-        bSizer80.Add( m_sdbSizer10, 1, wx.EXPAND, 5 )
+        bSizer80.Add( m_sdbSizer10, 0, wx.EXPAND, 5 )
         
         
         self.SetSizer( bSizer80 )
