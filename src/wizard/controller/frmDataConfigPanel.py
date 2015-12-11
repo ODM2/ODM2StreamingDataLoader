@@ -98,6 +98,7 @@ class DataConfigPanelController(DataConfigPanelView):
         
         for k,v in self.inputDict['Mappings'].iteritems():
             #print v
+            print "values",v
             v['IntendedTimeSpacing'] = self.spinTimeSpacing.GetValue()
             i = self.choiceUnitID.GetSelection()
             unitID = self.timeUnits[str(self.choiceUnitID.GetString(i))]
@@ -108,28 +109,6 @@ class DataConfigPanelController(DataConfigPanelView):
         
         return self.inputDict
 
-    """
-    def setInput(self, data):
-        # Update the list control only if the new data is different.
-        if cmp(self.prev_data, data) != 0:
-            try:
-                for i in range(0, self.m_listCtrl1.GetNumberCols()):
-                    if str(self.m_listCtrl1.GetColLabelValue(i))\
-                    in self.inputDict['Mappings'].keys():
-                        self.m_listCtrl1.SetColLabelRenderer(\
-                            i,
-                            MyColLabelRenderer('#50c061'))
-                    else:
-                        self.m_listCtrl1.SetColLabelRenderer(\
-                            i,
-                            MyColLabelRenderer(wx.SystemSettings.GetColour(wx.SYS_COLOUR_BACKGROUND)))
-                self.m_listCtrl1.Refresh()
-            except KeyError:
-                pass
-        # Important to make a deep copy, or else
-        # data gets changed.
-        self.prev_data = deepcopy(data)
-    """
 
     def setInput(self, data):
         """
@@ -175,6 +154,7 @@ class DataConfigPanelController(DataConfigPanelView):
         with any mappings that already exist *and*
         match the variables from the configuration file. 
         """
+        # Determine if any mappings exist.
         try:
             existingData["Mappings"]
         except KeyError:
@@ -337,7 +317,7 @@ class DataConfigPanelController(DataConfigPanelView):
         dlg = SeriesSelectDialog(self,
                 variable=self.selectedColumn,
                 database=self.parent.db)
-        dlg.CenterOnParent()
+        #dlg.CenterOnParent()
         if dlg.ShowModal() == wx.ID_OK:
             dlg.selectedResult.variableName = self.selectedColumn
             #print dlg.selectedResult.variableNameCV
@@ -350,16 +330,6 @@ class DataConfigPanelController(DataConfigPanelView):
                 'ResultID':int(dlg.selectedResult.resultID),
                 'LastByteRead':0,
                 'CalculateAggInterval':'false'}})
-            #if "Mappings" not in self.inputDict.keys():
-            #    self.inputDict.update({'Mappings':{}})
-            
-            #if self.selectedColumn not in \
-            #self.inputDict["Mappings"].keys():
-            #    self.inputDict['Mappings'].update(\
-            #        {str(self.selectedColumn):{\
-            #            'ResultID':int(dlg.selectedResult.resultID),
-            #            'LastByteRead':0,
-            #            'CalculateAggInterval':'false'}})
             
             #pprint.pprint(self.inputDict)
             for m in self.m_listCtrl3.GetObjects():

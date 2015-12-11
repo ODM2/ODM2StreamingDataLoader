@@ -68,13 +68,13 @@ class Mapper():
         delta = lastUpdate + datetime.timedelta(seconds=period)
         print "Due:", delta
         if startDate > now:
-            logger.debug("Not beginning until %s" % startDate)
+            logger.info("Not beginning until %s" % startDate)
             return False
         if delta <= now:
             self.recordLastUpdate(now)
             return True
         else:
-            logger.debug("Not running until %s" % delta)
+            logger.info("Not running until %s" % delta)
             return False
 
     def recordLastUpdate(self, time):

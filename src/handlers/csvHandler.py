@@ -128,6 +128,7 @@ class CSVReader():
                         logger.debug(finished_data)
                     else:
                         logger.info('No new data.')
+                        return df
 
                     # NOTE: took this out: skiprows=(dataBegin - 1),
                     columnHeadings = pd.read_csv(filepath, header=(header - 1), sep=sep, nrows=1)
