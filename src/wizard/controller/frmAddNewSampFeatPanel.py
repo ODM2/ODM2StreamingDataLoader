@@ -112,7 +112,7 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
         self.optionalValues = {
                   'name':None, 
                   'desc':None,
-                  'geoType':'Point',
+                  'geoType':'POINT',
                   'elevation':None,
                   'elevationDatum':None,
                   'featureGeo':None,
