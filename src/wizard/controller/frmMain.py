@@ -96,6 +96,7 @@ class MainController(MainView):
             self.fileList.listCtrl.DeleteAllItems()
             # Get the file path(s).
             path = dlg.GetPaths()
+            self.currentPath = path[0]
             # Create a new YAML model object.
             # This will represent the file that
             # the user just opened.
@@ -134,6 +135,9 @@ class MainController(MainView):
             path = dlg.GetPath()
             # Call the YamlConfiguration object's save method.
             self.yamlConfiguration.save(path)
+            self.currentPath = path
+            # Enable the "Save" menu option.
+            self.file_menu.Enable(108, True)
             print self.fileList.getObjects()
             # Change the status text to reflect the new file name. 
             self.SetStatusText('File: "' + path + '"', 0)
@@ -146,7 +150,7 @@ class MainController(MainView):
             This method is called when the user clicks
             File->Save from the menu.
         '''
-        self.mappings.save()
+        self.yamlConfiguration.save(self.currentPath)
         text = self.status_bar.GetStatusText(0)
         self.SetStatusText(text.replace('*', ''), 0)
     
@@ -158,6 +162,8 @@ class MainController(MainView):
         self.file_menu.Enable(108, False)
         self.file_menu.Enable(101, False)
         
+        self.currentPath = None
+
         event.Skip()
         
     def onFileExitClick(self, event):
@@ -205,7 +211,7 @@ class MainController(MainView):
             # Enable the "Save As" menu option.
             self.file_menu.Enable(103, True)
             # Enable the "Save" menu option.
-            self.file_menu.Enable(108, True)
+            #self.file_menu.Enable(108, True)
             
         # On Windows, calling event.Skip() makes this 
         # event be called twice for some reason, so I'm

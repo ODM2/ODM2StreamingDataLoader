@@ -115,12 +115,13 @@ class CSVReader():
                     # expensive because the headers are almost
                     # always gaurenteed to be within about 200
                     # lines.
-                    for i in range(header):
-                        header_names = f.next()
+                    #for i in range(header):
+                    #    header_names = f.next()
 
                     f.seek(int(start_byte))
                     new_data = f.read()
-                    finished_data = header_names + new_data
+                    #finished_data = header_names + new_data
+                    finished_data = new_data
                     
                     if new_data:
                         logger.info('New Data.')
@@ -128,17 +129,18 @@ class CSVReader():
                     else:
                         logger.info('No new data.')
 
-
+                    # NOTE: took this out: skiprows=(dataBegin - 1),
                     columnHeadings = pd.read_csv(filepath, header=(header - 1), sep=sep, nrows=1)
                     df = pd.read_csv(StringIO(finished_data),
                                         na_values=[' '],
                                         skipinitialspace=True,
-                                        skiprows=(dataBegin - 1),
                                         index_col=False,
                                         names=columnHeadings.columns.tolist(),
                                         sep=str(sep))
                     df.rename(columns=lambda x: x.strip(), inplace=True)
                     df.set_index(datecol, inplace=True)
+                    print "DATAFRAME"
+                    #df.to_csv("/Users/denversmith/Desktop/out.csv")
                 else:
                     # Just begin at the start of the file.
                     f.seek(0)
@@ -165,7 +167,7 @@ class CSVReader():
             # TODO: There is something fishy because if I don't
             # watch for an Exception, Pandas freaks out about
             # something. Figure out why that is.
-            logger.error('Exception: %s' % e2)
+            logger.error("Exception: %s" % e2)
         
         return df
     

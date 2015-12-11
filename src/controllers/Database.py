@@ -87,6 +87,7 @@ class Database:
         updateDateTime uses the ODM2 API to update the latest
         date time added to the database.
         '''
+        print "DATETIME:", dateTime, type(dateTime)
         cr = UpdateODM2(self.session_factory)
         cr.updateResultValidDateTime(seriesId, dateTime)
         return True

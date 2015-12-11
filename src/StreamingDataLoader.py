@@ -104,6 +104,10 @@ def main(arguments):
                             logger.debug('Writing %s...' % table[0])
                             # If able to save table to database...
                             if dataMapModel.save(table[1]):
+                                print "COLUMNS"
+                                print table[1].columns
+                                print "VDT"
+                                print type(table[1]['ValueDateTime'])
                                 # Update the latest date time for the table.
                                 dataMapModel.updateDateTime(table[1]['ResultID'][0],
                                     np.max(table[1]['ValueDateTime'])) 
