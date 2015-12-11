@@ -17,6 +17,7 @@ import pyodbc
 import pymysql
 import sqlite3
 
+
 WILDCARD = "YAML file (*.yaml)|*.yaml"
 
 class MainController(MainView):
