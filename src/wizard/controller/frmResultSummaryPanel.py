@@ -60,6 +60,8 @@ class ResultSummaryPanel(ResultPageView):
                            valuecount=valueCount,
                            sampledmedium=sampledMedium,
                            resulttypecv=resultTypeCV)
+            
+        write.createTimeSeriesResult(result, str(self.comboAgg.GetStringSelection()))
 
         print result
         return result
