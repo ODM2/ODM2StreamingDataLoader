@@ -98,7 +98,6 @@ class DataConfigPanelController(DataConfigPanelView):
         
         for k,v in self.inputDict['Mappings'].iteritems():
             #print v
-            print "values",v
             v['IntendedTimeSpacing'] = self.spinTimeSpacing.GetValue()
             i = self.choiceUnitID.GetSelection()
             unitID = self.timeUnits[str(self.choiceUnitID.GetString(i))]
@@ -291,7 +290,6 @@ class DataConfigPanelController(DataConfigPanelView):
         if event.GetCol() > -1:
             self.selectedColumn = \
                 self.m_listCtrl1.GetColLabelValue(event.GetCol())
-            print self.selectedColumn 
             if self.selectedColumn == str(self.choiceTimeCol.GetStringSelection()):
                 msg = wx.MessageBox('This column is not mappable because you have chosen it as your date time column.', 'Configuration Error')
             else:
@@ -310,7 +308,6 @@ class DataConfigPanelController(DataConfigPanelView):
    
     def onTimeChoice(self, event):
         self.selectedDateColumn = event.GetEventObject().GetString(event.GetEventObject().GetSelection())
-        print self.selectedDateColumn 
         event.Skip()
 
 

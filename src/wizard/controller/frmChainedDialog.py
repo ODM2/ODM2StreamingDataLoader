@@ -37,7 +37,6 @@ class ChainedDialog(wx.Dialog):
         # E.g. if this custom wizard is being used
         # to edit a mapping that already exists.
         self.panelList[self.currentPanel].setInput(data=self.data)
-        print "Wizard data", self.data
 
     def addButtons(self):
         # Add the buttons, which will appear on each page.
@@ -108,7 +107,6 @@ class ChainedDialog(wx.Dialog):
             self.prevButton.Enable(True)
             
     def onClose(self, event):
-        print "onClose"
         self.EndModal(-1)
 
     def onPrev(self, event):
@@ -130,7 +128,6 @@ class ChainedDialog(wx.Dialog):
                 self.panelList[self.currentPanel+1].\
                     setInput(data=self.panelList[self.currentPanel].getInput())
             except TypeError as e:
-                print e
                 event.Skip()
                 return
                 #error_dlg = wx.MessageBox('This data does not look valid. Check to see if the configuration options match the data file.\n\nDo you want to continue anyway?', 'Data Load Error', wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION)

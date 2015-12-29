@@ -25,6 +25,9 @@ class MainController(MainView):
         super(MainController, self).__init__(daddy,
                         title='Streaming Data Loader Wizard',
                         **kwargs)
+        self.hasUnsavedChanges = False
+        self.currentPath = None
+        self.Bind(wx.EVT_CLOSE, self.onClosing)
         # Container for mappings.
         self.yamlConfiguration = YamlConfiguration()
         # Set up the window menu.
@@ -138,12 +141,12 @@ class MainController(MainView):
             self.currentPath = path
             # Enable the "Save" menu option.
             self.file_menu.Enable(108, True)
-            print self.fileList.getObjects()
+            #print self.fileList.getObjects()
             # Change the status text to reflect the new file name. 
             self.SetStatusText('File: "' + path + '"', 0)
+            self.hasUnsavedChanges = False
         # Destroy the dialog handle.
         dlg.Destroy()
-        event.Skip()
 
     def onFileSaveClick(self, event):
         '''
@@ -153,9 +156,11 @@ class MainController(MainView):
         self.yamlConfiguration.save(self.currentPath)
         text = self.status_bar.GetStatusText(0)
         self.SetStatusText(text.replace('*', ''), 0)
+        self.hasUnsavedChanges = False
     
     def onFileNewClick(self, event):
-        self.SetStatusText('File: <NEW FILE> (No name yet)', 0)
+        self.checkForSavedChanges()
+        self.SetStatusText('File: <NEW FILE>', 0)
         self.fileList.listCtrl.DeleteAllItems()
         self.yamlConfiguration.deleteMappings() 
         self.file_menu.Enable(103, False)
@@ -169,6 +174,23 @@ class MainController(MainView):
     def onFileExitClick(self, event):
         self.Close()
         event.Skip()
+
+    def checkForSavedChanges(self):
+        if self.hasUnsavedChanges:
+            dlg = wx.MessageBox("This file has unsaved changes. Do you want to save the changes before closing?", "Unsaved Changes", style=wx.YES_NO|wx.YES_DEFAULT)
+            if dlg == wx.YES:
+                if self.currentPath:
+                    self.onFileSaveClick(None)
+                else:
+                    self.onFileSaveAsClick(None)
+                self.hasUnsavedChanges = False
+                text = self.status_bar.GetStatusText(0)
+                self.SetStatusText(text.replace('*', ''), 0)
+        
+
+    def onClosing(self, event):
+        self.checkForSavedChanges()
+        event.Skip() 
 
     def onHelpAboutClick(self, event):
         event.Skip()
@@ -212,6 +234,10 @@ class MainController(MainView):
             self.file_menu.Enable(103, True)
             # Enable the "Save" menu option.
             #self.file_menu.Enable(108, True)
+            text = self.status_bar.GetStatusText(0)
+            if text[-1] != "*":
+                self.SetStatusText(text + "*", 0)
+            self.hasUnsavedChanges = True
             
         # On Windows, calling event.Skip() makes this 
         # event be called twice for some reason, so I'm
@@ -238,10 +264,15 @@ class MainController(MainView):
             # Delete it from the yamlConfiguration model too.
             self.yamlConfiguration.deleteMapping(selected) 
             # Disable the delete button on the toolbar.
-            parent.tb.EnableTool(20, False)
+            self.tb.EnableTool(20, False)
+            # Disable the edit button on the toolbar.
+            self.tb.EnableTool(30, False)
+            self.hasUnsavedChanges = True
+            text = self.status_bar.GetStatusText(0)
+            if text[-1] != "*":
+                self.SetStatusText(text + "*", 0)
         # Destroy the message dialog handle.
         msg.Destroy()
-        #event.Skip()
     
     def onEditButtonClick(self, event):
         # Get the currently selected mapping.
@@ -253,17 +284,17 @@ class MainController(MainView):
         newMapping = wizard.run()
         # If the wizard was completed successfully...
         if newMapping:
-            print 'data from wizard: ', newMapping
-            # TODO
             # Return as a tuple with an id
             selected.up((selected.id, newMapping))
             self.fileList.listCtrl.RepopulateList()
+            self.hasUnsavedChanges = True
+            text = self.status_bar.GetStatusText(0)
+            if text[-1] != "*":
+                self.SetStatusText(text + "*", 0)
 
-        #event.Skip()
 
     def onRunButtonClick(self, event):
-        print 'run'
-        #event.Skip()
+        pass
 
 
 if __name__ == '__main__':

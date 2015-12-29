@@ -75,7 +75,8 @@ class YamlConfiguration():
                 load = yaml.load(f)
                 if load:
                     logger.info("...load successful.")
-                    return load
+                return load
+                
         except IOError as e:
             logger.error("Cannot read the file provided. Exception: %s" % e)
             return None
@@ -164,8 +165,6 @@ class YamlConfiguration():
             raise ValueError('Cannot save to empty path')
             return
         logger.info("Writing to '%s'" % path)
-        print "Writing to '%s'" % path
-        print "about to save this: ", self.yamlDict
 
         #if self.yamlFilePath == '':
         self.yamlFilePath = path
@@ -183,9 +182,6 @@ class YamlConfiguration():
         Delete a mapping from self.yamlDict
         Used by the wizard.
         '''
-        print mapping.asTuple()
-        print "mapping[0]", mapping.asTuple()[0]
-        print "mapping[1]", mapping.asTuple()[1]
         del self.yamlDict[mapping.asTuple()[0]]
     
     def deleteMappings(self):

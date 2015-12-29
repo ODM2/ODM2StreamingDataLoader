@@ -25,7 +25,6 @@ class DatabaseConfigPanel(ChainedDialogPage,
         return self.inputDict
 
     def setInput(self, data):
-        print "Ding2"
         # Implementing setInput from ChainedDialogPage.
         self.choices = {"Microsoft SQL Server": 'mssql', "MySQL": 'mysql', "PostgreSQL":"postgresql", "SQLite":"sqlite"}
         self.cbDatabaseType.AppendItems(self.choices.keys())

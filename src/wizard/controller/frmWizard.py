@@ -61,7 +61,6 @@ class WizardController(wiz.Wizard):
                     for p in panels:
                         p.populate(data=pp.getInput())
             except AttributeError as e:
-                print 'Attribute Error'
                 for p in panels:
                     p.populate(data=self.metadata)
                     

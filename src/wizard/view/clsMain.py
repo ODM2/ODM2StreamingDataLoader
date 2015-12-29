@@ -38,10 +38,14 @@ class MainView(wx.Frame):
         run_bmp= blue_run.GetImage().Rescale(30, 30).ConvertToBitmap()#.getBitmap()
 
 
-        self.tb.AddLabelTool(10, 'New Data File Configuration', new_bmp)      
-        self.tb.AddLabelTool(20, 'Delete Data File Configuration', del_bmp)           
-        self.tb.AddLabelTool(30, 'Edit Data File Configuration', edit_bmp)            
-        self.tb.AddLabelTool(40, 'Run Data File Configuration', run_bmp)
+        self.tb.AddLabelTool(id=10, label="New",
+            bitmap=new_bmp, longHelp='Create a new mapping.')      
+        self.tb.AddLabelTool(id=20, label='Delete',
+            bitmap=del_bmp, longHelp='Delete selected mapping.')
+        self.tb.AddLabelTool(id=30, label='Edit',
+            bitmap=edit_bmp, longHelp='Edit selected mapping.')
+        self.tb.AddLabelTool(id=40, label='Run',
+            bitmap=run_bmp, longHelp='Run Data File Configuration.')
 
         self.tb.Bind(wx.EVT_TOOL, self.onNewButtonClick, id=10)
         self.tb.Bind(wx.EVT_TOOL, self.onDelButtonClick, id=20)

@@ -140,7 +140,6 @@ class FileConfigPanelController(FileConfigPanelView):
 
 
     def setInput(self, data={}):
-        print "Dings"
         # Populate the local or remote file text controls.
         self.inputDict.update(data)
         try:
@@ -202,5 +201,4 @@ class FileConfigPanelController(FileConfigPanelView):
                 
             self.inputDict['Database'] = searchDict(data, 'Database')
         except KeyError:
-            print "no data..."
-
+            pass
