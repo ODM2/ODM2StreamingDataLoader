@@ -1,7 +1,13 @@
 import wx
 import wx.xrc
 import wx.richtext as rt
+import wx.lib.masked as masked
 
+import wx.lib.agw.floatspin as FS
+
+from src.wizard.controller.frmDigitOnly import DigitValidator
+from src.wizard.controller.frmRequiredComboValidator \
+    import RequiredComboValidator
 ###########################################################################
 ## Class AddNewResult
 ###########################################################################
@@ -9,9 +15,9 @@ import wx.richtext as rt
 class ResultPageView ( wx.Panel ):
         
     def __init__( self, parent ):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 459,540 ), style = wx.TAB_TRAVERSAL )
+        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 450,600 ), style = wx.TAB_TRAVERSAL )
         
-        self.SetMinSize( wx.Size( 455,540 ) )
+        self.SetMinSize( wx.Size( 450,600 ) )
         
         bSizer = wx.BoxSizer( wx.VERTICAL )
         
@@ -42,7 +48,7 @@ class ResultPageView ( wx.Panel ):
         bSizerSamp.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         comboSampChoices = []
-        self.comboSamp = wx.ComboBox( sbSizerReq.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboSampChoices, 0 )
+        self.comboSamp = wx.ComboBox( sbSizerReq.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboSampChoices, validator=RequiredComboValidator() )
         self.comboSamp.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizerSamp.Add( self.comboSamp, 0, wx.ALL, 5 )
@@ -60,7 +66,7 @@ class ResultPageView ( wx.Panel ):
         bSizerAgg.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         comboAggChoices = []
-        self.comboAgg = wx.ComboBox( sbSizerReq.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboAggChoices, 0 )
+        self.comboAgg = wx.ComboBox( sbSizerReq.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboAggChoices, validator=RequiredComboValidator())
         self.comboAgg.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizerAgg.Add( self.comboAgg, 0, wx.ALL, 5 )
@@ -82,20 +88,34 @@ class ResultPageView ( wx.Panel ):
         
         bSizerResultDT.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.datePickerResult = wx.DatePickerCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.DP_DEFAULT )
-        self.datePickerResult.SetMinSize( wx.Size( 119,-1 ) )
+        self.datePickerResult = wx.DatePickerCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.DP_ALLOWNONE )
+        self.datePickerResult.SetMinSize( wx.Size( 160,-1 ) )
+        self.datePickerResult.SetValue(wx.DateTime())
         
         bSizerResultDT.Add( self.datePickerResult, 0, wx.ALL, 5 )
+       
+        self.timeResult = masked.TimeCtrl(\
+            sbSizerOpt.GetStaticBox(), wx.ID_ANY,
+            '00:00:00', wx.DefaultPosition,
+            wx.DefaultSize, wx.TE_PROCESS_TAB,
+            validator=wx.DefaultValidator,
+            name = 'time',
+            format = 'HHMMSS')
+    
+        h = self.timeResult.GetSize().height
+    
+        spinner = wx.SpinButton(\
+            sbSizerOpt.GetStaticBox(), wx.ID_ANY,
+            wx.DefaultPosition, (-1,h), wx.SP_VERTICAL)
+        spinner.SetValue(0)
+
+        self.timeResult.BindSpinButton(spinner)
+   
+        self.timeResult.SetMinSize( wx.Size( 100,-1 ) )
         
-        self.staticUTCResult = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"UTC Offset", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.staticUTCResult.Wrap( -1 )
-        bSizerResultDT.Add( self.staticUTCResult, 0, wx.ALL, 5 )
-        
-        self.spinUTCResult = wx.SpinCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-        self.spinUTCResult.SetMinSize( wx.Size( 50,-1 ) )
-        self.spinUTCResult.SetRange(-12,14)
-        
-        bSizerResultDT.Add( self.spinUTCResult, 0, wx.ALL, 5 )
+        bSizerResultDT.Add( self.timeResult, 0, wx.TOP, 5 )
+        bSizerResultDT.Add( spinner, 0, wx.TOP, 5 )
+                 
         
         
         sbSizerOpt.Add( bSizerResultDT, 1, wx.EXPAND, 5 )
@@ -109,23 +129,51 @@ class ResultPageView ( wx.Panel ):
         
         bSizerValid.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.dateValidDT = wx.DatePickerCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.DP_DEFAULT )
-        self.dateValidDT.SetMinSize( wx.Size( 119,-1 ) )
+        self.dateValidDT = wx.DatePickerCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.DP_ALLOWNONE )
+        self.dateValidDT.SetMinSize( wx.Size( 160,-1 ) )
+        self.dateValidDT.SetValue(wx.DateTime())
         
         bSizerValid.Add( self.dateValidDT, 0, wx.ALL, 5 )
         
+        self.timeValid = masked.TimeCtrl(\
+            sbSizerOpt.GetStaticBox(), wx.ID_ANY,
+            '00:00:00', wx.DefaultPosition,
+            wx.DefaultSize, wx.TE_PROCESS_TAB,
+            validator=wx.DefaultValidator,
+            name = 'time',
+            format = 'HHMMSS')
+    
+        h = self.timeValid.GetSize().height
+    
+        spinner2 = wx.SpinButton(\
+            sbSizerOpt.GetStaticBox(), wx.ID_ANY,
+            wx.DefaultPosition, (-1,h), wx.SP_VERTICAL)
+        spinner2.SetValue(0)
+
+        self.timeValid.BindSpinButton(spinner2)
+   
+        self.timeValid.SetMinSize( wx.Size( 100,-1 ) )
+        
+        bSizerValid.Add( self.timeValid, 0, wx.TOP, 5 )
+        bSizerValid.Add( spinner2, 0, wx.TOP, 5 )
+        
+        sbSizerOpt.Add( bSizerValid, 1, wx.EXPAND, 5 )
+        
+        bSizerUTC = wx.BoxSizer( wx.HORIZONTAL )
+        
         self.staticUTCValid = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"UTC Offset", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.staticUTCValid.Wrap( -1 )
-        bSizerValid.Add( self.staticUTCValid, 0, wx.ALL, 5 )
+        bSizerUTC.Add( self.staticUTCValid, 0, wx.ALL, 5 )
+        bSizerUTC.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         self.spinUTCValid = wx.SpinCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         self.spinUTCValid.SetMinSize( wx.Size( 50,-1 ) )
         self.spinUTCValid.SetRange(-12,14)
         
-        bSizerValid.Add( self.spinUTCValid, 0, wx.ALL, 5 )
+        bSizerUTC.Add( self.spinUTCValid, 0, wx.ALL, 5 )
         
         
-        sbSizerOpt.Add( bSizerValid, 1, wx.EXPAND, 5 )
+        sbSizerOpt.Add( bSizerUTC, 1, wx.EXPAND, 5 )
         
         bSizerStatus = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -138,12 +186,45 @@ class ResultPageView ( wx.Panel ):
         
         comboStatusChoices = []
         self.comboStatus = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Select Status", wx.DefaultPosition, wx.DefaultSize, comboStatusChoices, 0 )
-        self.comboStatus.SetMinSize( wx.Size( 260,-1 ) )
+        self.comboStatus.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizerStatus.Add( self.comboStatus, 0, wx.ALL, 5 )
         
         
         sbSizerOpt.Add( bSizerStatus, 1, wx.EXPAND, 5 )
+        
+        bSizerSamp = wx.BoxSizer( wx.HORIZONTAL )
+        
+        #self.staticSF = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Sampling Feature", wx.DefaultPosition, wx.DefaultSize, 0 )
+        #self.staticSF.Wrap( -1 )
+        #bSizerSamp.Add( self.staticSF, 0, wx.ALL, 5 )
+        
+        
+        #SizerSamp.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        
+        #comboSFChoices = []
+        #self.comboSF = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Select Sampling Feature", wx.DefaultPosition, wx.DefaultSize, comboSFChoices, 0 )
+        #self.comboSF.SetMinSize( wx.Size( 260,-1 ) )
+        
+        #bSizerSamp.Add( self.comboSF, 0, wx.ALL, 5 )
+        staticSR = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Spatial References", wx.DefaultPosition, wx.DefaultSize, 0 )
+        staticSR.Wrap( -1 )
+        bSizerSamp.Add( staticSR, 0, wx.ALL, 5 )
+    
+    
+        bSizerSamp.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+    
+        choicesSR = []
+        self.comboSR = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Select Spatial References", wx.DefaultPosition, wx.DefaultSize, choicesSR, style=wx.CB_READONLY)
+        self.comboSR.SetMinSize( wx.Size( 230,-1 ))
+        bSizerSamp.Add( self.comboSR, 0, wx.ALL, 5 )
+        
+        self.btnNewSR = wx.Button( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"+", wx.DefaultPosition, wx.Size( 40,27 ), 0 )
+        self.btnNewSR.SetFont( wx.Font( 15, 70, 90, 92, False, wx.EmptyString ) )
+    
+        bSizerSamp.Add( self.btnNewSR, 0, wx.ALL, 5 )
+
+        sbSizerOpt.Add( bSizerSamp, 1, wx.EXPAND, 5 )
         
         bSizerX = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -154,7 +235,9 @@ class ResultPageView ( wx.Panel ):
         
         bSizerX.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.txtX = wx.TextCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.txtX = FS.FloatSpin( sbSizerOpt.GetStaticBox(), wx.ID_ANY,wx.DefaultPosition, wx.DefaultSize, min_val=0, max_val=9999, increment=1.00, value=0.00, agwStyle=FS.FS_LEFT)
+        self.txtX.SetFormat("%f")
+        self.txtX.SetDigits(2)
         self.txtX.SetMinSize( wx.Size( 70,-1 ) )
         
         bSizerX.Add( self.txtX, 0, wx.ALL, 5 )
@@ -165,7 +248,7 @@ class ResultPageView ( wx.Panel ):
         
         comboXUnitsChoices = []
         self.comboXUnits = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboXUnitsChoices, 0 )
-        self.comboXUnits.SetMinSize( wx.Size( 115,-1 ) )
+        self.comboXUnits.SetMinSize( wx.Size( 160,-1 ) )
         
         bSizerX.Add( self.comboXUnits, 0, wx.ALL, 5 )
         
@@ -180,7 +263,9 @@ class ResultPageView ( wx.Panel ):
         
         bSizerY.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.txtY = wx.TextCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.txtY = FS.FloatSpin( sbSizerOpt.GetStaticBox(), wx.ID_ANY,wx.DefaultPosition, wx.DefaultSize, min_val=0, max_val=9999, increment=1.00, value=0.00, agwStyle=FS.FS_LEFT)
+        self.txtY.SetFormat("%f")
+        self.txtY.SetDigits(2)
         self.txtY.SetMinSize( wx.Size( 70,-1 ) )
         
         bSizerY.Add( self.txtY, 0, wx.ALL, 5 )
@@ -191,7 +276,7 @@ class ResultPageView ( wx.Panel ):
         
         comboYUnitsChoices = []
         self.comboYUnits = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboYUnitsChoices, 0 )
-        self.comboYUnits.SetMinSize( wx.Size( 115,-1 ) )
+        self.comboYUnits.SetMinSize( wx.Size( 160,-1 ) )
         
         bSizerY.Add( self.comboYUnits, 0, wx.ALL, 5 )
         
@@ -207,7 +292,9 @@ class ResultPageView ( wx.Panel ):
         
         bSizerZ.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.txtZ = wx.TextCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.txtZ = FS.FloatSpin( sbSizerOpt.GetStaticBox(), wx.ID_ANY,wx.DefaultPosition, wx.DefaultSize, min_val=0, max_val=9999, increment=1.00, value=0.00, agwStyle=FS.FS_LEFT)
+        self.txtZ.SetFormat("%f")
+        self.txtZ.SetDigits(2)
         self.txtZ.SetMinSize( wx.Size( 70,-1 ) )
         
         bSizerZ.Add( self.txtZ, 0, wx.ALL, 5 )
@@ -218,7 +305,7 @@ class ResultPageView ( wx.Panel ):
         
         comboZUnitsChoices = []
         self.comboZUnits = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboZUnitsChoices, 0 )
-        self.comboZUnits.SetMinSize( wx.Size( 115,-1 ) )
+        self.comboZUnits.SetMinSize( wx.Size( 160,-1 ) )
         
         bSizerZ.Add( self.comboZUnits, 0, wx.ALL, 5 )
         
@@ -234,7 +321,7 @@ class ResultPageView ( wx.Panel ):
         
         bSizerIntended.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.txtIntended = wx.TextCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.txtIntended = wx.SpinCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 1000, 0 )
         self.txtIntended.SetMinSize( wx.Size( 70,-1 ) )
         
         bSizerIntended.Add( self.txtIntended, 0, wx.ALL, 5 )
@@ -245,7 +332,7 @@ class ResultPageView ( wx.Panel ):
         
         comboIntendedUnitsChoices = []
         self.comboIntendedUnits = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboIntendedUnitsChoices, 0 )
-        self.comboIntendedUnits.SetMinSize( wx.Size( 115,-1 ) )
+        self.comboIntendedUnits.SetMinSize( wx.Size( 160,-1 ) )
         
         bSizerIntended.Add( self.comboIntendedUnits, 0, wx.ALL, 5 )
         

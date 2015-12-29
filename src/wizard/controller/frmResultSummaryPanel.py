@@ -1,11 +1,17 @@
 import wx
 
+from datetime import datetime
+import dateutil.parser as dparser
+
 from api.ODMconnection import dbconnection
 #TODO get rid of *
 from api.ODM2.services.readService import *
 #from src.wizard.controller.frmNewSeriesDialog import NewSeriesDialog
 #from src.wizard.controller.frmAddNewResultsPanel import AddNewResultsPanelController
 #from src.wizard.controller.frmSeriesSelectPanel import SeriesSelectPanel
+from src.wizard.controller.frmAddSpatialReference \
+    import NewSpatialReferenceController
+from src.wizard.view.clsCustomDialog import CustomDialog
 
 from src.wizard.view.clsResultPage import ResultPageView
 from api.ODM2.services.readService import *
@@ -18,7 +24,8 @@ class ResultSummaryPanel(ResultPageView):
         super(ResultSummaryPanel, self).__init__(parent)
         self.Bind(wx.EVT_SHOW, self.onShow)
         self.parent = parent
-   
+        self.btnNewSR.Bind(wx.EVT_BUTTON, self.onCreateSpatialReference)
+ 
         self.fontColor = wx.Colour(67, 79, 112)
         self.populateFields()
 
@@ -30,6 +37,11 @@ class ResultSummaryPanel(ResultPageView):
         event.Skip()
     
     def createResult(self):
+        
+        if not self.Validate():
+            self.Refresh()
+            return
+
         selections = self.parent.getSelections()
         
         samplingFeatureID = selections[0].SamplingFeatureID
@@ -52,6 +64,25 @@ class ResultSummaryPanel(ResultPageView):
         
         resultTypeCV = "Time series coverage"
 
+        statusCV = None
+        if str(self.comboStatus.GetStringSelection()) != "":
+            statusCV = str(self.comboStatus.GetStringSelection())
+
+        validUTCOffset = None
+        if self.spinUTCValid.GetValue() != 0:
+            validUTCOffset = self.spinUTCValid.GetValue()
+
+        validDT = None
+        if self.dateValidDT.GetValue().IsValid():
+            validDT = self._getTime(self.dateValidDT, self.timeValid)
+        
+        resultDT = None
+        if self.datePickerResult.GetValue().IsValid():
+            validDT = self._getTime(self.datePickerResult,
+                self.timeResult)
+        
+        # TODO -- taxonomicclass
+        
         result = \
             write.createResult(featureactionid=featureActionID,
                            variableid=variableID,
@@ -59,13 +90,87 @@ class ResultSummaryPanel(ResultPageView):
                            processinglevelid=processingLevelID,
                            valuecount=valueCount,
                            sampledmedium=sampledMedium,
-                           resulttypecv=resultTypeCV)
-            
-        write.createTimeSeriesResult(result, str(self.comboAgg.GetStringSelection()))
+                           resulttypecv=resultTypeCV,
+                           taxonomicclass=None,
+                           resultdatetime=resultDT,
+                           resultdatetimeutcoffset=validUTCOffset,
+                           validdatetime=validDT,
+                           validdatetimeutcoffset=validUTCOffset,
+                           statuscv=statusCV)
+        
+        aggStat = str(self.comboAgg.GetStringSelection())
+        
+        x = None
+        if float(self.txtX.GetValue()) != 0.0:
+            x = float(self.txtX.GetValue())
+        y = None
+        if float(self.txtY.GetValue()) != 0.0:
+            y = float(self.txtY.GetValue())
+        z = None
+        if float(self.txtZ.GetValue()) != 0.0:
+            z = float(self.txtZ.GetValue())
+        
+        print x, y, z
 
+        xUnit = None
+        if str(self.comboXUnits.GetStringSelection()) != "":
+            xUnit = str(self.comboXUnits.GetStringSelection())
+        yUnit = None
+        if str(self.comboYUnits.GetStringSelection()) != "":
+            yUnit = str(self.comboYUnits.GetStringSelection())
+        zUnit = None
+        if str(self.comboZUnits.GetStringSelection()) != "":
+            zUnit = str(self.comboZUnits.GetStringSelection())
+
+
+        keys = [y for x in [i.keys() for i in self.sp_ref] for y in x]
+        vals = [y for x in [i.values() for i in self.sp_ref] for y in x]
+        d = dict(zip(keys, vals))
+
+        sr = None
+        if str(self.comboSR.GetStringSelection()) != "":
+            sr = d[self.comboSR.GetStringSelection()]
+
+        print sr
+        
+        timeSpacing = None
+        if str(self.txtIntended.GetValue()) != "":
+            timeSpacing = float(self.txtIntended.GetValue())
+        timeUnit = None
+        if str(self.comboIntendedUnits.GetStringSelection()) != "":
+            timeUnit = str(self.comboIntendedUnits.GetStringSelection())
+
+
+        write.createTimeSeriesResult(result=result,
+            aggregationstatistic=aggStat,
+            xloc=x,
+            xloc_unitid=xUnit,
+            yloc=y,
+            yloc_unitid=yUnit,
+            zloc=z,
+            zloc_unitid=zUnit,
+            srsID=sr,
+            timespacing=timeSpacing,
+            timespacing_unitid=timeUnit)
+        
         print result
         return result
 
+
+    def _getTime(self, d, t):
+        date = d.GetValue()
+        time = t.GetValue()
+        begin = '' 
+        try:
+            begin = datetime.strptime(str(date), '%c').strftime('%Y-%m-%d')
+            begin = begin + ' ' + str(time)
+        except ValueError:
+            date = str(date)
+            date = date.replace("'PMt'", '')
+            date = date.replace("'AMt'", '')
+            begin = datetime.strptime(date, '%A, %B %d, %Y %X %p').strftime('%Y-%m-%d')
+            begin = begin + ' ' + str(time)
+        return dparser.parse(begin) 
 
     def onShow(self, event):
         if event.GetShow() is True:
@@ -108,6 +213,26 @@ class ResultSummaryPanel(ResultPageView):
         self.comboYUnits.AppendItems(timeUnitsName)
         self.comboZUnits.AppendItems(timeUnitsName)
         self.comboIntendedUnits.AppendItems(timeUnitsName)
+        
+        self.sp_ref = [{i.SRSName:i.SpatialReferenceID}\
+            for i in read.getCVSpacialReferenceTypes()]
+        self.comboSR.AppendItems(\
+            [y for x in [i.keys() for i in self.sp_ref] for y in x]
+            )
+
+    def onCreateSpatialReference(self, event):
+        dlg = CustomDialog(self, "New Spatial Reference")
+        dlg.addPanel(NewSpatialReferenceController(dlg, self.parent.database))
+        if dlg.ShowModal() == wx.ID_OK:
+            read = self.parent.database.getReadSession()
+            self.sp_ref = [{i.SRSName:i.SpatialReferenceID}\
+                for i in read.getCVSpacialReferenceTypes()]
+            self.comboSR.Clear()
+            self.comboSR.AppendItems(\
+                [y for x in [i.keys() for i in self.sp_ref] for y in x]
+                )
+        event.Skip()
+
 
     def getSamplingFeatureSummary(self, obj):
         self.txtSum.Freeze()

@@ -257,7 +257,8 @@ class DataConfigPanelController(DataConfigPanelView):
         self.timeUnits = {}
         try:
             [self.timeUnits.update({i.UnitsName:i.UnitsID}) for i in timeUnits]
-        except Exception:
+        except Exception as e:
+            print e
             wx.MessageBox("Error reading time units from database.", "Time Units Error")
 
         for unit in timeUnits:

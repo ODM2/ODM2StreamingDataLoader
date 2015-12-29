@@ -3,9 +3,7 @@ import wx
 
 class DigitValidator(wx.PyValidator):
     '''
-    This validator class is used to ensure that a file path
-    entered into a text control actually exists.
-
+        Validate a field that should be only digits
     '''
     def __init__(self):
         super(DigitValidator, self).__init__()

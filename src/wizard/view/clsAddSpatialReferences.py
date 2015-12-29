@@ -57,7 +57,7 @@ class NewSpatialReferenceView(wx.Panel):
         
         self.textDesc = wx.TextCtrl(self, wx.ID_ANY,
             wx.EmptyString,
-            wx.DefaultPosition, wx.Size(280,70), 0)
+            wx.DefaultPosition, wx.Size(280,70), wx.TE_MULTILINE)
         bSizer37.Add(self.textDesc, 1, wx.ALL, 5)
         
         
