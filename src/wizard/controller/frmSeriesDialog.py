@@ -77,7 +77,8 @@ class SeriesSelectDialog(CustomDialog):
                         i, deselectOthers=True,
                         ensureVisible=True)
         else:
-            wx.MessageBox('An error occurred while creating a new result', 'Error')
+            pass
+            #wx.MessageBox('An error occurred while creating a new result', 'Error')
         
         event.Skip()
 

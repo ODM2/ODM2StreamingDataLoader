@@ -82,7 +82,15 @@ class ResultSummaryPanel(ResultPageView):
                 self.timeResult)
         
         # TODO -- taxonomicclass
-        
+        keys = [y for x in [i.keys() for i in self.tax] for y in x]
+        vals = [y for x in [i.values() for i in self.tax] for y in x]
+        d = dict(zip(keys, vals))
+
+        tax = None
+        if str(self.comboTax.GetStringSelection()) != "":
+            tax = d[self.comboTax.GetStringSelection()]
+        print tax
+
         result = \
             write.createResult(featureactionid=featureActionID,
                            variableid=variableID,
@@ -91,7 +99,7 @@ class ResultSummaryPanel(ResultPageView):
                            valuecount=valueCount,
                            sampledmedium=sampledMedium,
                            resulttypecv=resultTypeCV,
-                           taxonomicclass=None,
+                           taxonomicclass=tax,
                            resultdatetime=resultDT,
                            resultdatetimeutcoffset=validUTCOffset,
                            validdatetime=validDT,
@@ -202,7 +210,7 @@ class ResultSummaryPanel(ResultPageView):
         [self.aggStat.update({obj.Name:obj}) \
             for obj in read.getCVAggregationStatistics()]
         self.comboAgg.AppendItems(self.aggStat.keys())
-
+        
         status = read.getCVStatus();
         statusTerms = [obj.Term for obj in status]
         self.comboStatus.AppendItems(statusTerms)
@@ -213,6 +221,12 @@ class ResultSummaryPanel(ResultPageView):
         self.comboYUnits.AppendItems(timeUnitsName)
         self.comboZUnits.AppendItems(timeUnitsName)
         self.comboIntendedUnits.AppendItems(timeUnitsName)
+        
+        self.tax = [{i.TaxonomicClassifierName:i.TaxonomicClassifierID}\
+            for i in read.getTaxonomicClassifiers()]
+        self.comboTax.AppendItems(\
+            [y for x in [i.keys() for i in self.tax] for y in x]
+            )
         
         self.sp_ref = [{i.SRSName:i.SpatialReferenceID}\
             for i in read.getCVSpacialReferenceTypes()]
