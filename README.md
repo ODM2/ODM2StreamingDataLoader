@@ -8,6 +8,8 @@ A program for streaming continuous sensor data into an instance of Version 2 of 
 
 ## Setup
 
+Streaming Data Loader is designed to run periodically and automatically as a background process. Below are setup steps for the supported platforms.
+
 ### Mac/OSX
 
 There are a couple different ways to schedule a background task. The preferred way is using [launchd](https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/ScheduledJobs.html) and the other way is with cron. If you choose to schedule the Streaming Data Loader via launchd, you must create a plist file (see https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/ScheduledJobs.html for more details.) I have provided some instructions for those who would like to schedule Streaming Data Loader with cron.
@@ -26,11 +28,20 @@ Argument 4: Month (1-12)
 Argument 5: Day of Week (0 - 6) Sunday = 0  
 Argument 6: Command  
 
+More information on cron's time formatting can be found [here](http://www.nncron.ru/help/EN/working/cron-format.htm).
+
 This is an example entry which will run the Streaming Data Loader every minute:  
 ```
 * * * * * /Applications/SDLLoader.app/Contents/MacOS/SDLLoader -c /Users/denversmith/Desktop/newb.yaml -v >/dev/null 2>&1
 ```
+Appending ```>/dev/null 2>&1``` to the end of your command will disable cron's mail alert system.
 
-### Credits
+### Windows
+
+### Linux
+
+If you are running Streaming Data Loader on Linux, you can follow the instructions for setting up a cron job under the OSX section.
+
+## Credits
 
 This work was supported by National Science Foundation Grants [EAR-1224638](http://www.nsf.gov/awardsearch/showAward?AWD_ID=1224638) and [ACI-1339834](http://www.nsf.gov/awardsearch/showAward?AWD_ID=1339834). Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation. 
