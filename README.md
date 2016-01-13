@@ -16,12 +16,14 @@ A program for streaming continuous sensor data into an instance of Version 2 of 
 crontab -e
 ```  
 This will open a special file where you can create tasks that run automatically. The syntax for the file is as follows:  
-Argument 1: Minute (0 - 59)
-Argument 2: Hour (0 - 23)
-Argument 3: Day of Month (1 - 31)
-Argument 4: Month (1-12)
-Argument 5: Day of Week (0 - 6) Sunday = 0
+
+Argument 1: Minute (0 - 59)  
+Argument 2: Hour (0 - 23)  
+Argument 3: Day of Month (1 - 31)  
+Argument 4: Month (1-12)  
+Argument 5: Day of Week (0 - 6) Sunday = 0  
 Argument 6: Command  
+
 This is an example entry which will run the Streaming Data Loader every minute:  
 ```
 * * * * * /Applications/SDLLoader.app/Contents/MacOS/SDLLoader -c /Users/denversmith/Desktop/newb.yaml -v >/dev/null 2>&1
