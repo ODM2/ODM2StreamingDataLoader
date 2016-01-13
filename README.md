@@ -6,9 +6,11 @@ A program for streaming continuous sensor data into an instance of Version 2 of 
 1. An executable data loader that reads a configuration file, performs the work of loading the data, and can be scheduled according to a user-defined schedule.
 2. A graphical user interface wizard that enables users to map a delimited datalogger text file to an ODM2 database and create a configuration file.
 
-### Setup
+## Setup
 
-## Mac/OSX
+### Mac/OSX
+
+There are a couple different ways to schedule a background task. The preferred way is using [launchd](https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/ScheduledJobs.html) and the other way is with cron. If you choose to schedule the Streaming Data Loader via launchd, you must create a plist file (see https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/ScheduledJobs.html for more details.) I have provided some instructions for those who would like to schedule Streaming Data Loader with cron.
 
 1. Download and install the latest installer package: https://github.com/ODM2/ODM2StreamingDataLoader/releases
 2. To schedule the Streaming Data Loader to run periodically, create a new cron job. Open a terminal window and enter the following command:  
