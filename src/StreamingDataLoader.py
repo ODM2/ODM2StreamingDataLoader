@@ -24,6 +24,9 @@ import os
 import glob
 
 import time
+import pyodbc
+import pymysql
+import sqlite3
 
 def _get_file(filename):
         #fn = util.resource_path('connection.config')

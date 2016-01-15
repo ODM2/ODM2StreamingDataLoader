@@ -118,7 +118,6 @@ class ResultSummaryPanel(ResultPageView):
         if float(self.txtZ.GetValue()) != 0.0:
             z = float(self.txtZ.GetValue())
         
-        print x, y, z
 
         xUnit = None
         if str(self.comboXUnits.GetStringSelection()) != "":
@@ -131,15 +130,13 @@ class ResultSummaryPanel(ResultPageView):
             zUnit = str(self.comboZUnits.GetStringSelection())
 
 
-        keys = [y for x in [i.keys() for i in self.sp_ref] for y in x]
-        vals = [y for x in [i.values() for i in self.sp_ref] for y in x]
+        keys = [yy for xx in [i.keys() for i in self.sp_ref] for yy in xx]
+        vals = [yy for xx in [i.values() for i in self.sp_ref] for yy in xx]
         d = dict(zip(keys, vals))
 
         sr = None
         if str(self.comboSR.GetStringSelection()) != "":
             sr = d[self.comboSR.GetStringSelection()]
-
-        print sr
         
         timeSpacing = None
         if str(self.txtIntended.GetValue()) != "":
@@ -148,6 +145,9 @@ class ResultSummaryPanel(ResultPageView):
         if str(self.comboIntendedUnits.GetStringSelection()) != "":
             timeUnit = str(self.comboIntendedUnits.GetStringSelection())
 
+        print "X", x
+        print "Y", y
+        print "Z", z
 
         write.createTimeSeriesResult(result=result,
             aggregationstatistic=aggStat,

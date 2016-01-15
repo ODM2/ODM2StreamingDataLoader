@@ -255,7 +255,7 @@ class ResultPageView ( wx.Panel ):
         
         self.txtX = FS.FloatSpin( sbSizerOpt.GetStaticBox(), wx.ID_ANY,wx.DefaultPosition, wx.DefaultSize, min_val=0, max_val=9999, increment=1.00, value=0.00, agwStyle=FS.FS_LEFT)
         self.txtX.SetFormat("%f")
-        self.txtX.SetDigits(2)
+        self.txtX.SetDigits(3)
         self.txtX.SetMinSize( wx.Size( 70,-1 ) )
         
         bSizerX.Add( self.txtX, 0, wx.ALL, 5 )
@@ -283,7 +283,7 @@ class ResultPageView ( wx.Panel ):
         
         self.txtY = FS.FloatSpin( sbSizerOpt.GetStaticBox(), wx.ID_ANY,wx.DefaultPosition, wx.DefaultSize, min_val=0, max_val=9999, increment=1.00, value=0.00, agwStyle=FS.FS_LEFT)
         self.txtY.SetFormat("%f")
-        self.txtY.SetDigits(2)
+        self.txtY.SetDigits(3)
         self.txtY.SetMinSize( wx.Size( 70,-1 ) )
         
         bSizerY.Add( self.txtY, 0, wx.ALL, 5 )
@@ -312,7 +312,7 @@ class ResultPageView ( wx.Panel ):
         
         self.txtZ = FS.FloatSpin( sbSizerOpt.GetStaticBox(), wx.ID_ANY,wx.DefaultPosition, wx.DefaultSize, min_val=0, max_val=9999, increment=1.00, value=0.00, agwStyle=FS.FS_LEFT)
         self.txtZ.SetFormat("%f")
-        self.txtZ.SetDigits(2)
+        self.txtZ.SetDigits(3)
         self.txtZ.SetMinSize( wx.Size( 70,-1 ) )
         
         bSizerZ.Add( self.txtZ, 0, wx.ALL, 5 )
