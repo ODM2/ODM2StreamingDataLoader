@@ -22,7 +22,7 @@ from src.wizard.controller.frmActionsSelectPanel \
 from src.wizard.controller.frmResultSummaryPanel \
     import ResultSummaryPanel
 
-from api.ODM2.services.readService \
+from odm2api.ODM2.services.readService \
     import DetailedResult
 
 from src.wizard.models.ResultMapping import ResultMapping

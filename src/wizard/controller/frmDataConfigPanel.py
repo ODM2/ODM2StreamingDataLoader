@@ -11,7 +11,7 @@ from src.wizard.controller.frmSeriesWizard import SeriesWizardController
 from src.wizard.controller.frmVirtualGrid import GridBase
 from src.wizard.controller.frmSeriesDialog import SeriesSelectDialog
 from src.wizard.models.ResultMapping import ResultMapping
-from api.ODM2.services.readService import ReadODM2
+from odm2api.ODM2.services.readService import ReadODM2
 
 class DataConfigPanelController(DataConfigPanelView):
     def __init__(self, daddy, **kwargs):

@@ -3,9 +3,9 @@ import wx
 import uuid
 # TODO 
 # Clean these up.
-from api.ODM2.services.createService import *
-from api.ODM2.services.readService import *
-from api.ODMconnection import dbconnection
+from odm2api.ODM2.services.createService import *
+from odm2api.ODM2.services.readService import *
+from odm2api.ODMconnection import dbconnection
 
 from src.wizard.view.clsAddNewSampFeatPanel import AddNewSampFeatPanelView
 #from src.wizard.view.clsAddSpatialReferences import NewSpatialReferenceView

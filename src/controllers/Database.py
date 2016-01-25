@@ -8,8 +8,8 @@ import logging
 
 # sys.path.append('/home/denver/Documents/ODM2PythonAPI')
 
-from api.ODMconnection import dbconnection
-from api.ODM2.services import *
+from odm2api.ODMconnection import dbconnection
+from odm2api.ODM2.services import *
 
 
 

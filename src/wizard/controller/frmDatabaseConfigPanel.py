@@ -3,7 +3,7 @@ from sqlalchemy.exc import DBAPIError
 from collections import namedtuple
 
 from src.wizard.view.clsDBConfig import clsDBConfiguration
-from api.ODMconnection import dbconnection
+from odm2api.ODMconnection import dbconnection
 from src.common.functions import searchDict
 
 from src.wizard.controller.frmChainedDialogPage import ChainedDialogPage

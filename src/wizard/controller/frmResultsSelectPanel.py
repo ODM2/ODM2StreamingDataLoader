@@ -1,8 +1,8 @@
 import wx
 
-from api.ODMconnection import dbconnection
+from odm2api.ODMconnection import dbconnection
 #TODO get rid of *
-from api.ODM2.services.readService import *
+from odm2api.ODM2.services.readService import *
 from src.wizard.controller.frmNewSeriesDialog import NewSeriesDialog
 from src.wizard.controller.frmAddNewResultsPanel import AddNewResultsPanelController
 from src.wizard.controller.frmSeriesSelectPanel import SeriesSelectPanel

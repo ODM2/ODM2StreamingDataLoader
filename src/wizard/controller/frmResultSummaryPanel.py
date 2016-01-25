@@ -3,9 +3,9 @@ import wx
 from datetime import datetime
 import dateutil.parser as dparser
 
-from api.ODMconnection import dbconnection
+from odm2api.ODMconnection import dbconnection
 #TODO get rid of *
-from api.ODM2.services.readService import *
+from odm2api.ODM2.services.readService import *
 #from src.wizard.controller.frmNewSeriesDialog import NewSeriesDialog
 #from src.wizard.controller.frmAddNewResultsPanel import AddNewResultsPanelController
 #from src.wizard.controller.frmSeriesSelectPanel import SeriesSelectPanel
@@ -14,8 +14,8 @@ from src.wizard.controller.frmAddSpatialReference \
 from src.wizard.view.clsCustomDialog import CustomDialog
 
 from src.wizard.view.clsResultPage import ResultPageView
-from api.ODM2.services.readService import *
-from api.ODM2.services.createService import *
+from odm2api.ODM2.services.readService import *
+from odm2api.ODM2.services.createService import *
 
 from ObjectListView import ObjectListView, ColumnDefn
 

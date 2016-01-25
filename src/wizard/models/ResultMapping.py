@@ -1,4 +1,4 @@
-from api.ODM2.services.readService \
+from odm2api.ODM2.services.readService \
     import DetailedResult
 
 class ResultMapping(DetailedResult):
