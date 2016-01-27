@@ -48,6 +48,8 @@ def main(arguments):
         logger.setLevel(logging.INFO)
 
     # Set up logger to log to a file.
+    if not os.path.exists(LOG_FILENAME):
+        os.makedirs(LOG_FILENAME.strip('logfile.txt'))
     handler = logging.FileHandler(LOG_FILENAME)
 
     # Set up the formatting of the log strings.
@@ -107,10 +109,10 @@ def main(arguments):
                             logger.debug('Writing %s...' % table[0])
                             # If able to save table to database...
                             if dataMapModel.save(table[1]):
-                                print "COLUMNS"
-                                print table[1].columns
-                                print "VDT"
-                                print type(table[1]['ValueDateTime'])
+                                #print "COLUMNS"
+                                #print table[1].columns
+                                #print "VDT"
+                                #print type(table[1]['ValueDateTime'])
                                 # Update the latest date time for the table.
                                 dataMapModel.updateDateTime(table[1]['ResultID'][0],
                                     np.max(table[1]['ValueDateTime'])) 

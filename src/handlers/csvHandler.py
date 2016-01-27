@@ -79,13 +79,14 @@ class CSVReader():
                 data = response.read()
                 #filepath = StringIO(data)
 
-                temp = tempfile.NamedTemporaryFile()
+                temp = tempfile.NamedTemporaryFile(mode='w', delete=False)
+                tempName = temp.name
                 try:
                     temp.write(data)
                     temp.seek(0)
                 finally:
                     #print temp.name
-                    df = self.byteReader(temp.name, start_byte, datecol, header, sep, dataBegin)
+                    df = self.byteReader(tempName, start_byte, datecol, header, sep, dataBegin)
                     temp.close()
                     return df
                 #return self.byteReader(filepath, start_byte, datecol, header, sep, dataBegin)
