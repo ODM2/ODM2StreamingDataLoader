@@ -495,9 +495,9 @@
 						<key>IFPkgDescriptionDescription</key>
 						<string></string>
 						<key>IFPkgDescriptionTitle</key>
-						<string>StreamingDataLoader_v0.1</string>
+						<string>StreamingDataLoader_v0.4</string>
 						<key>IFPkgDescriptionVersion</key>
-						<string>0.1 Beta</string>
+						<string>0.4 Beta</string>
 					</dict>
 				</dict>
 				<key>Display Information</key>
@@ -548,7 +548,7 @@
 		<key>IFPkgFlagPackageSelection</key>
 		<integer>0</integer>
 		<key>Name</key>
-		<string>StreamingDataLoader_v0.1-beta_Mac_installer</string>
+		<string>StreamingDataLoader_v0.4-beta_Mac_installer</string>
 		<key>Status</key>
 		<integer>1</integer>
 		<key>Type</key>

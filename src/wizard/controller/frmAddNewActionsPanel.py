@@ -75,7 +75,7 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
             self.methods = [{i.MethodName:i.MethodID}\
                 for i in [newMethod]]
             self.m_comboBox134.AppendItems([y for x in [i.keys() for i in self.methods] for y in x])
-            self.m_comboBox134.SetValue(newMethod.MethodName)
+            #self.m_comboBox134.SetValue(newMethod.MethodName)
         dlg.Destroy()
         event.Skip()
 
