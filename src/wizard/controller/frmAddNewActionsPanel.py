@@ -35,6 +35,7 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         self.m_comboBox13.Bind(wx.EVT_COMBOBOX, self.onActionTypeSelect)
         self.m_b.Bind(wx.EVT_BUTTON, self.onNewAffiliation)
         self.btnNewMethod.Bind(wx.EVT_BUTTON, self.onNewMethod)
+        self.btnNewMethod.Enable(False)
         #self.affList.Bind(wx.EVT_LEFT_DOWN, self.onAffListClick)    
         #self.affList.Bind(wx.EVT_LIST_INSERT_ITEM, self.onAffInsert)    
         #self.affList.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onAffSelect)    
@@ -54,7 +55,9 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
     def onActionTypeSelect(self, event):
         # self.sp_ref = [{i.SRSName:i.SpatialReferenceID}\
         #       for i in read.getCVSpacialReferenceTypes()]
+        self.btnNewMethod.Enable(True)
         self.m_comboBox134.Clear()
+        self.m_comboBox134.SetValue("Select Method")
         self.methods = [{i.MethodName:i.MethodID}\
             for i in self.read.getMethodsByType(event.GetString())]
         self.m_comboBox134.SetItems(\
@@ -66,11 +69,13 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         dlg = CustomDialog(self, u'Create New Method')
         newMethodPanel = AddNewMethodPanelController(dlg, self.db)
         dlg.addPanel(newMethodPanel)
+        newMethodPanel.setTypeFilter(str(self.m_comboBox13.GetStringSelection()))
         if dlg.ShowModal() == wx.ID_OK:
             newMethod = newMethodPanel.method
             self.methods = [{i.MethodName:i.MethodID}\
                 for i in [newMethod]]
             self.m_comboBox134.AppendItems([y for x in [i.keys() for i in self.methods] for y in x])
+            self.m_comboBox134.SetValue(newMethod.MethodName)
         dlg.Destroy()
         event.Skip()
 

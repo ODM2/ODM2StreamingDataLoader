@@ -11,12 +11,15 @@ class AddNewMethodPanelController(AddNewMethodPanelView):
         self.db = db
 
         self.populateFields()
+    
+    def setTypeFilter(self, t):
+        self.m_comboBox14.AppendItems([t])
 
     def populateFields(self):
         read = self.db.getReadSession()
 
-        methodTypes = [i.Name for i in read.getCVMethodTypes()]
-        self.m_comboBox14.AppendItems(methodTypes)
+        #methodTypes = [i.Name for i in read.getCVMethodTypes()]
+        #self.m_comboBox14.AppendItems(methodTypes)
 
         self.orgs = [{i.OrganizationName: i.OrganizationID}\
             for i in read.getOrganizations()]
