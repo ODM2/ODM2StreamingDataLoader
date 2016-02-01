@@ -15,6 +15,10 @@ from src.wizard.controller.frmOrganizationPanel import OrganizationPanel
 from src.wizard.controller.frmAffiliationPanel import AffiliationPanel
 from src.wizard.controller.AffiliationWizard \
     import AffiliationWizard
+from src.wizard.view.clsCustomDialog \
+    import CustomDialog
+from src.wizard.controller.frmAddNewMethodPanel \
+    import AddNewMethodPanelController
 
 class Test:
     def __init__(self, name, org):
@@ -30,6 +34,7 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         
         self.m_comboBox13.Bind(wx.EVT_COMBOBOX, self.onActionTypeSelect)
         self.m_b.Bind(wx.EVT_BUTTON, self.onNewAffiliation)
+        self.btnNewMethod.Bind(wx.EVT_BUTTON, self.onNewMethod)
         #self.affList.Bind(wx.EVT_LEFT_DOWN, self.onAffListClick)    
         #self.affList.Bind(wx.EVT_LIST_INSERT_ITEM, self.onAffInsert)    
         #self.affList.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onAffSelect)    
@@ -55,7 +60,19 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
             [y for x in [i.keys() for i in self.methods] for y in x]
             )
         #self.m_comboBox134.SetItems(methodTypes)
-       
+    
+    def onNewMethod(self, event):
+        dlg = CustomDialog(self, u'Create New Method')
+        newMethodPanel = AddNewMethodPanelController(dlg, self.db)
+        dlg.addPanel(newMethodPanel)
+        if dlg.ShowModal() == wx.ID_OK:
+            self.methods = [{i.MethodName:i.MethodID}\
+                for i in self.read.getMethods()]
+            self.m_comboBox134.AppendItems([y for x in [i.keys() for i in self.methods] for y in x])
+
+        dlg.Destroy()
+        event.Skip()
+
     def onNewAffiliation(self, event):
         wiz = AffiliationWizard(self,
             database=self.db,

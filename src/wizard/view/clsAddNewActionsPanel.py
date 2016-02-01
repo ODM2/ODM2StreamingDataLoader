@@ -67,6 +67,9 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         bSizer354.Add( self.m_comboBox134, 0, wx.ALL, 5 )
         
+        self.btnNewMethod = wx.Button(sbSizer22.GetStaticBox(), wx.ID_ANY, u"+", wx.DefaultPosition, wx.Size(40,27), 0)
+        self.btnNewMethod.SetFont(wx.Font(15,70,90,92,False,wx.EmptyString))
+        bSizer354.Add(self.btnNewMethod, 0, wx.ALL, 5)
         
         sbSizer22.Add( bSizer354, 0, wx.EXPAND, 5 )
         

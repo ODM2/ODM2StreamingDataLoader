@@ -61,6 +61,7 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
                 )
         event.Skip()
         
+
     def onOK(self, event):
         # Event handler for when the user clicks OK.
         
