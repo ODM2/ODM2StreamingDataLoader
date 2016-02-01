@@ -63,7 +63,7 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         m_comboBox134Choices = []
         self.m_comboBox134 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Method", wx.DefaultPosition, wx.DefaultSize, m_comboBox134Choices, validator=RequiredComboValidator() )
-        self.m_comboBox134.SetMinSize( wx.Size( 280,-1 ) )
+        self.m_comboBox134.SetMinSize( wx.Size( 230,-1 ) )
         
         bSizer354.Add( self.m_comboBox134, 0, wx.ALL, 5 )
         

@@ -54,6 +54,7 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
     def onActionTypeSelect(self, event):
         # self.sp_ref = [{i.SRSName:i.SpatialReferenceID}\
         #       for i in read.getCVSpacialReferenceTypes()]
+        self.m_comboBox134.Clear()
         self.methods = [{i.MethodName:i.MethodID}\
             for i in self.read.getMethodsByType(event.GetString())]
         self.m_comboBox134.SetItems(\
@@ -66,10 +67,10 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         newMethodPanel = AddNewMethodPanelController(dlg, self.db)
         dlg.addPanel(newMethodPanel)
         if dlg.ShowModal() == wx.ID_OK:
+            newMethod = newMethodPanel.method
             self.methods = [{i.MethodName:i.MethodID}\
-                for i in self.read.getMethods()]
+                for i in [newMethod]]
             self.m_comboBox134.AppendItems([y for x in [i.keys() for i in self.methods] for y in x])
-
         dlg.Destroy()
         event.Skip()
 
