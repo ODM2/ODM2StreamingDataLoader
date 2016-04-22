@@ -294,8 +294,14 @@ class MainController(MainView):
 
 
     def onRunButtonClick(self, event):
+        os.chdir('../../../..')
+        dir = os.getcwd();
+        os.chdir('tests/test_handlers/test_csvHandler/csvFiles')
+        a = dir + '\src\StreamingDataLoader.py'
+        b = dir + '\\tests\\test_handlers\\test_yamlHandler\yamlFiles'
+        c = 'python ' + a + ' -c ' + b
+        os.system(c)
         pass
-
 
 if __name__ == '__main__':
     app = wx.App()
