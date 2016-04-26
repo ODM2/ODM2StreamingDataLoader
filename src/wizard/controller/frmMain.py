@@ -297,10 +297,8 @@ class MainController(MainView):
         os.chdir('../../../..')
         dir = os.getcwd();
         os.chdir('tests/test_handlers/test_csvHandler/csvFiles')
-        a = dir + '\src\StreamingDataLoader.py'
-        b = dir + '\\tests\\test_handlers\\test_yamlHandler\yamlFiles'
-        c = 'python ' + a + ' -c ' + b
-        os.system(c)
+        os.system('python ' + dir + '\src\StreamingDataLoader.py' + ' -c ' + dir +
+                  '\\tests\\test_handlers\\test_yamlHandler\yamlFiles')
         pass
 
 if __name__ == '__main__':
