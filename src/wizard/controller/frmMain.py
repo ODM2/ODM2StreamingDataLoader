@@ -292,7 +292,6 @@ class MainController(MainView):
             if text[-1] != "*":
                 self.SetStatusText(text + "*", 0)
 
-
     def onRunButtonClick(self, event):
         os.chdir('../../../..')
         dir = os.getcwd();

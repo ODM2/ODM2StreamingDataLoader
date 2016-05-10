@@ -29,6 +29,8 @@ class MappingListPanelView(wx.Panel):
         # Make fgSizer the one for this panel.
         self.SetSizer(fgSizer)
         self.Layout()
+
+
         
         self.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onSelect,
             self.listCtrl)
@@ -37,10 +39,33 @@ class MappingListPanelView(wx.Panel):
         self.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onDeselect,
             self.listCtrl)
 
+        savebutton = wx.Button(self, id=wx.ID_SAVE, pos=wx.DefaultPosition)
+        savebutton.Bind(wx.EVT_BUTTON, self.onSaveButton)
+
+        exitbutton = wx.Button(self, id=wx.ID_EXIT, pos=wx.DefaultPosition)
+        exitbutton.Bind(wx.EVT_BUTTON, self.onExitButton)
+        btSizer = wx.BoxSizer(wx.HORIZONTAL)
+        btSizer.AddSpacer((0,10),0, wx.EXPAND)
+        btSizer.Add(savebutton, 0, wx.ALL | wx.ALIGN_RIGHT, 2)
+        btSizer.Add(exitbutton, 0, wx.ALL | wx.ALIGN_RIGHT, 2)
+        fgSizer.Add(btSizer, 0, wx.ALL | wx.ALIGN_RIGHT, 0)
+
+    def onSaveButton(self, event):
+        #working on functionality
+        pass
+
+    def onExitButton(self, event):
+        #working on functionality
+        pass
+
     def onSelect(self, event):
         event.Skip()
+
     def onDeselect(self, event):
         event.Skip()
+
     def onDoubleClick(self, event):
         event.Skip()
+
+
 
