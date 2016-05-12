@@ -49,15 +49,15 @@ class MappingListPanelView(wx.Panel):
         btSizer.Add(savebutton, 0, wx.ALL | wx.ALIGN_RIGHT, 2)
         btSizer.Add(exitbutton, 0, wx.ALL | wx.ALIGN_RIGHT, 2)
         fgSizer.Add(btSizer, 0, wx.ALL | wx.ALIGN_RIGHT, 0)
-    #
-    # def onSaveButton(self, event):
-    #     pass
-    #
-    # def onExitButton(self, event):
-    #     #working on functionality
-    #     self.parent.checkForSavedChanges()
-    #     self.parent.Close()
-    #     #pass
+
+    def onSaveButton(self, event):
+        pass
+
+    def onExitButton(self, event):
+        #working on functionality
+        self.parent.checkForSavedChanges()
+        self.parent.Close()
+        #pass
 
     def onSelect(self, event):
         event.Skip()
