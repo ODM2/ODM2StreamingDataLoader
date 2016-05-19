@@ -292,10 +292,13 @@ class MainController(MainView):
             if text[-1] != "*":
                 self.SetStatusText(text + "*", 0)
 
-
     def onRunButtonClick(self, event):
+        os.chdir('../../../..')
+        dir = os.getcwd();
+        os.chdir('tests/test_handlers/test_csvHandler/csvFiles')
+        os.system('python ' + dir + '\src\StreamingDataLoader.py' + ' -c ' + dir +
+                  '\\tests\\test_handlers\\test_yamlHandler\yamlFiles')
         pass
-
 
 if __name__ == '__main__':
     app = wx.App()

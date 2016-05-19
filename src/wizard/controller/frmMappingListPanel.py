@@ -63,6 +63,7 @@ class MappingListPanel(MappingListPanelView):
     def onSelect(self, event):
         self.parent.tb.EnableTool(20, True)
         self.parent.tb.EnableTool(30, True)
+        self.parent.tb.EnableTool(40, True)
         event.Skip()
 
     def onDeselect(self, event):
