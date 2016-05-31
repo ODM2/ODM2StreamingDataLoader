@@ -46,7 +46,7 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
     def populateFields(self):
         #read = self.db.getReadSession()
 
-        actionTypes = [i.Name for i in self.read.getCVActionTypes()]
+        actionTypes = [i.Name for i in self.read.getCVs(type = "actiontype")]
         self.m_comboBox13.AppendItems(actionTypes)
 
         #self.affList.SetObjects(self.read.getDetailedAffiliationInfo())
@@ -59,7 +59,7 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         self.m_comboBox134.Clear()
         self.m_comboBox134.SetValue("Select Method")
         self.methods = [{i.MethodName:i.MethodID}\
-            for i in self.read.getMethodsByType(event.GetString())]
+            for i in self.read.getMethods(type=event.GetString())]
         self.m_comboBox134.SetItems(\
             [y for x in [i.keys() for i in self.methods] for y in x]
             )

@@ -252,7 +252,7 @@ class DataConfigPanelController(DataConfigPanelView):
         """
         self.choiceUnitID.Clear()
 
-        timeUnits = read.getUnitsByTypeCV('Time')
+        timeUnits = read.getUnits(type='Time')
         self.timeUnits = {}
         try:
             [self.timeUnits.update({i.UnitsName:i.UnitsID}) for i in timeUnits]
