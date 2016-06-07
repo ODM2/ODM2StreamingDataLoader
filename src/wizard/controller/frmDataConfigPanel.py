@@ -265,7 +265,8 @@ class DataConfigPanelController(DataConfigPanelView):
         try:
             unitID = searchDict(self.inputDict['Mappings'],
                 'IntendedTimeSpacingUnitID')
-            unit = read.getUnitById(int(unitID))
+            #unit = read.getUnitById(int(unitID))
+            unit = read.getUnits(int(unitID))
             i = self.choiceUnitID.FindString(unit.UnitsName)
             self.choiceUnitID.SetSelection(i)
         except KeyError:
