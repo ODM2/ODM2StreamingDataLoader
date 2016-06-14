@@ -202,20 +202,25 @@ class ResultSummaryPanel(ResultPageView):
 
         self.mediums = {} #read.getCVMediumTypes()
         [self.mediums.update({obj.Name:obj}) \
-            for obj in read.getCVMediumTypes()]
+            #for obj in read.getCVMediumTypes()]
+            for obj in read.getCVs(type="Medium")]
 
         self.comboSamp.AppendItems(self.mediums.keys())
 
         self.aggStat = {} #read.getCVAggregationStatistics()
         [self.aggStat.update({obj.Name:obj}) \
-            for obj in read.getCVAggregationStatistics()]
+         #   for obj in read.getCVAggregationStatistics()]
+            for obj in read.getCVs(type="aggregationstatistic")]
         self.comboAgg.AppendItems(self.aggStat.keys())
         
-        status = read.getCVStatus();
+        #status = read.getCVStatus();
+        status = read.getCVs(type="Status")
         statusTerms = [obj.Term for obj in status]
         self.comboStatus.AppendItems(statusTerms)
 
-        timeUnits = read.getUnitsByTypeCV("length")
+        #timeUnits = read.getUnitsByTypeCV("length")
+        timeUnits = read.getUnits(type="length")
+
         timeUnitsName = [obj.UnitsName for obj in timeUnits]
         self.comboXUnits.AppendItems(timeUnitsName)
         self.comboYUnits.AppendItems(timeUnitsName)
@@ -229,7 +234,8 @@ class ResultSummaryPanel(ResultPageView):
             )
         
         self.sp_ref = [{i.SRSName:i.SpatialReferenceID}\
-            for i in read.getCVSpacialReferenceTypes()]
+            #for i in read.getCVSpacialReferenceTypes()]
+            for i in read.getSpatialReferences()]
         self.comboSR.AppendItems(\
             [y for x in [i.keys() for i in self.sp_ref] for y in x]
             )
@@ -240,7 +246,8 @@ class ResultSummaryPanel(ResultPageView):
         if dlg.ShowModal() == wx.ID_OK:
             read = self.parent.database.getReadSession()
             self.sp_ref = [{i.SRSName:i.SpatialReferenceID}\
-                for i in read.getCVSpacialReferenceTypes()]
+                #for i in read.getCVSpacialReferenceTypes()]
+                for i in read.getSpatialReferences()]
             self.comboSR.Clear()
             self.comboSR.AppendItems(\
                 [y for x in [i.keys() for i in self.sp_ref] for y in x]
