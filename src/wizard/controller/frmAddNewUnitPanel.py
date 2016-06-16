@@ -15,7 +15,8 @@ class AddNewUnitPanelController(AddNewUnitPanelView):
     def populateFields(self):
        read = self.db.getReadSession()
 
-       units = [i.Name for i in read.getCVUnitsTypes()]
+       # units = [i.Name for i in read.getCVUnitsTypes()]
+       units = [i.Name for i in read.getCVs(type="Units Type")]
        self.m_comboBox13.AppendItems(units)
 
     def onOK(self, event):

@@ -33,11 +33,13 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
         #cv_names = [i.Name for i in read.getCVSamplingFeatureTypes()]
         self.m_textCtrl30.SetValue('Site')
         
-        self.sites = [i.Name for i in read.getCVSiteTypes()]
+        # self.sites = [i.Name for i in read.getCVSiteTypes()]
+        self.sites = [i.Name for i in read.getCVs(type='Site Type')]
         self.m_comboBox8.AppendItems(self.sites)
         
         self.sp_ref = [{i.SRSName:i.SpatialReferenceID}\
-            for i in read.getCVSpacialReferenceTypes()]
+            # for i in read.getCVSpacialReferenceTypes()]
+            for i in read.getSpatialReferences()]
         self.m_comboBox822.AppendItems(\
             [y for x in [i.keys() for i in self.sp_ref] for y in x]
             )
@@ -45,7 +47,8 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
         #geo = [i.Name for i in read.getCVSamplingFeatureGeoTypes()]
         self.m_geotypeTxt.SetValue('Point')
         
-        self.datum = [i.Name for i in read.getCVElevationDatums()]
+        # self.datum = [i.Name for i in read.getCVElevationDatums()]
+        self.datum = [i.Name for i in read.getCVs(type="Elevation Datum")]
         self.m_comboBox8211.AppendItems(self.datum)
 
     def onCreateSpatialReference(self, event):
@@ -54,7 +57,8 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
         if dlg.ShowModal() == wx.ID_OK:
             read = self.db.getReadSession()
             self.sp_ref = [{i.SRSName:i.SpatialReferenceID}\
-                for i in read.getCVSpacialReferenceTypes()]
+                # for i in read.getCVSpacialReferenceTypes()]
+                for i in read.getSpatialReferences()]
             self.m_comboBox822.Clear()
             self.m_comboBox822.AppendItems(\
                 [y for x in [i.keys() for i in self.sp_ref] for y in x]

@@ -1,56 +1,72 @@
 ## Configuration file
-## Last modified: 2016-04-22 17:7
+## Last modified: 2016-06-16 14:44
 ---
 1:
   Database:
-    Address: arroyo.uwrl.usu.edu
-    DatabaseName: lbrodm2
+    Address: localhost
+    DatabaseName: odm2
     Engine: mysql
     Password: odm
     UserName: ODM
   Mappings:
     AirTemperature-C:
       CalculateAggInterval: true
+      IntendedTimeSpacing: 0
+      IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
       ResultID: 1
     NetRadiation-Watts/m2:
       CalculateAggInterval: true
+      IntendedTimeSpacing: 0
+      IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
       ResultID: 2
     Precipitation-mm:
       CalculateAggInterval: true
+      IntendedTimeSpacing: 0
+      IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
       ResultID: 3
     RelativeHumidity-%:
       CalculateAggInterval: true
+      IntendedTimeSpacing: 0
+      IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
       ResultID: 4
     SnowDepth-cm:
       CalculateAggInterval: true
+      IntendedTimeSpacing: 0
+      IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
       ResultID: 5
     SolarRadiation-Watts/m2:
       CalculateAggInterval: true
+      IntendedTimeSpacing: 0
+      IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
       ResultID: 6
     WindDirection-Degree:
       CalculateAggInterval: true
+      IntendedTimeSpacing: 0
+      IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
       ResultID: 7
     WindSpeed-m/s:
       CalculateAggInterval: true
+      IntendedTimeSpacing: 0
+      IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
       ResultID: 9
   Schedule:
-    Beginning: 6/4/2014 11:00:00 AM
+    Beginning: 06/04/2014 11:00:00 AM
     Frequency: Minute
     LastUpdate: '2016-04-22 17:07:04'
     Time: 1
@@ -58,8 +74,8 @@
     DataRowPosition: 21
     DateTimeColumnName: DateTime
     Delimiter: ','
-    FileLocation: C:/Sites/ODM2StreamingDataLoader/tests/test_handlers/test_csvHandler/csvFiles/Treeline_HrlySummary_2014.csv
+    FileLocation: /Users/stephanie/DEV/StreamingDataLoader/tests/test_handlers/test_csvHandler/csvFiles/Treeline_HrlySummary_2014.csv
     FileLocationType: Local
-    FillGaps: false
+    FillGaps: 'false'
     HeaderRowPosition: 20
     UTCOffset: -7

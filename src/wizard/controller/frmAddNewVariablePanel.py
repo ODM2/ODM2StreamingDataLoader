@@ -17,13 +17,17 @@ class AddNewVariablePanelController(AddNewVariablePanelView):
         '''
         read = self.db.getReadSession()
 
-        names = [i.Name for i in read.getCVVariableNames()]
+        # names = [i.Name for i in read.getCVVariableNames()]
+        names = [i.Name for i in read.getCVs(type="Variable Name")]
         self.m_comboBox4.AppendItems(names)
+
         
-        types = [i.Name for i in read.getCVVariableTypes()]
+        # types = [i.Name for i in read.getCVVariableTypes()]
+        types = [i.Name for i in read.getCVs(type="Variable Types")]
         self.m_comboBox12.AppendItems(types)
         
-        speciations = [i.Name for i in read.getCVSpeciations()]
+        # speciations = [i.Name for i in read.getCVSpeciations()]
+        speciations = [i.Name for i in read.getCVs(type="Speciation")]
         self.m_comboBox2.AppendItems(speciations)
 
     def onOK(self, event):

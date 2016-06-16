@@ -36,7 +36,7 @@ class AffiliationDialog(CustomDialog):
         else:
             self.view.m_comboBox131.AppendItems(self.org.keys())
         
-        orgTypes = [org.Name for org in read.getCVOrganizationTypes()]
+        orgTypes = [org.Name for org in read.getCVs(type="Organization Type")]
         self.view.orgTypeCombo.AppendItems(orgTypes)
 
         self.view.comboParent.AppendItems(self.org.keys())

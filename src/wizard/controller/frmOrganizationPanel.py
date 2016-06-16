@@ -30,7 +30,8 @@ class OrganizationPanel(OrganizationPanelView):
         else:
             self.m_comboBox131.AppendItems(self.org.keys())
     
-        orgTypes = [org.Name for org in read.getCVOrganizationTypes()]
+        # orgTypes = [org.Name for org in read.getCVOrganizationTypes()]
+        orgTypes = [org.Name for org in read.getCVs(type="Organization Type")]
         self.orgTypeCombo.AppendItems(orgTypes)
 
         self.comboParent.AppendItems(self.org.keys())
