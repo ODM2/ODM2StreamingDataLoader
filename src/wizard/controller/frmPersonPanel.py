@@ -31,9 +31,9 @@ class PersonPanel(PersonPanelView):
             first = str(self.textFirst.GetValue())
             last = str(self.textLast.GetValue())
             middle = str(self.textMiddle.GetValue())
-
-            person = write.createPerson(firstName=first,
-                lastName=last, middleName=middle)
+            person = write.People(PersonFirstName=first,
+                PersonLastName=last, PersonMiddleName=middle)
+            person = write.createPerson(person)
 
             self.personID = person.PersonID
             self.personName = first + " " + middle + " " + last

@@ -107,8 +107,7 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
             self.getFieldValues() 
             try:
                 write = self.db.getWriteSession()
-                action = write.createAction(\
-                    type=self.actionType,
+                action= write.Action(type=self.actionType,
                     methodid=self.methodID,
                     begindatetime=self.beginDT,
                     begindatetimeoffset=self.beginDTUTC,
@@ -116,14 +115,16 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
                     enddatetimeoffset=self.endDTUTC,
                     description=self.actionDesc,
                     filelink=self.actionLink)
+                action = write.create(action)
 
                 self.actionID = action.ActionID
                 
                 for affID in self.affiliationList:
-                    write.createActionBy(\
+                    actionby=write.ActionBy(\
                         actionid=self.actionID,
                         affiliationid=affID,
                         isactionlead=(affID == self.actionLead))
+                    write.create(actionby)
                 
             except Exception as e:
                 print e

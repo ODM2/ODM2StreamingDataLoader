@@ -80,25 +80,26 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
             try:
                 # Create the variable in the database.
                 write = self.db.getWriteSession()
-                sf = write.createSamplingFeature(\
-                    uuid=str(self._uuid),
-                    code=self.requiredValues['code'],
-                    vType=self.requiredValues['vType'],
-                    name=self.optionalValues['name'],
-                    description=self.optionalValues['desc'],
-                    geoType=self.optionalValues['geoType'],
-                    elevation=self.optionalValues['elevation'],
-                    elevationDatum=self.optionalValues['elevationDatum'],
-                    featureGeo=self.optionalValues['featureGeo'])
-                
-                site = write.createSite(\
-                    sfId=sf.SamplingFeatureID,
-                    spatialRefId=self.requiredValues['spatialRef'],
-                    vType=self.requiredValues['siteType'],
-                    latitude=self.requiredValues['lat'],
-                    longitude=self.requiredValues['long'])
+                sf= write.SamplingFeatures(\
+                    SamplingFeatureUUID=str(self._uuid),
+                    SamplingFeatureCode=self.requiredValues['code'],
+                    SamplingFeatureTypeCV=self.requiredValues['vType'],
+                    SamplingFeatureName=self.optionalValues['name'],
+                    SamplingFeatureDescription=self.optionalValues['desc'],
+                    SamplingFeatureGeotypeCV=self.optionalValues['geoType'],
+                    Elevation_m=self.optionalValues['elevation'],
+                    ElevationDatumCV=self.optionalValues['elevationDatum'],
+                    FeatureGeometry=self.optionalValues['featureGeo'])
+                self.sf = write.createSamplingFeature(sf)
+                site = write.Sites(\
+                    SamplingFeatureID=self.sf.SamplingFeatureID,
+                    SpatialReferenceID=self.requiredValues['spatialRef'],
+                    SiteTypeCV=self.requiredValues['siteType'],
+                    Latitude=self.requiredValues['lat'],
+                    Longitude=self.requiredValues['long'])
+                site = write.createSite(site)
 
-                self.sf = sf
+
             except Exception as e:
                 print e
         event.Skip()

@@ -28,9 +28,10 @@ class NewSpatialReferenceController(NewSpatialReferenceView):
             desc = str(self.textDesc.GetValue())
         
         try:
-            write.createSpatialReference(srsCode=code,
-                srsName=name,
-                srsDescription=desc)
+            srs=write.SpatialReferences(SRSCode=code,
+                SRSName=name,
+                SRSDescription=desc)
+            write.createSpatialReference(srs)
         except Exception:
             wx.MessageBox("Error creating spatial reference.", "API Error!")
 

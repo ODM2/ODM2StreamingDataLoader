@@ -48,9 +48,9 @@ class ResultSummaryPanel(ResultPageView):
         actionID = selections[4].ActionID
 
         write = self.parent.database.getWriteSession()
-        
-        featureAction = write.createFeatureAction(\
-            samplingFeatureID, actionID)
+        fa =FeatureActions(SamplingFeatureID=samplingFeatureID, ActionID=actionID)
+        featureAction = write.createFeatureAction(fa)
+
         featureActionID = featureAction.FeatureActionID
 
         variableID = selections[1].VariableID

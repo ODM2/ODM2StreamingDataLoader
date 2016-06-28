@@ -28,11 +28,11 @@ class AddNewUnitPanelController(AddNewUnitPanelView):
             self.getFieldValues()
             try:
                 write = self.db.getWriteSession()
-                
-                write.createUnit(type=self.unitsType,
-                    abbrev=self.unitsAbr,
-                    name=self.unitsName,
-                    link=self.unitsLink)
+                unit = write.Units(UnitsTypeCV=self.unitsType,
+                    UnitsAbbreviation=self.unitsAbr,
+                    UnitsName=self.unitsName,
+                    UnitsLink=self.unitsLink)
+                write.createUnit(unit)
 
             except Exception as e:
                 print e

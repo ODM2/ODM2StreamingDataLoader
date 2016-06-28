@@ -35,16 +35,17 @@ class AffiliationPanel(AffiliationPanelView):
             affLink = str(self.textLink.GetValue())
         affIsContact = self.checkPrimary.GetValue()
         affEnd = None
-        
-        affiliation = write.createAffiliation(personid=int(personID),
-            organizationid=orgID,
-            email=affEmail,
-            phone=affPhone,
-            address=affAddr,
-            link=affLink,
-            iscontact=affIsContact,
-            affiliation_start=affStart,
-            affiliation_end=affEnd) # TODO figure out how to have empty dates.
+
+        aff = write.Affiliations(PersonID=int(personID),
+            OrganizationID=orgID,
+            PrimaryEmail=affEmail,
+            PrimaryPhone=affPhone,
+            PrimaryAddress=affAddr,
+            PersonLink=affLink,
+            IsPrimaryOrganizationContact=affIsContact,
+            AffiliationStartDate=affStart,
+            AffiliationEndDate=affEnd)
+        affiliation = write.createAffiliation(aff) # TODO figure out how to have empty dates.
         
         print affiliation
         return affiliation

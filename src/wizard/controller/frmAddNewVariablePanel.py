@@ -37,14 +37,14 @@ class AddNewVariablePanelController(AddNewVariablePanelView):
         self.getFieldValues()
         try:
             write = self.db.getWriteSession()
-
-            write.createVariable(\
-                code=self.variableCode,
-                name=self.variableName,
-                vType=self.variableType,
-                nodv=self.ndv,
-                speciation=self.speciation,
-                definition=self.definition)
+            var = write.Variables(\
+                VariableCode=self.variableCode,
+                VariableNameCV=self.variableName,
+                VariableTypeCV=self.variableType,
+                NoDataValue=self.ndv,
+                SpeciationCV=self.speciation,
+                VariableDefinition=self.definition)
+            write.createVariable(var)
 
         except Exception as e:
             print e

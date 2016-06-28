@@ -79,13 +79,13 @@ class OrganizationPanel(OrganizationPanelView):
 
 
                 write = self.parent.database.getWriteSession()
-
-                org = write.createOrganization(cvType=orgType,
-                    code=orgCode,
-                    name=orgName,
-                    desc=orgDesc,
-                    link=orgLink,
-                    parentOrgId=orgParent)
+                org= write.Organizations(OrganizationTypeCV=orgType,
+                    OrganizationCode=orgCode,
+                    OrganizationName=orgName,
+                    OrganizationDescription=orgDesc,
+                    OrganizationLink=orgLink,
+                    ParentOrganizationID=orgParent)
+                org = write.createOrganization(org)
 
                 self.orgID = org.OrganizationID
                 self.orgName = orgName

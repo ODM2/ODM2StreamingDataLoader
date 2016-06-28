@@ -25,10 +25,11 @@ class AddNewProcLevelPanelController(AddNewProcLevelPanelView):
             self.getFieldValues() 
             try:
                 write = self.db.getWriteSession()
-                write.createProcessingLevel(\
-                    code=self.procLevelCode,
-                    definition=self.definition,
-                    explanation=self.explanation)
+                proc = write.ProcessingLevels(\
+                    ProcessingLevelCode=self.procLevelCode,
+                    Definition=self.definition,
+                    Explanation=self.explanation)
+                write.createProcessingLevel(proc)
             except Exception as e:
                 print e
         event.Skip()
