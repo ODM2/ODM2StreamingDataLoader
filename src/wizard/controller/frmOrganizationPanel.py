@@ -7,6 +7,7 @@ from src.wizard.controller.frmRequiredValidator \
     import RequiredValidator
 from src.wizard.controller.frmRequiredComboValidator \
     import RequiredComboValidator
+from odm2api.ODM2.models import Organizations
 
 
 class OrganizationPanel(OrganizationPanelView):
@@ -79,7 +80,7 @@ class OrganizationPanel(OrganizationPanelView):
 
 
                 write = self.parent.database.getWriteSession()
-                org= write.Organizations(OrganizationTypeCV=orgType,
+                org= Organizations(OrganizationTypeCV=orgType,
                     OrganizationCode=orgCode,
                     OrganizationName=orgName,
                     OrganizationDescription=orgDesc,

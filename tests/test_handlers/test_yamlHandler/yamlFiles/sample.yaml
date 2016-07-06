@@ -1,5 +1,5 @@
 ## Configuration file
-## Last modified: 2016-06-16 14:44
+## Last modified: 2016-07-05 15:16
 ---
 test:
   Database:
@@ -15,64 +15,64 @@ test:
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
-      ResultID: 1
       LastByteRead: 0
+      ResultID: 1
     NetRadiation-Watts/m2:
       CalculateAggInterval: true
       IntendedTimeSpacing: 0
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
-      ResultID: 2
       LastByteRead: 0
+      ResultID: 2
     Precipitation-mm:
       CalculateAggInterval: true
       IntendedTimeSpacing: 0
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
-      ResultID: 3
       LastByteRead: 0
+      ResultID: 3
     RelativeHumidity-%:
       CalculateAggInterval: true
       IntendedTimeSpacing: 0
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
-      ResultID: 4
       LastByteRead: 0
+      ResultID: 4
     SnowDepth-cm:
       CalculateAggInterval: true
       IntendedTimeSpacing: 0
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
-      ResultID: 5
       LastByteRead: 0
+      ResultID: 5
     SolarRadiation-Watts/m2:
       CalculateAggInterval: true
       IntendedTimeSpacing: 0
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
-      ResultID: 6
       LastByteRead: 0
+      ResultID: 6
     WindDirection-Degree:
       CalculateAggInterval: true
       IntendedTimeSpacing: 0
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
-      ResultID: 7
       LastByteRead: 0
+      ResultID: 7
     WindSpeed-m/s:
       CalculateAggInterval: true
       IntendedTimeSpacing: 0
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
-      ResultID: 9
       LastByteRead: 0
+      ResultID: 9
   Schedule:
     Beginning: 06/01/2016 12:00:00 AM
     Frequency: Minute

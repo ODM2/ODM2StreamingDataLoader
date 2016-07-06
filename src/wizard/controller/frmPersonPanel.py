@@ -2,6 +2,7 @@ import wx
 
 from src.wizard.view.clsPersonPanel\
     import PersonPanelView
+from odm2api.ODM2.models import People
 
 class PersonPanel(PersonPanelView):
     def __init__(self, parent):
@@ -31,7 +32,7 @@ class PersonPanel(PersonPanelView):
             first = str(self.textFirst.GetValue())
             last = str(self.textLast.GetValue())
             middle = str(self.textMiddle.GetValue())
-            person = write.People(PersonFirstName=first,
+            person = People(PersonFirstName=first,
                 PersonLastName=last, PersonMiddleName=middle)
             person = write.createPerson(person)
 

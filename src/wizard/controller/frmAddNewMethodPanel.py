@@ -2,6 +2,7 @@
 import wx
 
 from src.wizard.view.clsAddNewMethodPanel import AddNewMethodPanelView
+from odm2api.ODM2.models import Methods
 
 class AddNewMethodPanelController(AddNewMethodPanelView):
     def __init__(self, daddy, db, **kwargs):
@@ -34,7 +35,7 @@ class AddNewMethodPanelController(AddNewMethodPanelView):
             self.getFieldValues()
             try:
                 write = self.db.getWriteSession()
-                meth = write.Method(\
+                meth = Methods(\
                     MethodCode=self.methodCode,
                     MethodName=self.methodName,
                     MethodTypeCV=self.methodType,

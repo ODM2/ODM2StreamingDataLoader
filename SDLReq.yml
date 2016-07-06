@@ -7,7 +7,7 @@ dependencies:
   - geos=3.4.2=1
   - mkl=11.3.3=0
   - numpy=1.11.0=py27_2
-  - odm2api=0.5.0.a0=py27_1
+  - odm2api=0.5.1.a0
   - openssl=1.0.2h=1
   - pandas=0.18.1=np111py27_0
   - pip=8.1.2=py27_0

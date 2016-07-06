@@ -2,6 +2,7 @@
 import wx
 
 from src.wizard.view.clsAddNewProcLevelPanel import AddNewProcLevelPanelView
+from odm2api.ODM2.models import ProcessingLevels
 
 class AddNewProcLevelPanelController(AddNewProcLevelPanelView):
     def __init__(self, daddy, db, **kwargs):
@@ -25,7 +26,7 @@ class AddNewProcLevelPanelController(AddNewProcLevelPanelView):
             self.getFieldValues() 
             try:
                 write = self.db.getWriteSession()
-                proc = write.ProcessingLevels(\
+                proc = ProcessingLevels(\
                     ProcessingLevelCode=self.procLevelCode,
                     Definition=self.definition,
                     Explanation=self.explanation)

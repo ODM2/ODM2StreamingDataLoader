@@ -3,6 +3,7 @@ import wx
 from src.wizard.view.clsAffiliationPanel\
     import AffiliationPanelView
 from src.common.functions import wxdate2pydate
+from odm2api.ODM2.models import Affiliations
 
 class AffiliationPanel(AffiliationPanelView):
     def __init__(self, parent):
@@ -36,7 +37,7 @@ class AffiliationPanel(AffiliationPanelView):
         affIsContact = self.checkPrimary.GetValue()
         affEnd = None
 
-        aff = write.Affiliations(PersonID=int(personID),
+        aff = Affiliations(PersonID=int(personID),
             OrganizationID=orgID,
             PrimaryEmail=affEmail,
             PrimaryPhone=affPhone,

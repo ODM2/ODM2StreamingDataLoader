@@ -4,8 +4,7 @@ import uuid
 # TODO 
 # Clean these up.
 from odm2api.ODM2.services.createService import *
-from odm2api.ODM2.services.readService import *
-from odm2api.ODMconnection import dbconnection
+from odm2api.ODM2.models import SamplingFeatures, Sites
 
 from src.wizard.view.clsAddNewSampFeatPanel import AddNewSampFeatPanelView
 #from src.wizard.view.clsAddSpatialReferences import NewSpatialReferenceView
@@ -80,24 +79,24 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
             try:
                 # Create the variable in the database.
                 write = self.db.getWriteSession()
-                sf= write.SamplingFeatures(\
-                    SamplingFeatureUUID=str(self._uuid),
-                    SamplingFeatureCode=self.requiredValues['code'],
-                    SamplingFeatureTypeCV=self.requiredValues['vType'],
-                    SamplingFeatureName=self.optionalValues['name'],
-                    SamplingFeatureDescription=self.optionalValues['desc'],
-                    SamplingFeatureGeotypeCV=self.optionalValues['geoType'],
-                    Elevation_m=self.optionalValues['elevation'],
-                    ElevationDatumCV=self.optionalValues['elevationDatum'],
-                    FeatureGeometry=self.optionalValues['featureGeo'])
-                self.sf = write.createSamplingFeature(sf)
-                site = write.Sites(\
-                    SamplingFeatureID=self.sf.SamplingFeatureID,
-                    SpatialReferenceID=self.requiredValues['spatialRef'],
-                    SiteTypeCV=self.requiredValues['siteType'],
-                    Latitude=self.requiredValues['lat'],
-                    Longitude=self.requiredValues['long'])
-                site = write.createSite(site)
+                # sf= SamplingFeatures(\
+
+
+                site = Sites(SamplingFeatureUUID=str(self._uuid),
+                            SamplingFeatureCode=self.requiredValues['code'],
+                            SamplingFeatureTypeCV=self.requiredValues['vType'],
+                            SamplingFeatureName=self.optionalValues['name'],
+                            SamplingFeatureDescription=self.optionalValues['desc'],
+                            SamplingFeatureGeotypeCV=self.optionalValues['geoType'],
+                            Elevation_m=self.optionalValues['elevation'],
+                            ElevationDatumCV=self.optionalValues['elevationDatum'],
+                            FeatureGeometry=self.optionalValues['featureGeo'],
+                            SpatialReferenceID=self.requiredValues['spatialRef'],
+                            SiteTypeCV=self.requiredValues['siteType'],
+                            Latitude=self.requiredValues['lat'],
+                            Longitude=self.requiredValues['long'])
+                # site = write.createSite(site)
+                self.sf = write.createSamplingFeature(site)
 
 
             except Exception as e:

@@ -2,6 +2,7 @@
 import wx
 
 from src.wizard.view.clsAddNewUnitPanel import AddNewUnitPanelView
+from odm2api.ODM2.models import Units
 
 class AddNewUnitPanelController(AddNewUnitPanelView):
     def __init__(self, daddy, db, **kwargs):
@@ -28,7 +29,7 @@ class AddNewUnitPanelController(AddNewUnitPanelView):
             self.getFieldValues()
             try:
                 write = self.db.getWriteSession()
-                unit = write.Units(UnitsTypeCV=self.unitsType,
+                unit = Units(UnitsTypeCV=self.unitsType,
                     UnitsAbbreviation=self.unitsAbr,
                     UnitsName=self.unitsName,
                     UnitsLink=self.unitsLink)

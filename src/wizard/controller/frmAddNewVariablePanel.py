@@ -2,6 +2,7 @@
 import wx
 
 from src.wizard.view.clsAddNewVariablePanel import AddNewVariablePanelView
+from odm2api.ODM2.models import Variables
 
 class AddNewVariablePanelController(AddNewVariablePanelView):
     def __init__(self, daddy, db, **kwargs):
@@ -23,7 +24,7 @@ class AddNewVariablePanelController(AddNewVariablePanelView):
 
         
         # types = [i.Name for i in read.getCVVariableTypes()]
-        types = [i.Name for i in read.getCVs(type="Variable Types")]
+        types = [i.Name for i in read.getCVs(type="Variable Type")]
         self.m_comboBox12.AppendItems(types)
         
         # speciations = [i.Name for i in read.getCVSpeciations()]
@@ -37,7 +38,7 @@ class AddNewVariablePanelController(AddNewVariablePanelView):
         self.getFieldValues()
         try:
             write = self.db.getWriteSession()
-            var = write.Variables(\
+            var = Variables(\
                 VariableCode=self.variableCode,
                 VariableNameCV=self.variableName,
                 VariableTypeCV=self.variableType,
