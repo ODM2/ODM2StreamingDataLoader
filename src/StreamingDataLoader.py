@@ -12,6 +12,10 @@ __author__ = 'Denver'
 #
 #SQLTable._execute_insert = _execute_insert
 
+import os
+import sys
+sys.path.insert(0,os.path.dirname(os.path.dirname(__file__)))
+
 from argparse import ArgumentParser
 import logging
 
@@ -20,7 +24,7 @@ from controllers.Mapper import Mapper
 from lib.Appdirs.appdirs import user_config_dir
 
 import numpy as np
-import os
+
 import glob
 
 import time

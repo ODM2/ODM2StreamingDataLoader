@@ -12,10 +12,7 @@ from src.wizard.controller.frmChainedDialog import ChainedDialog
 
 from src.models.YamlConfiguration import YamlConfiguration
 from src.models.Mapping import Mapping
-import ObjectListView
-import pyodbc
-import pymysql
-import sqlite3
+
 
 
 WILDCARD = "YAML file (*.yaml)|*.yaml"
@@ -300,10 +297,5 @@ class MainController(MainView):
                   '\\tests\\test_handlers\\test_yamlHandler\yamlFiles')
         pass
 
-if __name__ == '__main__':
-    app = wx.App()
-    frame = MainController(None)
-    frame.CenterOnScreen()
-    frame.Show()
-    app.MainLoop()
+
 

@@ -1,5 +1,5 @@
 ## Configuration file
-## Last modified: 2016-06-16 14:44
+## Last modified: 2016-07-08 16:10
 ---
 1:
   Database:
@@ -68,7 +68,7 @@
   Schedule:
     Beginning: 06/04/2014 11:00:00 AM
     Frequency: Minute
-    LastUpdate: '2016-04-22 17:07:04'
+    LastUpdate: '2016-07-08 16:10:09'
     Time: 1
   Settings:
     DataRowPosition: 21
