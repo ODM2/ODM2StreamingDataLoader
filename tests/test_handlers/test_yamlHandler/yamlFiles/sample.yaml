@@ -1,7 +1,7 @@
 ## Configuration file
-## Last modified: 2016-07-08 16:10
+## Last modified: 2016-07-05 15:16
 ---
-1:
+test:
   Database:
     Address: localhost
     DatabaseName: odm2
@@ -15,6 +15,7 @@
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
+      LastByteRead: 0
       ResultID: 1
     NetRadiation-Watts/m2:
       CalculateAggInterval: true
@@ -22,6 +23,7 @@
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
+      LastByteRead: 0
       ResultID: 2
     Precipitation-mm:
       CalculateAggInterval: true
@@ -29,6 +31,7 @@
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
+      LastByteRead: 0
       ResultID: 3
     RelativeHumidity-%:
       CalculateAggInterval: true
@@ -36,6 +39,7 @@
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
+      LastByteRead: 0
       ResultID: 4
     SnowDepth-cm:
       CalculateAggInterval: true
@@ -43,6 +47,7 @@
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
+      LastByteRead: 0
       ResultID: 5
     SolarRadiation-Watts/m2:
       CalculateAggInterval: true
@@ -50,6 +55,7 @@
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
+      LastByteRead: 0
       ResultID: 6
     WindDirection-Degree:
       CalculateAggInterval: true
@@ -57,6 +63,7 @@
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
+      LastByteRead: 0
       ResultID: 7
     WindSpeed-m/s:
       CalculateAggInterval: true
@@ -64,18 +71,18 @@
       IntendedTimeSpacingUnitID: 100
       IntentedTimeSpacing: 15
       IntentedTimeSpacingUnitID: 3
+      LastByteRead: 0
       ResultID: 9
   Schedule:
-    Beginning: 06/04/2014 11:00:00 AM
+    Beginning: 06/01/2016 12:00:00 AM
     Frequency: Minute
-    LastUpdate: '2016-07-08 16:10:09'
+    LastUpdate: --
     Time: 1
   Settings:
     DataRowPosition: 21
     DateTimeColumnName: DateTime
     Delimiter: ','
     FileLocation: /Users/stephanie/DEV/StreamingDataLoader/tests/test_handlers/test_csvHandler/csvFiles/Treeline_HrlySummary_2014.csv
-    FileLocationType: Local
-    FillGaps: 'false'
+    FillGaps: false
     HeaderRowPosition: 20
     UTCOffset: -7

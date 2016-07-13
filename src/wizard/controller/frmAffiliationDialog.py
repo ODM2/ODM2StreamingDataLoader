@@ -2,6 +2,7 @@ import wx
 
 from src.wizard.view.clsCustomDialog \
     import CustomDialog
+from odm2api.ODM2.models import People
 
 class AffiliationDialog(CustomDialog):
     def __init__(self, parent, title):
@@ -54,10 +55,11 @@ class AffiliationDialog(CustomDialog):
             firstName = None
             lastName = None
             middleName = None
-            
-            person = write.createPerson(firstName=firstName,
-                lastName=lastName,
-                middleName=middleName)
+
+            ppl=People(PersonFirstName=firstName,
+                PersonLastName=lastName,
+                PersonMiddleName=middleName)
+            person = write.createPerson(ppl)
         else:
             personID = self.people[self.view.m_comboBox13.GetStringSelection()]
             print personID
