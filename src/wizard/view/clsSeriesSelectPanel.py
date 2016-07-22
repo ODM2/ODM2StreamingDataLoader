@@ -65,24 +65,29 @@ class SeriesSelectPanelView(wx.Panel):
 
         # Sizer at the bottom with the Ok and 
         # Cancel buttons.
-        btSizer.Add(self.editBtn, 0, wx.ALL|wx.ALIGN_RIGHT, 5)
-        btSizer.Add(self.newBtn, 0, wx.ALL|wx.ALIGN_RIGHT, 5)
+        #btSizer.Add(self.newBtn, 0, wx.ALL|wx.ALIGN_RIGHT, 5)
+        #btSizer.Add(self.editBtn, 0, wx.ALL|wx.ALIGN_RIGHT, 5)
+
         dlgBtnSizer = wx.StdDialogButtonSizer()
         #dlgBtnSizer.Add(btSizer, 1, wx.EXPAND, 5)
         self.okBtn = wx.Button(self, wx.ID_OK)
         cancelBtn = wx.Button(self, wx.ID_CANCEL)
         #dlgBtnSizer.AddButton(self.editBtn)
         #dlgBtnSizer.AddButton(self.newBtn)
-        dlgBtnSizer.Add(btSizer, 0, wx.ALIGN_RIGHT, 5)
+        # dlgBtnSizer.Add(self.newBtn, 0, wx.ALIGHT_RIGHT, 5)
+        # dlgBtnSizer.Add(self.editBtn, 0, wx.ALIGHT_RIGHT, 5)
+        # dlgBtnSizer.Add(btSizer, 0, wx.ALIGN_RIGHT, 5)
+        dlgBtnSizer.AddButton(self.editBtn)
         dlgBtnSizer.AddButton(self.okBtn)
         dlgBtnSizer.AddButton(cancelBtn)
-        dlgBtnSizer.AddButton(self.editBtn)
+
+        dlgBtnSizer.AddButton(self.newBtn)
         dlgBtnSizer.Realize()
         # Add it to the sizer.
         # The EXPAND flag along with the number 1 will
         # enable the list to fill the panel.
         sbSizer.Add(self.listCtrl, 1, wx.ALL|wx.EXPAND, 5)
-
+        sbSizer.Add(self.editBtn, 0, wx.ALL | wx.ALIGN_RIGHT, 5)
         sbSizer.Add(self.newBtn, 0, wx.ALL | wx.ALIGN_RIGHT, 5)
         fgSizer.Add(sbSizer, 1, wx.EXPAND, 5)
 
