@@ -13,7 +13,7 @@
 6. unzip into your users folder (or preferred working directory)
 7. Test the new environment by running:
     ```
-    $ python ODM2StreamingDataLoader/src/wizard/controller/frmMain.py
+    $ python ODM2StreamingDataLoader/src/StreamingDataLoaderWizard.py
     ```
  
 
