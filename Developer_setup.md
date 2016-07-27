@@ -1,10 +1,10 @@
 # ODM2 Streaming Data Loader Developer Environment Setup
 
 1. install [miniconda](http://repo.continuum.io/miniconda/index.html) using the appropriate setup script.
-2. download the list of [requirements](https://github.com/ODM2/ODM2StreamingDataLoader/blob/master/SDLReq.txt)
+2. download the list of [requirements](https://github.com/ODM2/ODM2StreamingDataLoader/blob/master/SDLReq.txt), be sure to save it as a .yml file.
 3. Setup a new conda environment using python 2.7 (run from windows terminal) :
     ```
-    $ conda env create -f SDLReq.yml
+    $ conda create --name <environment name> --file <this file>
     
     $ source activate SDL-env
     ```
