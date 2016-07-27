@@ -69,6 +69,7 @@ class SeriesSelectPanelView(wx.Panel):
         #btSizer.Add(self.editBtn, 0, wx.ALL|wx.ALIGN_RIGHT, 5)
 
         dlgBtnSizer = wx.StdDialogButtonSizer()
+        editBtnSizer = wx.BoxSizer(wx.HORIZONTAL)
         #dlgBtnSizer.Add(btSizer, 1, wx.EXPAND, 5)
         self.okBtn = wx.Button(self, wx.ID_OK)
         cancelBtn = wx.Button(self, wx.ID_CANCEL)
@@ -77,20 +78,17 @@ class SeriesSelectPanelView(wx.Panel):
         # dlgBtnSizer.Add(self.newBtn, 0, wx.ALIGHT_RIGHT, 5)
         # dlgBtnSizer.Add(self.editBtn, 0, wx.ALIGHT_RIGHT, 5)
         # dlgBtnSizer.Add(btSizer, 0, wx.ALIGN_RIGHT, 5)
-        dlgBtnSizer.AddButton(self.editBtn)
+        editBtnSizer.Add(self.editBtn)
         dlgBtnSizer.AddButton(self.okBtn)
         dlgBtnSizer.AddButton(cancelBtn)
-
-        dlgBtnSizer.AddButton(self.newBtn)
+        editBtnSizer.Add(self.newBtn)
         dlgBtnSizer.Realize()
         # Add it to the sizer.
         # The EXPAND flag along with the number 1 will
         # enable the list to fill the panel.
         sbSizer.Add(self.listCtrl, 1, wx.ALL|wx.EXPAND, 5)
-        sbSizer.Add(self.editBtn, 0, wx.ALL | wx.ALIGN_RIGHT, 5)
-        sbSizer.Add(self.newBtn, 0, wx.ALL | wx.ALIGN_RIGHT, 5)
         fgSizer.Add(sbSizer, 1, wx.EXPAND, 5)
-
+        fgSizer.Add(editBtnSizer, 0, wx.ALL|wx.ALIGN_RIGHT, 5)
         fgSizer.Add(dlgBtnSizer, 0, wx.ALL|wx.ALIGN_RIGHT, 5)
         # Assign the sizer to the panel.
         self.SetSizer(fgSizer)
