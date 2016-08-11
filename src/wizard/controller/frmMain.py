@@ -290,10 +290,7 @@ class MainController(MainView):
                 self.SetStatusText(text + "*", 0)
 
     def onRunButtonClick(self, event):
-        os.chdir('../../../..')
-        dir = os.getcwd();
-        os.chdir('tests/test_handlers/test_csvHandler/csvFiles')
-        os.system('python ' + dir + '\src\StreamingDataLoader.py' + ' -c ' + dir +
+        os.system('python ' + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + sys.path[0] +
                   '\\tests\\test_handlers\\test_yamlHandler\yamlFiles')
         pass
 
