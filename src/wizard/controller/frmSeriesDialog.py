@@ -85,36 +85,15 @@ class SeriesSelectDialog(CustomDialog):
 
     def onEdit(self, event):
         print "Edit"
-        # wiz = WizardDialog(self, database=self.database, title="Edit Existing Result Wizard")
-        #
-        # wiz.addPage(SampFeatSelectPanel)
-        # wiz.addPage(VariableSelectPanel)
-        # wiz.addPage(UnitSelectPanel)
-        # wiz.addPage(ProcLevelSelectPanel)
-        # wiz.addPage(ActionsSelectPanel)
-        # #wiz.addPage(ResultPageView)
-        # wiz.addPage(ResultSummaryPanel)
-        #
-        #
-        # wiz.CenterOnParent()
-        # if wiz.ShowModal() == wx.ID_OK:
-        #     read = self.database.getReadSession()
-        #     r = read.getDetailedResultInfo("Time series coverage",
-        #                                    wiz.result.ResultID)
-        #     r_id = r[0].resultID
-        #     detailedResults = read.getDetailedResultInfo("Time series coverage")
-        #     self.seriesSelectPanel.listCtrl.SetObjects(detailedResults)
-        #
-        #     for i in detailedResults:
-        #         if i.resultID == r_id:
-        #             self.seriesSelectPanel.listCtrl.SelectObject( \
-        #                 i, deselectOthers=True,
-        #                 ensureVisible=True)
-        # else:
-        #     pass
-        #     # wx.MessageBox('An error occurred while creating a new result', 'Error')
-        #
-        # event.Skip()
+        wiz = WizardDialog(self, database=self.database, title="Edit Result Wizard")
+        wiz.addPage(SampFeatSelectPanel)
+        wiz.addPage(VariableSelectPanel)
+        wiz.addPage(UnitSelectPanel)
+        wiz.addPage(ProcLevelSelectPanel)
+        wiz.addPage(ActionsSelectPanel)
+        wiz.addPage(ResultSummaryPanel)
+        wiz.CenterOnParent()
+        wiz.ShowModal()
 
     def onOK(self, event):
         obj = self.seriesSelectPanel.listCtrl.GetSelectedObject()
