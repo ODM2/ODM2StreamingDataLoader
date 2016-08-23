@@ -4,7 +4,7 @@
 2. download the list of [requirements](https://github.com/ODM2/ODM2StreamingDataLoader/blob/master/SDLReq.txt), be sure to save it as a .yml file.
 3. Setup a new conda environment using python 2.7 (run from windows terminal) :
     ```
-    $ conda create --name <environment name> --file <this file>
+    $ conda create conda env create -f SDLReq.yml
     
     $ source activate SDL-env
     ```
