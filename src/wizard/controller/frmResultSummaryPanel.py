@@ -81,8 +81,17 @@ class ResultSummaryPanel(ResultPageView):
         # TODO -- taxonomicclass
         keys = [y for x in [i.keys() for i in self.tax] for y in x]
         vals = [y for x in [i.values() for i in self.tax] for y in x]
-        d = dict(zip(keys, vals))
+        #d = dict(zip(keys, vals))
+        #unitsdict = {'centimeter   ': 47, 'international foot': 48, 'meter': 52, 'millimeter': 54}
+        read = self.parent.database.getReadSession()
+        timeUnits = read.getUnits(type="length")
+        timeUnitsObject = {u.UnitsName: u.UnitsID for u in timeUnits}
+        lengthUnits = read.getUnits(type="time")
+        lengthUnitsObject = {u.UnitsName: u.UnitsID for u in lengthUnits}
 
+
+        unitsdict = timeUnitsObject
+        lunitsdict = lengthUnitsObject
         tax = None
         if str(self.comboTax.GetStringSelection()) != "":
             tax = d[self.comboTax.GetStringSelection()]
@@ -103,13 +112,16 @@ class ResultSummaryPanel(ResultPageView):
 
         xUnit = None
         if str(self.comboXUnits.GetStringSelection()) != "":
-            xUnit = str(self.comboXUnits.GetStringSelection())
+            xUnit = unitsdict[str(self.comboXUnits.GetStringSelection())]
+            print(xUnit)
         yUnit = None
         if str(self.comboYUnits.GetStringSelection()) != "":
-            yUnit = str(self.comboYUnits.GetStringSelection())
+            yUnit = unitsdict[str(self.comboYUnits.GetStringSelection())]
+            print(yUnit)
         zUnit = None
         if str(self.comboZUnits.GetStringSelection()) != "":
-            zUnit = str(self.comboZUnits.GetStringSelection())
+            zUnit = unitsdict[str(self.comboZUnits.GetStringSelection())]
+            print(zUnit)
 
 
         keys = [yy for xx in [i.keys() for i in self.sp_ref] for yy in xx]
@@ -125,7 +137,7 @@ class ResultSummaryPanel(ResultPageView):
             timeSpacing = float(self.txtIntended.GetValue())
         timeUnit = None
         if str(self.comboIntendedUnits.GetStringSelection()) != "":
-            timeUnit = str(self.comboIntendedUnits.GetStringSelection())
+            timeUnit = lunitsdict[str(self.comboIntendedUnits.GetStringSelection())]
 
         print "X", x
         print "Y", y
@@ -218,12 +230,19 @@ class ResultSummaryPanel(ResultPageView):
 
         #timeUnits = read.getUnitsByTypeCV("length")
         timeUnits = read.getUnits(type="length")
+        timeUnitsObject = {u.UnitsName: u.UnitsID for u in timeUnits}
 
-        timeUnitsName = [obj.UnitsName for obj in timeUnits]
+        lengthUnits = read.getUnits(type="time")
+        lengthUnitsObject = {u.UnitsName: u.UnitsID for u in lengthUnits}
+        ###DO HERE
+
+        timeUnitsName = timeUnitsObject.keys()
+        lengthUnitsName = lengthUnitsObject.keys()
+
         self.comboXUnits.AppendItems(timeUnitsName)
         self.comboYUnits.AppendItems(timeUnitsName)
         self.comboZUnits.AppendItems(timeUnitsName)
-        self.comboIntendedUnits.AppendItems(timeUnitsName)
+        self.comboIntendedUnits.AppendItems(lengthUnitsName) ### FIX ME
         
         self.tax = [{i.TaxonomicClassifierName:i.TaxonomicClassifierID}\
             for i in read.getTaxonomicClassifiers()]
