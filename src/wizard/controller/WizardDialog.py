@@ -30,12 +30,12 @@ class WizardDialog(wx.Dialog):
         self.database = database
 
         self.addButtons()
-
+        self.centerSelf()
         self.SetSizer(self.mainSizer)
         self.mainSizer.Fit(self)
-
         self.returnValue = wx.ID_ANY
-
+    def centerSelf(self):
+        self.CenterOnParent()
     def addButtons(self):
         self.btnCancel = wx.Button(self, wx.ID_CANCEL, "Cancel")
         self.btnNext = wx.Button(self, wx.ID_ANY, "Finish")
@@ -61,6 +61,7 @@ class WizardDialog(wx.Dialog):
         newPnl.Hide()
         self.pnlList.append(newPnl)
         self.pnlSizer.Add(newPnl, 1, wx.ALL|wx.EXPAND, 5)
+        self.CenterOnParent()
 
         if len(self.pnlList) == 1:
             self.btnNext.Unbind(wx.EVT_BUTTON)
@@ -83,6 +84,7 @@ class WizardDialog(wx.Dialog):
             self.currentPnl = self.pnlList[0]
             self.currentPnl.Show()
         self.mainSizer.Fit(self)
+        self.CenterOnParent()
         super(WizardDialog, self).ShowModal()
         return self.returnValue
 

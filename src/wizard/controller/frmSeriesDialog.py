@@ -62,9 +62,10 @@ class SeriesSelectDialog(CustomDialog):
         wiz.addPage(ActionsSelectPanel) 
         #wiz.addPage(ResultPageView)
         wiz.addPage(ResultSummaryPanel)
-        
+
         wiz.CenterOnParent()
         if wiz.ShowModal() == wx.ID_OK:
+            wiz.Center()
             read = self.database.getReadSession()
             r = read.getDetailedResultInfo("Time series coverage", 
                                             wiz.result.ResultID)
@@ -86,6 +87,7 @@ class SeriesSelectDialog(CustomDialog):
     def onEdit(self, event):
         print "Edit"
         wiz = WizardDialog(self, database=self.database, title="Edit Result Wizard")
+        wiz.centerSelf()
         wiz.addPage(SampFeatSelectPanel)
         wiz.addPage(VariableSelectPanel)
         wiz.addPage(UnitSelectPanel)

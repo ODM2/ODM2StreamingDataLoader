@@ -29,9 +29,9 @@ class WizardDialog(wx.Dialog):
         self.currentPnl = None;
 
         self.addButtons()
-
         self.SetSizer(self.mainSizer)
         self.mainSizer.Fit(self)
+        self.CenterOnParent()
 
     def addButtons(self):
         self.btnCancel = wx.Button(self, wx.ID_CANCEL, "Cancel")
@@ -65,10 +65,12 @@ class WizardDialog(wx.Dialog):
             
 
     def ShowModal(self):
+
         self.currentPnl = self.pnlList[0]
         self.currentPnl.Show()
         self.mainSizer.Fit(self)
         super(WizardDialog, self).ShowModal()
+        self.Center()
 
     # ********************** #
     # *** Event Handlers *** #
