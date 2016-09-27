@@ -62,8 +62,9 @@ class SeriesSelectPanelView(wx.Panel):
                                 wx.DefaultPosition,
                                 wx.DefaultSize,
                                 style=0)
+        self.editBtn.Enable(False)
 
-        # Sizer at the bottom with the Ok and 
+        # Sizer at the bottom with the Ok and
         # Cancel buttons.
         #btSizer.Add(self.newBtn, 0, wx.ALL|wx.ALIGN_RIGHT, 5)
         #btSizer.Add(self.editBtn, 0, wx.ALL|wx.ALIGN_RIGHT, 5)
@@ -93,6 +94,7 @@ class SeriesSelectPanelView(wx.Panel):
         # Assign the sizer to the panel.
         self.SetSizer(fgSizer)
         self.Layout()
+
 
     # ================== #
     # # Event Handlers # #

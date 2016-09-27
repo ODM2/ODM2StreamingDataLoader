@@ -30,7 +30,7 @@ class SeriesSelectPanel(wx.Panel):
                 u"New %s" % label, wx.DefaultPosition,
                 wx.Size(-1,-1), 0)
         fgSizer1.Add(self.new_button, 0, wx.ALIGN_RIGHT|wx.ALL, 5)
-        
+
         self.SetSizer(fgSizer1)
         self.Layout()
         # The panel to use for adding a new series.

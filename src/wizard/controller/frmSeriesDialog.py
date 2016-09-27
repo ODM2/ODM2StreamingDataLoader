@@ -46,6 +46,7 @@ class SeriesSelectDialog(CustomDialog):
 
         self.seriesSelectPanel.listCtrl.SetObjects(read.getDetailedResultInfo("Time series coverage"))
 
+        self.seriesSelectPanel.listCtrl.Bind(wx.EVT_LIST_ITEM_SELECTED, self.enable)
     # ================== #
     # > Event Handlers < #
     # ================== #
@@ -83,6 +84,9 @@ class SeriesSelectDialog(CustomDialog):
             #wx.MessageBox('An error occurred while creating a new result', 'Error')
         
         event.Skip()
+
+    def enable(self, event):
+        self.seriesSelectPanel.editBtn.Enable(True)
 
     def onEdit(self, event):
         print "Edit"
