@@ -36,6 +36,7 @@ class SeriesSelectDialog(CustomDialog):
         self.database = database
 
         read = database.getReadSession()
+        self.existingResult = None
         #read.getDetailedResultInfo("Time series coverage")
         self.seriesSelectPanel = SeriesSelectPanelView(self)
         self.addPanel(self.seriesSelectPanel)
@@ -54,7 +55,8 @@ class SeriesSelectDialog(CustomDialog):
     def onNew(self, event):
         wiz = WizardDialog(self,
             database=self.database,
-            title="New Result Wizard")
+            title="New Result Wizard",
+            result=self.existingResult)
         
         wiz.addPage(SampFeatSelectPanel) 
         wiz.addPage(VariableSelectPanel) 
@@ -87,12 +89,12 @@ class SeriesSelectDialog(CustomDialog):
 
     def enable(self, event):
         self.seriesSelectPanel.editBtn.Enable(True)
-        existingResult = self.seriesSelectPanel.listCtrl.GetSelectedObject()
+        self.existingResult = self.seriesSelectPanel.listCtrl.GetSelectedObject()
 
 
     def onEdit(self, event):
         print "Edit"
-        wiz = WizardDialog(self, database=self.database, title="Edit Result Wizard")
+        wiz = WizardDialog(self, database=self.database, title="Edit Result Wizard", result=self.existingResult)
         wiz.centerSelf()
         wiz.addPage(SampFeatSelectPanel)
         wiz.addPage(VariableSelectPanel)

@@ -13,6 +13,7 @@ from src.wizard.view.clsResultPage import ResultPageView
 
 class WizardDialog(wx.Dialog):
     def __init__(self, parent, database=None, title="Wizard Dialog",
+                 result=None,
                  size=wx.DefaultSize,
                  pos=wx.DefaultPosition,
                  style=wx.DEFAULT_DIALOG_STYLE):
