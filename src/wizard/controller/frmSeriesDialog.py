@@ -87,6 +87,8 @@ class SeriesSelectDialog(CustomDialog):
 
     def enable(self, event):
         self.seriesSelectPanel.editBtn.Enable(True)
+        existingResult = self.seriesSelectPanel.listCtrl.GetSelectedObject()
+
 
     def onEdit(self, event):
         print "Edit"
