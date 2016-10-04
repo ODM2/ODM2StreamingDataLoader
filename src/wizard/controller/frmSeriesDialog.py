@@ -91,9 +91,16 @@ class SeriesSelectDialog(CustomDialog):
         self.seriesSelectPanel.editBtn.Enable(True)
         self.existingResult = self.seriesSelectPanel.listCtrl.GetSelectedObject()
 
+    def Warning(parent, message, caption ='Warning!'):
+        dlg = wx.MessageDialog(parent, message, caption, wx.OK | wx.ICON_WARNING)
+        dlg.ShowModal()
+        dlg.Destroy()
 
     def onEdit(self, event):
-        print "Edit"
+        ms = 'Warning, you may cobber the intergrity of your data when using this feature'
+        dlg = wx.MessageDialog(self, message=ms, caption='Warning')
+        dlg.ShowModal()
+        dlg.Destroy()
         wiz = WizardDialog(self, database=self.database, title="Edit Result Wizard", result=self.existingResult)
         wiz.centerSelf()
         wiz.addPage(SampFeatSelectPanel)

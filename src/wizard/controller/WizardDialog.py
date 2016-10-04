@@ -18,6 +18,7 @@ class WizardDialog(wx.Dialog):
                  pos=wx.DefaultPosition,
                  style=wx.DEFAULT_DIALOG_STYLE):
 
+        self.existingResult = None
         pre = wx.PreDialog()
         pre.Create(parent, wx.ID_ANY, title, pos, size, style)
         self.PostCreate(pre)
@@ -95,10 +96,14 @@ class WizardDialog(wx.Dialog):
 
     def onFinish(self, event):
         self.result = self.pnlList[-1].createResult()
-        if self.result:
-            self.returnValue = wx.ID_OK
-            self.Close()
-        event.Skip()
+
+        if self.existingResult:
+            print self.existingResult
+        else:
+            if self.result:
+                self.returnValue = wx.ID_OK
+                self.Close()
+            event.Skip()
 
     def onPrev(self, event):
         self.currentPnl.Hide()
