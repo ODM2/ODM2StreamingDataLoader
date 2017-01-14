@@ -1,14 +1,7 @@
 import wx
-
 from datetime import datetime
 import dateutil.parser as dparser
-
-
-#TODO get rid of *
-
-
-from src.wizard.controller.frmAddSpatialReference \
-    import NewSpatialReferenceController
+from src.wizard.controller.frmAddSpatialReference import NewSpatialReferenceController
 from src.wizard.view.clsCustomDialog import CustomDialog
 
 from src.wizard.view.clsResultPage import ResultPageView
@@ -17,7 +10,7 @@ import uuid
 
 
 class ResultSummaryPanel(ResultPageView):
-    def __init__( self, parent):
+    def __init__( self, parent, existing_result=None):
         super(ResultSummaryPanel, self).__init__(parent)
         self.Bind(wx.EVT_SHOW, self.onShow)
         self.parent = parent

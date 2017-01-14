@@ -29,10 +29,7 @@ from src.wizard.models.ResultMapping import ResultMapping
 
 class SeriesSelectDialog(CustomDialog):
     def __init__(self, parent, variable, database):
-        super(SeriesSelectDialog, self).__init__(\
-            parent=parent,
-            title="Select Result for %s" % variable,
-            size=wx.Size(700, 500))
+        super(SeriesSelectDialog, self).__init__(parent=parent, title="Select Result for %s" % variable, size=wx.Size(700, 500))
         self.database = database
 
         read = database.getReadSession()
@@ -48,6 +45,7 @@ class SeriesSelectDialog(CustomDialog):
         self.seriesSelectPanel.listCtrl.SetObjects(read.getDetailedResultInfo("Time series coverage"))
 
         self.seriesSelectPanel.listCtrl.Bind(wx.EVT_LIST_ITEM_SELECTED, self.enable)
+
     # ================== #
     # > Event Handlers < #
     # ================== #
@@ -97,8 +95,8 @@ class SeriesSelectDialog(CustomDialog):
         dlg.Destroy()
 
     def onEdit(self, event):
-        ms = 'Warning, you may cobber the intergrity of your data when using this feature'
-        dlg = wx.MessageDialog(self, message=ms, caption='Warning')
+        message = 'Warning, you may clobber the integrity of your data when using this feature'
+        dlg = wx.MessageDialog(self, message=message, caption='Warning')
         dlg.ShowModal()
         dlg.Destroy()
         wiz = WizardDialog(self, database=self.database, title="Edit Result Wizard", result=self.existingResult)

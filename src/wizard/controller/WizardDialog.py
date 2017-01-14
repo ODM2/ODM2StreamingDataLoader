@@ -18,7 +18,7 @@ class WizardDialog(wx.Dialog):
                  pos=wx.DefaultPosition,
                  style=wx.DEFAULT_DIALOG_STYLE):
 
-        self.existingResult = None
+        self.existingResult = result
         pre = wx.PreDialog()
         pre.Create(parent, wx.ID_ANY, title, pos, size, style)
         self.PostCreate(pre)
@@ -28,7 +28,7 @@ class WizardDialog(wx.Dialog):
         self.btnSizer = wx.BoxSizer(wx.HORIZONTAL)
 
         self.pnlList = []
-        self.currentPnl = None;
+        self.currentPnl = None
         self.database = database
 
         self.addButtons()
@@ -36,8 +36,10 @@ class WizardDialog(wx.Dialog):
         self.SetSizer(self.mainSizer)
         self.mainSizer.Fit(self)
         self.returnValue = wx.ID_ANY
+
     def centerSelf(self):
         self.CenterOnParent()
+
     def addButtons(self):
         self.btnCancel = wx.Button(self, wx.ID_CANCEL, "Cancel")
         self.btnNext = wx.Button(self, wx.ID_ANY, "Finish")
@@ -59,7 +61,7 @@ class WizardDialog(wx.Dialog):
         self.btnPrev.Bind(wx.EVT_BUTTON, self.onPrev)
     
     def addPage(self, pnl):
-        newPnl = pnl(self)
+        newPnl = pnl(self, self.existingResult)
         newPnl.Hide()
         self.pnlList.append(newPnl)
         self.pnlSizer.Add(newPnl, 1, wx.ALL|wx.EXPAND, 5)
