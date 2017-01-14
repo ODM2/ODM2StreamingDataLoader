@@ -22,6 +22,7 @@ class ProcLevelSelectPanel(SeriesSelectPanel):
             self.new_button.Enable(False)
 
         self.select_existing_series()
+        self.auto_size_table()
 
         self.list_ctrl.Bind(wx.EVT_LIST_ITEM_SELECTED, self.enable)
         self.list_ctrl.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.disable)
