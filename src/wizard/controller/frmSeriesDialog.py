@@ -97,18 +97,21 @@ class SeriesSelectDialog(CustomDialog):
     def onEdit(self, event):
         message = 'Warning, you may clobber the integrity of your data when using this feature'
         dlg = wx.MessageDialog(self, message=message, caption='Warning')
-        dlg.ShowModal()
+        dlg.SetOKCancelLabels(ok="Continue", cancel="Cancel")
+
+        if dlg.ShowModal() == wx.ID_OK:
+            wiz = WizardDialog(self, database=self.database, title="Edit Result Wizard", result=self.existingResult)
+            wiz.centerSelf()
+            wiz.addPage(SampFeatSelectPanel)
+            wiz.addPage(VariableSelectPanel)
+            wiz.addPage(UnitSelectPanel)
+            wiz.addPage(ProcLevelSelectPanel)
+            wiz.addPage(ActionsSelectPanel)
+            wiz.addPage(ResultSummaryPanel)
+            wiz.CenterOnParent()
+            wiz.ShowModal()
+
         dlg.Destroy()
-        wiz = WizardDialog(self, database=self.database, title="Edit Result Wizard", result=self.existingResult)
-        wiz.centerSelf()
-        wiz.addPage(SampFeatSelectPanel)
-        wiz.addPage(VariableSelectPanel)
-        wiz.addPage(UnitSelectPanel)
-        wiz.addPage(ProcLevelSelectPanel)
-        wiz.addPage(ActionsSelectPanel)
-        wiz.addPage(ResultSummaryPanel)
-        wiz.CenterOnParent()
-        wiz.ShowModal()
 
     def onOK(self, event):
         obj = self.seriesSelectPanel.listCtrl.GetSelectedObject()
