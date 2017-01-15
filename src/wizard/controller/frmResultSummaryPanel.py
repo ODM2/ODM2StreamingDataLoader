@@ -19,6 +19,18 @@ class ResultSummaryPanel(ResultPageView):
         self.fontColor = wx.Colour(67, 79, 112)
         self.populateFields()
 
+        self.comboSamp.Bind(wx.EVT_COMBOBOX, self.check_required_fields)
+        self.comboAgg.Bind(wx.EVT_COMBOBOX, self.check_required_fields)
+
+    def check_required_fields(self, event=None):
+        if self.comboSamp.GetStringSelection() == "" or self.comboAgg.GetStringSelection() == "":
+            self.parent.btnNext.Disable()
+        else:
+            self.parent.btnNext.Enable()
+
+        if event:
+            event.Skip()
+
     def getSeriesData(self):
         read = self.parent.database.getReadSession()
         return read.getResults()
@@ -160,13 +172,9 @@ class ResultSummaryPanel(ResultPageView):
                     IntendedTimeSpacing=timeSpacing,
                     IntendedTimeSpacingUnitsID=timeUnit)
         result =  write.createResult(tsr)
-        
-
-
 
         print result
         return result
-
 
     def _getTime(self, d, t):
         date = d.GetValue()
@@ -187,16 +195,11 @@ class ResultSummaryPanel(ResultPageView):
         if event.GetShow() is True:
             selections = self.parent.getSelections()
             
-            self.getSamplingFeatureSummary(\
-                selections[0])
-            self.getVariablesSummary(\
-                selections[1])
-            self.getUnitsSummary(\
-                selections[2])
-            self.getProcessingLevelSummary(\
-                selections[3])
-            self.getActionsSummary(\
-                selections[4])
+            self.getSamplingFeatureSummary(selections[0])
+            self.getVariablesSummary(selections[1])
+            self.getUnitsSummary(selections[2])
+            self.getProcessingLevelSummary(selections[3])
+            self.getActionsSummary(selections[4])
 
         event.Skip()
 

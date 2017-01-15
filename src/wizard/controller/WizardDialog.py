@@ -1,15 +1,11 @@
 import wx
-from src.wizard.controller.frmSampFeatSelectPanel \
-    import SampFeatSelectPanel
-from src.wizard.controller.frmVariableSelectPanel \
-    import VariableSelectPanel
-from src.wizard.controller.frmUnitSelectPanel \
-    import UnitSelectPanel
-from src.wizard.controller.frmProcLevelSelectPanel \
-    import ProcLevelSelectPanel
-#from src.wizard.controller.frmActionsSelectPanel \
-#    import ActionsSelectPanel
+from src.wizard.controller.frmSampFeatSelectPanel import SampFeatSelectPanel
+from src.wizard.controller.frmVariableSelectPanel import VariableSelectPanel
+from src.wizard.controller.frmUnitSelectPanel import UnitSelectPanel
+from src.wizard.controller.frmProcLevelSelectPanel import ProcLevelSelectPanel
+from src.wizard.controller.frmActionsSelectPanel import ActionsSelectPanel
 from src.wizard.view.clsResultPage import ResultPageView
+
 
 class WizardDialog(wx.Dialog):
     def __init__(self, parent, database=None, title="Wizard Dialog",
@@ -105,12 +101,12 @@ class WizardDialog(wx.Dialog):
             if self.result:
                 self.returnValue = wx.ID_OK
                 self.Close()
-            event.Skip()
+
+        event.Skip()
 
     def onPrev(self, event):
         self.currentPnl.Hide()
-        self.currentPnl = self.pnlList[self.pnlList.index( \
-            self.currentPnl)-1]
+        self.currentPnl = self.pnlList[self.pnlList.index(self.currentPnl)-1]
         self.currentPnl.Show()
         self.Layout()
         self.mainSizer.Fit(self)
@@ -119,6 +115,7 @@ class WizardDialog(wx.Dialog):
             self.btnPrev.Enable(False)
         else:
             self.btnPrev.Enable(True)
+
         if self.currentPnl == self.pnlList[-1]:
             self.btnNext.SetLabel("Finish")
             self.btnNext.Unbind(wx.EVT_BUTTON)
@@ -127,15 +124,13 @@ class WizardDialog(wx.Dialog):
             self.btnNext.SetLabel("Next >")
             self.btnNext.Unbind(wx.EVT_BUTTON)
             self.btnNext.Bind(wx.EVT_BUTTON, self.onNext)
-        
-        
+
         event.Skip()
 
     def onNext(self, event):
         self.btnNext.Enable(False)
         self.currentPnl.Hide()
-        self.currentPnl = self.pnlList[self.pnlList.index( \
-            self.currentPnl)+1]
+        self.currentPnl = self.pnlList[self.pnlList.index(self.currentPnl)+1]
         self.currentPnl.Show()
         self.Layout()
         self.mainSizer.Fit(self)
@@ -144,7 +139,9 @@ class WizardDialog(wx.Dialog):
             self.btnPrev.Enable(False)
         else:
             self.btnPrev.Enable(True)
+
         if self.currentPnl == self.pnlList[-1]:
+            self.currentPnl.check_required_fields()
             self.btnNext.SetLabel("Finish")
             self.btnNext.Unbind(wx.EVT_BUTTON)
             self.btnNext.Bind(wx.EVT_BUTTON, self.onFinish)

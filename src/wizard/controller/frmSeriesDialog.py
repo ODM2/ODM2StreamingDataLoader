@@ -131,6 +131,3 @@ class SeriesSelectDialog(CustomDialog):
         self.selectedResult = mapping
 
         event.Skip()
-
-
-

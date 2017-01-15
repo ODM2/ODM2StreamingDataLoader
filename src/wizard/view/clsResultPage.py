@@ -15,54 +15,46 @@ from src.wizard.controller.frmRequiredComboValidator \
 class ResultPageView ( wx.Panel ):
         
     def __init__( self, parent ):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 450,600 ), style = wx.TAB_TRAVERSAL )
+        wx.Panel.__init__ ( self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(450, 600), style=wx.TAB_TRAVERSAL)
         
-        self.SetMinSize( wx.Size( 450,600 ) )
+        self.SetMinSize(wx.Size(450, 600))
         
         bSizer = wx.BoxSizer( wx.VERTICAL )
         
-        sbSizerSum = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Summary:" ), wx.VERTICAL )
+        sbSizerSum = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, u"Summary:"), wx.VERTICAL )
         
         bSizerSum = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.txtSum = rt.RichTextCtrl( sbSizerSum.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.TE_READONLY|wx.STATIC_BORDER|wx.VSCROLL )
-        self.txtSum.SetMinSize( wx.Size( 440,100 ) )
+        self.txtSum = rt.RichTextCtrl(sbSizerSum.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.TE_READONLY | wx.STATIC_BORDER | wx.VSCROLL )
+        self.txtSum.SetMinSize(wx.Size(440, 100))
         
-        bSizerSum.Add( self.txtSum, 0, wx.ALL, 5 )
+        bSizerSum.Add(self.txtSum, 0, wx.ALL, 5)
+        sbSizerSum.Add(bSizerSum, 1, wx.EXPAND, 5)
+        bSizer.Add(sbSizerSum, 1, wx.EXPAND, 5)
         
-        
-        sbSizerSum.Add( bSizerSum, 1, wx.EXPAND, 5 )
-        
-        
-        bSizer.Add( sbSizerSum, 1, wx.EXPAND, 5 )
-        
-        sbSizerReq = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Required Fields:" ), wx.VERTICAL )
+        sbSizerReq = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, u"Required Fields:"), wx.VERTICAL)
         
         bSizerSamp = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.staticSamp = wx.StaticText( sbSizerReq.GetStaticBox(), wx.ID_ANY, u"Sampled Medium", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.staticSamp.Wrap( -1 )
-        bSizerSamp.Add( self.staticSamp, 0, wx.ALL, 5 )
-        
-        
-        bSizerSamp.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        self.staticSamp = wx.StaticText(sbSizerReq.GetStaticBox(), wx.ID_ANY, u"Sampled Medium", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.staticSamp.Wrap(-1)
+        bSizerSamp.Add(self.staticSamp, 0, wx.ALL, 5)
+
+        bSizerSamp.AddSpacer((0, 0), 1, wx.EXPAND, 5)
         
         comboSampChoices = []
-        self.comboSamp = wx.ComboBox( sbSizerReq.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboSampChoices, validator=RequiredComboValidator() )
-        self.comboSamp.SetMinSize( wx.Size( 280,-1 ) )
+        self.comboSamp = wx.ComboBox( sbSizerReq.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboSampChoices, validator=RequiredComboValidator())
+        self.comboSamp.SetMinSize(wx.Size(280, -1))
         
-        bSizerSamp.Add( self.comboSamp, 0, wx.ALL, 5 )
+        bSizerSamp.Add(self.comboSamp, 0, wx.ALL, 5)
+        sbSizerReq.Add(bSizerSamp, 0, wx.EXPAND, 5)
         
+        bSizerAgg = wx.BoxSizer(wx.HORIZONTAL)
         
-        sbSizerReq.Add( bSizerSamp, 0, wx.EXPAND, 5 )
-        
-        bSizerAgg = wx.BoxSizer( wx.HORIZONTAL )
-        
-        self.staticAgg = wx.StaticText( sbSizerReq.GetStaticBox(), wx.ID_ANY, u"Aggregation Statistic", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.staticAgg.Wrap( -1 )
-        bSizerAgg.Add( self.staticAgg, 0, wx.ALL, 5 )
-        
-        
+        self.staticAgg = wx.StaticText(sbSizerReq.GetStaticBox(), wx.ID_ANY, u"Aggregation Statistic", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.staticAgg.Wrap(-1)
+        bSizerAgg.Add(self.staticAgg, 0, wx.ALL, 5)
+
         bSizerAgg.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
         comboAggChoices = []
