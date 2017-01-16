@@ -144,8 +144,7 @@ class DataConfigPanelController(DataConfigPanelView):
         # Assign the table to the grid control.
         self.m_listCtrl1.setTable(base)
 
-        for column in range(self.m_listCtrl1.GetNumberCols()):
-            self.m_listCtrl1.AutoSizeColLabelSize(column)
+        self.m_listCtrl1.AutoSizeColumns()
 
     def setInputMappingList(self, existingData, read):
         """
