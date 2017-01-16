@@ -42,8 +42,7 @@ class ResultPageView ( wx.Panel ):
 
         bSizerSamp.AddSpacer((0, 0), 1, wx.EXPAND, 5)
         
-        comboSampChoices = []
-        self.comboSamp = wx.ComboBox( sbSizerReq.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboSampChoices, validator=RequiredComboValidator())
+        self.comboSamp = wx.ComboBox( sbSizerReq.GetStaticBox(), style=wx.CB_READONLY, validator=RequiredComboValidator())
         self.comboSamp.SetMinSize(wx.Size(280, -1))
         
         bSizerSamp.Add(self.comboSamp, 0, wx.ALL, 5)
@@ -57,8 +56,7 @@ class ResultPageView ( wx.Panel ):
 
         bSizerAgg.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        comboAggChoices = []
-        self.comboAgg = wx.ComboBox( sbSizerReq.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboAggChoices, validator=RequiredComboValidator())
+        self.comboAgg = wx.ComboBox( sbSizerReq.GetStaticBox(), wx.ID_ANY, style=wx.CB_READONLY, validator=RequiredComboValidator())
         self.comboAgg.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizerAgg.Add( self.comboAgg, 0, wx.ALL, 5 )
@@ -176,8 +174,7 @@ class ResultPageView ( wx.Panel ):
         
         bSizerStatus.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        comboStatusChoices = []
-        self.comboStatus = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Select Status", wx.DefaultPosition, wx.DefaultSize, comboStatusChoices, 0 )
+        self.comboStatus = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, value="Select Status", style=wx.CB_READONLY)
         self.comboStatus.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizerStatus.Add( self.comboStatus, 0, wx.ALL, 5 )
@@ -187,15 +184,14 @@ class ResultPageView ( wx.Panel ):
         
         bSizerTax = wx.BoxSizer( wx.HORIZONTAL )
         
-        staticTax = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Taxonomic Classifier", wx.DefaultPosition, wx.DefaultSize, 0 )
-        staticTax.Wrap( -1 )
+        staticTax = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Taxonomic Classifier", wx.DefaultPosition, wx.DefaultSize, 0)
+        staticTax.Wrap(-1)
         bSizerTax.Add( staticTax, 0, wx.ALL, 5 )
         
         
         bSizerTax.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        comboTaxChoices = []
-        self.comboTax = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Select Taxonomic Classifier", wx.DefaultPosition, wx.DefaultSize, comboTaxChoices, 0 )
+        self.comboTax = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, value="Select Taxonomic Classifier", style=wx.CB_READONLY)
         self.comboTax.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizerTax.Add( self.comboTax, 0, wx.ALL, 5 )
@@ -306,7 +302,7 @@ class ResultPageView ( wx.Panel ):
         self.txtZ.SetFormat("%f")
         self.txtZ.SetDigits(3)
         self.txtZ.SetMinSize( wx.Size( 70,-1 ) )
-        
+
         bSizerZ.Add( self.txtZ, 0, wx.ALL, 5 )
         
         self.m_staticText422110 = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Units", wx.DefaultPosition, wx.DefaultSize, 0 )

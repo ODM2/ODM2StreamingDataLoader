@@ -37,6 +37,7 @@ class SeriesSelectDialog(CustomDialog):
         #read.getDetailedResultInfo("Time series coverage")
         self.seriesSelectPanel = SeriesSelectPanelView(self)
         self.addPanel(self.seriesSelectPanel)
+        self.seriesSelectPanel.okBtn.Disable()
 
         self.seriesSelectPanel.newBtn.Bind(wx.EVT_BUTTON, self.onNew)
         self.seriesSelectPanel.editBtn.Bind(wx.EVT_BUTTON, self.onEdit)
@@ -45,10 +46,14 @@ class SeriesSelectDialog(CustomDialog):
         self.seriesSelectPanel.listCtrl.SetObjects(read.getDetailedResultInfo("Time series coverage"))
 
         self.seriesSelectPanel.listCtrl.Bind(wx.EVT_LIST_ITEM_SELECTED, self.enable)
+        self.seriesSelectPanel.listCtrl.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.on_deselect_item)
 
     # ================== #
     # > Event Handlers < #
     # ================== #
+
+    def on_deselect_item(self, event):
+        self.seriesSelectPanel.okBtn.Disable()
 
     def onNew(self, event):
         wiz = WizardDialog(self,
@@ -86,7 +91,8 @@ class SeriesSelectDialog(CustomDialog):
         event.Skip()
 
     def enable(self, event):
-        self.seriesSelectPanel.editBtn.Enable(True)
+        self.seriesSelectPanel.editBtn.Enable()
+        self.seriesSelectPanel.okBtn.Enable()
         self.existingResult = self.seriesSelectPanel.listCtrl.GetSelectedObject()
 
     def Warning(parent, message, caption ='Warning!'):

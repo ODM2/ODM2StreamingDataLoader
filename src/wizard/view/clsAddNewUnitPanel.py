@@ -38,8 +38,7 @@ class AddNewUnitPanelView ( wx.Panel ):
         
         bSizer35.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        m_comboBox13Choices = []
-        self.m_comboBox13 = wx.ComboBox( sbSizer7.GetStaticBox(), wx.ID_ANY, u"Select Units Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox13Choices, validator=RequiredComboValidator())
+        self.m_comboBox13 = wx.ComboBox(sbSizer7.GetStaticBox(), wx.ID_ANY, u"Select Units Type", style=wx.CB_READONLY, validator=RequiredComboValidator())
         self.m_comboBox13.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer35.Add( self.m_comboBox13, 0, wx.ALL, 5 )
