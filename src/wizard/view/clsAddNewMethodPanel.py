@@ -12,7 +12,7 @@ class AddNewMethodPanelView ( wx.Panel ):
         self.SetMinSize(wx.Size(409, 400))
         bSizer44 = wx.BoxSizer( wx.VERTICAL )
         
-        sbSizer12 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Required Fileds:" ), wx.VERTICAL )
+        sbSizer12 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Required Fileds" ), wx.VERTICAL )
         
         bSizer45 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -60,6 +60,9 @@ class AddNewMethodPanelView ( wx.Panel ):
         m_comboBox14Choices = []
         self.m_comboBox14 = wx.ComboBox( sbSizer12.GetStaticBox(), wx.ID_ANY, u"Select Method Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox14Choices, validator=RequiredComboValidator())
         self.m_comboBox14.SetMinSize( wx.Size( 280,-1 ) )
+
+        self.m_comboBox14.Bind(wx.EVT_COMBOBOX_DROPDOWN, self.on_show_combo)
+        self.m_comboBox14.Bind(wx.EVT_COMBOBOX_CLOSEUP, self.on_hide_combo)
         
         bSizer47.Add( self.m_comboBox14, 0, wx.ALL, 5 )
         
@@ -69,7 +72,7 @@ class AddNewMethodPanelView ( wx.Panel ):
         
         bSizer44.Add( sbSizer12, 0, wx.EXPAND, 5 )
         
-        sbSizer13 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Optional Fields:" ), wx.VERTICAL )
+        sbSizer13 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Optional Fields" ), wx.VERTICAL )
         
         bSizer48 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -83,6 +86,9 @@ class AddNewMethodPanelView ( wx.Panel ):
         m_comboBox141Choices = []
         self.m_comboBox141 = wx.ComboBox( sbSizer13.GetStaticBox(), wx.ID_ANY, u"Select Organization", wx.DefaultPosition, wx.DefaultSize, m_comboBox141Choices, 0 )
         self.m_comboBox141.SetMinSize( wx.Size( 280,-1 ) )
+
+        self.m_comboBox141.Bind(wx.EVT_COMBOBOX_DROPDOWN, self.on_show_combo)
+        self.m_comboBox141.Bind(wx.EVT_COMBOBOX_CLOSEUP, self.on_hide_combo)
         
         bSizer48.Add( self.m_comboBox141, 0, wx.ALL, 5 )
         
@@ -131,14 +137,20 @@ class AddNewMethodPanelView ( wx.Panel ):
         m_sdbSizer5.AddButton( self.m_sdbSizer5OK )
         self.m_sdbSizer5Cancel = wx.Button( self, wx.ID_CANCEL )
         m_sdbSizer5.AddButton( self.m_sdbSizer5Cancel )
-        m_sdbSizer5.Realize();
+        m_sdbSizer5.Realize()
         
         bSizer44.Add( m_sdbSizer5, 1, wx.EXPAND, 5 )
-        self.m_sdbSizer5OK.Bind(wx.EVT_BUTTON, self.onOK) 
+        # self.m_sdbSizer5OK.Bind(wx.EVT_BUTTON, self.onOK)
         
         self.SetSizer( bSizer44 )
-        self.Layout() 
+        self.Layout()
 
-    
-    def __del__( self ):
-        pass
+        self.__size_of_combo = self.m_comboBox141.GetSize()
+
+    def on_show_combo(self, event):
+        combo = event.GetEventObject()
+        combo.SetSize(combo.GetBestSize())
+
+    def on_hide_combo(self, event):
+        combo = event.GetEventObject()
+        combo.SetSize(self.__size_of_combo)

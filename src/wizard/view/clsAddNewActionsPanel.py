@@ -34,7 +34,7 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         bSizer80 = wx.BoxSizer( wx.VERTICAL )
         
-        sbSizer22 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Required Fields:" ), wx.VERTICAL )
+        sbSizer22 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Required Fields" ), wx.VERTICAL )
         
         bSizer35 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -48,6 +48,9 @@ class AddNewActionsPanelView ( wx.Panel ):
         m_comboBox13Choices = []
         self.m_comboBox13 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Action Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox13Choices, validator=RequiredComboValidator())
         self.m_comboBox13.SetMinSize( wx.Size( 280,-1 ) )
+
+        self.m_comboBox13.Bind(wx.EVT_COMBOBOX_DROPDOWN, self.on_show_combo)
+        self.m_comboBox13.Bind(wx.EVT_COMBOBOX_CLOSEUP, self.on_hide_combo)
         
         bSizer35.Add( self.m_comboBox13, 0, wx.ALL, 5 )
         sbSizer22.Add( bSizer35, 0, wx.EXPAND, 5 )
@@ -166,7 +169,7 @@ class AddNewActionsPanelView ( wx.Panel ):
 
         bSizer80.Add( sbSizer22, 0, wx.EXPAND, 5 )
         
-        sbSizer23 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Optional Fields:" ), wx.VERTICAL )
+        sbSizer23 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Optional Fields" ), wx.VERTICAL )
         
         bSizer2711 = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -278,16 +281,22 @@ class AddNewActionsPanelView ( wx.Panel ):
         m_sdbSizer10.AddButton( self.m_sdbSizer10OK )
         self.m_sdbSizer10Cancel = wx.Button( self, wx.ID_CANCEL )
         m_sdbSizer10.AddButton( self.m_sdbSizer10Cancel )
-        m_sdbSizer10.Realize();
+        m_sdbSizer10.Realize()
         
         bSizer80.Add( m_sdbSizer10, 1, wx.EXPAND, 5 )
-        self.m_sdbSizer10OK.Bind(wx.EVT_BUTTON, self.onOK)        
-        
+
         self.SetSizer( bSizer80 )
-        self.Layout() 
-    
-    def __del__( self ):
-        pass
+        self.Layout()
+
+        self.__size_of_combo = self.m_comboBox13.GetSize()
+
+    def on_show_combo(self, event):
+        combo = event.GetEventObject()
+        combo.SetSize(combo.GetBestSize())
+
+    def on_hide_combo(self, event):
+        combo = event.GetEventObject()
+        combo.SetSize(self.__size_of_combo)
 
 if __name__ == '__main__':
     app = wx.App()
