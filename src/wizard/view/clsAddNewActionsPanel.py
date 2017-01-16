@@ -9,11 +9,13 @@ from ObjectListView import ObjectListView, ColumnDefn
 
 import wx.lib.masked as masked
 
+
 class Test():
     def __init__(self, name, org, orgId):
         self.name = name
         self.org = org
         self.orgId = orgId
+
 
 class AffiliationsList(ObjectListView):
     def __init__(self, *args, **kwargs):
@@ -25,6 +27,7 @@ class AffiliationsList(ObjectListView):
         self.selectedItems = []
         self.lastSelected = -1
         self.deleting = -1
+
 
 class AddNewActionsPanelView ( wx.Panel ):
     def __init__( self, parent ):
@@ -45,8 +48,7 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         bSizer35.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        m_comboBox13Choices = []
-        self.m_comboBox13 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Action Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox13Choices, validator=RequiredComboValidator())
+        self.m_comboBox13 = wx.ComboBox(sbSizer22.GetStaticBox(), wx.ID_ANY, value="Select Action Type", style=wx.CB_READONLY, validator=RequiredComboValidator())
         self.m_comboBox13.SetMinSize( wx.Size( 280,-1 ) )
 
         self.m_comboBox13.Bind(wx.EVT_COMBOBOX_DROPDOWN, self.on_show_combo)
@@ -64,8 +66,7 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         bSizer354.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        m_comboBox134Choices = []
-        self.m_comboBox134 = wx.ComboBox( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Select Method", wx.DefaultPosition, wx.DefaultSize, m_comboBox134Choices, validator=RequiredComboValidator() )
+        self.m_comboBox134 = wx.ComboBox(sbSizer22.GetStaticBox(), wx.ID_ANY, value="Select Method", style=wx.CB_READONLY, validator=RequiredComboValidator())
         self.m_comboBox134.SetMinSize( wx.Size( 230,-1 ) )
         
         bSizer354.Add( self.m_comboBox134, 0, wx.ALL, 5 )

@@ -1,11 +1,9 @@
 import wx
+from src.wizard.controller.frmRequiredValidator import RequiredValidator
+from src.wizard.controller.frmRequiredComboValidator import RequiredComboValidator
 
-from src.wizard.controller.frmRequiredValidator \
-    import RequiredValidator
-from src.wizard.controller.frmRequiredComboValidator \
-    import RequiredComboValidator
 
-class AddNewMethodPanelView ( wx.Panel ):
+class AddNewMethodPanelView(wx.Panel):
     def __init__( self, parent ):
         wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 409,452 ), style = wx.TAB_TRAVERSAL )
                 
@@ -57,8 +55,7 @@ class AddNewMethodPanelView ( wx.Panel ):
         
         bSizer47.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        m_comboBox14Choices = []
-        self.m_comboBox14 = wx.ComboBox( sbSizer12.GetStaticBox(), wx.ID_ANY, u"Select Method Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox14Choices, validator=RequiredComboValidator())
+        self.m_comboBox14 = wx.ComboBox( sbSizer12.GetStaticBox(), wx.ID_ANY, value="Select Method Type", style=wx.CB_READONLY, validator=RequiredComboValidator())
         self.m_comboBox14.SetMinSize( wx.Size( 280,-1 ) )
 
         self.m_comboBox14.Bind(wx.EVT_COMBOBOX_DROPDOWN, self.on_show_combo)
@@ -83,8 +80,7 @@ class AddNewMethodPanelView ( wx.Panel ):
         
         bSizer48.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        m_comboBox141Choices = []
-        self.m_comboBox141 = wx.ComboBox( sbSizer13.GetStaticBox(), wx.ID_ANY, u"Select Organization", wx.DefaultPosition, wx.DefaultSize, m_comboBox141Choices, 0 )
+        self.m_comboBox141 = wx.ComboBox( sbSizer13.GetStaticBox(), wx.ID_ANY, value="Select Organization", style=wx.CB_READONLY)
         self.m_comboBox141.SetMinSize( wx.Size( 280,-1 ) )
 
         self.m_comboBox141.Bind(wx.EVT_COMBOBOX_DROPDOWN, self.on_show_combo)
