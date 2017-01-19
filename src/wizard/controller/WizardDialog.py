@@ -93,16 +93,31 @@ class WizardDialog(wx.Dialog):
     # ********************** #
 
     def onFinish(self, event):
-        self.result = self.pnlList[-1].createResult()
-
-        if self.existingResult:
-            print self.existingResult
+        # self.result = self.pnlList[-1].createResult()
+        #
+        # if self.existingResult:
+        #     print self.existingResult
+        # else:
+        #     if self.result:
+        #         self.returnValue = wx.ID_OK
+        #         self.Close()
+        #
+        # event.Skip()
+        if self.existingResult is None:
+            self.__create_new_result()
         else:
-            if self.result:
-                self.returnValue = wx.ID_OK
-                self.Close()
+            self.__update_existing_result()
 
-        event.Skip()
+    def __create_new_result(self):
+        self.result = self.pnlList[-1].createResult()
+        if self.result:
+            self.returnValue = wx.ID_OK
+            self.Close()
+
+    def __update_existing_result(self):
+        print self.pnlList[0].list_ctrl.GetSelectedObject()
+        # self.database.getUpdateSession().updateResult(pass in result object)
+        pass
 
     def onPrev(self, event):
         self.currentPnl.Hide()

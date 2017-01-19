@@ -56,10 +56,7 @@ class SeriesSelectDialog(CustomDialog):
         self.seriesSelectPanel.okBtn.Disable()
 
     def onNew(self, event):
-        wiz = WizardDialog(self,
-            database=self.database,
-            title="New Result Wizard",
-            result=self.existingResult)
+        wiz = WizardDialog(self, database=self.database, title="New Result Wizard", result=None)
         
         wiz.addPage(SampFeatSelectPanel) 
         wiz.addPage(VariableSelectPanel) 

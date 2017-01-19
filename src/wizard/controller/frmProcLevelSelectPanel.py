@@ -35,7 +35,7 @@ class ProcLevelSelectPanel(SeriesSelectPanel):
         index = -1
         data = self.list_ctrl.GetObjects()
         for i in range(len(data)):
-            if self.existing_result.processingLevelCode == data[i].ProcessingLevelCode:
+            if self.existing_result.ProcessingLevelCode == data[i].ProcessingLevelCode:
                 index = i
                 break
 

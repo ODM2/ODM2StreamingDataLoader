@@ -36,7 +36,7 @@ class VariableSelectPanel(SeriesSelectPanel):
         index = -1
         data = self.list_ctrl.GetObjects()
         for i in range(len(data)):
-            if self.existing_result.variableCode == data[i].VariableCode:
+            if self.existing_result.VariableCode == data[i].VariableCode:
                 index = i
                 break
 

@@ -36,7 +36,7 @@ class UnitSelectPanel(SeriesSelectPanel):
         index = -1
         data = self.list_ctrl.GetObjects()
         for i in range(len(data)):
-            if self.existing_result.unitsName == data[i].UnitsName:
+            if self.existing_result.UnitsName == data[i].UnitsName:
                 index = i
                 break
 

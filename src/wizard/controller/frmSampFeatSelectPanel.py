@@ -37,7 +37,7 @@ class SampFeatSelectPanel(SeriesSelectPanel):
         index = -1
         data = self.list_ctrl.GetObjects()
         for i in range(len(data)):
-            if self.existing_result.samplingFeatureCode == data[i].SamplingFeatureCode:
+            if self.existing_result.SamplingFeatureCode == data[i].SamplingFeatureCode:
                 index = i
                 break
 

@@ -37,7 +37,7 @@ class ActionsSelectPanel(SeriesSelectPanel):
         index = -1
         data = self.list_ctrl.GetObjects()
         for i in range(len(data)):
-            if self.existing_result.methodCode == data[i].MethodObj.MethodID:
+            if self.existing_result.ResultObj.FeatureActionObj.ActionID == data[i].ActionID:
                 index = i
                 break
 
