@@ -1,36 +1,25 @@
 import wx
-
-from src.wizard.view.clsSeriesSelectPanel \
-    import SeriesSelectPanelView
-from src.wizard.view.clsCustomDialog \
-    import CustomDialog
-from src.wizard.controller.frmSeriesWizard \
-    import SeriesWizardController
-
-from src.wizard.controller.WizardDialog \
-    import WizardDialog
-from src.wizard.controller.frmSampFeatSelectPanel \
-    import SampFeatSelectPanel
-from src.wizard.controller.frmVariableSelectPanel \
-    import VariableSelectPanel
-from src.wizard.controller.frmUnitSelectPanel \
-    import UnitSelectPanel
-from src.wizard.controller.frmProcLevelSelectPanel \
-    import ProcLevelSelectPanel
-from src.wizard.controller.frmActionsSelectPanel \
-    import ActionsSelectPanel
-from src.wizard.controller.frmResultSummaryPanel \
-    import ResultSummaryPanel
-
-from odm2api.ODM2.services.readService \
-    import DetailedResult
-
+import sys
+from src.wizard.view.clsSeriesSelectPanel import SeriesSelectPanelView
+from src.wizard.view.clsCustomDialog import CustomDialog
+from src.wizard.controller.WizardDialog import WizardDialog
+from src.wizard.controller.frmSampFeatSelectPanel import SampFeatSelectPanel
+from src.wizard.controller.frmVariableSelectPanel import VariableSelectPanel
+from src.wizard.controller.frmUnitSelectPanel import UnitSelectPanel
+from src.wizard.controller.frmProcLevelSelectPanel import ProcLevelSelectPanel
+from src.wizard.controller.frmActionsSelectPanel import ActionsSelectPanel
+from src.wizard.controller.frmResultSummaryPanel import ResultSummaryPanel
 from src.wizard.models.ResultMapping import ResultMapping
+
 
 class SeriesSelectDialog(CustomDialog):
     def __init__(self, parent, variable, database):
         super(SeriesSelectDialog, self).__init__(parent=parent, title="Select Result for %s" % variable, size=wx.Size(700, 500))
         self.database = database
+
+        self._auto_width_style = wx.LIST_AUTOSIZE
+        if sys.platform == "win32":
+            self._auto_width_style = wx.LIST_AUTOSIZE_USEHEADER
 
         read = database.getReadSession()
         self.existingResult = None
@@ -44,6 +33,7 @@ class SeriesSelectDialog(CustomDialog):
         self.seriesSelectPanel.okBtn.Bind(wx.EVT_BUTTON, self.onOK)
 
         self.seriesSelectPanel.listCtrl.SetObjects(read.getDetailedResultInfo("Time series coverage"))
+        self.auto_size_table()
 
         self.seriesSelectPanel.listCtrl.Bind(wx.EVT_LIST_ITEM_SELECTED, self.on_select_item)
         self.seriesSelectPanel.listCtrl.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.on_deselect_item)
@@ -51,6 +41,10 @@ class SeriesSelectDialog(CustomDialog):
     # ================== #
     # > Event Handlers < #
     # ================== #
+
+    def auto_size_table(self):
+        for i in range(self.seriesSelectPanel.listCtrl.GetColumnCount()):
+            self.seriesSelectPanel.listCtrl.SetColumnWidth(col=i, width=self._auto_width_style)
 
     def on_deselect_item(self, event):
         self.seriesSelectPanel.okBtn.Disable()

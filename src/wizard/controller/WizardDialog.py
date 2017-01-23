@@ -156,6 +156,7 @@ class WizardDialog(wx.Dialog):
             self.btnPrev.Enable(True)
 
         if self.currentPnl == self.pnlList[-1]:
+            self.CenterOnParent()
             self.currentPnl.check_required_fields()
             self.btnNext.SetLabel("Finish")
             self.btnNext.Unbind(wx.EVT_BUTTON)

@@ -14,13 +14,53 @@ class ResultSummaryPanel(ResultPageView):
         super(ResultSummaryPanel, self).__init__(parent)
         self.Bind(wx.EVT_SHOW, self.onShow)
         self.parent = parent
+        self.existing_result = existing_result
         self.btnNewSR.Bind(wx.EVT_BUTTON, self.onCreateSpatialReference)
  
         self.fontColor = wx.Colour(67, 79, 112)
         self.populateFields()
+        self.__populate_date_fields()
 
         self.comboSamp.Bind(wx.EVT_COMBOBOX, self.check_required_fields)
         self.comboAgg.Bind(wx.EVT_COMBOBOX, self.check_required_fields)
+
+    def __populate_date_fields(self):
+
+        # Set Result Date Time
+        if self.existing_result.ResultObj.ResultDateTime is not None:
+            year = self.existing_result.ResultObj.ResultDateTime.year
+            month = self.existing_result.ResultObj.ResultDateTime.month - 1
+            day = self.existing_result.ResultObj.ResultDateTime.day
+            seconds = self.existing_result.ResultObj.ResultDateTime.second
+            minute = self.existing_result.ResultObj.ResultDateTime.minute
+            hour = self.existing_result.ResultObj.ResultDateTime.hour
+
+            date = self.__create_datetime(month=month, day=day, year=year,
+                                          seconds=seconds, minute=minute, hour=hour)
+            self.datePickerResult.SetValue(date)
+            self.timeResult.SetValue(date)
+
+        # Set Valid Date Time
+        if not self.existing_result.ResultObj.ValidDateTime is None:
+            year = self.existing_result.ResultObj.ValidDateTime.year
+            month = self.existing_result.ResultObj.ValidDateTime.month - 1
+            day = self.existing_result.ResultObj.ValidDateTime.day
+
+            date = self.__create_datetime(month=month, day=day, year=year)
+            self.dateValidDT.SetValue(date)
+
+    def __create_datetime(self, month, day, year, seconds=None, minute=None, hour=None):
+        date = wx.DateTime().Now()
+        date.SetMonth(month)
+        date.SetYear(year)
+        date.SetDay(day)
+
+        if seconds is not None and minute is not None and hour is not None:
+            date.SetMinute(minute)
+            date.SetSecond(seconds)
+            date.SetHour(hour)
+
+        return date
 
     def check_required_fields(self, event=None):
         if self.comboSamp.GetStringSelection() == "" or self.comboAgg.GetStringSelection() == "":
@@ -171,7 +211,7 @@ class ResultSummaryPanel(ResultPageView):
                     SpatialReferenceID=sr,
                     IntendedTimeSpacing=timeSpacing,
                     IntendedTimeSpacingUnitsID=timeUnit)
-        result =  write.createResult(tsr)
+        result = write.createResult(tsr)
 
         print result
         return result
@@ -242,16 +282,12 @@ class ResultSummaryPanel(ResultPageView):
         
         self.tax = [{i.TaxonomicClassifierName:i.TaxonomicClassifierID}\
             for i in read.getTaxonomicClassifiers()]
-        self.comboTax.AppendItems(\
-            [y for x in [i.keys() for i in self.tax] for y in x]
-            )
+        self.comboTax.AppendItems([y for x in [i.keys() for i in self.tax] for y in x])
         
         self.sp_ref = [{i.SRSName:i.SpatialReferenceID}\
             #for i in read.getCVSpacialReferenceTypes()]
             for i in read.getSpatialReferences()]
-        self.comboSR.AppendItems(\
-            [y for x in [i.keys() for i in self.sp_ref] for y in x]
-            )
+        self.comboSR.AppendItems([y for x in [i.keys() for i in self.sp_ref] for y in x])
 
     def onCreateSpatialReference(self, event):
         dlg = CustomDialog(self, "New Spatial Reference")

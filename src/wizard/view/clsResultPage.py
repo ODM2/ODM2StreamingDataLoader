@@ -71,26 +71,22 @@ class ResultPageView ( wx.Panel ):
         
         bSizerResultDT = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.staticResultDT = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Result Date Time", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.staticResultDT.Wrap( -1 )
-        bSizerResultDT.Add( self.staticResultDT, 0, wx.ALL, 5 )
+        self.staticResultDT = wx.StaticText( sbSizerOpt.GetStaticBox(), label="Result Date Time")
+        self.staticResultDT.Wrap(-1)
+        bSizerResultDT.Add(self.staticResultDT, 0, wx.ALL, 5)
+
+        bSizerResultDT.AddSpacer((0, 0), 1, wx.EXPAND, 5)
         
+        self.datePickerResult = wx.DatePickerCtrl(sbSizerOpt.GetStaticBox(), style=wx.DP_ALLOWNONE)
+        self.datePickerResult.SetMinSize(wx.Size(160, -1))
+        self.datePickerResult.SetValue(wx.DateTime().Now())
         
-        bSizerResultDT.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
-        
-        self.datePickerResult = wx.DatePickerCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.DP_ALLOWNONE )
-        self.datePickerResult.SetMinSize( wx.Size( 160,-1 ) )
-        self.datePickerResult.SetValue(wx.DateTime())
-        
-        bSizerResultDT.Add( self.datePickerResult, 0, wx.ALL, 5 )
+        bSizerResultDT.Add(self.datePickerResult, 0, wx.ALL, 5)
        
-        self.timeResult = masked.TimeCtrl(\
-            sbSizerOpt.GetStaticBox(), wx.ID_ANY,
-            '00:00:00', wx.DefaultPosition,
-            wx.DefaultSize, wx.TE_PROCESS_TAB,
-            validator=wx.DefaultValidator,
-            name = 'time',
-            format = 'HHMMSS')
+        self.timeResult = masked.TimeCtrl(sbSizerOpt.GetStaticBox(),
+                                          value='00:00:00',
+                                          name='time',
+                                          format='HHMMSS')
     
         h = self.timeResult.GetSize().height
     
@@ -112,26 +108,28 @@ class ResultPageView ( wx.Panel ):
         
         bSizerValid = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.staticValidDT = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Valid Date Time", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.staticValidDT.Wrap( -1 )
-        bSizerValid.Add( self.staticValidDT, 0, wx.ALL, 5 )
+        self.staticValidDT = wx.StaticText(sbSizerOpt.GetStaticBox(), label="Valid Date Time")
+        self.staticValidDT.Wrap(-1)
+        bSizerValid.Add(self.staticValidDT, 0, wx.ALL, 5)
         
         
         bSizerValid.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.dateValidDT = wx.DatePickerCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.DP_ALLOWNONE )
-        self.dateValidDT.SetMinSize( wx.Size( 160,-1 ) )
-        self.dateValidDT.SetValue(wx.DateTime())
+        self.dateValidDT = wx.DatePickerCtrl(sbSizerOpt.GetStaticBox(), style=wx.DP_ALLOWNONE)
+        self.dateValidDT.SetMinSize(wx.Size(160, -1))
+        self.dateValidDT.SetValue(wx.DateTime().Now())
         
         bSizerValid.Add( self.dateValidDT, 0, wx.ALL, 5 )
         
-        self.timeValid = masked.TimeCtrl(\
-            sbSizerOpt.GetStaticBox(), wx.ID_ANY,
-            '00:00:00', wx.DefaultPosition,
-            wx.DefaultSize, wx.TE_PROCESS_TAB,
-            validator=wx.DefaultValidator,
-            name = 'time',
-            format = 'HHMMSS')
+        self.timeValid = masked.TimeCtrl(sbSizerOpt.GetStaticBox(),
+                                         wx.ID_ANY,
+                                         '00:00:00',
+                                         wx.DefaultPosition,
+                                         wx.DefaultSize,
+                                         wx.TE_PROCESS_TAB,
+                                         validator=wx.DefaultValidator,
+                                         name='time',
+                                         format='HHMMSS')
     
         h = self.timeValid.GetSize().height
     
@@ -149,18 +147,18 @@ class ResultPageView ( wx.Panel ):
         
         sbSizerOpt.Add( bSizerValid, 1, wx.EXPAND, 5 )
         
-        bSizerUTC = wx.BoxSizer( wx.HORIZONTAL )
+        bSizerUTC = wx.BoxSizer(wx.HORIZONTAL)
         
-        self.staticUTCValid = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"UTC Offset", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.staticUTCValid.Wrap( -1 )
-        bSizerUTC.Add( self.staticUTCValid, 0, wx.ALL, 5 )
-        bSizerUTC.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        self.staticUTCValid = wx.StaticText(sbSizerOpt.GetStaticBox(), label="UTC Offset")
+        self.staticUTCValid.Wrap(-1)
+        bSizerUTC.Add(self.staticUTCValid, 0, wx.ALL, 5)
+        bSizerUTC.AddSpacer((0, 0), 1, wx.EXPAND, 5)
         
-        self.spinUTCValid = wx.SpinCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-        self.spinUTCValid.SetMinSize( wx.Size( 50,-1 ) )
-        self.spinUTCValid.SetRange(-12,14)
+        self.spinUTCValid = wx.SpinCtrl(sbSizerOpt.GetStaticBox(), style=wx.SP_ARROW_KEYS, min=-10, max=10)
+        self.spinUTCValid.SetMinSize(wx.Size(50, -1))
+        self.spinUTCValid.SetRange(-12, 14)
         
-        bSizerUTC.Add( self.spinUTCValid, 0, wx.ALL, 5 )
+        bSizerUTC.Add(self.spinUTCValid, 0, wx.ALL, 5)
         
         
         sbSizerOpt.Add( bSizerUTC, 1, wx.EXPAND, 5 )
