@@ -32,14 +32,8 @@ class SeriesSelectDialog(CustomDialog):
         self.seriesSelectPanel.editBtn.Bind(wx.EVT_BUTTON, self.onEdit)
         self.seriesSelectPanel.okBtn.Bind(wx.EVT_BUTTON, self.onOK)
 
-<<<<<<< HEAD
-        #self.seriesSelectPanel.listCtrl.SetObjects(read.getDetailedResultInfo("Time series coverage"))
-        detailedResults = read.getDetailedResultInfo("Time series coverage")
-        self.seriesSelectPanel.listCtrl.SetObjects(detailedResults)
-=======
         self.seriesSelectPanel.listCtrl.SetObjects(read.getDetailedResultInfo("Time series coverage"))
         self.auto_size_table()
->>>>>>> 1c780ddb05f960ef09d4b3cc65818101ef7950d8
 
         self.seriesSelectPanel.listCtrl.Bind(wx.EVT_LIST_ITEM_SELECTED, self.on_select_item)
         self.seriesSelectPanel.listCtrl.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.on_deselect_item)
