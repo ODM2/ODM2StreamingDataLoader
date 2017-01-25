@@ -36,18 +36,30 @@ class SeriesSelectPanelView(wx.Panel):
         self.listCtrl.evenRowsBackColor = wx.Colour(204, 229, 255)
         self.listCtrl.SetEmptyListMsg("No existing time series results.")
         self.listCtrl.SetObjects(None)
-        self.listCtrl.SetColumns([
-            ColumnDefn(title='Result ID', width=70, valueGetter='ResultID'),
-            ColumnDefn(title='Samp. Feat. Code', width=110, valueGetter='SamplingFeatureCode'),
-            ColumnDefn(title='Samp. Feat. Name', width=110, valueGetter='SamplingFeatureName'),
-            ColumnDefn(title='Variable Code', width=100, valueGetter='VariableCode'),
-            ColumnDefn(title='Variable Name', width=100, valueGetter='VariableNameCV'),
-            ColumnDefn(title='Units Name', width=80, valueGetter='UnitsName'),
-            ColumnDefn(title='Method Code', width=100, valueGetter='MethodCode'),
-            ColumnDefn(title='Method Name', width=100, valueGetter='MethodName'),
-            ColumnDefn(title='Proc. Level Code', width=110, valueGetter='ProcessingLevelCode'),
-            ColumnDefn(title='Proc. Level Def.', width=110, valueGetter='ProcessingLevelDefinition'),
-        ])
+        # self.listCtrl.SetColumns([
+        #     ColumnDefn(title='Result ID', width=70, valueGetter='ResultID'),
+        #     ColumnDefn(title='Samp. Feat. Code', width=110, valueGetter='SamplingFeatureCode'),
+        #     ColumnDefn(title='Samp. Feat. Name', width=110, valueGetter='SamplingFeatureName'),
+        #     ColumnDefn(title='Variable Code', width=100, valueGetter='VariableCode'),
+        #     ColumnDefn(title='Variable Name', width=100, valueGetter='VariableNameCV'),
+        #     ColumnDefn(title='Units Name', width=80, valueGetter='UnitsName'),
+        #     ColumnDefn(title='Method Code', width=100, valueGetter='MethodCode'),
+        #     ColumnDefn(title='Method Name', width=100, valueGetter='MethodName'),
+        #     ColumnDefn(title='Proc. Level Code', width=110, valueGetter='ProcessingLevelCode'),
+        #     ColumnDefn(title='Proc. Level Def.', width=110, valueGetter='ProcessingLevelDefinition'),
+        # ])
+
+        columns = ['ResultID', 'SamplingFeatureCode', 'SamplingFeatureName', 'MethodCode', 'MethodName',
+                          'VariableCode', 'VariableNameCV', 'ProcessingLevelCode', 'ProcessingLevelDefinition',
+                          'UnitsName', 'ValueCount',
+                   ]
+        defn= [
+            ColumnDefn(title=key, align="left", minimumWidth=100, valueGetter=key,
+                       stringConverter='%s')
+
+            for key in columns]
+
+        self.listCtrl.SetColumns(defn)
         self.editBtn = wx.Button(self,
                                 wx.ID_ANY,
                                 "Edit Result",
