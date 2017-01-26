@@ -36,7 +36,7 @@ class UnitSelectPanel(SeriesSelectPanel):
         index = -1
         data = self.list_ctrl.GetObjects()
         for i in range(len(data)):
-            if self.existing_result.UnitsName == data[i].UnitsName:
+            if self.existing_result.UnitsObj.UnitsName == data[i].UnitsName:
                 index = i
                 break
 
@@ -52,12 +52,11 @@ class UnitSelectPanel(SeriesSelectPanel):
         event.Skip()
   
     def enable(self, event):
+        self.existing_result.UnitsObj = self.list_ctrl.GetSelectedObject()
         self.parent.btnNext.Enable(True)
-        event.Skip()
-    
+
     def disable(self, event):
         self.parent.btnNext.Enable(False)
-        event.Skip()
 
     def getSeriesData(self):
         if self.parent.database:

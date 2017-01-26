@@ -9,6 +9,8 @@ class SampFeatSelectPanel(SeriesSelectPanel):
     def __init__(self, parent, existing_result=None):
         super(SampFeatSelectPanel, self).__init__(parent, "Sampling Feature")
         self.parent = parent
+        self.existing_result = existing_result
+
         self.list_ctrl.SetColumns([
             ColumnDefn('Code', 'left', 120, 'SamplingFeatureCode'),
             ColumnDefn('Name', 'left', 120, 'SamplingFeatureName'),
@@ -17,7 +19,6 @@ class SampFeatSelectPanel(SeriesSelectPanel):
             ColumnDefn('Geotype', 'left', 120, 'SamplingFeatureGeotypeCV'),
             ColumnDefn('Elevation', 'left', 120, 'Elevation_m'),
         ])
-        self.existing_result = existing_result
 
         self.list_ctrl.SetObjects(self.getSeriesData())
         if not self.parent.database:
@@ -28,7 +29,7 @@ class SampFeatSelectPanel(SeriesSelectPanel):
 
         self.list_ctrl.Bind(wx.EVT_LIST_ITEM_SELECTED, self.enable)
         self.list_ctrl.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.disable)
-        self.Bind(wx.EVT_SHOW, self.onShow)
+        # self.Bind(wx.EVT_SHOW, self.onShow)
 
     def select_existing_series(self):
         if self.existing_result is None:
@@ -37,7 +38,7 @@ class SampFeatSelectPanel(SeriesSelectPanel):
         index = -1
         data = self.list_ctrl.GetObjects()
         for i in range(len(data)):
-            if self.existing_result.SamplingFeatureCode == data[i].SamplingFeatureCode:
+            if self.existing_result.FeatureActionObj.SamplingFeatureObj.SamplingFeatureCode == data[i].SamplingFeatureCode:
                 index = i
                 break
 
@@ -53,12 +54,11 @@ class SampFeatSelectPanel(SeriesSelectPanel):
         event.Skip()
 
     def enable(self, event):
+        self.existing_result.FeatureActionObj.SamplingFeatureObj = self.list_ctrl.GetSelectedObject()
         self.parent.btnNext.Enable()
-        event.Skip()
-    
+
     def disable(self, event):
         self.parent.btnNext.Disable()
-        event.Skip()
 
     def getSeriesData(self):
         if self.parent.database:

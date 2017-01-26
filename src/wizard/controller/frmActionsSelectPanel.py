@@ -28,7 +28,7 @@ class ActionsSelectPanel(SeriesSelectPanel):
 
         self.list_ctrl.Bind(wx.EVT_LIST_ITEM_SELECTED, self.enable)
         self.list_ctrl.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.disable)
-        self.Bind(wx.EVT_SHOW, self.onShow)
+        # self.Bind(wx.EVT_SHOW, self.onShow)
 
     def select_existing_series(self):
         if self.existing_result is None:
@@ -37,7 +37,7 @@ class ActionsSelectPanel(SeriesSelectPanel):
         index = -1
         data = self.list_ctrl.GetObjects()
         for i in range(len(data)):
-            if self.existing_result.ResultObj.FeatureActionObj.ActionID == data[i].ActionID:
+            if self.existing_result.FeatureActionObj.ActionObj.ActionID == data[i].ActionID:
                 index = i
                 break
 
@@ -53,12 +53,11 @@ class ActionsSelectPanel(SeriesSelectPanel):
         event.Skip()        
 
     def enable(self, event):
+        self.existing_result.FeatureActionObj = self.list_ctrl.GetSelectedObject()
         self.parent.btnNext.Enable(True)
-        event.Skip()
-    
+
     def disable(self, event):
         self.parent.btnNext.Enable(False)
-        event.Skip()
 
     def getSeriesData(self):
         if self.parent.database:

@@ -35,7 +35,7 @@ class ProcLevelSelectPanel(SeriesSelectPanel):
         index = -1
         data = self.list_ctrl.GetObjects()
         for i in range(len(data)):
-            if self.existing_result.ProcessingLevelCode == data[i].ProcessingLevelCode:
+            if self.existing_result.ProcessingLevelObj.ProcessingLevelCode == data[i].ProcessingLevelCode:
                 index = i
                 break
 
@@ -51,12 +51,11 @@ class ProcLevelSelectPanel(SeriesSelectPanel):
         event.Skip() 
     
     def enable(self, event):
+        self.existing_result.ProcessingLevelObj = self.list_ctrl.GetSelectedObject()
         self.parent.btnNext.Enable(True)
-        event.Skip()
-    
+
     def disable(self, event):
         self.parent.btnNext.Enable(False)
-        event.Skip()
 
     def getSeriesData(self):
         if self.parent.database:

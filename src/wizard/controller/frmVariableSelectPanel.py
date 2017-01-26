@@ -36,7 +36,7 @@ class VariableSelectPanel(SeriesSelectPanel):
         index = -1
         data = self.list_ctrl.GetObjects()
         for i in range(len(data)):
-            if self.existing_result.VariableCode == data[i].VariableCode:
+            if self.existing_result.VariableObj.VariableCode == data[i].VariableCode:
                 index = i
                 break
 
@@ -52,12 +52,11 @@ class VariableSelectPanel(SeriesSelectPanel):
         event.Skip()
     
     def enable(self, event):
+        self.existing_result.VariableObj = self.list_ctrl.GetSelectedObject()
         self.parent.btnNext.Enable(True)
-        event.Skip()
-    
+
     def disable(self, event):
         self.parent.btnNext.Enable(False)
-        event.Skip()
 
     def getSeriesData(self):
         if self.parent.database:

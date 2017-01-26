@@ -26,14 +26,17 @@ class ResultSummaryPanel(ResultPageView):
 
     def __populate_date_fields(self):
 
+        if self.existing_result is None:
+            return
+
         # Set Result Date Time
-        if self.existing_result.ResultObj.ResultDateTime is not None:
-            year = self.existing_result.ResultObj.ResultDateTime.year
-            month = self.existing_result.ResultObj.ResultDateTime.month - 1
-            day = self.existing_result.ResultObj.ResultDateTime.day
-            seconds = self.existing_result.ResultObj.ResultDateTime.second
-            minute = self.existing_result.ResultObj.ResultDateTime.minute
-            hour = self.existing_result.ResultObj.ResultDateTime.hour
+        if self.existing_result.ResultDateTime is not None:
+            year = self.existing_result.ResultDateTime.year
+            month = self.existing_result.ResultDateTime.month - 1
+            day = self.existing_result.ResultDateTime.day
+            seconds = self.existing_result.ResultDateTime.second
+            minute = self.existing_result.ResultDateTime.minute
+            hour = self.existing_result.ResultDateTime.hour
 
             date = self.__create_datetime(month=month, day=day, year=year,
                                           seconds=seconds, minute=minute, hour=hour)
@@ -41,10 +44,10 @@ class ResultSummaryPanel(ResultPageView):
             self.timeResult.SetValue(date)
 
         # Set Valid Date Time
-        if not self.existing_result.ResultObj.ValidDateTime is None:
-            year = self.existing_result.ResultObj.ValidDateTime.year
-            month = self.existing_result.ResultObj.ValidDateTime.month - 1
-            day = self.existing_result.ResultObj.ValidDateTime.day
+        if not self.existing_result.ValidDateTime is None:
+            year = self.existing_result.ValidDateTime.year
+            month = self.existing_result.ValidDateTime.month - 1
+            day = self.existing_result.ValidDateTime.day
 
             date = self.__create_datetime(month=month, day=day, year=year)
             self.dateValidDT.SetValue(date)

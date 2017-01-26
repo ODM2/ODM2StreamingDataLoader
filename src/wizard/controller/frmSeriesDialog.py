@@ -21,7 +21,7 @@ class SeriesSelectDialog(CustomDialog):
         if sys.platform == "win32":
             self._auto_width_style = wx.LIST_AUTOSIZE_USEHEADER
 
-        read = database.getReadSession()
+        self.read = database.getReadSession()
         self.existingResult = None
         #read.getDetailedResultInfo("Time series coverage")
         self.seriesSelectPanel = SeriesSelectPanelView(self)
@@ -32,11 +32,16 @@ class SeriesSelectDialog(CustomDialog):
         self.seriesSelectPanel.editBtn.Bind(wx.EVT_BUTTON, self.onEdit)
         self.seriesSelectPanel.okBtn.Bind(wx.EVT_BUTTON, self.onOK)
 
-        self.seriesSelectPanel.listCtrl.SetObjects(read.getDetailedResultInfo("Time series coverage"))
+        self.seriesSelectPanel.listCtrl.SetObjects(self.read.getDetailedResultInfo("Time series coverage"))
         self.auto_size_table()
 
         self.seriesSelectPanel.listCtrl.Bind(wx.EVT_LIST_ITEM_SELECTED, self.on_select_item)
         self.seriesSelectPanel.listCtrl.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.on_deselect_item)
+
+        self.Bind(wx.EVT_CLOSE, self.on_close)
+
+    def on_close(self, event):
+        self.Destroy()
 
     # ================== #
     # > Event Handlers < #
@@ -53,12 +58,11 @@ class SeriesSelectDialog(CustomDialog):
     def onNew(self, event):
         wiz = WizardDialog(self, database=self.database, title="New Result Wizard", result=None)
         
-        wiz.addPage(SampFeatSelectPanel) 
+        wiz.addPage(SampFeatSelectPanel)
         wiz.addPage(VariableSelectPanel) 
         wiz.addPage(UnitSelectPanel) 
         wiz.addPage(ProcLevelSelectPanel) 
         wiz.addPage(ActionsSelectPanel) 
-        #wiz.addPage(ResultPageView)
         wiz.addPage(ResultSummaryPanel)
 
         wiz.CenterOnParent()
@@ -98,7 +102,10 @@ class SeriesSelectDialog(CustomDialog):
         dlg.SetOKCancelLabels(ok="Continue", cancel="Cancel")
 
         if dlg.ShowModal() == wx.ID_OK:
-            wiz = WizardDialog(self, database=self.database, title="Edit Result Wizard", result=self.existingResult)
+            result = self.read.getResults(ids=[self.existingResult.ResultID])
+            result = result[0] if len(result) > 0 else None
+
+            wiz = WizardDialog(self, database=self.database, title="Edit Result Wizard", result=result)
             wiz.centerSelf()
             wiz.addPage(SampFeatSelectPanel)
             wiz.addPage(VariableSelectPanel)

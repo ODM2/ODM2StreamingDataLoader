@@ -32,6 +32,10 @@ class WizardDialog(wx.Dialog):
         self.SetSizer(self.mainSizer)
         self.mainSizer.Fit(self)
         self.returnValue = wx.ID_ANY
+        self.Bind(wx.EVT_CLOSE, self.on_close)
+
+    def on_close(self, event):
+        self.Destroy()
 
     def centerSelf(self):
         self.CenterOnParent()
@@ -166,7 +170,7 @@ class WizardDialog(wx.Dialog):
             self.btnNext.Unbind(wx.EVT_BUTTON)
             self.btnNext.Bind(wx.EVT_BUTTON, self.onNext)
             
-        event.Skip() 
+        event.Skip()
 
 
 if __name__ == '__main__': 
