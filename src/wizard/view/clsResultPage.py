@@ -232,27 +232,26 @@ class ResultPageView ( wx.Panel ):
         
         bSizerX = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.staticX = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"X Location", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.staticX.Wrap( -1 )
-        bSizerX.Add( self.staticX, 0, wx.ALL, 5 )
-        
+        self.static_x_location = wx.StaticText(sbSizerOpt.GetStaticBox(), label="X Location")
+        self.static_x_location.Wrap(-1)
+        bSizerX.Add(self.static_x_location, 0, wx.ALL, 5)
         
         bSizerX.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.txtX = FS.FloatSpin( sbSizerOpt.GetStaticBox(), wx.ID_ANY,wx.DefaultPosition, wx.DefaultSize, min_val=0, max_val=9999, increment=1.00, value=0.00, agwStyle=FS.FS_LEFT)
+        self.txtX = FS.FloatSpin(sbSizerOpt.GetStaticBox(), wx.ID_ANY,wx.DefaultPosition, wx.DefaultSize, min_val=0, max_val=9999, increment=1.00, value=0.00, agwStyle=FS.FS_LEFT)
         self.txtX.SetFormat("%f")
         self.txtX.SetDigits(3)
         self.txtX.SetMinSize( wx.Size( 70,-1 ) )
         
         bSizerX.Add( self.txtX, 0, wx.ALL, 5 )
         
-        self.staticXUnits = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Units", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.staticXUnits = wx.StaticText( sbSizerOpt.GetStaticBox(), label="Units")
         self.staticXUnits.Wrap( -1 )
         bSizerX.Add( self.staticXUnits, 0, wx.ALL, 5 )
         
         comboXUnitsChoices = []
         self.comboXUnits = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboXUnitsChoices, 0 )
-        self.comboXUnits.SetMinSize( wx.Size( 160,-1 ) )
+        self.comboXUnits.SetMinSize(wx.Size(160, -1))
         
         bSizerX.Add( self.comboXUnits, 0, wx.ALL, 5 )
         
@@ -260,12 +259,12 @@ class ResultPageView ( wx.Panel ):
         
         bSizerY = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.staticY = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Y Location", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.staticY.Wrap( -1 )
-        bSizerY.Add( self.staticY, 0, wx.ALL, 5 )
+        self.staticY = wx.StaticText(sbSizerOpt.GetStaticBox(), label="Y Location")
+        self.staticY.Wrap(-1)
+        bSizerY.Add(self.staticY, 0, wx.ALL, 5)
         
         
-        bSizerY.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+        bSizerY.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5)
         
         self.txtY = FS.FloatSpin( sbSizerOpt.GetStaticBox(), wx.ID_ANY,wx.DefaultPosition, wx.DefaultSize, min_val=0, max_val=9999, increment=1.00, value=0.00, agwStyle=FS.FS_LEFT)
         self.txtY.SetFormat("%f")
@@ -289,9 +288,9 @@ class ResultPageView ( wx.Panel ):
         
         bSizerZ = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.m_staticText24413 = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Z Location", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText24413.Wrap( -1 )
-        bSizerZ.Add( self.m_staticText24413, 0, wx.ALL, 5 )
+        self.m_staticText24413 = wx.StaticText( sbSizerOpt.GetStaticBox(), label="Z Location")
+        self.m_staticText24413.Wrap(-1)
+        bSizerZ.Add(self.m_staticText24413, 0, wx.ALL, 5)
         
         
         bSizerZ.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )

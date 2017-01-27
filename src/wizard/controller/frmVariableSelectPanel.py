@@ -52,7 +52,8 @@ class VariableSelectPanel(SeriesSelectPanel):
         event.Skip()
     
     def enable(self, event):
-        self.existing_result.VariableObj = self.list_ctrl.GetSelectedObject()
+        if self.existing_result is not None:
+            self.existing_result.VariableObj = self.list_ctrl.GetSelectedObject()
         self.parent.btnNext.Enable(True)
 
     def disable(self, event):

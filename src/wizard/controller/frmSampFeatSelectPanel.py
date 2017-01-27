@@ -54,7 +54,8 @@ class SampFeatSelectPanel(SeriesSelectPanel):
         event.Skip()
 
     def enable(self, event):
-        self.existing_result.FeatureActionObj.SamplingFeatureObj = self.list_ctrl.GetSelectedObject()
+        if self.existing_result is not None:
+            self.existing_result.FeatureActionObj.SamplingFeatureObj = self.list_ctrl.GetSelectedObject()
         self.parent.btnNext.Enable()
 
     def disable(self, event):

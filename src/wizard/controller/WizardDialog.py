@@ -4,7 +4,8 @@ from src.wizard.controller.frmVariableSelectPanel import VariableSelectPanel
 from src.wizard.controller.frmUnitSelectPanel import UnitSelectPanel
 from src.wizard.controller.frmProcLevelSelectPanel import ProcLevelSelectPanel
 from src.wizard.controller.frmActionsSelectPanel import ActionsSelectPanel
-from src.wizard.view.clsResultPage import ResultPageView
+# from src.wizard.view.clsResultPage import ResultPageView
+from src.wizard.controller.frmResultSummaryPanel import ResultSummaryPanel
 
 
 class WizardDialog(wx.Dialog):
@@ -119,9 +120,41 @@ class WizardDialog(wx.Dialog):
             self.Close()
 
     def __update_existing_result(self):
-        print self.pnlList[0].list_ctrl.GetSelectedObject()
+
+        if not isinstance(self.currentPnl, ResultSummaryPanel):
+            raise Exception("self.currentPanel must be of type ResultSummaryPanel")
+
+        result = self.existingResult
+
+        result.SampledMediumCV = self.currentPnl.comboSamp.GetValue()
+        result.AggregationStatisticCV = self.currentPnl.comboAgg.GetValue()
+
+        for unit in self.currentPnl.length_units:
+            if unit.UnitsName == self.currentPnl.comboXUnits.GetValue():
+                result.XLocationUnitsID = unit.UnitsID
+
+            if unit.UnitsName == self.currentPnl.comboYUnits.GetValue():
+                result.YLocationUnitsID = unit.UnitsID
+
+            if unit.UnitsName == self.currentPnl.comboZUnits.GetValue():
+                result.ZLocationUnitsID = unit.UnitsID
+
+        for time in self.currentPnl.time_units:
+            if time.UnitsName == self.currentPnl.comboIntendedUnits.GetValue():
+                result.IntendedTimeSpacingUnitsID = time.UnitsID
+
+        result.XLocation = self.currentPnl.txtX.GetValue()
+        result.YLocation = self.currentPnl.txtY.GetValue()
+        result.ZLocation = self.currentPnl.txtZ.GetValue()
+
+        result.IntendedTimeSpacing = self.currentPnl.txtIntended.GetValue()
+
         # self.database.getUpdateSession().updateResult(pass in result object)
-        pass
+        session = self.database.getUpdateSession()
+        session.updateResult(resultID=result.ResultID)
+
+        self.returnValue = wx.ID_OK
+        self.Close()
 
     def onPrev(self, event):
         self.currentPnl.Hide()
@@ -181,7 +214,7 @@ if __name__ == '__main__':
     wiz.addPage(UnitSelectPanel) 
     wiz.addPage(ProcLevelSelectPanel) 
     wiz.addPage(ActionsSelectPanel) 
-    wiz.addPage(ResultPageView)   
+    # wiz.addPage(ResultPageView)
     wiz.ShowModal() 
     app.MainLoop() 
 

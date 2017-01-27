@@ -12,17 +12,41 @@ import uuid
 class ResultSummaryPanel(ResultPageView):
     def __init__( self, parent, existing_result=None):
         super(ResultSummaryPanel, self).__init__(parent)
-        self.Bind(wx.EVT_SHOW, self.onShow)
+
         self.parent = parent
         self.existing_result = existing_result
-        self.btnNewSR.Bind(wx.EVT_BUTTON, self.onCreateSpatialReference)
- 
+        self.read_session = self.parent.database.getReadSession()
+        self.length_units = self.read_session.getUnits(type="length")
+        self.time_units = self.read_session.getUnits(type="time")
         self.fontColor = wx.Colour(67, 79, 112)
-        self.populateFields()
-        self.__populate_date_fields()
 
+        self.populateFields()
+        self.__populate_optional_section()
+
+        self.btnNewSR.Bind(wx.EVT_BUTTON, self.onCreateSpatialReference)
         self.comboSamp.Bind(wx.EVT_COMBOBOX, self.check_required_fields)
         self.comboAgg.Bind(wx.EVT_COMBOBOX, self.check_required_fields)
+        self.Bind(wx.EVT_SHOW, self.onShow)
+
+    def __populate_optional_section(self):
+
+        if self.existing_result is None:
+            return
+
+        self.__populate_date_fields()
+
+        x_loc = self.existing_result.XLocation
+        y_loc = self.existing_result.YLocation
+        z_loc = self.existing_result.ZLocation
+
+        if x_loc is not None:
+            self.txtX.SetValue(x_loc)
+
+        if y_loc is not None:
+            self.txtY.SetValue(y_loc)
+
+        if z_loc is not None:
+            self.txtZ.SetValue(z_loc)
 
     def __populate_date_fields(self):
 
@@ -190,30 +214,30 @@ class ResultSummaryPanel(ResultPageView):
         print "X", x
         print "Y", y
         print "Z", z
-        tsr= TimeSeriesResults(ResultUUID = str(uuid.uuid4()),
-                    FeatureActionID=featureActionID,
-                   VariableID=variableID,
-                   UnitsID=unitID,
-                   ProcessingLevelID=processingLevelID,
-                   ValueCount=valueCount,
-                   SampledMediumCV=sampledMedium,
-                   ResultTypeCV=resultTypeCV,
-                   TaxonomicClassifierID=tax,
-                   ResultDateTime=resultDT,
-                   ResultDateTimeUTCOffset=validUTCOffset,
-                   ValidDateTime=validDT,
-                   ValidDateTimeUTCOffset=validUTCOffset,
-                   StatusCV=statusCV,
-                    AggregationStatisticCV=aggStat,
-                    XLocation=x,
-                    XLocationUnitsID=xUnit,
-                    YLocation=y,
-                    YLocationUnitsID=yUnit,
-                    ZLocation=z,
-                    ZLocationUnitsID=zUnit,
-                    SpatialReferenceID=sr,
-                    IntendedTimeSpacing=timeSpacing,
-                    IntendedTimeSpacingUnitsID=timeUnit)
+        tsr = TimeSeriesResults(ResultUUID=str(uuid.uuid4()),
+                                FeatureActionID=featureActionID,
+                                VariableID=variableID,
+                                UnitsID=unitID,
+                                ProcessingLevelID=processingLevelID,
+                                ValueCount=valueCount,
+                                SampledMediumCV=sampledMedium,
+                                ResultTypeCV=resultTypeCV,
+                                TaxonomicClassifierID=tax,
+                                ResultDateTime=resultDT,
+                                ResultDateTimeUTCOffset=validUTCOffset,
+                                ValidDateTime=validDT,
+                                ValidDateTimeUTCOffset=validUTCOffset,
+                                StatusCV=statusCV,
+                                AggregationStatisticCV=aggStat,
+                                XLocation=x,
+                                XLocationUnitsID=xUnit,
+                                YLocation=y,
+                                YLocationUnitsID=yUnit,
+                                ZLocation=z,
+                                ZLocationUnitsID=zUnit,
+                                SpatialReferenceID=sr,
+                                IntendedTimeSpacing=timeSpacing,
+                                IntendedTimeSpacingUnitsID=timeUnit)
         result = write.createResult(tsr)
 
         print result
@@ -247,49 +271,43 @@ class ResultSummaryPanel(ResultPageView):
         event.Skip()
 
     def populateFields(self):
-        read = self.parent.database.getReadSession()
 
         self.mediums = {} #read.getCVMediumTypes()
         [self.mediums.update({obj.Name:obj}) \
             #for obj in read.getCVMediumTypes()]
-            for obj in read.getCVs(type="Medium")]
+            for obj in self.read_session.getCVs(type="Medium")]
 
         self.comboSamp.AppendItems(self.mediums.keys())
 
         self.aggStat = {} #read.getCVAggregationStatistics()
         [self.aggStat.update({obj.Name:obj}) \
          #   for obj in read.getCVAggregationStatistics()]
-            for obj in read.getCVs(type="aggregationstatistic")]
+            for obj in self.read_session.getCVs(type="aggregationstatistic")]
         self.comboAgg.AppendItems(self.aggStat.keys())
         
-        #status = read.getCVStatus();
-        status = read.getCVs(type="Status")
+        status = self.read_session.getCVs(type="Status")
         statusTerms = [obj.Term for obj in status]
         self.comboStatus.AppendItems(statusTerms)
 
-        #timeUnits = read.getUnitsByTypeCV("length")
-        timeUnits = read.getUnits(type="length")
-        timeUnitsObject = {u.UnitsName: u.UnitsID for u in timeUnits}
+        timeUnitsObject = {u.UnitsName: u.UnitsID for u in self.time_units}
 
-        lengthUnits = read.getUnits(type="time")
-        lengthUnitsObject = {u.UnitsName: u.UnitsID for u in lengthUnits}
-        ###DO HERE
+        lengthUnitsObject = {u.UnitsName: u.UnitsID for u in self.length_units}
 
-        timeUnitsName = timeUnitsObject.keys()
-        lengthUnitsName = lengthUnitsObject.keys()
+        time_units_name = timeUnitsObject.keys()
+        length_units_name = lengthUnitsObject.keys()
 
-        self.comboXUnits.AppendItems(timeUnitsName)
-        self.comboYUnits.AppendItems(timeUnitsName)
-        self.comboZUnits.AppendItems(timeUnitsName)
-        self.comboIntendedUnits.AppendItems(lengthUnitsName) ### FIX ME
+        self.comboXUnits.AppendItems(length_units_name)
+        self.comboYUnits.AppendItems(length_units_name)
+        self.comboZUnits.AppendItems(length_units_name)
+        self.comboIntendedUnits.AppendItems(time_units_name)
         
         self.tax = [{i.TaxonomicClassifierName:i.TaxonomicClassifierID}\
-            for i in read.getTaxonomicClassifiers()]
+            for i in self.read_session.getTaxonomicClassifiers()]
         self.comboTax.AppendItems([y for x in [i.keys() for i in self.tax] for y in x])
         
         self.sp_ref = [{i.SRSName:i.SpatialReferenceID}\
             #for i in read.getCVSpacialReferenceTypes()]
-            for i in read.getSpatialReferences()]
+            for i in self.read_session.getSpatialReferences()]
         self.comboSR.AppendItems([y for x in [i.keys() for i in self.sp_ref] for y in x])
 
     def onCreateSpatialReference(self, event):
