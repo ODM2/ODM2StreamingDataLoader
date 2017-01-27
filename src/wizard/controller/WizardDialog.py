@@ -6,6 +6,7 @@ from src.wizard.controller.frmProcLevelSelectPanel import ProcLevelSelectPanel
 from src.wizard.controller.frmActionsSelectPanel import ActionsSelectPanel
 # from src.wizard.view.clsResultPage import ResultPageView
 from src.wizard.controller.frmResultSummaryPanel import ResultSummaryPanel
+from datetime import datetime
 
 
 class WizardDialog(wx.Dialog):
@@ -129,6 +130,9 @@ class WizardDialog(wx.Dialog):
         result.SampledMediumCV = self.currentPnl.comboSamp.GetValue()
         result.AggregationStatisticCV = self.currentPnl.comboAgg.GetValue()
 
+        if self.currentPnl.comboStatus.GetValue() != "":
+            result.StatusCV = self.currentPnl.comboStatus.GetValue()
+
         for unit in self.currentPnl.length_units:
             if unit.UnitsName == self.currentPnl.comboXUnits.GetValue():
                 result.XLocationUnitsID = unit.UnitsID
@@ -142,6 +146,17 @@ class WizardDialog(wx.Dialog):
         for time in self.currentPnl.time_units:
             if time.UnitsName == self.currentPnl.comboIntendedUnits.GetValue():
                 result.IntendedTimeSpacingUnitsID = time.UnitsID
+
+        date = self.currentPnl.datePickerResult.GetValue()
+        year = date.Year
+        month = date.Month
+        day = date.Day
+        date = self.currentPnl.timeResult.GetWxDateTime()
+        hour = date.Hour
+        minute = date.Minute
+        second = date.Second
+        date = datetime(year=year, month=month, day=day, hour=hour, minute=minute, second=second)
+        result.ResultDateTime = date
 
         result.XLocation = self.currentPnl.txtX.GetValue()
         result.YLocation = self.currentPnl.txtY.GetValue()
