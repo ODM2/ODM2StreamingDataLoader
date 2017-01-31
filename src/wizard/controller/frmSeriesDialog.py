@@ -38,6 +38,8 @@ class SeriesSelectDialog(CustomDialog):
         self.seriesSelectPanel.listCtrl.Bind(wx.EVT_LIST_ITEM_SELECTED, self.on_select_item)
         self.seriesSelectPanel.listCtrl.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.on_deselect_item)
 
+        self.seriesSelectPanel.listCtrl.SetSingleStyle(style=wx.LC_SINGLE_SEL)
+
         self.Bind(wx.EVT_CLOSE, self.on_close)
 
     def on_close(self, event):
