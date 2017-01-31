@@ -41,6 +41,10 @@ class SeriesSelectDialog(CustomDialog):
         self.seriesSelectPanel.listCtrl.SetSingleStyle(style=wx.LC_SINGLE_SEL)
 
         self.Bind(wx.EVT_CLOSE, self.on_close)
+        self.seriesSelectPanel.listCtrl.Bind(wx.EVT_KEY_DOWN, self.on_keyboard_pressed_down)
+
+    def on_keyboard_pressed_down(self, event):
+        pass
 
     def on_close(self, event):
         self.Destroy()

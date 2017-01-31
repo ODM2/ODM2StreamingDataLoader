@@ -30,6 +30,11 @@ class ActionsSelectPanel(SeriesSelectPanel):
         self.list_ctrl.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.disable)
         # self.Bind(wx.EVT_SHOW, self.onShow)
 
+        self.list_ctrl.Bind(wx.EVT_KEY_DOWN, self.on_keyboard_pressed_down)
+
+    def on_keyboard_pressed_down(self, event):
+        pass
+
     def select_existing_series(self):
         if self.existing_result is None:
             return
