@@ -32,6 +32,11 @@ class SeriesSelectPanel(wx.Panel):
         # The panel to use for adding a new series.
         self.Bind(wx.EVT_BUTTON, self.onButtonAdd)
 
+        self.list_ctrl.Bind(wx.EVT_KEY_DOWN, self.on_keyboard_pressed_down)
+
+    def on_keyboard_pressed_down(self, event):
+        pass
+
     def auto_size_table(self):
         for i in range(self.list_ctrl.GetColumnCount()):
             self.list_ctrl.SetColumnWidth(col=i, width=self._auto_width_style)
