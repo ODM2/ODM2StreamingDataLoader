@@ -166,7 +166,7 @@ class WizardDialog(wx.Dialog):
 
         # self.database.getUpdateSession().updateResult(pass in result object)
         session = self.database.getUpdateSession()
-        session.updateResult(resultID=result.ResultID)
+        session.updateResult(result=result)
 
         self.returnValue = wx.ID_OK
         self.Close()
