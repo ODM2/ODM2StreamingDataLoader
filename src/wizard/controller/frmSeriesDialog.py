@@ -125,16 +125,16 @@ class SeriesSelectDialog(CustomDialog):
         obj = self.seriesSelectPanel.listCtrl.GetSelectedObject()
         print obj.VariableNameCV
 
-        mapping = ResultMapping(obj.resultID,
-            obj.samplingFeatureCode,
-            obj.samplingFeatureName,
-            obj.methodCode,
-            obj.methodName,
-            obj.variableCode,
-            obj.variableNameCV,
-            obj.processingLevelCode,
-            obj.processingLevelDef,
-            obj.unitsName)
+        mapping = ResultMapping(obj.ResultID,
+            obj.SamplingFeatureCode,
+            obj.SamplingFeatureName,
+            obj.MethodCode,
+            obj.MethodName,
+            obj.VariableCode,
+            obj.VariableNameCV,
+            obj.ProcessingLevelCode,
+            obj.ProcessingLevelDefinition,
+            obj.UnitsName)
 
         self.selectedResult = mapping
 

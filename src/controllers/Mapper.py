@@ -195,8 +195,8 @@ class Mapper():
             
             # FIXME change to none when released.
             # SDL Test Data is just for our testing purposes.
-            #df['QualityCodeCV'] = 'None'
-            df['QualityCodeCV'] = 'SDL Test Data'
+            df['QualityCodeCV'] = 'None'
+            # df['QualityCodeCV'] = 'SDL Test Data'
             # TODO add unknown to database.
             #df['CensorCodeCV'] = 'Unknown'
             df['CensorCodeCV'] = 'Non-detect'
