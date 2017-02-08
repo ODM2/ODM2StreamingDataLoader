@@ -288,9 +288,9 @@ class MainController(MainView):
                 self.SetStatusText(text + "*", 0)
 
     def onRunButtonClick(self, event):
-        os.system('python ' + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + sys.path[0] +
-                  '\\tests\\test_handlers\\test_yamlHandler\yamlFiles')
-        pass
+        python = sys.executable
+        # print python + " " + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + sys.path[0] + '\\tests\\test_handlers\\test_yamlHandler\yamlFiles'
+        # os.system(python + " " + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + sys.path[0] +
+        #           '\\tests\\test_handlers\\test_yamlHandler\yamlFiles')
 
-
-
+        os.system(python + " " + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + self.currentPath)

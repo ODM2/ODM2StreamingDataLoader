@@ -170,9 +170,7 @@ class DataConfigPanelController(DataConfigPanelView):
                 popThese.append(variableName)
                 continue
             # Add the variable name to the mapping list.
-            mapping = read.getDetailedResultInfo(\
-                "Time series coverage",
-                values['ResultID'])
+            mapping = read.getDetailedResultInfo("Time series coverage", values['ResultID'])
             mapped = mapping[0]
             self.m_listCtrl3.AddObject(
                 ResultMapping(mapped.ResultID,

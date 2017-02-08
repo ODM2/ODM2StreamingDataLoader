@@ -65,7 +65,7 @@ class SeriesSelectDialog(CustomDialog):
         wiz = WizardDialog(self, database=self.database, title="New Result Wizard", result=None)
         
         wiz.addPage(SampFeatSelectPanel)
-        wiz.addPage(VariableSelectPanel) 
+        wiz.addPage(VariableSelectPanel)
         wiz.addPage(UnitSelectPanel) 
         wiz.addPage(ProcLevelSelectPanel) 
         wiz.addPage(ActionsSelectPanel) 
@@ -75,17 +75,14 @@ class SeriesSelectDialog(CustomDialog):
         if wiz.ShowModal() == wx.ID_OK:
             wiz.Center()
             read = self.database.getReadSession()
-            r = read.getDetailedResultInfo("Time series coverage", 
-                                            wiz.result.ResultID)
+            r = read.getDetailedResultInfo("Time series coverage", wiz.result.ResultID)
             r_id = r[0].resultID
             detailedResults = read.getDetailedResultInfo("Time series coverage")
             self.seriesSelectPanel.listCtrl.SetObjects(detailedResults)
 
             for i in detailedResults:
                 if i.resultID == r_id:
-                    self.seriesSelectPanel.listCtrl.SelectObject(\
-                        i, deselectOthers=True,
-                        ensureVisible=True)
+                    self.seriesSelectPanel.listCtrl.SelectObject(i, deselectOthers=True, ensureVisible=True)
         else:
             pass
             #wx.MessageBox('An error occurred while creating a new result', 'Error')
@@ -128,16 +125,16 @@ class SeriesSelectDialog(CustomDialog):
         obj = self.seriesSelectPanel.listCtrl.GetSelectedObject()
         print obj.VariableNameCV
 
-        mapping = ResultMapping(obj.resultID,
-            obj.samplingFeatureCode,
-            obj.samplingFeatureName,
-            obj.methodCode,
-            obj.methodName,
-            obj.variableCode,
-            obj.variableNameCV,
-            obj.processingLevelCode,
-            obj.processingLevelDef,
-            obj.unitsName)
+        mapping = ResultMapping(obj.ResultID,
+            obj.SamplingFeatureCode,
+            obj.SamplingFeatureName,
+            obj.MethodCode,
+            obj.MethodName,
+            obj.VariableCode,
+            obj.VariableNameCV,
+            obj.ProcessingLevelCode,
+            obj.ProcessingLevelDefinition,
+            obj.UnitsName)
 
         self.selectedResult = mapping
 
