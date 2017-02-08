@@ -103,7 +103,7 @@ class SeriesSelectDialog(CustomDialog):
         dlg.Destroy()
 
     def onEdit(self, event):
-        message = 'Warning, you may clobber the integrity of your data when using this feature'
+        message = 'Warning, you may ruin the integrity of your data when using this feature'
         dlg = wx.MessageDialog(self, message=message, caption='Warning')
         dlg.SetOKCancelLabels(ok="Continue", cancel="Cancel")
 
