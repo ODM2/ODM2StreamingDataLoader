@@ -143,23 +143,14 @@ class DataConfigPanelView(wx.Panel):
         
         bSizerMain.Add( bSizerBottom, 1, wx.EXPAND|wx.ALL, 10 )
         
-        
         self.SetSizer( bSizerMain )
         self.Layout()
         
-        self.Bind(wx.grid.EVT_GRID_LABEL_LEFT_CLICK, self.onColClick,
-            self.m_listCtrl1)
-        self.Bind(wx.grid.EVT_GRID_CELL_LEFT_CLICK, self.onCellClick,
-            self.m_listCtrl1)
-        self.Bind(wx.grid.EVT_GRID_CELL_RIGHT_CLICK, self.onCellClick,
-            self.m_listCtrl1)
-        self.Bind(wx.grid.EVT_GRID_LABEL_LEFT_DCLICK,\
-            self.onColDoubleClick, self.m_listCtrl1)
-        self.Bind(wx.EVT_CHOICE, self.onTimeChoice,\
-            self.choiceTimeCol)
-    
-    def __del__(self):
-        pass
+        self.Bind(wx.grid.EVT_GRID_LABEL_LEFT_CLICK, self.onColClick, self.m_listCtrl1)
+        self.Bind(wx.grid.EVT_GRID_CELL_LEFT_CLICK, self.onCellClick, self.m_listCtrl1)
+        self.Bind(wx.grid.EVT_GRID_CELL_RIGHT_CLICK, self.onCellClick, self.m_listCtrl1)
+        self.Bind(wx.grid.EVT_GRID_LABEL_LEFT_DCLICK, self.onColDoubleClick, self.m_listCtrl1)
+        self.Bind(wx.EVT_CHOICE, self.onTimeChoice, self.choiceTimeCol)
     
     def onAddNew(self, event):
         event.Skip()

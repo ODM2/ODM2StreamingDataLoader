@@ -144,8 +144,7 @@ class DataConfigPanelController(DataConfigPanelView):
         # Assign the table to the grid control.
         self.m_listCtrl1.setTable(base)
 
-        for column in range(self.m_listCtrl1.GetNumberCols()):
-            self.m_listCtrl1.AutoSizeColLabelSize(column)
+        self.m_listCtrl1.AutoSizeColumns()
 
     def setInputMappingList(self, existingData, read):
         """
@@ -171,21 +170,19 @@ class DataConfigPanelController(DataConfigPanelView):
                 popThese.append(variableName)
                 continue
             # Add the variable name to the mapping list.
-            mapping = read.getDetailedResultInfo(\
-                "Time series coverage",
-                values['ResultID'])
+            mapping = read.getDetailedResultInfo("Time series coverage", values['ResultID'])
             mapped = mapping[0]
             self.m_listCtrl3.AddObject(
-                ResultMapping(mapped.resultID,
-                    mapped.samplingFeatureCode,
-                    mapped.samplingFeatureName,
-                    mapped.methodCode,
-                    mapped.methodName,
-                    mapped.variableCode,
-                    mapped.variableNameCV,
-                    mapped.processingLevelCode,
-                    mapped.processingLevelDef,
-                    mapped.unitsName,
+                ResultMapping(mapped.ResultID,
+                    mapped.SamplingFeatureCode,
+                    mapped.SamplingFeatureName,
+                    mapped.MethodCode,
+                    mapped.MethodName,
+                    mapped.VariableCode,
+                    mapped.VariableNameCV,
+                    mapped.ProcessingLevelCode,
+                    mapped.ProcessingLevelDefinition,
+                    mapped.UnitsName,
                     variableName))
         if popThese:
             wx.MessageBox("Mappings for the following variables exist, but do not appear in the selected data file:\n'%s'\n\nThese mappings will be deleted if you continue." \

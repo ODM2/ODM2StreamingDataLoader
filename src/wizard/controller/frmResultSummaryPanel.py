@@ -1,14 +1,7 @@
 import wx
-
 from datetime import datetime
 import dateutil.parser as dparser
-
-
-#TODO get rid of *
-
-
-from src.wizard.controller.frmAddSpatialReference \
-    import NewSpatialReferenceController
+from src.wizard.controller.frmAddSpatialReference import NewSpatialReferenceController
 from src.wizard.view.clsCustomDialog import CustomDialog
 
 from src.wizard.view.clsResultPage import ResultPageView
@@ -17,14 +10,93 @@ import uuid
 
 
 class ResultSummaryPanel(ResultPageView):
-    def __init__( self, parent):
+    def __init__( self, parent, existing_result=None):
         super(ResultSummaryPanel, self).__init__(parent)
-        self.Bind(wx.EVT_SHOW, self.onShow)
+
         self.parent = parent
-        self.btnNewSR.Bind(wx.EVT_BUTTON, self.onCreateSpatialReference)
- 
+        self.existing_result = existing_result
+        self.read_session = self.parent.database.getReadSession()
+        self.length_units = self.read_session.getUnits(type="length")
+        self.time_units = self.read_session.getUnits(type="time")
         self.fontColor = wx.Colour(67, 79, 112)
+
         self.populateFields()
+        self.__populate_optional_section()
+
+        self.btnNewSR.Bind(wx.EVT_BUTTON, self.onCreateSpatialReference)
+        self.comboSamp.Bind(wx.EVT_COMBOBOX, self.check_required_fields)
+        self.comboAgg.Bind(wx.EVT_COMBOBOX, self.check_required_fields)
+        self.Bind(wx.EVT_SHOW, self.onShow)
+
+    def __populate_optional_section(self):
+
+        if self.existing_result is None:
+            return
+
+        self.__populate_date_fields()
+
+        x_loc = self.existing_result.XLocation
+        y_loc = self.existing_result.YLocation
+        z_loc = self.existing_result.ZLocation
+
+        if x_loc is not None:
+            self.txtX.SetValue(x_loc)
+
+        if y_loc is not None:
+            self.txtY.SetValue(y_loc)
+
+        if z_loc is not None:
+            self.txtZ.SetValue(z_loc)
+
+    def __populate_date_fields(self):
+
+        if self.existing_result is None:
+            return
+
+        # Set Result Date Time
+        if self.existing_result.ResultDateTime is not None:
+            year = self.existing_result.ResultDateTime.year
+            month = self.existing_result.ResultDateTime.month - 1
+            day = self.existing_result.ResultDateTime.day
+            seconds = self.existing_result.ResultDateTime.second
+            minute = self.existing_result.ResultDateTime.minute
+            hour = self.existing_result.ResultDateTime.hour
+
+            date = self.__create_datetime(month=month, day=day, year=year,
+                                          seconds=seconds, minute=minute, hour=hour)
+            self.datePickerResult.SetValue(date)
+            self.timeResult.SetValue(date)
+
+        # Set Valid Date Time
+        if not self.existing_result.ValidDateTime is None:
+            year = self.existing_result.ValidDateTime.year
+            month = self.existing_result.ValidDateTime.month - 1
+            day = self.existing_result.ValidDateTime.day
+
+            date = self.__create_datetime(month=month, day=day, year=year)
+            self.dateValidDT.SetValue(date)
+
+    def __create_datetime(self, month, day, year, seconds=None, minute=None, hour=None):
+        date = wx.DateTime().Now()
+        date.SetMonth(month)
+        date.SetYear(year)
+        date.SetDay(day)
+
+        if seconds is not None and minute is not None and hour is not None:
+            date.SetMinute(minute)
+            date.SetSecond(seconds)
+            date.SetHour(hour)
+
+        return date
+
+    def check_required_fields(self, event=None):
+        if self.comboSamp.GetStringSelection() == "" or self.comboAgg.GetStringSelection() == "":
+            self.parent.btnNext.Disable()
+        else:
+            self.parent.btnNext.Enable()
+
+        if event:
+            event.Skip()
 
     def getSeriesData(self):
         read = self.parent.database.getReadSession()
@@ -81,8 +153,17 @@ class ResultSummaryPanel(ResultPageView):
         # TODO -- taxonomicclass
         keys = [y for x in [i.keys() for i in self.tax] for y in x]
         vals = [y for x in [i.values() for i in self.tax] for y in x]
-        d = dict(zip(keys, vals))
+        #d = dict(zip(keys, vals))
+        #unitsdict = {'centimeter   ': 47, 'international foot': 48, 'meter': 52, 'millimeter': 54}
+        read = self.parent.database.getReadSession()
+        timeUnits = read.getUnits(type="length")
+        timeUnitsObject = {u.UnitsName: u.UnitsID for u in timeUnits}
+        lengthUnits = read.getUnits(type="time")
+        lengthUnitsObject = {u.UnitsName: u.UnitsID for u in lengthUnits}
 
+
+        unitsdict = timeUnitsObject
+        lunitsdict = lengthUnitsObject
         tax = None
         if str(self.comboTax.GetStringSelection()) != "":
             tax = d[self.comboTax.GetStringSelection()]
@@ -103,13 +184,16 @@ class ResultSummaryPanel(ResultPageView):
 
         xUnit = None
         if str(self.comboXUnits.GetStringSelection()) != "":
-            xUnit = str(self.comboXUnits.GetStringSelection())
+            xUnit = unitsdict[str(self.comboXUnits.GetStringSelection())]
+            print(xUnit)
         yUnit = None
         if str(self.comboYUnits.GetStringSelection()) != "":
-            yUnit = str(self.comboYUnits.GetStringSelection())
+            yUnit = unitsdict[str(self.comboYUnits.GetStringSelection())]
+            print(yUnit)
         zUnit = None
         if str(self.comboZUnits.GetStringSelection()) != "":
-            zUnit = str(self.comboZUnits.GetStringSelection())
+            zUnit = unitsdict[str(self.comboZUnits.GetStringSelection())]
+            print(zUnit)
 
 
         keys = [yy for xx in [i.keys() for i in self.sp_ref] for yy in xx]
@@ -125,43 +209,39 @@ class ResultSummaryPanel(ResultPageView):
             timeSpacing = float(self.txtIntended.GetValue())
         timeUnit = None
         if str(self.comboIntendedUnits.GetStringSelection()) != "":
-            timeUnit = str(self.comboIntendedUnits.GetStringSelection())
+            timeUnit = lunitsdict[str(self.comboIntendedUnits.GetStringSelection())]
 
         print "X", x
         print "Y", y
         print "Z", z
-        tsr= TimeSeriesResults(ResultUUID = str(uuid.uuid4()),
-                    FeatureActionID=featureActionID,
-                   VariableID=variableID,
-                   UnitsID=unitID,
-                   ProcessingLevelID=processingLevelID,
-                   ValueCount=valueCount,
-                   SampledMediumCV=sampledMedium,
-                   ResultTypeCV=resultTypeCV,
-                   TaxonomicClassifierID=tax,
-                   ResultDateTime=resultDT,
-                   ResultDateTimeUTCOffset=validUTCOffset,
-                   ValidDateTime=validDT,
-                   ValidDateTimeUTCOffset=validUTCOffset,
-                   StatusCV=statusCV,
-                    AggregationStatisticCV=aggStat,
-                    XLocation=x,
-                    XLocationUnitsID=xUnit,
-                    YLocation=y,
-                    YLocationUnitsID=yUnit,
-                    ZLocation=z,
-                    ZLocationUnitsID=zUnit,
-                    SpatialReferenceID=sr,
-                    IntendedTimeSpacing=timeSpacing,
-                    IntendedTimeSpacingUnitsID=timeUnit)
-        result =  write.createResult(tsr)
-        
-
-
+        tsr = TimeSeriesResults(ResultUUID=str(uuid.uuid4()),
+                                FeatureActionID=featureActionID,
+                                VariableID=variableID,
+                                UnitsID=unitID,
+                                ProcessingLevelID=processingLevelID,
+                                ValueCount=valueCount,
+                                SampledMediumCV=sampledMedium,
+                                ResultTypeCV=resultTypeCV,
+                                TaxonomicClassifierID=tax,
+                                ResultDateTime=resultDT,
+                                ResultDateTimeUTCOffset=validUTCOffset,
+                                ValidDateTime=validDT,
+                                ValidDateTimeUTCOffset=validUTCOffset,
+                                StatusCV=statusCV,
+                                AggregationStatisticCV=aggStat,
+                                XLocation=x,
+                                XLocationUnitsID=xUnit,
+                                YLocation=y,
+                                YLocationUnitsID=yUnit,
+                                ZLocation=z,
+                                ZLocationUnitsID=zUnit,
+                                SpatialReferenceID=sr,
+                                IntendedTimeSpacing=timeSpacing,
+                                IntendedTimeSpacingUnitsID=timeUnit)
+        result = write.createResult(tsr)
 
         print result
         return result
-
 
     def _getTime(self, d, t):
         date = d.GetValue()
@@ -182,61 +262,53 @@ class ResultSummaryPanel(ResultPageView):
         if event.GetShow() is True:
             selections = self.parent.getSelections()
             
-            self.getSamplingFeatureSummary(\
-                selections[0])
-            self.getVariablesSummary(\
-                selections[1])
-            self.getUnitsSummary(\
-                selections[2])
-            self.getProcessingLevelSummary(\
-                selections[3])
-            self.getActionsSummary(\
-                selections[4])
+            self.getSamplingFeatureSummary(selections[0])
+            self.getVariablesSummary(selections[1])
+            self.getUnitsSummary(selections[2])
+            self.getProcessingLevelSummary(selections[3])
+            self.getActionsSummary(selections[4])
 
         event.Skip()
 
     def populateFields(self):
-        read = self.parent.database.getReadSession()
 
         self.mediums = {} #read.getCVMediumTypes()
         [self.mediums.update({obj.Name:obj}) \
             #for obj in read.getCVMediumTypes()]
-            for obj in read.getCVs(type="Medium")]
+            for obj in self.read_session.getCVs(type="Medium")]
 
         self.comboSamp.AppendItems(self.mediums.keys())
 
         self.aggStat = {} #read.getCVAggregationStatistics()
         [self.aggStat.update({obj.Name:obj}) \
          #   for obj in read.getCVAggregationStatistics()]
-            for obj in read.getCVs(type="aggregationstatistic")]
+            for obj in self.read_session.getCVs(type="aggregationstatistic")]
         self.comboAgg.AppendItems(self.aggStat.keys())
         
-        #status = read.getCVStatus();
-        status = read.getCVs(type="Status")
+        status = self.read_session.getCVs(type="Status")
         statusTerms = [obj.Term for obj in status]
         self.comboStatus.AppendItems(statusTerms)
 
-        #timeUnits = read.getUnitsByTypeCV("length")
-        timeUnits = read.getUnits(type="length")
+        timeUnitsObject = {u.UnitsName: u.UnitsID for u in self.time_units}
 
-        timeUnitsName = [obj.UnitsName for obj in timeUnits]
-        self.comboXUnits.AppendItems(timeUnitsName)
-        self.comboYUnits.AppendItems(timeUnitsName)
-        self.comboZUnits.AppendItems(timeUnitsName)
-        self.comboIntendedUnits.AppendItems(timeUnitsName)
+        lengthUnitsObject = {u.UnitsName: u.UnitsID for u in self.length_units}
+
+        time_units_name = timeUnitsObject.keys()
+        length_units_name = lengthUnitsObject.keys()
+
+        self.comboXUnits.AppendItems(length_units_name)
+        self.comboYUnits.AppendItems(length_units_name)
+        self.comboZUnits.AppendItems(length_units_name)
+        self.comboIntendedUnits.AppendItems(time_units_name)
         
         self.tax = [{i.TaxonomicClassifierName:i.TaxonomicClassifierID}\
-            for i in read.getTaxonomicClassifiers()]
-        self.comboTax.AppendItems(\
-            [y for x in [i.keys() for i in self.tax] for y in x]
-            )
+            for i in self.read_session.getTaxonomicClassifiers()]
+        self.comboTax.AppendItems([y for x in [i.keys() for i in self.tax] for y in x])
         
         self.sp_ref = [{i.SRSName:i.SpatialReferenceID}\
             #for i in read.getCVSpacialReferenceTypes()]
-            for i in read.getSpatialReferences()]
-        self.comboSR.AppendItems(\
-            [y for x in [i.keys() for i in self.sp_ref] for y in x]
-            )
+            for i in self.read_session.getSpatialReferences()]
+        self.comboSR.AppendItems([y for x in [i.keys() for i in self.sp_ref] for y in x])
 
     def onCreateSpatialReference(self, event):
         dlg = CustomDialog(self, "New Spatial Reference")

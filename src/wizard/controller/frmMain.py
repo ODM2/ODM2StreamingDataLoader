@@ -46,13 +46,11 @@ class MainController(MainView):
     def setupMenu(self):
         self.menu_bar = wx.MenuBar()
         self.file_menu = wx.Menu()
-        self.file_menu.Append(101, '&New Configuration File...',
-            'Create a new configuration file.')
+        self.file_menu.Append(101, '&New Configuration File...', 'Create a new configuration file.')
         
         self.file_menu.Enable(101, False)
 
-        self.file_menu.Append(102, '&Load Configuration File...',
-            'Open an existing configuration file.')
+        self.file_menu.Append(102, '&Load Configuration File...\tCtrl+O', 'Open an existing configuration file.')
         self.file_menu.AppendSeparator()
         self.file_menu.Append(108, '&Save', 'Save')
         self.file_menu.Append(103, '&Save as...', 'Save as...')
@@ -290,9 +288,9 @@ class MainController(MainView):
                 self.SetStatusText(text + "*", 0)
 
     def onRunButtonClick(self, event):
-        os.system('python ' + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + sys.path[0] +
-                  '\\tests\\test_handlers\\test_yamlHandler\yamlFiles')
-        pass
+        python = sys.executable
+        # print python + " " + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + sys.path[0] + '\\tests\\test_handlers\\test_yamlHandler\yamlFiles'
+        # os.system(python + " " + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + sys.path[0] +
+        #           '\\tests\\test_handlers\\test_yamlHandler\yamlFiles')
 
-
-
+        os.system(python + " " + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + self.currentPath)

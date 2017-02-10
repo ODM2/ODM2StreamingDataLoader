@@ -1,13 +1,12 @@
-
 import wx
 
 from src.wizard.view.clsAddNewUnitPanel import AddNewUnitPanelView
 from odm2api.ODM2.models import Units
 
+
 class AddNewUnitPanelController(AddNewUnitPanelView):
     def __init__(self, daddy, db, **kwargs):
-        super(AddNewUnitPanelController, self).__init__(daddy,
-            **kwargs)
+        super(AddNewUnitPanelController, self).__init__(daddy, **kwargs)
         self.parent = daddy
         self.db = db
         
