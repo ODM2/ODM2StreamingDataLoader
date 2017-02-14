@@ -173,6 +173,7 @@ class MainController(MainView):
     def checkForSavedChanges(self):
         if self.hasUnsavedChanges:
             dlg = wx.MessageBox("This file has unsaved changes. Do you want to save the changes before closing?", "Unsaved Changes", style=wx.YES_NO|wx.YES_DEFAULT)
+            self.hasUnsavedChanges = False
             if dlg == wx.YES:
                 if self.currentPath:
                     self.onFileSaveClick(None)
