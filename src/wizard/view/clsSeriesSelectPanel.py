@@ -72,6 +72,8 @@ class SeriesSelectPanelView(wx.Panel):
         footer_panel_button_sizer.Add(cancelBtn, 0, wx.EXPAND | wx.ALL, 4)
         footer_panel_button_sizer.Add(self.okBtn, 0, wx.EXPAND | wx.ALL, 4)
 
+
+
         footer_panel_sizer.Add(break_line, 0, wx.EXPAND | wx.TOP, 5)
         footer_panel_sizer.Add(footer_panel_button_sizer, 0, wx.ALIGN_RIGHT)
         footer_panel.SetSizer(footer_panel_sizer)
