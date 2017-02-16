@@ -289,9 +289,11 @@ class MainController(MainView):
                 self.SetStatusText(text + "*", 0)
 
     def onRunButtonClick(self, event):
-        python = sys.executable
-        # print python + " " + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + sys.path[0] + '\\tests\\test_handlers\\test_yamlHandler\yamlFiles'
-        # os.system(python + " " + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + sys.path[0] +
-        #           '\\tests\\test_handlers\\test_yamlHandler\yamlFiles')
+        executable_path = sys.executable
 
-        os.system(python + " " + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + self.currentPath)
+        if hasattr(sys, 'frozen'):
+            path = os.path.dirname(executable_path)
+            path = os.path.join(path, 'StreamingDataLoader.exe')
+            os.system(path + ' -c ' + self.currentPath)
+        else:
+            os.system(executable_path + " " + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + self.currentPath)
