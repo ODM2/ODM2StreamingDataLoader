@@ -162,6 +162,11 @@ if __name__ == "__main__":
         help="Specify a single CSV data file to target instead of the one listed in the configuration file.", required=False, action="store")
     args = parser.parse_args()
 
+    correct_path = ""
+    for path in args.yamlFile:
+        correct_path += path + " "
+
+    args.yamlFile = [correct_path.strip()]
     start_time = time.time()
     main(args)
 
