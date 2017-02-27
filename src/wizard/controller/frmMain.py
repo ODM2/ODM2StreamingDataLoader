@@ -293,7 +293,18 @@ class MainController(MainView):
 
         if hasattr(sys, 'frozen'):
             path = os.path.dirname(executable_path)
-            path = os.path.join(path, 'StreamingDataLoader.exe')
+
+            streaming_data_loader_name = 'StreamingDataLoader.exe'
+            if sys.platform == 'darwin':
+                streaming_data_loader_name = 'StreamingDataLoader'
+
+            if ' ' in path:
+                path = "\"" + path + "\""
+
+            if ' ' in self.currentPath:
+                self.currentPath = "\"" + self.currentPath + "\""
+
+            path = os.path.join(path, streaming_data_loader_name)
             os.system(path + ' -c ' + self.currentPath)
         else:
             os.system(executable_path + " " + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + self.currentPath)
