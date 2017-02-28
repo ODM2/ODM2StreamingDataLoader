@@ -307,4 +307,4 @@ class MainController(MainView):
             path = os.path.join(path, streaming_data_loader_name)
             os.system(path + ' -c ' + self.currentPath)
         else:
-            os.system(executable_path + " " + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + self.currentPath)
+            os.system(executable_path + " " + os.path.join(sys.path[1], 'StreamingDataLoader.py') + ' -c ' + self.currentPath)
