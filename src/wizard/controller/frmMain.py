@@ -298,13 +298,23 @@ class MainController(MainView):
             if sys.platform == 'darwin':
                 streaming_data_loader_name = 'StreamingDataLoader'
 
-            if ' ' in path:
-                path = "\"" + path + "\""
-
-            if ' ' in self.currentPath:
-                self.currentPath = "\"" + self.currentPath + "\""
-
             path = os.path.join(path, streaming_data_loader_name)
-            os.system(path + ' -c ' + self.currentPath)
+
+            # if ' ' in self.currentPath:
+            #     self.currentPath = "\"" + self.currentPath + "\""
+            #
+            # if ' ' in path:
+            #     path = "\"" + path + "\""
+
+            # command = path + ' -c ' + self.currentPath
+
+            command = '""%s" -c "%s""' % (path, self.currentPath)
+
+            # command = command.replace('\\', '/')
+            print "vvvvvvvvvvvvvvvv"
+            print command
+            print "^^^^^^^^^^^^^^^^"
+            os.system(command)
+            # os.system(path + ' -c ' + self.currentPath)
         else:
             os.system(executable_path + " " + os.path.join(sys.path[1], 'StreamingDataLoader.py') + ' -c ' + self.currentPath)
