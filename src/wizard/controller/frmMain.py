@@ -300,21 +300,11 @@ class MainController(MainView):
 
             path = os.path.join(path, streaming_data_loader_name)
 
-            # if ' ' in self.currentPath:
-            #     self.currentPath = "\"" + self.currentPath + "\""
-            #
-            # if ' ' in path:
-            #     path = "\"" + path + "\""
+            command = path + ' -c ' + self.currentPath
+            if sys.platform == 'win32':
+                # Allows for spaces to be in the file path
+                command = '""%s" -c "%s""' % (path, self.currentPath)
 
-            # command = path + ' -c ' + self.currentPath
-
-            command = '""%s" -c "%s""' % (path, self.currentPath)
-
-            # command = command.replace('\\', '/')
-            print "vvvvvvvvvvvvvvvv"
-            print command
-            print "^^^^^^^^^^^^^^^^"
             os.system(command)
-            # os.system(path + ' -c ' + self.currentPath)
         else:
             os.system(executable_path + " " + os.path.join(sys.path[1], 'StreamingDataLoader.py') + ' -c ' + self.currentPath)
