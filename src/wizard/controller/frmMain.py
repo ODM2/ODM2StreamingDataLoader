@@ -78,17 +78,14 @@ class MainController(MainView):
         self.Bind(wx.EVT_MENU, self.onHelpAboutClick, id=201)
 
     def onFileOpenClick(self, event):
-        '''
-            The method called when a user clicks
-            File->Load Configuration from the
-            menu.
-        '''
-        # Create a file picker dialog.
-        dlg = wx.FileDialog(self, message='Load Configuration File',
-                defaultDir=os.getcwd(), defaultFile='',
-                wildcard=WILDCARD,
-                style=wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR)
-        # If user chose a file and clicked the "OK" button...
+
+        dlg = wx.FileDialog(
+            self,
+            message='Load Configuration File',
+            wildcard=WILDCARD,
+            style=wx.OPEN | wx.MULTIPLE | wx.FD_CHANGE_DIR
+        )
+
         if dlg.ShowModal() == wx.ID_OK:
             # Delete everything in the mapping list control.
             self.fileList.listCtrl.DeleteAllItems()
@@ -113,7 +110,7 @@ class MainController(MainView):
             self.file_menu.Enable(103, True)
             # Enable the "Save" menu option.
             self.file_menu.Enable(108, True)
-        # Destroy the file dialog handle.
+
         dlg.Destroy()
         event.Skip()
 

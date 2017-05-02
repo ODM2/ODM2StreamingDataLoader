@@ -12,9 +12,8 @@ from src.wizard.controller.frmAddSpatialReference import NewSpatialReferenceCont
 from src.wizard.view.clsCustomDialog import CustomDialog
 
 class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
-    def __init__(self, daddy, db, **kwargs):
-        super(AddNewSampFeatPanelController, self).__init__(daddy,
-            **kwargs)
+    def __init__(self, daddy, db):
+        super(AddNewSampFeatPanelController, self).__init__(daddy)
         self.parent = daddy
         self.db = db
         
