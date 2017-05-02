@@ -1,26 +1,21 @@
-
 import wx
-import uuid
-# TODO 
-# Clean these up.
 from odm2api.ODM2.services.createService import *
-from odm2api.ODM2.models import SamplingFeatures, Sites
-
+from odm2api.ODM2.models import Sites
 from src.wizard.view.clsAddNewSampFeatPanel import AddNewSampFeatPanelView
-#from src.wizard.view.clsAddSpatialReferences import NewSpatialReferenceView
 from src.wizard.controller.frmAddSpatialReference import NewSpatialReferenceController
 from src.wizard.view.clsCustomDialog import CustomDialog
+
 
 class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
     def __init__(self, daddy, db):
         super(AddNewSampFeatPanelController, self).__init__(daddy)
         self.parent = daddy
         self.db = db
+        self.sampling_feature = None
         
         self.m_button411.Bind(wx.EVT_BUTTON, self.onCreateSpatialReference)
 
         self.populateFields()
-        
 
     def populateFields(self):
         read = self.db.getReadSession()
@@ -65,41 +60,39 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
         
 
     def onOK(self, event):
-        # Event handler for when the user clicks OK.
-        
-        # Try to validate the form.
         if not self.Validate():
             self.Refresh()
             return
-        else:
-            # Move the data into the value dictionaries.
-            # All data should be valid at this point.
-            self.getFieldValues() 
-            try:
-                # Create the variable in the database.
-                write = self.db.getWriteSession()
-                # sf= SamplingFeatures(\
 
+        # Move the data into the value dictionaries.
+        # All data should be valid at this point.
+        self.getFieldValues()
+        try:
+            # Create the variable in the database.
+            write = self.db.getWriteSession()
 
-                site = Sites(SamplingFeatureUUID=str(self._uuid),
-                            SamplingFeatureCode=self.requiredValues['code'],
-                            SamplingFeatureTypeCV=self.requiredValues['vType'],
-                            SamplingFeatureName=self.optionalValues['name'],
-                            SamplingFeatureDescription=self.optionalValues['desc'],
-                            SamplingFeatureGeotypeCV=self.optionalValues['geoType'],
-                            Elevation_m=self.optionalValues['elevation'],
-                            ElevationDatumCV=self.optionalValues['elevationDatum'],
-                            FeatureGeometry=self.optionalValues['featureGeo'],
-                            SpatialReferenceID=self.requiredValues['spatialRef'],
-                            SiteTypeCV=self.requiredValues['siteType'],
-                            Latitude=self.requiredValues['lat'],
-                            Longitude=self.requiredValues['long'])
-                # site = write.createSite(site)
-                self.sf = write.createSamplingFeature(site)
+            site = Sites(
+                SamplingFeatureUUID=str(self._uuid),
+                SamplingFeatureCode=self.requiredValues['code'],
+                SamplingFeatureTypeCV=self.requiredValues['vType'],
+                SamplingFeatureName=self.optionalValues['name'],
+                SamplingFeatureDescription=self.optionalValues['desc'],
+                SamplingFeatureGeotypeCV=self.optionalValues['geoType'],
+                Elevation_m=self.optionalValues['elevation'],
+                ElevationDatumCV=self.optionalValues['elevationDatum'],
+                FeatureGeometry=self.optionalValues['featureGeo'],
+                SpatialReferenceID=self.requiredValues['spatialRef'],
+                SiteTypeCV=self.requiredValues['siteType'],
+                Latitude=self.requiredValues['lat'],
+                Longitude=self.requiredValues['long']
+            )
 
+            write.createSamplingFeature(site)
+            self.sampling_feature = site
 
-            except Exception as e:
-                print e
+        except Exception as error:
+            print error
+
         event.Skip()
 
     def getFieldValues(self):

@@ -71,7 +71,7 @@ class UnitSelectPanel(SeriesSelectPanel):
         dlg.addPanel(controller)
         dlg.CenterOnScreen()
 
-        if dlg.ShowModal() == wx.ID_OK:
+        if dlg.ShowModal() == wx.ID_OK and controller.units is not None:
             self.list_ctrl.SetObjects(self.getSeriesData())
             self.list_ctrl.SelectObject(modelObject=controller.units, ensureVisible=True)
 
