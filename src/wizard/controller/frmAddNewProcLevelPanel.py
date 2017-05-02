@@ -5,11 +5,11 @@ from src.wizard.view.clsAddNewProcLevelPanel import AddNewProcLevelPanelView
 from odm2api.ODM2.models import ProcessingLevels
 
 class AddNewProcLevelPanelController(AddNewProcLevelPanelView):
-    def __init__(self, daddy, db, **kwargs):
-        super(AddNewProcLevelPanelController, self).__init__(daddy,
-            **kwargs)
+    def __init__(self, daddy, db):
+        super(AddNewProcLevelPanelController, self).__init__(daddy)
         self.parent = daddy
         self.db = db
+        self.processing_level = None
 
         self.populateFields()
 
@@ -26,13 +26,19 @@ class AddNewProcLevelPanelController(AddNewProcLevelPanelView):
             self.getFieldValues() 
             try:
                 write = self.db.getWriteSession()
-                proc = ProcessingLevels(\
+                proc = ProcessingLevels(
                     ProcessingLevelCode=self.procLevelCode,
                     Definition=self.definition,
-                    Explanation=self.explanation)
+                    Explanation=self.explanation
+                )
+
                 write.createProcessingLevel(proc)
-            except Exception as e:
-                print e
+
+                self.processing_level = proc
+
+            except Exception as error:
+                print error
+
         event.Skip()
 
     def getFieldValues(self):
