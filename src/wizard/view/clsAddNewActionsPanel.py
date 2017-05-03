@@ -89,15 +89,15 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         self.affList = AffiliationsList(sbSizer22.GetStaticBox(), size=wx.Size(-1, 150), style=wx.LC_REPORT | wx.SUNKEN_BORDER)
 
-        isLeadColumn = ColumnDefn(title='Lead', valueGetter='', align='centre', width=50)
+        column_with_checkbox = ColumnDefn('ID', valueGetter='AffiliationID')
 
         self.affList.SetColumns([
-            ColumnDefn('ID', valueGetter='AffiliationID'),
+            column_with_checkbox,
             ColumnDefn('Name', valueGetter='Name'),
             ColumnDefn(title='Organization', valueGetter='Organization')
         ])
 
-        self.affList.InstallCheckStateColumn(isLeadColumn)
+        self.affList.InstallCheckStateColumn(column_with_checkbox)
 
         self.affList.SetEmptyListMsg("Affiliations")
         bSizer3541.Add(self.affList, 1, wx.ALL|wx.EXPAND, 5)
