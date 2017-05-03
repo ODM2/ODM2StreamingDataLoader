@@ -271,18 +271,23 @@ class AddNewActionsPanelView ( wx.Panel ):
         bSizer80.Add( sbSizer23, 0, wx.EXPAND, 5 )
         
         m_sdbSizer10 = wx.StdDialogButtonSizer()
-        self.m_sdbSizer10OK = wx.Button( self, wx.ID_OK )
-        m_sdbSizer10.AddButton( self.m_sdbSizer10OK )
+        self.ok_button = wx.Button(self, wx.ID_OK)
+        m_sdbSizer10.AddButton(self.ok_button)
         self.m_sdbSizer10Cancel = wx.Button( self, wx.ID_CANCEL )
         m_sdbSizer10.AddButton( self.m_sdbSizer10Cancel )
         m_sdbSizer10.Realize()
         
         bSizer80.Add( m_sdbSizer10, 1, wx.EXPAND, 5 )
 
-        self.SetSizer( bSizer80 )
+        self.SetSizer(bSizer80)
         self.Layout()
 
+        self.ok_button.Bind(wx.EVT_BUTTON, self.onOK)
+
         self.__size_of_combo = self.action_type_combo.GetSize()
+
+    def onOK(self, event):
+        pass
 
     def on_show_combo(self, event):
         combo = event.GetEventObject()

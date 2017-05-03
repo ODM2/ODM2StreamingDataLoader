@@ -125,7 +125,8 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         self.methodID = d[str(self.method_combo.GetStringSelection())]
         self.beginDT = self._getTime(self.m_datePicker5, self.m_timePicker1)
         self.beginDTUTC = self.spinUTCBegin.GetValue()
-        self.affiliationList = [i.affiliationID for i in self.affList.GetSelectedObjects()]
+        self.affiliationList = [aff.AffiliationID for aff in self.affList.GetSelectedObjects()]
+
         for i in self.affList.GetSelectedObjects():
             if self.affList.IsChecked(i):
                 self.actionLead = i.affiliationID
