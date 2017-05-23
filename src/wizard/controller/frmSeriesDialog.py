@@ -114,18 +114,18 @@ class SeriesSelectDialog(CustomDialog):
 
     def onOK(self, event):
         obj = self.seriesSelectPanel.listCtrl.GetSelectedObject()
-        print obj.variableNameCV
+        print obj.VariableNameCV
 
-        mapping = ResultMapping(obj.resultID,
-            obj.samplingFeatureCode,
-            obj.samplingFeatureName,
-            obj.methodCode,
-            obj.methodName,
-            obj.variableCode,
-            obj.variableNameCV,
-            obj.processingLevelCode,
-            obj.processingLevelDef,
-            obj.unitsName)
+        mapping = ResultMapping(obj.ResultID,
+            obj.SamplingFeatureCode,
+            obj.SamplingFeatureName,
+            obj.MethodCode,
+            obj.MethodName,
+            obj.VariableCode,
+            obj.VariableNameCV,
+            obj.ProcessingLevelCode,
+            obj.ProcessingLevelDef,
+            obj.UnitsName)
 
         self.selectedResult = mapping
 
