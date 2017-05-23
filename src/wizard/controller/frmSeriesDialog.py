@@ -72,12 +72,12 @@ class SeriesSelectDialog(CustomDialog):
             read = self.database.getReadSession()
             r = read.getDetailedResultInfo("Time series coverage", 
                                             wiz.result.ResultID)
-            r_id = r[0].resultID
+            r_id = r[0].ResultID ###DetailedResult instance has no attribute resultID
             detailedResults = read.getDetailedResultInfo("Time series coverage")
             self.seriesSelectPanel.listCtrl.SetObjects(detailedResults)
 
             for i in detailedResults:
-                if i.resultID == r_id:
+                if i.ResultID == r_id:
                     self.seriesSelectPanel.listCtrl.SelectObject(\
                         i, deselectOthers=True,
                         ensureVisible=True)
