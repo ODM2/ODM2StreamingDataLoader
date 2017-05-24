@@ -124,7 +124,7 @@ class SeriesSelectDialog(CustomDialog):
             obj.VariableCode,
             obj.VariableNameCV,
             obj.ProcessingLevelCode,
-            obj.ProcessingLevelDef,
+            obj.ProcessingLevelDefinition,
             obj.UnitsName)
 
         self.selectedResult = mapping
