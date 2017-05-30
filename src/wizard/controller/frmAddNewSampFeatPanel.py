@@ -90,7 +90,7 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
                             SamplingFeatureGeotypeCV=self.optionalValues['geoType'],
                             Elevation_m=self.optionalValues['elevation'],
                             ElevationDatumCV=self.optionalValues['elevationDatum'],
-                            FeatureGeometry=self.optionalValues['featureGeo'],
+                            FeatureGeometryWKT=self.optionalValues['featureGeo'],
                             SpatialReferenceID=self.requiredValues['spatialRef'],
                             SiteTypeCV=self.requiredValues['siteType'],
                             Latitude=self.requiredValues['lat'],
