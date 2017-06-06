@@ -99,6 +99,14 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
                 self.sf = write.createSamplingFeature(site)
 
 
+                self.parent.parent.list_ctrl.SetObjects(self.parent.parent.getSeriesData())
+                length = self.parent.parent.list_ctrl.GetItemCount.im_self.ItemCount
+                length = length - 1
+                self.parent.parent.list_ctrl.Focus(length)
+                self.parent.parent.list_ctrl.Select(length, 1)###boop
+                #####update list and select here
+
+
             except Exception as e:
                 print e
         event.Skip()

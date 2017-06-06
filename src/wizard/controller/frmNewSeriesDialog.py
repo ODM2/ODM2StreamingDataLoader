@@ -7,6 +7,7 @@ class NewSeriesDialog(wx.Dialog):
             title=title, size=wx.DefaultSize, pos=wx.DefaultPosition,
             style=wx.DEFAULT_DIALOG_STYLE, **kwargs)
 
+        self.parent = parent
         self.sizer = wx.BoxSizer(wx.VERTICAL)
         self.SetSizer(self.sizer)
         self.Layout()

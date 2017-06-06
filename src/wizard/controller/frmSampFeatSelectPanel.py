@@ -68,8 +68,10 @@ class SampFeatSelectPanel(SeriesSelectPanel):
         dlg.addPanel(newSampFeatPnl)
         dlg.CenterOnScreen()
         if dlg.ShowModal() == wx.ID_OK:
+            pass
             # Refresh List.
-            self.list_ctrl.SetObjects(self.getSeriesData())
+            #self.list_ctrl.SetObjects(self.getSeriesData())
+            ######self.list_ctrl.Select()
         else:
             pass
         dlg.Destroy()
