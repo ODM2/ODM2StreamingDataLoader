@@ -34,7 +34,7 @@ class SeriesSelectDialog(CustomDialog):
             title="Select Result for %s" % variable,
             size=wx.Size(700, 500))
         self.database = database
-
+        self.parent = parent
         read = database.getReadSession()
         self.existingResult = None
         #read.getDetailedResultInfo("Time series coverage")

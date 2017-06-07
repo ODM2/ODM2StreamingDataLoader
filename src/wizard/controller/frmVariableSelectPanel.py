@@ -63,7 +63,8 @@ class VariableSelectPanel(SeriesSelectPanel):
         dlg.addPanel(newVariablePanel)
         dlg.CenterOnScreen()
         if dlg.ShowModal() == wx.ID_OK:
-            self.list_ctrl.SetObjects(self.getSeriesData())
+            pass
+            #self.list_ctrl.SetObjects(self.getSeriesData())
         else:
             pass
         dlg.Destroy()
