@@ -64,7 +64,8 @@ class UnitSelectPanel(SeriesSelectPanel):
         dlg.CenterOnScreen()
 
         if dlg.ShowModal() == wx.ID_OK:
-            self.list_ctrl.SetObjects(self.getSeriesData())
+            #self.list_ctrl.SetObjects(self.getSeriesData())
+            pass;
         else:
             pass
         dlg.Destroy()
