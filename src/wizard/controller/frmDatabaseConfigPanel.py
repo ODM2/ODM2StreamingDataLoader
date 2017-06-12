@@ -9,6 +9,8 @@ from src.common.functions import searchDict
 from src.wizard.controller.frmChainedDialogPage import ChainedDialogPage
 from src.controllers.Database import Database
 
+from urllib import quote_plus as urlquote
+
 class DatabaseConfigPanel(ChainedDialogPage,
     clsDBConfiguration):
     
@@ -39,14 +41,21 @@ class DatabaseConfigPanel(ChainedDialogPage,
 
     def onTestConnection(self, event):
         conn_dict = self.getFieldValues()
-        if self.validateInput(conn_dict['Database']):
+        try:
+            self.validateInput(conn_dict['Database'])
             self.conn_dict = conn_dict
             self.parent.nextButton.Enable(True) 
-        else:
+        except:
             self.parent.nextButton.Enable(False)
+            message = "Invalid connection!"
+            title = "Connection Error"
+            ico = wx.ICON_EXCLAMATION
+            wx.MessageBox(message=message,
+                          caption=title,
+                          style=wx.OK | ico)
 
     def sanitizeFieldValues(self, value):
-        value = value.replace(';','')
+        value = value.replace(';','\\;')
         return value
 
     def getFieldValues(self):
