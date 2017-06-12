@@ -27,6 +27,7 @@ class SeriesSelectDialog(CustomDialog):
         self.seriesSelectPanel = SeriesSelectPanelView(self)
         self.addPanel(self.seriesSelectPanel)
         self.seriesSelectPanel.okBtn.Disable()
+        self.seriesSelectPanel.editBtn.Disable()
 
         self.seriesSelectPanel.newBtn.Bind(wx.EVT_BUTTON, self.onNew)
         self.seriesSelectPanel.editBtn.Bind(wx.EVT_BUTTON, self.onEdit)
