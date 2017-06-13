@@ -55,7 +55,7 @@ class DatabaseConfigPanel(ChainedDialogPage,
                           style=wx.OK | ico)
 
     def sanitizeFieldValues(self, value):
-        value = value.replace(';','\\;')
+        value = value.replace(';',';')
         return value
 
     def getFieldValues(self):
