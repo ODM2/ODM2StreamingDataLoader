@@ -144,11 +144,11 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         vals = [y for x in [i.values() for i in self.methods] for y in x]
         d = dict(zip(keys, vals))
 
-        self.actionType = str(self.m_comboBox13.GetStringSelection())
-        self.methodID = d[str(self.m_comboBox134.GetStringSelection())]
-        self.beginDT = self._getTime(self.m_datePicker5, self.m_timePicker1)
-        self.beginDTUTC = self.spinUTCBegin.GetValue()
-        self.affiliationList = [i.affiliationID for i in self.affList.GetSelectedObjects()]
+        self.ActionType = str(self.m_comboBox13.GetStringSelection())
+        self.MethodID = d[str(self.m_comboBox134.GetStringSelection())]
+        self.BeginDT = self._getTime(self.m_datePicker5, self.m_timePicker1)
+        self.BeginDTUTC = self.spinUTCBegin.GetValue()
+        self.AffiliationList = [i.affiliationID for i in self.affList.GetSelectedObjects()]
         for i in self.affList.GetSelectedObjects():
             if self.affList.IsChecked(i):
                 self.actionLead = i.affiliationID
@@ -156,16 +156,16 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         if self.m_datePicker51.GetValue().IsValid():
             self.endDT = self._getTime(self.m_datePicker51, self.m_timePicker2)
         else:
-            self.endDT = None
-        self.endDTUTC = self.beginDTUTC
+            self.EndDT = None
+        self.EndDTUTC = self.beginDTUTC
         if str(self.m_textCtrl232.GetValue()) == '':
             self.actionDesc = None
         else:
-            self.actionDesc = str(self.m_textCtrl232.GetValue())
+            self.ActionDesc = str(self.m_textCtrl232.GetValue())
         if str(self.m_textCtrl234.GetValue()) == '':
-            self.actionLink = None
+            self.ActionLink = None
         else:
-            self.actionLink = str(self.m_textCtrl234.GetValue())
+            self.ActionLink = str(self.m_textCtrl234.GetValue())
 
     def _getTime(self, d, t):
         date = d.GetValue()
