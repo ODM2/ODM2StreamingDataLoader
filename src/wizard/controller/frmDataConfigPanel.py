@@ -144,8 +144,7 @@ class DataConfigPanelController(DataConfigPanelView):
         # Assign the table to the grid control.
         self.m_listCtrl1.setTable(base)
 
-        for column in range(self.m_listCtrl1.GetNumberCols()):
-            self.m_listCtrl1.AutoSizeColLabelSize(column)
+        self.m_listCtrl1.AutoSizeColumns()
 
     def setInputMappingList(self, existingData, read):
         """
@@ -171,9 +170,7 @@ class DataConfigPanelController(DataConfigPanelView):
                 popThese.append(variableName)
                 continue
             # Add the variable name to the mapping list.
-            mapping = read.getDetailedResultInfo(\
-                "Time series coverage",
-                values['ResultID'])
+            mapping = read.getDetailedResultInfo("Time series coverage", values['ResultID'])
             mapped = mapping[0]
             self.m_listCtrl3.AddObject(
                 ResultMapping(mapped.ResultID,

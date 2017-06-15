@@ -81,16 +81,18 @@ class DatabaseConfigPanel(ChainedDialogPage,
             conn_dict['Password'])
         
         self.dbConnection = Database()
-        
-        if self.dbConnection.createConnection(cred):
-            message = "This connection is valid."
-            ico = wx.OK|wx.ICON_INFORMATION
-            title = "Connection Successfull"
-            connected = True
-            self.parent.db = self.dbConnection
-            self.parent.nextButton.SetFocus()
-        else:
-            connected = False
+        try:
+            if self.dbConnection.createConnection(cred):
+                message = "This connection is valid."
+                ico = wx.OK|wx.ICON_INFORMATION
+                title = "Connection Successfull"
+                connected = True
+                self.parent.db = self.dbConnection
+                self.parent.nextButton.SetFocus()
+            else:
+                connected = False
+        except:
+                connected = False
 
         wx.MessageBox(message=message,
             caption=title,

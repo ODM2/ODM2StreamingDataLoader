@@ -109,3 +109,9 @@ class Database:
         '''
         _session = self.session_factory.getSession()
         return ReadODM2(self.session_factory)
+
+    def getUpdateSession(self):
+        '''
+        '''
+        _session = self.session_factory.getSession()
+        return UpdateODM2(self.session_factory)

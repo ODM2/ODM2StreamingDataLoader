@@ -1,10 +1,10 @@
 app_name = "Streaming Data Loader"
-version = "0.1_Beta"
+version = "0.6.0_Beta"
 copyright = "Copyright (c) 2013 - 2015, Utah State University. All rights reserved."
 description = "Streaming Data Loader a program for streaming continuous sensor data into an instance of the Observations Data Model (ODM)"
 
 developers = ["Jeffery S. Horsburgh", "Amber Spackman Jones",
-                "Stephanie L. Reeder", "Denver Smith", "Jacob Meline"]
+                "Stephanie L. Reeder", "Mikaila Young","Francisco Arrieta" "Denver Smith", "Jacob Meline"]
 
 license = "This material is copyright (c)  2015 Utah State University." \
               "\nIt is open and licensed under the New Berkeley Software Distribution (BSD) License. Full text of the license follows." \
