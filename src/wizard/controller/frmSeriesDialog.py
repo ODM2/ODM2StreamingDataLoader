@@ -18,7 +18,7 @@ class SeriesSelectDialog(CustomDialog):
         self.database = database
 
         self.parent = parent
-        read = database.getReadSession()
+        self.read = database.getReadSession()
 
         self._auto_width_style = wx.LIST_AUTOSIZE
         if sys.platform == "win32":
