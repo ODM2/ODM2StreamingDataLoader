@@ -74,6 +74,8 @@ class UnitSelectPanel(SeriesSelectPanel):
         if dlg.ShowModal() == wx.ID_OK and controller.units is not None:
             self.list_ctrl.SetObjects(self.getSeriesData())
             self.list_ctrl.SelectObject(modelObject=controller.units, ensureVisible=True)
+        else:
+          pass
 
         dlg.Destroy()
         event.Skip()

@@ -71,6 +71,18 @@ class VariableSelectPanel(SeriesSelectPanel):
         dlg.addPanel(controller)
         dlg.CenterOnScreen()
 
+        if dlg.ShowModal() == wx.ID_OK:
+            pass
+            #self.list_ctrl.SetObjects(self.getSeriesData())
+        else:
+            pass
+        dlg.Destroy()
+        event.Skip()
+    
+    def __del__( self ):
+        pass
+
+
         if dlg.ShowModal() == wx.ID_OK and controller.variable is not None:
             data = self.getSeriesData()
             self.list_ctrl.SetObjects(data)

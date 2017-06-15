@@ -33,11 +33,14 @@ class AddNewProcLevelPanelController(AddNewProcLevelPanelView):
                 )
 
                 write.createProcessingLevel(proc)
-
-                self.processing_level = proc
-
-            except Exception as error:
-                print error
+                
+                self.parent.parent.list_ctrl.SetObjects(self.parent.parent.getSeriesData())
+                length = self.parent.parent.list_ctrl.GetItemCount.im_self.ItemCount
+                length = length - 1
+                self.parent.parent.list_ctrl.Focus(length)
+                self.parent.parent.list_ctrl.Select(length, 1)
+            except Exception as e:
+                print e
 
         event.Skip()
 

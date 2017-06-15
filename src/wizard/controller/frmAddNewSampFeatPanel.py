@@ -87,11 +87,35 @@ class AddNewSampFeatPanelController(AddNewSampFeatPanelView):
                 Longitude=self.requiredValues['long']
             )
 
-            write.createSamplingFeature(site)
+                site = Sites(SamplingFeatureUUID=str(self._uuid),
+                            SamplingFeatureCode=self.requiredValues['code'],
+                            SamplingFeatureTypeCV=self.requiredValues['vType'],
+                            SamplingFeatureName=self.optionalValues['name'],
+                            SamplingFeatureDescription=self.optionalValues['desc'],
+                            SamplingFeatureGeotypeCV=self.optionalValues['geoType'],
+                            Elevation_m=self.optionalValues['elevation'],
+                            ElevationDatumCV=self.optionalValues['elevationDatum'],
+                            FeatureGeometryWKT=self.optionalValues['featureGeo'],
+                            SpatialReferenceID=self.requiredValues['spatialRef'],
+                            SiteTypeCV=self.requiredValues['siteType'],
+                            Latitude=self.requiredValues['lat'],
+                            Longitude=self.requiredValues['long'])
+                # site = write.createSite(site)
+                self.sf = write.createSamplingFeature(site)
             self.sampling_feature = site
 
         except Exception as error:
             print error
+
+                self.parent.parent.list_ctrl.SetObjects(self.parent.parent.getSeriesData())
+                length = self.parent.parent.list_ctrl.GetItemCount.im_self.ItemCount
+                length = length - 1
+                self.parent.parent.list_ctrl.Focus(length)
+                self.parent.parent.list_ctrl.Select(length, 1)###boop
+                #####update list and select here
+
+            except Exception as e:
+                print e
 
         event.Skip()
 

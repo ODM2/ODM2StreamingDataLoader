@@ -25,22 +25,23 @@ class AddNewUnitPanelController(AddNewUnitPanelView):
         if not self.Validate():
             self.Refresh()
             return
-        self.getFieldValues()
-        try:
-            write = self.db.getWriteSession()
-            unit = Units(
-                UnitsTypeCV=self.unitsType,
-                UnitsAbbreviation=self.unitsAbr,
-                UnitsName=self.unitsName,
-                UnitsLink=self.unitsLink
-            )
+        else:
+            self.getFieldValues()
+            try:
+                write = self.db.getWriteSession()
+                unit = Units(UnitsTypeCV=self.unitsType,
+                    UnitsAbbreviation=self.unitsAbr,
+                    UnitsName=self.unitsName,
+                    UnitsLink=self.unitsLink)
+                write.createUnit(unit)
+                self.parent.parent.list_ctrl.SetObjects(self.parent.parent.getSeriesData())
+                length = self.parent.parent.list_ctrl.GetItemCount.im_self.ItemCount
+                length = length - 1
+                self.parent.parent.list_ctrl.Focus(length)
+                self.parent.parent.list_ctrl.Select(length, 1)
 
-            write.createUnit(unit)
-
-            self.units = unit
-
-        except Exception as error:
-            print error
+            except Exception as e:
+                print e
 
         event.Skip()
 

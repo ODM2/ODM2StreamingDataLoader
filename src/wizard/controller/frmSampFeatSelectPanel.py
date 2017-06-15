@@ -73,10 +73,13 @@ class SampFeatSelectPanel(SeriesSelectPanel):
         dlg.addPanel(controller)
         dlg.CenterOnScreen()
 
-        if dlg.ShowModal() == wx.ID_OK and controller.sampling_feature is not None:
+        if dlg.ShowModal() == wx.ID_OK:
+            pass
             # Refresh List.
-            self.list_ctrl.SetObjects(self.getSeriesData())
-            self.list_ctrl.SelectObject(modelObject=controller.sampling_feature, ensureVisible=True)
+            #self.list_ctrl.SetObjects(self.getSeriesData())
+            ######self.list_ctrl.Select()
+        else:
+            pass
 
         dlg.Destroy()
         event.Skip()

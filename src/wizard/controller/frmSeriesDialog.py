@@ -17,11 +17,13 @@ class SeriesSelectDialog(CustomDialog):
         super(SeriesSelectDialog, self).__init__(parent=parent, title="Select Result for %s" % variable, size=wx.Size(700, 500))
         self.database = database
 
+        self.parent = parent
+        read = database.getReadSession()
+
         self._auto_width_style = wx.LIST_AUTOSIZE
         if sys.platform == "win32":
             self._auto_width_style = wx.LIST_AUTOSIZE_USEHEADER
 
-        self.read = database.getReadSession()
         self.existingResult = None
         #read.getDetailedResultInfo("Time series coverage")
         self.seriesSelectPanel = SeriesSelectPanelView(self)
@@ -76,14 +78,21 @@ class SeriesSelectDialog(CustomDialog):
         if wiz.ShowModal() == wx.ID_OK:
             wiz.Center()
             read = self.database.getReadSession()
-            r = read.getDetailedResultInfo("Time series coverage", wiz.result.ResultID)
+
+            r = read.getDetailedResultInfo("Time series coverage", 
+                                            wiz.result.ResultID)
+            r_id = r[0].ResultID ###DetailedResult instance has no attribute resultID
+
             r_id = r[0].resultID
+    
             detailedResults = read.getDetailedResultInfo("Time series coverage")
             self.seriesSelectPanel.listCtrl.SetObjects(detailedResults)
 
             for i in detailedResults:
-                if i.resultID == r_id:
-                    self.seriesSelectPanel.listCtrl.SelectObject(i, deselectOthers=True, ensureVisible=True)
+                if i.ResultID == r_id:
+                    self.seriesSelectPanel.listCtrl.SelectObject(\
+                        i, deselectOthers=True,
+                        ensureVisible=True)
         else:
             pass
             #wx.MessageBox('An error occurred while creating a new result', 'Error')
@@ -124,7 +133,6 @@ class SeriesSelectDialog(CustomDialog):
 
     def onOK(self, event):
         obj = self.seriesSelectPanel.listCtrl.GetSelectedObject()
-        print obj.VariableNameCV
 
         mapping = ResultMapping(obj.ResultID,
             obj.SamplingFeatureCode,

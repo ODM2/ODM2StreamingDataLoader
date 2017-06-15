@@ -108,7 +108,11 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
                     )
                     write.createActionby(actionby)
 
-                self.action = action
+                    self.parent.parent.list_ctrl.SetObjects(self.parent.parent.getSeriesData())
+                    length = self.parent.parent.list_ctrl.GetItemCount.im_self.ItemCount
+                    length = length - 1
+                    self.parent.parent.list_ctrl.Focus(length)
+                    self.parent.parent.list_ctrl.Select(length, 1)
                 
             except Exception as error:
                 print error

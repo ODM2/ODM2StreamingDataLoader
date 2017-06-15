@@ -71,9 +71,10 @@ class ActionsSelectPanel(SeriesSelectPanel):
         controller = AddNewActionsPanelController(dlg, self.parent.database)
         dlg.addPanel(controller)
         dlg.CenterOnScreen()
-        if dlg.ShowModal() == wx.ID_OK and controller.action is not None:
-            self.list_ctrl.SetObjects(self.getSeriesData())
-            self.list_ctrl.SelectObject(modelObject=controller.action, ensureVisible=True)
+        
+        if dlg.ShowModal() == wx.ID_OK:
+            pass;
+            #self.list_ctrl.SetObjects(self.getSeriesData())
 
         dlg.Destroy()
         event.Skip()
