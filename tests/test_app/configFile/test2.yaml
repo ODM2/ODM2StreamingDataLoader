@@ -1,5 +1,5 @@
 ## Configuration file
-## Last modified: 2017-06-15 15:45
+## Last modified: 2017-06-15 16:3
 ---
 Custom_file_id:
   Database:
@@ -10,50 +10,50 @@ Custom_file_id:
     UserName: ODM
   Mappings:
     AirTemperature-C:
-      CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      CalculateAggInterval: 'false'
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '2345'
-      ResultID: 1
+      LastByteRead: 0
+      ResultID: 5
     NetRadiation-Watts/m2:
       CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
       LastByteRead: '2345'
       ResultID: 2
     Precipitation-mm:
       CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
       LastByteRead: '2345'
       ResultID: 3
     RelativeHumidity-%:
       CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
       LastByteRead: '2345'
       ResultID: 4
     SnowDepth-cm:
       CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
       LastByteRead: '2345'
       ResultID: 5
     SolarRadiation-Watts/m2:
       CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
       LastByteRead: '2345'
       ResultID: 6
     WindDirection-Degree:
       CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
       LastByteRead: '2345'
       ResultID: 7
     WindSpeed-m/s:
       CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
       LastByteRead: '2345'
       ResultID: 8
