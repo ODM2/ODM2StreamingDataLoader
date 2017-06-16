@@ -67,12 +67,15 @@ class UnitSelectPanel(SeriesSelectPanel):
 
     def onButtonAdd(self, event):
         dlg = NewSeriesDialog(self, 'Create New Unit')
-        newUnitPanel = AddNewUnitPanelController(dlg, self.parent.database)
-        dlg.addPanel(newUnitPanel)
+        controller = AddNewUnitPanelController(dlg, self.parent.database)
+        dlg.addPanel(controller)
         dlg.CenterOnScreen()
 
-        if dlg.ShowModal() == wx.ID_OK:
+        if dlg.ShowModal() == wx.ID_OK and controller.units is not None:
             self.list_ctrl.SetObjects(self.getSeriesData())
+            self.list_ctrl.SelectObject(modelObject=controller.units, ensureVisible=True)
+        else:
+          pass
 
         dlg.Destroy()
         event.Skip()

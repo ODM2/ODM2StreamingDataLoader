@@ -20,9 +20,6 @@ class Test():
 class AffiliationsList(ObjectListView):
     def __init__(self, *args, **kwargs):
         ObjectListView.__init__(self, *args, **kwargs)
-        #self.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onSelect)
-        #self.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onDeselect)
-        #self.Bind(wx.EVT_LEFT_DOWN, self.onClick)
         self.selected = set()
         self.selectedItems = []
         self.lastSelected = -1
@@ -48,13 +45,13 @@ class AddNewActionsPanelView ( wx.Panel ):
         
         bSizer35.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.m_comboBox13 = wx.ComboBox(sbSizer22.GetStaticBox(), wx.ID_ANY, value="Select Action Type", style=wx.CB_READONLY, validator=RequiredComboValidator())
-        self.m_comboBox13.SetMinSize( wx.Size( 280,-1 ) )
+        self.action_type_combo = wx.ComboBox(sbSizer22.GetStaticBox(), wx.ID_ANY, value="Select Action Type", style=wx.CB_READONLY, validator=RequiredComboValidator())
+        self.action_type_combo.SetMinSize(wx.Size(280, -1))
 
-        self.m_comboBox13.Bind(wx.EVT_COMBOBOX_DROPDOWN, self.on_show_combo)
-        self.m_comboBox13.Bind(wx.EVT_COMBOBOX_CLOSEUP, self.on_hide_combo)
+        self.action_type_combo.Bind(wx.EVT_COMBOBOX_DROPDOWN, self.on_show_combo)
+        self.action_type_combo.Bind(wx.EVT_COMBOBOX_CLOSEUP, self.on_hide_combo)
         
-        bSizer35.Add( self.m_comboBox13, 0, wx.ALL, 5 )
+        bSizer35.Add(self.action_type_combo, 0, wx.ALL, 5)
         sbSizer22.Add( bSizer35, 0, wx.EXPAND, 5 )
         
         bSizer354 = wx.BoxSizer( wx.HORIZONTAL )
@@ -62,14 +59,13 @@ class AddNewActionsPanelView ( wx.Panel ):
         self.m_staticText314 = wx.StaticText( sbSizer22.GetStaticBox(), wx.ID_ANY, u"Method", wx.DefaultPosition, wx.DefaultSize,0)
         self.m_staticText314.Wrap( -1 )
         bSizer354.Add( self.m_staticText314, 0, wx.ALL, 5 )
-        
-        
+
         bSizer354.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        self.m_comboBox134 = wx.ComboBox(sbSizer22.GetStaticBox(), wx.ID_ANY, value="Select Method", style=wx.CB_READONLY, validator=RequiredComboValidator())
-        self.m_comboBox134.SetMinSize( wx.Size( 230,-1 ) )
+        self.method_combo = wx.ComboBox(sbSizer22.GetStaticBox(), value="Select Method", style=wx.CB_READONLY, validator=RequiredComboValidator())
+        self.method_combo.SetMinSize(wx.Size(230, -1))
         
-        bSizer354.Add( self.m_comboBox134, 0, wx.ALL, 5 )
+        bSizer354.Add(self.method_combo, 0, wx.ALL, 5)
         
         self.btnNewMethod = wx.Button(sbSizer22.GetStaticBox(), wx.ID_ANY, u"+", wx.DefaultPosition, wx.Size(40,27), 0)
         self.btnNewMethod.SetFont(wx.Font(15,70,90,92,False,wx.EmptyString))
@@ -91,21 +87,18 @@ class AddNewActionsPanelView ( wx.Panel ):
         affSizer.Add(self.m_b, 0, wx.ALL, 5)
         bSizer3541.Add( affSizer, 0, wx.ALL, 5 )
         
-        #sbSizer22.Add( bSizer3541, 1, wx.EXPAND, 5 )
-        self.affList = AffiliationsList(sbSizer22.GetStaticBox(),
-            wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(-1, 150),
-            style=wx.LC_REPORT|wx.SUNKEN_BORDER)
-        #self.affList.cellEditMode = self.affList.CELLEDIT_DOUBLECLICK
-        isLeadColumn = ColumnDefn(title='Lead', valueGetter='', align='centre', width=50)
+        self.affList = AffiliationsList(sbSizer22.GetStaticBox(), size=wx.Size(-1, 150), style=wx.LC_REPORT | wx.SUNKEN_BORDER)
+
+        column_with_checkbox = ColumnDefn('ID', valueGetter='AffiliationID')
+
         self.affList.SetColumns([
-            isLeadColumn,
-            ColumnDefn(title='Person', valueGetter='name', align='left', width=100),
-            ColumnDefn('Organization', 'left', 500,'organization'),
+            column_with_checkbox,
+            ColumnDefn('Name', valueGetter='Name'),
+            ColumnDefn(title='Organization', valueGetter='Organization')
         ])
-        self.affList.InstallCheckStateColumn(isLeadColumn)
-        #self.affList.AddObject(Test("","",
-        #    ""))
-        
+
+        self.affList.InstallCheckStateColumn(column_with_checkbox)
+
         self.affList.SetEmptyListMsg("Affiliations")
         bSizer3541.Add(self.affList, 1, wx.ALL|wx.EXPAND, 5)
         sbSizer22.Add( bSizer3541, 1, wx.EXPAND, 5 )
@@ -278,18 +271,23 @@ class AddNewActionsPanelView ( wx.Panel ):
         bSizer80.Add( sbSizer23, 0, wx.EXPAND, 5 )
         
         m_sdbSizer10 = wx.StdDialogButtonSizer()
-        self.m_sdbSizer10OK = wx.Button( self, wx.ID_OK )
-        m_sdbSizer10.AddButton( self.m_sdbSizer10OK )
+        self.ok_button = wx.Button(self, wx.ID_OK)
+        m_sdbSizer10.AddButton(self.ok_button)
         self.m_sdbSizer10Cancel = wx.Button( self, wx.ID_CANCEL )
         m_sdbSizer10.AddButton( self.m_sdbSizer10Cancel )
         m_sdbSizer10.Realize()
         
         bSizer80.Add( m_sdbSizer10, 1, wx.EXPAND, 5 )
 
-        self.SetSizer( bSizer80 )
+        self.SetSizer(bSizer80)
         self.Layout()
 
-        self.__size_of_combo = self.m_comboBox13.GetSize()
+        self.ok_button.Bind(wx.EVT_BUTTON, self.onOK)
+
+        self.__size_of_combo = self.action_type_combo.GetSize()
+
+    def onOK(self, event):
+        pass
 
     def on_show_combo(self, event):
         combo = event.GetEventObject()

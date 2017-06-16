@@ -1,5 +1,5 @@
 ## Configuration file
-## Last modified: 2016-06-16 14:31
+## Last modified: 2017-06-15 16:3
 ---
 Custom_file_id:
   Database:
@@ -10,55 +10,55 @@ Custom_file_id:
     UserName: ODM
   Mappings:
     AirTemperature-C:
-      CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      CalculateAggInterval: 'false'
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
-      LastByteRead: '2345'
-      ResultID: 1
+      LastByteRead: 0
+      ResultID: 5
     NetRadiation-Watts/m2:
       CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
       LastByteRead: '2345'
       ResultID: 2
     Precipitation-mm:
       CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
       LastByteRead: '2345'
       ResultID: 3
     RelativeHumidity-%:
       CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
       LastByteRead: '2345'
       ResultID: 4
     SnowDepth-cm:
       CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
       LastByteRead: '2345'
       ResultID: 5
     SolarRadiation-Watts/m2:
       CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
       LastByteRead: '2345'
       ResultID: 6
     WindDirection-Degree:
       CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
       LastByteRead: '2345'
       ResultID: 7
     WindSpeed-m/s:
       CalculateAggInterval: false
-      IntendedTimeSpacing: 15
+      IntendedTimeSpacing: 10
       IntendedTimeSpacingUnitID: 102
       LastByteRead: '2345'
       ResultID: 8
   Schedule:
-    Beginning: 6/4/2014 11:00:00 AM
+    Beginning: 06/04/2014 11:00:00 AM
     Frequency: Minute
     LastUpdate: '2016-06-16 14:31:32'
     Time: 1
@@ -66,8 +66,8 @@ Custom_file_id:
     DataRowPosition: 22
     DateTimeColumnName: DateTime
     Delimiter: ','
-    FileLocation: /Users/stephanie/DEV/StreamingDataLoader/tests/test_handlers/test_csvHandler/csvFiles/raw.csv
+    FileLocation: D:\DEV\SDL\tests\test_handlers\test_csvHandler\csvFiles\raw.csv
     FileLocationType: Local
-    FillGaps: false
+    FillGaps: 'false'
     HeaderRowPosition: 20
     UTCOffset: -6

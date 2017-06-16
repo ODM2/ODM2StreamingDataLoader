@@ -5,10 +5,12 @@ from odm2api.ODM2.models import Units
 
 
 class AddNewUnitPanelController(AddNewUnitPanelView):
-    def __init__(self, daddy, db, **kwargs):
-        super(AddNewUnitPanelController, self).__init__(daddy, **kwargs)
+    def __init__(self, daddy, db):
+        super(AddNewUnitPanelController, self).__init__(daddy)
         self.parent = daddy
         self.db = db
+
+        self.units = None
         
         self.populateFields()
         
@@ -20,7 +22,6 @@ class AddNewUnitPanelController(AddNewUnitPanelView):
        self.m_comboBox13.AppendItems(units)
 
     def onOK(self, event):
-       # Try to validate the form.
         if not self.Validate():
             self.Refresh()
             return
@@ -33,9 +34,15 @@ class AddNewUnitPanelController(AddNewUnitPanelView):
                     UnitsName=self.unitsName,
                     UnitsLink=self.unitsLink)
                 write.createUnit(unit)
+                self.parent.parent.list_ctrl.SetObjects(self.parent.parent.getSeriesData())
+                length = self.parent.parent.list_ctrl.GetItemCount.im_self.ItemCount
+                length = length - 1
+                self.parent.parent.list_ctrl.Focus(length)
+                self.parent.parent.list_ctrl.Select(length, 1)
 
             except Exception as e:
                 print e
+
         event.Skip()
 
     def getFieldValues(self):

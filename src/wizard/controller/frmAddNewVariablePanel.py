@@ -4,30 +4,27 @@ import wx
 from src.wizard.view.clsAddNewVariablePanel import AddNewVariablePanelView
 from odm2api.ODM2.models import Variables
 
+
 class AddNewVariablePanelController(AddNewVariablePanelView):
-    def __init__(self, daddy, db, **kwargs):
-        super(AddNewVariablePanelController, self).__init__(daddy,
-            **kwargs)
+    def __init__(self, daddy, db):
+        super(AddNewVariablePanelController, self).__init__(daddy)
         self.parent = daddy
         self.db = db
+        self.variable = None  # Will hold the newly created variable
 
         self.populateFields()
 
     def populateFields(self):
-        '''
-        '''
         read = self.db.getReadSession()
 
         # names = [i.Name for i in read.getCVVariableNames()]
         names = [i.Name for i in read.getCVs(type="Variable Name")]
         self.m_comboBox4.AppendItems(names)
 
-        
         # types = [i.Name for i in read.getCVVariableTypes()]
         types = [i.Name for i in read.getCVs(type="Variable Type")]
         self.m_comboBox12.AppendItems(types)
         
-        # speciations = [i.Name for i in read.getCVSpeciations()]
         speciations = [i.Name for i in read.getCVs(type="Speciation")]
         self.m_comboBox2.AppendItems(speciations)
 
@@ -38,19 +35,31 @@ class AddNewVariablePanelController(AddNewVariablePanelView):
         self.getFieldValues()
         try:
             write = self.db.getWriteSession()
-            var = Variables(\
+            var = Variables(
                 VariableCode=self.variableCode,
                 VariableNameCV=self.variableName,
                 VariableTypeCV=self.variableType,
                 NoDataValue=self.ndv,
                 SpeciationCV=self.speciation,
-                VariableDefinition=self.definition)
+                VariableDefinition=self.definition
+            )
             write.createVariable(var)
+
+
+            self.parent.parent.list_ctrl.SetObjects(self.parent.parent.getSeriesData())
+            length = self.parent.parent.list_ctrl.GetItemCount.im_self.ItemCount
+            length = length - 1
+            self.parent.parent.list_ctrl.Focus(length)
+            self.parent.parent.list_ctrl.Select(length, 1)
 
         except Exception as e:
             print e
 
-        event.Skip()
+            self.variable = var
+
+
+        except Exception as error:
+            print error
 
     def getFieldValues(self):
         self.variableCode = str(self.m_textCtrl23.GetValue())
@@ -66,4 +75,3 @@ class AddNewVariablePanelController(AddNewVariablePanelView):
             self.definition = str(self.m_textCtrl24.GetValue())
         else:
             self.definition = None
-        

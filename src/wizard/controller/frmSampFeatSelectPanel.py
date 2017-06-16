@@ -69,13 +69,17 @@ class SampFeatSelectPanel(SeriesSelectPanel):
 
     def onButtonAdd(self, event):
         dlg = NewSeriesDialog(self, 'Create New Sampling Feature')
-        newSampFeatPnl = AddNewSampFeatPanelController(dlg, self.parent.database)
-        dlg.addPanel(newSampFeatPnl)
+        controller = AddNewSampFeatPanelController(dlg, self.parent.database)
+        dlg.addPanel(controller)
         dlg.CenterOnScreen()
 
         if dlg.ShowModal() == wx.ID_OK:
+            pass
             # Refresh List.
-            self.list_ctrl.SetObjects(self.getSeriesData())
+            #self.list_ctrl.SetObjects(self.getSeriesData())
+            ######self.list_ctrl.Select()
+        else:
+            pass
 
         dlg.Destroy()
         event.Skip()

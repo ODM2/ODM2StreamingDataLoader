@@ -67,12 +67,27 @@ class VariableSelectPanel(SeriesSelectPanel):
 
     def onButtonAdd(self, event):
         dlg = NewSeriesDialog(self, 'Create New Variable')
-        newVariablePanel = AddNewVariablePanelController(dlg, self.parent.database)
-        dlg.addPanel(newVariablePanel)
+        controller = AddNewVariablePanelController(dlg, self.parent.database)
+        dlg.addPanel(controller)
         dlg.CenterOnScreen()
 
         if dlg.ShowModal() == wx.ID_OK:
-            self.list_ctrl.SetObjects(self.getSeriesData())
-
+            pass
+            #self.list_ctrl.SetObjects(self.getSeriesData())
+        else:
+            pass
         dlg.Destroy()
         event.Skip()
+    
+    def __del__( self ):
+        pass
+
+
+        if dlg.ShowModal() == wx.ID_OK and controller.variable is not None:
+            data = self.getSeriesData()
+            self.list_ctrl.SetObjects(data)
+
+            # Select the new variable
+            self.list_ctrl.SelectObject(modelObject=controller.variable, ensureVisible=True)
+
+        dlg.Destroy()

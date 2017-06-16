@@ -25,6 +25,7 @@ class ActionsSelectPanel(SeriesSelectPanel):
             self.new_button.Enable(False)
 
         self.select_existing_series()
+        self.auto_size_table()
 
         self.list_ctrl.Bind(wx.EVT_LIST_ITEM_SELECTED, self.enable)
         self.list_ctrl.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.disable)
@@ -66,21 +67,14 @@ class ActionsSelectPanel(SeriesSelectPanel):
         return []
 
     def onButtonAdd(self, event):
-        dlg = NewSeriesDialog(self,
-            u'Create New Action')
-        newActionsPanel = AddNewActionsPanelController(dlg,
-            self.parent.database)
-        dlg.addPanel(newActionsPanel)
+        dlg = NewSeriesDialog(self, 'Create New Action')
+        controller = AddNewActionsPanelController(dlg, self.parent.database)
+        dlg.addPanel(controller)
         dlg.CenterOnScreen()
+        
         if dlg.ShowModal() == wx.ID_OK:
-            self.list_ctrl.SetObjects(self.getSeriesData())
+            pass;
+            #self.list_ctrl.SetObjects(self.getSeriesData())
 
-        #else:
-        #    pass
         dlg.Destroy()
         event.Skip()
-    
-    def __del__( self ):
-        pass
-
-

@@ -48,9 +48,4 @@ class SeriesSelectPanel(wx.Panel):
         self.new_panel = panel
     
     def onButtonAdd(self, event):
-        event.Skip()
-
-    def __del__( self ):
         pass
-
-

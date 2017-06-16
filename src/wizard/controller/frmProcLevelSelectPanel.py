@@ -66,12 +66,18 @@ class ProcLevelSelectPanel(SeriesSelectPanel):
 
     def onButtonAdd(self, event):
         dlg = NewSeriesDialog(self, 'Create New Processing Level')
-        newProcLevelPanel = AddNewProcLevelPanelController(dlg, self.parent.database)
-        dlg.addPanel(newProcLevelPanel)
+        controller = AddNewProcLevelPanelController(dlg, self.parent.database)
+        dlg.addPanel(controller)
         dlg.CenterOnScreen()
 
+
         if dlg.ShowModal() == wx.ID_OK:
-            self.list_ctrl.SetObjects(self.getSeriesData())
+            #self.list_ctrl.SetObjects(self.getSeriesData())
+            pass;
+        else:
+            pass
+          
+            self.list_ctrl.SelectObject(modelObject=controller.processing_level, ensureVisible=True)
 
         dlg.Destroy()
         event.Skip()

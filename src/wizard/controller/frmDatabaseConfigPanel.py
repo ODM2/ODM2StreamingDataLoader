@@ -43,15 +43,19 @@ class DatabaseConfigPanel(ChainedDialogPage,
             self.conn_dict = conn_dict
             self.parent.nextButton.Enable(True) 
         else:
-            self.parent.nextButton.Enable(False) 
+            self.parent.nextButton.Enable(False)
+
+    def sanitizeFieldValues(self, value):
+        value = value.replace(';','')
+        return value
 
     def getFieldValues(self):
         conn_dict = {}
         conn_dict['Engine'] = self.choices[self.cbDatabaseType.GetValue()] if self.cbDatabaseType.GetValue() != ''  else ''
-        conn_dict['UserName'] = str(self.txtUser.GetValue())
-        conn_dict['Password'] = str(self.txtPass.GetValue())
-        conn_dict['Address'] = str(self.txtServer.GetValue())
-        conn_dict['DatabaseName'] = str(self.txtDBName.GetValue())
+        conn_dict['UserName'] = self.sanitizeFieldValues(str(self.txtUser.GetValue()))
+        conn_dict['Password'] = self.sanitizeFieldValues(str(self.txtPass.GetValue()))
+        conn_dict['Address'] = self.sanitizeFieldValues(str(self.txtServer.GetValue()))
+        conn_dict['DatabaseName'] = self.sanitizeFieldValues(str(self.txtDBName.GetValue()))
         return {'Database': conn_dict}
 
     def validateInput(self, conn_dict):
