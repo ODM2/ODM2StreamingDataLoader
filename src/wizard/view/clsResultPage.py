@@ -250,7 +250,7 @@ class ResultPageView ( wx.Panel ):
         bSizerX.Add( self.staticXUnits, 0, wx.ALL, 5 )
         
         comboXUnitsChoices = []
-        self.comboXUnits = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboXUnitsChoices, 0 )
+        self.comboXUnits = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboXUnitsChoices, style=wx.CB_READONLY)
         self.comboXUnits.SetMinSize(wx.Size(160, -1))
         
         bSizerX.Add( self.comboXUnits, 0, wx.ALL, 5 )
@@ -278,7 +278,7 @@ class ResultPageView ( wx.Panel ):
         bSizerY.Add( self.staticYUnits, 0, wx.ALL, 5 )
         
         comboYUnitsChoices = []
-        self.comboYUnits = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboYUnitsChoices, 0 )
+        self.comboYUnits = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboYUnitsChoices, style=wx.CB_READONLY)
         self.comboYUnits.SetMinSize( wx.Size( 160,-1 ) )
         
         bSizerY.Add( self.comboYUnits, 0, wx.ALL, 5 )
@@ -307,7 +307,7 @@ class ResultPageView ( wx.Panel ):
         bSizerZ.Add( self.m_staticText422110, 0, wx.ALL, 5 )
         
         comboZUnitsChoices = []
-        self.comboZUnits = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboZUnitsChoices, 0 )
+        self.comboZUnits = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboZUnitsChoices, style=wx.CB_READONLY)
         self.comboZUnits.SetMinSize( wx.Size( 160,-1 ) )
         
         bSizerZ.Add( self.comboZUnits, 0, wx.ALL, 5 )
@@ -334,7 +334,7 @@ class ResultPageView ( wx.Panel ):
         bSizerIntended.Add( self.m_staticText4221101, 0, wx.ALL, 5 )
         
         comboIntendedUnitsChoices = []
-        self.comboIntendedUnits = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboIntendedUnitsChoices, 0 )
+        self.comboIntendedUnits = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboIntendedUnitsChoices, style=wx.CB_READONLY)
         self.comboIntendedUnits.SetMinSize( wx.Size( 160,-1 ) )
         
         bSizerIntended.Add( self.comboIntendedUnits, 0, wx.ALL, 5 )
