@@ -51,8 +51,7 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         newMethodPanel.setTypeFilter(str(self.action_type_combo.GetStringSelection()))
         if dlg.ShowModal() == wx.ID_OK:
             newMethod = newMethodPanel.method
-            self.methods = [{i.MethodName:i.MethodID}\
-                for i in [newMethod]]
+            self.methods = [{i.MethodName: i.MethodID} for i in [newMethod]]
             self.method_combo.AppendItems([y for x in [i.keys() for i in self.methods] for y in x])
             #self.m_comboBox134.SetValue(newMethod.MethodName)
         dlg.Destroy()
