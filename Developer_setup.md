@@ -18,4 +18,4 @@
  
 
 ### Feedback
-Comments and concenrns can be posted on our GitHib page: https://github.com/ODM2/ODM2StreamingDataLoader/issues.
+Comments and concerns can be posted on our GitHib page: https://github.com/ODM2/ODM2StreamingDataLoader/issues.
