@@ -46,13 +46,11 @@ class MainController(MainView):
     def setupMenu(self):
         self.menu_bar = wx.MenuBar()
         self.file_menu = wx.Menu()
-        self.file_menu.Append(101, '&New Configuration File...',
-            'Create a new configuration file.')
+        self.file_menu.Append(101, '&New Configuration File...', 'Create a new configuration file.')
         
         self.file_menu.Enable(101, False)
 
-        self.file_menu.Append(102, '&Load Configuration File...',
-            'Open an existing configuration file.')
+        self.file_menu.Append(102, '&Load Configuration File...\tCtrl+O', 'Open an existing configuration file.')
         self.file_menu.AppendSeparator()
         self.file_menu.Append(108, '&Save', 'Save')
         self.file_menu.Append(103, '&Save as...', 'Save as...')
@@ -80,17 +78,14 @@ class MainController(MainView):
         self.Bind(wx.EVT_MENU, self.onHelpAboutClick, id=201)
 
     def onFileOpenClick(self, event):
-        '''
-            The method called when a user clicks
-            File->Load Configuration from the
-            menu.
-        '''
-        # Create a file picker dialog.
-        dlg = wx.FileDialog(self, message='Load Configuration File',
-                defaultDir=os.getcwd(), defaultFile='',
-                wildcard=WILDCARD,
-                style=wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR)
-        # If user chose a file and clicked the "OK" button...
+
+        dlg = wx.FileDialog(
+            self,
+            message='Load Configuration File',
+            wildcard=WILDCARD,
+            style=wx.OPEN | wx.MULTIPLE | wx.FD_CHANGE_DIR
+        )
+
         if dlg.ShowModal() == wx.ID_OK:
             # Delete everything in the mapping list control.
             self.fileList.listCtrl.DeleteAllItems()
@@ -115,7 +110,7 @@ class MainController(MainView):
             self.file_menu.Enable(103, True)
             # Enable the "Save" menu option.
             self.file_menu.Enable(108, True)
-        # Destroy the file dialog handle.
+
         dlg.Destroy()
         event.Skip()
 
@@ -175,6 +170,7 @@ class MainController(MainView):
     def checkForSavedChanges(self):
         if self.hasUnsavedChanges:
             dlg = wx.MessageBox("This file has unsaved changes. Do you want to save the changes before closing?", "Unsaved Changes", style=wx.YES_NO|wx.YES_DEFAULT)
+            self.hasUnsavedChanges = False
             if dlg == wx.YES:
                 if self.currentPath:
                     self.onFileSaveClick(None)
@@ -290,9 +286,22 @@ class MainController(MainView):
                 self.SetStatusText(text + "*", 0)
 
     def onRunButtonClick(self, event):
-        os.system('python ' + sys.path[1] + '\StreamingDataLoader.py' + ' -c ' + sys.path[0] +
-                  '\\tests\\test_handlers\\test_yamlHandler\yamlFiles')
-        pass
+        executable_path = sys.executable
 
+        if hasattr(sys, 'frozen'):
+            path = os.path.dirname(executable_path)
 
+            streaming_data_loader_name = 'StreamingDataLoader.exe'
+            if sys.platform == 'darwin':
+                streaming_data_loader_name = 'StreamingDataLoader'
 
+            path = os.path.join(path, streaming_data_loader_name)
+
+            command = path + ' -c ' + self.currentPath
+            if sys.platform == 'win32':
+                # Allows for spaces to be in the file path
+                command = '""%s" -c "%s""' % (path, self.currentPath)
+
+            os.system(command)
+        else:
+            os.system(executable_path + " " + os.path.join(sys.path[1], 'StreamingDataLoader.py') + ' -c ' + self.currentPath)

@@ -29,6 +29,11 @@ class MappingListPanel(MappingListPanelView):
         ])
         self.listCtrl.SetObjects(None)
 
+        self.listCtrl.Bind(wx.EVT_KEY_DOWN, self.on_keyboard_pressed_down)
+
+    def on_keyboard_pressed_down(self, event):
+        pass
+
     def setObjects(self, obj):
         '''
             Wrapper method which calls this panel's

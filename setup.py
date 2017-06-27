@@ -212,7 +212,13 @@ def mac_pyinstaller(Name = None, File = None):
             '--noconfirm ' + File)
 
         APP_DIR = os.path.join(MAC_DIR, 'Dist', Name+".app")
-        os.system("cp /Users/denversmith/miniconda/envs/SDL-env/lib/libwx_osx_cocoau-3.0.0.0.0.dylib %s" % os.path.join(APP_DIR, "Contents", "MacOS"))
+
+
+        #/Users/denversmith/miniconda/envs/SDL-env/lib/libwx_osx_cocoau-3.0.0.0.0.dylib
+        path = os.path.dirname(os.path.dirname(sys.executable))
+
+        python = os.path.join(path, 'lib', 'libwx_osx_cocoau-3.0.0.0.0.dylib')
+        os.system("cp  %s %s" %(python, os.path.join(APP_DIR, "Contents", "MacOS")))
 
         return True
     except Exception as e:

@@ -1,15 +1,13 @@
 import wx
-from src.wizard.controller.frmSampFeatSelectPanel \
-    import SampFeatSelectPanel
-from src.wizard.controller.frmVariableSelectPanel \
-    import VariableSelectPanel
-from src.wizard.controller.frmUnitSelectPanel \
-    import UnitSelectPanel
-from src.wizard.controller.frmProcLevelSelectPanel \
-    import ProcLevelSelectPanel
-#from src.wizard.controller.frmActionsSelectPanel \
-#    import ActionsSelectPanel
-from src.wizard.view.clsResultPage import ResultPageView
+from src.wizard.controller.frmSampFeatSelectPanel import SampFeatSelectPanel
+from src.wizard.controller.frmVariableSelectPanel import VariableSelectPanel
+from src.wizard.controller.frmUnitSelectPanel import UnitSelectPanel
+from src.wizard.controller.frmProcLevelSelectPanel import ProcLevelSelectPanel
+from src.wizard.controller.frmActionsSelectPanel import ActionsSelectPanel
+# from src.wizard.view.clsResultPage import ResultPageView
+from src.wizard.controller.frmResultSummaryPanel import ResultSummaryPanel
+from datetime import datetime
+
 
 class WizardDialog(wx.Dialog):
     def __init__(self, parent, database=None, title="Wizard Dialog",
@@ -18,7 +16,7 @@ class WizardDialog(wx.Dialog):
                  pos=wx.DefaultPosition,
                  style=wx.DEFAULT_DIALOG_STYLE):
 
-        self.existingResult = None
+        self.existingResult = result
         pre = wx.PreDialog()
         pre.Create(parent, wx.ID_ANY, title, pos, size, style)
         self.PostCreate(pre)
@@ -28,7 +26,7 @@ class WizardDialog(wx.Dialog):
         self.btnSizer = wx.BoxSizer(wx.HORIZONTAL)
 
         self.pnlList = []
-        self.currentPnl = None;
+        self.currentPnl = None
         self.database = database
 
         self.addButtons()
@@ -36,8 +34,14 @@ class WizardDialog(wx.Dialog):
         self.SetSizer(self.mainSizer)
         self.mainSizer.Fit(self)
         self.returnValue = wx.ID_ANY
+        self.Bind(wx.EVT_CLOSE, self.on_close)
+
+    def on_close(self, event):
+        self.Destroy()
+
     def centerSelf(self):
         self.CenterOnParent()
+
     def addButtons(self):
         self.btnCancel = wx.Button(self, wx.ID_CANCEL, "Cancel")
         self.btnNext = wx.Button(self, wx.ID_ANY, "Finish")
@@ -59,7 +63,7 @@ class WizardDialog(wx.Dialog):
         self.btnPrev.Bind(wx.EVT_BUTTON, self.onPrev)
     
     def addPage(self, pnl):
-        newPnl = pnl(self)
+        newPnl = pnl(self, self.existingResult)
         newPnl.Hide()
         self.pnlList.append(newPnl)
         self.pnlSizer.Add(newPnl, 1, wx.ALL|wx.EXPAND, 5)
@@ -95,20 +99,81 @@ class WizardDialog(wx.Dialog):
     # ********************** #
 
     def onFinish(self, event):
-        self.result = self.pnlList[-1].createResult()
-
-        if self.existingResult:
-            print self.existingResult
+        # self.result = self.pnlList[-1].createResult()
+        #
+        # if self.existingResult:
+        #     print self.existingResult
+        # else:
+        #     if self.result:
+        #         self.returnValue = wx.ID_OK
+        #         self.Close()
+        #
+        # event.Skip()
+        if self.existingResult is None:
+            self.__create_new_result()
         else:
-            if self.result:
-                self.returnValue = wx.ID_OK
-                self.Close()
-            event.Skip()
+            self.__update_existing_result()
+
+    def __create_new_result(self):
+        self.result = self.pnlList[-1].createResult()
+        if self.result:
+            self.returnValue = wx.ID_OK
+            self.Close()
+
+    def __update_existing_result(self):
+
+        if not isinstance(self.currentPnl, ResultSummaryPanel):
+            raise Exception("self.currentPanel must be of type ResultSummaryPanel")
+
+        result = self.existingResult
+
+        result.SampledMediumCV = self.currentPnl.comboSamp.GetValue()
+        result.AggregationStatisticCV = self.currentPnl.comboAgg.GetValue()
+
+        if self.currentPnl.comboStatus.GetValue() != "":
+            result.StatusCV = self.currentPnl.comboStatus.GetValue()
+
+        for unit in self.currentPnl.length_units:
+            if unit.UnitsName == self.currentPnl.comboXUnits.GetValue():
+                result.XLocationUnitsID = unit.UnitsID
+
+            if unit.UnitsName == self.currentPnl.comboYUnits.GetValue():
+                result.YLocationUnitsID = unit.UnitsID
+
+            if unit.UnitsName == self.currentPnl.comboZUnits.GetValue():
+                result.ZLocationUnitsID = unit.UnitsID
+
+        for time in self.currentPnl.time_units:
+            if time.UnitsName == self.currentPnl.comboIntendedUnits.GetValue():
+                result.IntendedTimeSpacingUnitsID = time.UnitsID
+
+        date = self.currentPnl.datePickerResult.GetValue()
+        year = date.Year
+        month = date.Month
+        day = date.Day
+        date = self.currentPnl.timeResult.GetWxDateTime()
+        hour = date.Hour
+        minute = date.Minute
+        second = date.Second
+        date = datetime(year=year, month=month, day=day, hour=hour, minute=minute, second=second)
+        result.ResultDateTime = date
+
+        result.XLocation = self.currentPnl.txtX.GetValue()
+        result.YLocation = self.currentPnl.txtY.GetValue()
+        result.ZLocation = self.currentPnl.txtZ.GetValue()
+
+        result.IntendedTimeSpacing = self.currentPnl.txtIntended.GetValue()
+
+        # self.database.getUpdateSession().updateResult(pass in result object)
+        session = self.database.getUpdateSession()
+        session.updateResult(result=result)
+
+        self.returnValue = wx.ID_OK
+        self.Close()
 
     def onPrev(self, event):
         self.currentPnl.Hide()
-        self.currentPnl = self.pnlList[self.pnlList.index( \
-            self.currentPnl)-1]
+        self.currentPnl = self.pnlList[self.pnlList.index(self.currentPnl)-1]
         self.currentPnl.Show()
         self.Layout()
         self.mainSizer.Fit(self)
@@ -117,6 +182,7 @@ class WizardDialog(wx.Dialog):
             self.btnPrev.Enable(False)
         else:
             self.btnPrev.Enable(True)
+
         if self.currentPnl == self.pnlList[-1]:
             self.btnNext.SetLabel("Finish")
             self.btnNext.Unbind(wx.EVT_BUTTON)
@@ -125,15 +191,13 @@ class WizardDialog(wx.Dialog):
             self.btnNext.SetLabel("Next >")
             self.btnNext.Unbind(wx.EVT_BUTTON)
             self.btnNext.Bind(wx.EVT_BUTTON, self.onNext)
-        
-        
+
         event.Skip()
 
     def onNext(self, event):
         self.btnNext.Enable(False)
         self.currentPnl.Hide()
-        self.currentPnl = self.pnlList[self.pnlList.index( \
-            self.currentPnl)+1]
+        self.currentPnl = self.pnlList[self.pnlList.index(self.currentPnl)+1]
         self.currentPnl.Show()
         self.Layout()
         self.mainSizer.Fit(self)
@@ -142,7 +206,10 @@ class WizardDialog(wx.Dialog):
             self.btnPrev.Enable(False)
         else:
             self.btnPrev.Enable(True)
+
         if self.currentPnl == self.pnlList[-1]:
+            self.CenterOnParent()
+            self.currentPnl.check_required_fields()
             self.btnNext.SetLabel("Finish")
             self.btnNext.Unbind(wx.EVT_BUTTON)
             self.btnNext.Bind(wx.EVT_BUTTON, self.onFinish)
@@ -151,7 +218,7 @@ class WizardDialog(wx.Dialog):
             self.btnNext.Unbind(wx.EVT_BUTTON)
             self.btnNext.Bind(wx.EVT_BUTTON, self.onNext)
             
-        event.Skip() 
+        event.Skip()
 
 
 if __name__ == '__main__': 
@@ -162,7 +229,7 @@ if __name__ == '__main__':
     wiz.addPage(UnitSelectPanel) 
     wiz.addPage(ProcLevelSelectPanel) 
     wiz.addPage(ActionsSelectPanel) 
-    wiz.addPage(ResultPageView)   
+    # wiz.addPage(ResultPageView)
     wiz.ShowModal() 
     app.MainLoop() 
 

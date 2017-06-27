@@ -38,8 +38,7 @@ class AddNewUnitPanelView ( wx.Panel ):
         
         bSizer35.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         
-        m_comboBox13Choices = []
-        self.m_comboBox13 = wx.ComboBox( sbSizer7.GetStaticBox(), wx.ID_ANY, u"Select Units Type", wx.DefaultPosition, wx.DefaultSize, m_comboBox13Choices, validator=RequiredComboValidator())
+        self.m_comboBox13 = wx.ComboBox(sbSizer7.GetStaticBox(), wx.ID_ANY, u"Select Units Type", style=wx.CB_READONLY, validator=RequiredComboValidator())
         self.m_comboBox13.SetMinSize( wx.Size( 280,-1 ) )
         
         bSizer35.Add( self.m_comboBox13, 0, wx.ALL, 5 )
@@ -88,17 +87,17 @@ class AddNewUnitPanelView ( wx.Panel ):
         bSizer33.Add( sbSizer8, 1, wx.EXPAND, 5 )
         
         m_sdbSizer3 = wx.StdDialogButtonSizer()
-        self.m_sdbSizer3OK = wx.Button( self, wx.ID_OK )
-        m_sdbSizer3.AddButton( self.m_sdbSizer3OK )
+        self.ok_button = wx.Button(self, wx.ID_OK)
+        m_sdbSizer3.AddButton(self.ok_button)
         self.m_sdbSizer3Cancel = wx.Button( self, wx.ID_CANCEL )
         m_sdbSizer3.AddButton( self.m_sdbSizer3Cancel )
-        m_sdbSizer3.Realize();
+        m_sdbSizer3.Realize()
         
         bSizer33.Add( m_sdbSizer3, 1, wx.EXPAND, 5 )
-        self.m_sdbSizer3OK.Bind(wx.EVT_BUTTON, self.onOK)        
+        self.ok_button.Bind(wx.EVT_BUTTON, self.onOK)
         
         self.SetSizer( bSizer33 )
-        self.Layout() 
-    
-    def __del__( self ):
+        self.Layout()
+
+    def onOK(self, event):
         pass
