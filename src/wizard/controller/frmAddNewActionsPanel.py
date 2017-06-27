@@ -124,7 +124,7 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         vals = [y for x in [i.values() for i in self.methods] for y in x]
         d = dict(zip(keys, vals))
 
-        self.ActionType = str(self.m_comboBox13.GetStringSelection())
+        self.ActionType = str(self.action_type_combo.GetStringSelection())
         self.MethodID = d[str(self.m_comboBox134.GetStringSelection())]
         self.BeginDT = self._getTime(self.m_datePicker5, self.m_timePicker1)
         self.BeginDTUTC = self.spinUTCBegin.GetValue()
