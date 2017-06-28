@@ -130,7 +130,7 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         self.BeginDTUTC = self.spinUTCBegin.GetValue()
         self.AffiliationList = [i.affiliationID for i in self.affList.GetSelectedObjects()]
 
-        for i in self.affList.GetSelectedObjects():
+        for i in self.affList.selected():
             if self.affList.IsChecked(i):
                 self.actionLead = i.affiliationID
                 break
