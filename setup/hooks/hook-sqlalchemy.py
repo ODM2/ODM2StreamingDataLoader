@@ -18,7 +18,7 @@ __author__ = 'stephanie'
 
 # Contributed by Greg Copeland
 
-from PyInstaller.hooks.hookutils import exec_statement
+from PyInstaller.utils.hooks import exec_statement
 
 # include most common database bindings
 # some database bindings are detected and include some

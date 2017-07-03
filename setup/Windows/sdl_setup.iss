@@ -8,7 +8,7 @@
 #define MyAppPublisher "ODM2"
 #define MyAppURL "https://github.com/ODM2/ODM2StreamingDataLoader"
 
-#define MyAppDir "D:\DEV\SDL"
+#define MyAppDir "D:\DEV\SDL\dist"
 
 
 [Setup]
@@ -28,7 +28,7 @@ DefaultGroupName={#MyAppName}
 LicenseFile={#MyAppDir}\LICENSE.txt
 OutputBaseFilename={#MyAppInstaller}_{#MyAppVersion}_Installer
 ;SetupIconFile={#MyAppDir}\src\common\icons\SDL.ico
-SetupIconFile=D:\DEV\Releases\SDL\sdl_beta_source_code\src\common\icons\SDL.ico
+SetupIconFile=D:\DEV\SDL\src\common\icons\SDL.ico
 Compression=lzma
 SolidCompression=yes
 OutputDir={#MyAppDir}\setup\Dist
