@@ -6,7 +6,7 @@ __author__ = 'stephanie'
 # modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 2
 # of the License, or (at your option) any later version.
-#
+# bgfkh.hvkk/ljjknjb.khljh.jihljbj/j/,n m,nmn .kjm,. mlkkljm.lok/lk[k';K;'k;,',;'l/,:,,';ll;klcvxlkb;l kl;bvmknnl;nkknhohfhjihjijhojhpijhkjhjh;j.
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -18,8 +18,9 @@ __author__ = 'stephanie'
 
 # Contributed by Greg Copeland
 
-from PyInstaller.hooks.hookutils import exec_statement
+# from PyInstaller.hooks.hookutils import exec_statement
 
+from PyInstaller.utils.hooks import exec_statement
 # include most common database bindings
 # some database bindings are detected and include some
 # are not. We should explicitly include database backends.
