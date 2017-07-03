@@ -75,9 +75,9 @@
 									<key>GID</key>
 									<integer>80</integer>
 									<key>Path</key>
-									<string>../../src/dist/StreamingDataLoader</string>
+									<string>/Users/stephanie/DEV/StreamingDataLoader/setup/Mac/StreamingDataLoader</string>
 									<key>Path Type</key>
-									<integer>2</integer>
+									<integer>1</integer>
 									<key>Privileges</key>
 									<integer>493</integer>
 									<key>Type</key>
@@ -91,9 +91,9 @@
 									<key>GID</key>
 									<integer>80</integer>
 									<key>Path</key>
-									<string>../../src/dist/StreamingDataLoaderWizard</string>
+									<string>/Users/stephanie/DEV/StreamingDataLoader/setup/Mac/StreamingDataLoaderWizard.app</string>
 									<key>Path Type</key>
-									<integer>2</integer>
+									<integer>1</integer>
 									<key>Privileges</key>
 									<integer>493</integer>
 									<key>Type</key>
@@ -495,9 +495,9 @@
 						<key>IFPkgDescriptionDescription</key>
 						<string></string>
 						<key>IFPkgDescriptionTitle</key>
-						<string>StreamingDataLoader_v0.6</string>
+						<string>StreamingDataLoader_v0.7</string>
 						<key>IFPkgDescriptionVersion</key>
-						<string>0.6 Beta</string>
+						<string>0.7 Beta</string>
 					</dict>
 				</dict>
 				<key>Display Information</key>
@@ -513,7 +513,7 @@
 					<key>CFBundleName</key>
 					<string>Streaming DataLoader</string>
 					<key>CFBundleShortVersionString</key>
-					<string>0.6</string>
+					<string>0.7</string>
 				</dict>
 				<key>Options</key>
 				<dict>
@@ -541,14 +541,14 @@
 					<key>IFMajorVersion</key>
 					<integer>0</integer>
 					<key>IFMinorVersion</key>
-					<integer>6</integer>
+					<integer>7</integer>
 				</dict>
 			</dict>
 		</dict>
 		<key>IFPkgFlagPackageSelection</key>
 		<integer>0</integer>
 		<key>Name</key>
-		<string>StreamingDataLoader_v0.6-beta_Mac_installer</string>
+		<string>SDL_v0.7.0_Beta_Mac_Installer</string>
 		<key>Status</key>
 		<integer>1</integer>
 		<key>Type</key>
