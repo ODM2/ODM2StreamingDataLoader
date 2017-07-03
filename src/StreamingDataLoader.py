@@ -14,14 +14,14 @@ __author__ = 'Denver'
 
 import os
 import sys
-sys.path.insert(0,os.path.dirname(os.path.dirname(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from argparse import ArgumentParser
 import logging
 
-from models.YamlConfiguration import YamlConfiguration
-from controllers.Mapper import Mapper
-from lib.Appdirs.appdirs import user_config_dir
+from src.models.YamlConfiguration import YamlConfiguration
+from src.controllers.Mapper import Mapper
+from src.lib.Appdirs.appdirs import user_config_dir
 
 import numpy as np
 

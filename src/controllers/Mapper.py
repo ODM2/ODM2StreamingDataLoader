@@ -5,8 +5,8 @@ from collections import namedtuple
 import logging
 import datetime
 from dateutil.parser import parse
-from handlers.csvHandler import CSVReader
-from controllers.Database import Database
+from src.handlers.csvHandler import CSVReader
+from src.controllers.Database import Database
 
 logger = logging.getLogger('SDL_logger')
 
