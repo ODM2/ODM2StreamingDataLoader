@@ -53,6 +53,13 @@ class ResultSummaryPanel(ResultPageView):
         if self.existing_result is None:
             return
 
+        if self.existing_result.SampledMediumCV is not None:
+            self.comboSamp.SetValue(self.existing_result.SampledMediumCV)
+
+        if self.existing_result.AggregationStatisticCV is not None:
+            self.comboAgg.SetValue(self.existing_result.AggregationStatisticCV)
+
+
         # Set Result Date Time
         if self.existing_result.ResultDateTime is not None:
             year = self.existing_result.ResultDateTime.year
