@@ -120,19 +120,30 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
 
     def getFieldValues(self):
 
-        keys = [y for x in [i.keys() for i in self.methods] for y in x]
-        vals = [y for x in [i.values() for i in self.methods] for y in x]
+        keys = [y for x in [aff.keys() for aff in self.methods] for y in x]
+        vals = [y for x in [aff.values() for aff in self.methods] for y in x]
         d = dict(zip(keys, vals))
 
-        self.ActionType = str(self.action_type_combo.GetStringSelection())
-        self.MethodID = d[str(self.method_combo.GetStringSelection())]
-        self.BeginDT = self._getTime(self.m_datePicker5, self.m_timePicker1)
-        self.BeginDTUTC = self.spinUTCBegin.GetValue()
-        self.AffiliationList = [i.affiliationID for i in self.affList.GetSelectedObjects()]
+#         self.ActionType = str(self.action_type_combo.GetStringSelection())
+#         self.MethodID = d[str(self.method_combo.GetStringSelection())]
+#         self.BeginDT = self._getTime(self.m_datePicker5, self.m_timePicker1)
+#         self.BeginDTUTC = self.spinUTCBegin.GetValue()
+#         self.AffiliationList = [i.affiliationID for i in self.affList.GetSelectedObjects()]
+#
+#         for i in self.affList.selected():
+#             if self.affList.IsChecked(i):
+#                 self.actionLead = i.affiliationID
+# # =======
+        self.actionType = str(self.action_type_combo.GetStringSelection())
+        self.methodID = d[str(self.method_combo.GetStringSelection())]
+        self.beginDT = self._getTime(self.dateBegin, self.m_timePicker1)
+        self.beginDTUTC = self.spinUTCBegin.GetValue()
+        self.affiliationList = [aff.AffiliationID for aff in self.affList.GetSelectedObjects()]
 
-        for i in self.affList.selected():
-            if self.affList.IsChecked(i):
-                self.actionLead = i.affiliationID
+        for aff in self.affList.GetSelectedObjects():
+            if self.affList.IsChecked(aff):
+                self.actionLead = aff.AffiliationID
+# >>>>>>> 302544e2537a81675971d89e1be2a758c65becd8
                 break
         if self.m_datePicker51.GetValue().IsValid():
             self.endDT = self._getTime(self.m_datePicker51, self.m_timePicker2)
