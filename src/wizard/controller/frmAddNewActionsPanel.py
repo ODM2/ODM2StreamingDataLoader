@@ -90,11 +90,15 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
                     MethodID=self.methodID,
                     BeginDateTime=self.beginDT,
                     BeginDateTimeUTCOffset=self.beginDTUTC,
-                    EndDateTime=self.endDT,
-                    EndDateTimeUTCOffset=self.endDTUTC,
-                    ActionDescription=self.actionDesc,
-                    ActionFileLink=self.actionLink
                 )
+                try:
+                    action.EndDateTime = self.endDT,
+                    action.EndDateTimeUTCOffset = self.endDTUTC,
+                    action.ActionDescription = self.actionDesc,
+                    action.ActionFileLink = self.actionLink
+                except Exception as error:
+                    print error
+
                 action = write.createAction(action)
 
                 self.actionID = action.ActionID
