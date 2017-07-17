@@ -199,18 +199,6 @@ class ResultPageView ( wx.Panel ):
         
         bSizerSamp = wx.BoxSizer( wx.HORIZONTAL )
         
-        #self.staticSF = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Sampling Feature", wx.DefaultPosition, wx.DefaultSize, 0 )
-        #self.staticSF.Wrap( -1 )
-        #bSizerSamp.Add( self.staticSF, 0, wx.ALL, 5 )
-        
-        
-        #SizerSamp.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
-        
-        #comboSFChoices = []
-        #self.comboSF = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Select Sampling Feature", wx.DefaultPosition, wx.DefaultSize, comboSFChoices, 0 )
-        #self.comboSF.SetMinSize( wx.Size( 260,-1 ) )
-        
-        #bSizerSamp.Add( self.comboSF, 0, wx.ALL, 5 )
         staticSR = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Spatial References", wx.DefaultPosition, wx.DefaultSize, 0 )
         staticSR.Wrap( -1 )
         bSizerSamp.Add( staticSR, 0, wx.ALL, 5 )
@@ -316,30 +304,7 @@ class ResultPageView ( wx.Panel ):
         sbSizerOpt.Add( bSizerZ, 1, wx.EXPAND, 5 )
         
         bSizerIntended = wx.BoxSizer( wx.HORIZONTAL )
-        
-        # self.m_staticText244131 = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Intended Time Spacing", wx.DefaultPosition, wx.DefaultSize, 0 )
-        # self.m_staticText244131.Wrap( -1 )
-        # bSizerIntended.Add( self.m_staticText244131, 0, wx.ALL, 5 )
-        
-        
-        # bSizerIntended.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
-        #
-        # self.txtIntended = wx.SpinCtrl( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 1000, 0 )
-        # self.txtIntended.SetMinSize( wx.Size( 70,-1 ) )
-        
-        #bSizerIntended.Add( self.txtIntended, 0, wx.ALL, 5 )
-        
-        # self.m_staticText4221101 = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Units", wx.DefaultPosition, wx.DefaultSize, 0 )
-        # self.m_staticText4221101.Wrap( -1 )
-        # bSizerIntended.Add( self.m_staticText4221101, 0, wx.ALL, 5 )
-        #
-        # comboIntendedUnitsChoices = []
-        # self.comboIntendedUnits = wx.ComboBox( sbSizerOpt.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboIntendedUnitsChoices, style=wx.CB_READONLY)
-        # self.comboIntendedUnits.SetMinSize( wx.Size( 160,-1 ) )
-        
-        #bSizerIntended.Add( self.comboIntendedUnits, 0, wx.ALL, 5 )
-        
-        
+
         sbSizerOpt.Add( bSizerIntended, 1, wx.EXPAND, 5 )
         
         
