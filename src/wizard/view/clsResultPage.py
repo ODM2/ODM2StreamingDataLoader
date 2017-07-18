@@ -198,7 +198,7 @@ class ResultPageView ( wx.Panel ):
         sbSizerOpt.Add( bSizerTax, 1, wx.EXPAND, 5 )
         
         bSizerSamp = wx.BoxSizer( wx.HORIZONTAL )
-        
+
         staticSR = wx.StaticText( sbSizerOpt.GetStaticBox(), wx.ID_ANY, u"Spatial References", wx.DefaultPosition, wx.DefaultSize, 0 )
         staticSR.Wrap( -1 )
         bSizerSamp.Add( staticSR, 0, wx.ALL, 5 )

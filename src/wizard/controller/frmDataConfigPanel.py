@@ -265,12 +265,18 @@ class DataConfigPanelController(DataConfigPanelView):
             unitID = searchDict(self.inputDict['Mappings'],
                 'IntendedTimeSpacingUnitID')
             #unit = read.getUnitById(int(unitID))
-            unit = read.getUnits(ids = [int(unitID)])[0]
-            i = self.choiceUnitID.FindString(unit.UnitsName)
-            self.choiceUnitID.SetSelection(i)
+            #unit = read.getUnits(ids = [int(unitID)])[0]
+            unit = read.getUnits(ids = [int(unitID)])
+            if(unit is not None and len(unit) > 0):
+                i = self.choiceUnitID.FindString(unit.UnitsName)
+                self.choiceUnitID.SetSelection(i)
+            else:
+                defaultTimeUnits = ['seconds', 'minutes', 'hours', 'days']
+                for unit in defaultTimeUnits:
+                    self.choiceUnitID.Append(unit)
+                self.choiceUnitID.SetSelection(0)
         except KeyError:
             self.choiceUnitID.SetSelection(0)
-
 
     def onAddNew(self, event):
         self.runSeriesSelectDialog()
