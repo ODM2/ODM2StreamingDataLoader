@@ -55,6 +55,8 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
             self.method_combo.AppendItems([y for x in [i.keys() for i in self.methods] for y in x])
             #self.m_comboBox134.SetValue(newMethod.MethodName)
         dlg.Destroy()
+        if self.method_combo.IsEmpty:
+            self.method_combo.Select(0)
         event.Skip()
 
     def onNewAffiliation(self, event):

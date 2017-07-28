@@ -45,8 +45,10 @@ class AddNewMethodPanelController(AddNewMethodPanelView):
                     OrganizationID=self.orgId,
                     MethodDescription=self.desc)
                 self.method = write.createMethod(meth)
+
             except Exception as e:
-                wx.MessageBox(e, 'Error saving method to database.')
+                wx.MessageBox(e, "Error saving method to database")
+
         event.Skip()
     
     def getFieldValues(self):
