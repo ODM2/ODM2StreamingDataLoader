@@ -268,7 +268,7 @@ class DataConfigPanelController(DataConfigPanelView):
             #unit = read.getUnits(ids = [int(unitID)])[0]
             unit = read.getUnits(ids = [int(unitID)])
             if(unit is not None and len(unit) > 0):
-                i = self.choiceUnitID.FindString(unit.UnitsName)
+                i = self.choiceUnitID.FindString(unit[0].UnitsName)
                 self.choiceUnitID.SetSelection(i)
             else:
                 defaultTimeUnits = ['seconds', 'minutes', 'hours', 'days']
