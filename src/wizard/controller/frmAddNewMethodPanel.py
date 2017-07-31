@@ -10,7 +10,10 @@ class AddNewMethodPanelController(AddNewMethodPanelView):
             **kwargs)
         self.parent = daddy
         self.db = db
-
+        self.method = None# This is our method return value
+        self.methodCode = None
+        self.methodName = None
+        self.desc = None
         self.populateFields()
     
     def setTypeFilter(self, t):
@@ -42,8 +45,10 @@ class AddNewMethodPanelController(AddNewMethodPanelView):
                     OrganizationID=self.orgId,
                     MethodDescription=self.desc)
                 self.method = write.createMethod(meth)
+
             except Exception as e:
-                wx.MessageBox(e, 'Error saving method to database.')
+                wx.MessageBox(e, "Error saving method to database")
+
         event.Skip()
     
     def getFieldValues(self):
