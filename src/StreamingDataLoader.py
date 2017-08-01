@@ -160,18 +160,21 @@ if __name__ == "__main__":
 
     correct_path = ""
 
-    os.chdir(os.getcwd())
-    for filename in os.listdir('.'):
-        if filename.endswith('.yaml'):
-            correct_path = os.getcwd()
-            correct_path += filename
-            break;
+
 
     if args.yamlFile is not None:
-        if args in args.yamlFile:
-            correct_path = ""
-            for path in args.yamlFile:
-                correct_path += path + " "
+        # if args in args.yamlFile:
+        correct_path = ""
+        for path in args.yamlFile:
+            correct_path += path + " "
+    else:
+        # os.chdir(os.getcwd())
+        for filename in os.listdir('.'):
+            if filename.endswith('.yaml'):
+                correct_path = os.getcwd()
+                # correct_path += filename
+                correct_path = os.path.join(correct_path, filename)
+                break
 
     args.yamlFile = [correct_path.strip()]
     start_time = time.time()
