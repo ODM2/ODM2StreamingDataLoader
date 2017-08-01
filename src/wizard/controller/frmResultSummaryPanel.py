@@ -242,9 +242,9 @@ class ResultSummaryPanel(ResultPageView):
                                 YLocationUnitsID=yUnit,
                                 ZLocation=z,
                                 ZLocationUnitsID=zUnit,
-                                SpatialReferenceID=sr)
-                                # IntendedTimeSpacing=timeSpacing,
-                                # IntendedTimeSpacingUnitsID=timeUnit)
+                                SpatialReferenceID=sr,
+                                IntendedTimeSpacing=timeSpacing,
+                                IntendedTimeSpacingUnitsID=timeUnit)
         result = write.createResult(tsr)
 
         print result

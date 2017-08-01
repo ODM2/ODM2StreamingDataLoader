@@ -4,21 +4,25 @@ from src.wizard.view.clsAddNewUnitPanel import AddNewUnitPanelView
 from odm2api.ODM2.models import Units
 
 
+
 class AddNewUnitPanelController(AddNewUnitPanelView):
-    def __init__(self, daddy, db):
+    def __init__(self, daddy, db, type = None):
         super(AddNewUnitPanelController, self).__init__(daddy)
         self.parent = daddy
         self.db = db
 
         self.units = None
         
-        self.populateFields()
+        self.populateFields(type)
         
-    def populateFields(self):
+    def populateFields(self, type = None):
        read = self.db.getReadSession()
 
        # units = [i.Name for i in read.getCVUnitsTypes()]
        units = [i.Name for i in read.getCVs(type="Units Type")]
+       if type:
+           if type in units:
+               units = [type]
        self.m_comboBox13.AppendItems(units)
 
     def onOK(self, event):
@@ -33,12 +37,14 @@ class AddNewUnitPanelController(AddNewUnitPanelView):
                     UnitsAbbreviation=self.unitsAbr,
                     UnitsName=self.unitsName,
                     UnitsLink=self.unitsLink)
-                write.createUnit(unit)
-                self.parent.parent.list_ctrl.SetObjects(self.parent.parent.getSeriesData())
-                length = self.parent.parent.list_ctrl.GetItemCount.im_self.ItemCount
-                length = length - 1
-                self.parent.parent.list_ctrl.Focus(length)
-                self.parent.parent.list_ctrl.Select(length, 1)
+                self.unit=write.createUnit(unit)
+
+                if type(self.parent.parent).__name__ =="UnitSelectPanel":
+                    #this part is for selecting the new value in a list. should only be run when generated fromx
+                    self.parent.parent.list_ctrl.SetObjects(self.parent.parent.getSeriesData())
+                    length = self.parent.parent.list_ctrl.GetItemCount.im_self.ItemCount - 1
+                    self.parent.parent.list_ctrl.Focus(length)
+                    self.parent.parent.list_ctrl.Select(length, 1)
 
             except Exception as e:
                 print e

@@ -261,6 +261,7 @@ class DataConfigPanelController(DataConfigPanelView):
 
         for unit in timeUnits:
             self.choiceUnitID.Append(unit.UnitsName)
+        self.choiceUnitID.Append("Create New ...")
         try:
             unitID = searchDict(self.inputDict['Mappings'],
                 'IntendedTimeSpacingUnitID')
@@ -270,11 +271,13 @@ class DataConfigPanelController(DataConfigPanelView):
             if(unit is not None and len(unit) > 0):
                 i = self.choiceUnitID.FindString(unit[0].UnitsName)
                 self.choiceUnitID.SetSelection(i)
-            else:
-                defaultTimeUnits = ['seconds', 'minutes', 'hours', 'days']
-                for unit in defaultTimeUnits:
-                    self.choiceUnitID.Append(unit)
-                self.choiceUnitID.SetSelection(0)
+            # else:
+            #     defaultTimeUnits = ['seconds', 'minutes', 'hours', 'days']
+            #     for unit in defaultTimeUnits:
+            #         self.choiceUnitID.Append(unit)
+            #     self.choiceUnitID.SetSelection(0)
+
+
         except KeyError:
             self.choiceUnitID.SetSelection(0)
 
@@ -314,6 +317,30 @@ class DataConfigPanelController(DataConfigPanelView):
    
     def onTimeChoice(self, event):
         self.selectedDateColumn = event.GetEventObject().GetString(event.GetEventObject().GetSelection())
+        event.Skip()
+
+    def onSelectUnit(self, event):
+        value = event.GetEventObject().GetString(event.GetEventObject().GetSelection())
+        if value == "Create New ...":
+            from src.wizard.controller.frmAddNewUnitPanel import AddNewUnitPanelController
+            from src.wizard.controller.frmNewSeriesDialog import NewSeriesDialog
+            dlg = NewSeriesDialog(self, 'Create New Unit')
+            controller = AddNewUnitPanelController(dlg, self.parent.db, type = "Time")
+            dlg.addPanel(controller)
+            dlg.CenterOnScreen()
+
+            # if dlg.ShowModal() == wx.ID_OK and controller.units is not None:
+            #     self.list_ctrl.SetObjects(self.getSeriesData())
+            #     self.list_ctrl.SelectObject(modelObject=controller.units, ensureVisible=True)
+            if dlg.ShowModal() == wx.ID_OK and controller.unit is not None:
+                newUnit = controller.unit
+                self.units = [{i.UnitName: i.UnitID} for i in [newUnit]]
+                self.choiceUnitID.InsertItems([y for x in [i.keys() for i in self.units] for y in x], -1)
+                # self.method_combo.SetValue(newMethod.MethodName)
+                i = self.choiceUnitID.FindString(newUnit.UnitName)
+                self.choiceUnitID.Select(i)
+
+            dlg.Destroy()
         event.Skip()
 
 

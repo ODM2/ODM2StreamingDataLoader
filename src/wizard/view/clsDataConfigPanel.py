@@ -151,7 +151,11 @@ class DataConfigPanelView(wx.Panel):
         self.Bind(wx.grid.EVT_GRID_CELL_RIGHT_CLICK, self.onCellClick, self.m_listCtrl1)
         self.Bind(wx.grid.EVT_GRID_LABEL_LEFT_DCLICK, self.onColDoubleClick, self.m_listCtrl1)
         self.Bind(wx.EVT_CHOICE, self.onTimeChoice, self.choiceTimeCol)
-    
+        self.Bind(wx.EVT_CHOICE, self.onSelectUnit, self.choiceUnitID)
+
+    def onSelectUnit(self, event):
+        event.Skip()
+
     def onAddNew(self, event):
         event.Skip()
 
