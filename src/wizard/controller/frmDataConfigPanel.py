@@ -329,15 +329,10 @@ class DataConfigPanelController(DataConfigPanelView):
             dlg.addPanel(controller)
             dlg.CenterOnScreen()
 
-            # if dlg.ShowModal() == wx.ID_OK and controller.units is not None:
-            #     self.list_ctrl.SetObjects(self.getSeriesData())
-            #     self.list_ctrl.SelectObject(modelObject=controller.units, ensureVisible=True)
             if dlg.ShowModal() == wx.ID_OK and controller.unit is not None:
                 newUnit = controller.unit
-                self.units = [{i.UnitName: i.UnitID} for i in [newUnit]]
-                self.choiceUnitID.InsertItems([y for x in [i.keys() for i in self.units] for y in x], -1)
-                # self.method_combo.SetValue(newMethod.MethodName)
-                i = self.choiceUnitID.FindString(newUnit.UnitName)
+                i = self.choiceUnitID.InsertItems([newUnit.UnitsName], len(self.choiceUnitID.Items)-1)
+                # i = self.choiceUnitID.FindString(newUnit.UnitName)
                 self.choiceUnitID.Select(i)
 
             dlg.Destroy()
