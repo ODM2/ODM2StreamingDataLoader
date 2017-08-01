@@ -352,10 +352,10 @@ class DataConfigPanelController(DataConfigPanelView):
             # Instead of adding immediately to mappings
             # add it to a list to be added when finish button
             # is clicked.
-            self.newMappings.append({str(self.selectedColumn):{\
-                'ResultID':int(dlg.selectedResult.resultID),
-                'LastByteRead':0,
-                'CalculateAggInterval':'false'}})
+            self.newMappings.append({str(self.selectedColumn): {\
+                'ResultID': int(dlg.selectedResult.resultID),
+                'LastByteRead': 0,
+                'CalculateAggInterval': 'false'}})
             
             #pprint.pprint(self.inputDict)
             for m in self.lstMappings.GetObjects():
