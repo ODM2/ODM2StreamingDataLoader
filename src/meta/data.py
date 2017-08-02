@@ -1,5 +1,5 @@
 app_name = "Streaming Data Loader"
-version = "0.7.0_Beta"
+version = "0.8.0_Beta"
 copyright = "Copyright (c) 2013 - 2015, Utah State University. All rights reserved."
 description = "Streaming Data Loader a program for streaming continuous sensor data into an instance of the Observations Data Model (ODM)"
 

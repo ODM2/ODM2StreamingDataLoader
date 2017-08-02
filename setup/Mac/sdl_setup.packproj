@@ -548,7 +548,7 @@
 		<key>IFPkgFlagPackageSelection</key>
 		<integer>0</integer>
 		<key>Name</key>
-		<string>SDL_v0.7.0_Beta_Mac_Installer</string>
+		<string>SDL_v0.8.0_Beta_Mac_Installer</string>
 		<key>Status</key>
 		<integer>1</integer>
 		<key>Type</key>
