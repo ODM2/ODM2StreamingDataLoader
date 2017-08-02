@@ -84,6 +84,7 @@ class SeriesSelectDialog(CustomDialog):
                                             wiz.result.ResultID)
 
             r_id = r[0].ResultID
+
     
             detailedResults = read.getDetailedResultInfo("Time series coverage")
             self.seriesSelectPanel.listCtrl.SetObjects(detailedResults)
