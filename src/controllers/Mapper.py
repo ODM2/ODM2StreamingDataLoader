@@ -199,7 +199,8 @@ class Mapper():
             # df['QualityCodeCV'] = 'SDL Test Data'
             # TODO add unknown to database.
             #df['CensorCodeCV'] = 'Unknown'
-            df['CensorCodeCV'] = 'Non-detect'
+            # df['CensorCodeCV'] = 'Non-detect'
+            df['CensorCodeCV'] = 'Not censored'
             df['ResultID'] = series['ResultID']
             df['ValueDateTimeUTCOffset'] = self.mapping['Settings']['UTCOffset']
 
