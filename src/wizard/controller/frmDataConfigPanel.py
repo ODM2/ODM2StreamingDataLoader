@@ -340,9 +340,12 @@ class DataConfigPanelController(DataConfigPanelView):
 
 
     def runSeriesSelectDialog(self):
+        unitid = self.parent.db.getReadSession().getUnits(name = self.choiceUnitID.GetString(self.choiceUnitID.Selection))[0].UnitsID
         dlg = SeriesSelectDialog(self,
                 variable=self.selectedColumn,
-                database=self.parent.db)
+                database=self.parent.db,
+                time_spacing = {"value": self.spinTimeSpacing.Value, "unit": unitid}
+                )
         #dlg.CenterOnParent()
         if dlg.ShowModal() == wx.ID_OK:
             dlg.selectedResult.variableName = self.selectedColumn
