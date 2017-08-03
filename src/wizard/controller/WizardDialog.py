@@ -62,8 +62,8 @@ class WizardDialog(wx.Dialog):
         self.btnNext.Bind(wx.EVT_BUTTON, self.onFinish)
         self.btnPrev.Bind(wx.EVT_BUTTON, self.onPrev)
     
-    def addPage(self, pnl):
-        newPnl = pnl(self, self.existingResult)
+    def addPage(self, pnl, **kwargs):
+        newPnl = pnl(self, existing_result= self.existingResult, **kwargs)
         newPnl.Hide()
         self.pnlList.append(newPnl)
         self.pnlSizer.Add(newPnl, 1, wx.ALL|wx.EXPAND, 5)

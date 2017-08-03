@@ -1,3 +1,5 @@
 run the following commands 
+
 pyinstaller --onefile src\StreamingDataLoader.py
+
 pyinstaller --onefile src\StreamingDataLoaderWizard.py

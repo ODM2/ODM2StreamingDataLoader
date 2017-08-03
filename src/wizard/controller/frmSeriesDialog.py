@@ -13,9 +13,10 @@ from src.wizard.models.ResultMapping import ResultMapping
 
 
 class SeriesSelectDialog(CustomDialog):
-    def __init__(self, parent, variable, database):
+    def __init__(self, parent, variable, database, time_spacing):
         super(SeriesSelectDialog, self).__init__(parent=parent, title="Select Result for %s" % variable, size=wx.Size(700, 500))
         self.database = database
+        self.time_spacing = time_spacing
 
         self.parent = parent
         self.read = database.getReadSession()
@@ -72,7 +73,7 @@ class SeriesSelectDialog(CustomDialog):
         wiz.addPage(UnitSelectPanel) 
         wiz.addPage(ProcLevelSelectPanel) 
         wiz.addPage(ActionsSelectPanel) 
-        wiz.addPage(ResultSummaryPanel)
+        wiz.addPage(ResultSummaryPanel, time_spacing= self.time_spacing)
 
         wiz.CenterOnParent()
         if wiz.ShowModal() == wx.ID_OK:
@@ -81,9 +82,9 @@ class SeriesSelectDialog(CustomDialog):
 
             r = read.getDetailedResultInfo("Time series coverage", 
                                             wiz.result.ResultID)
-            r_id = r[0].ResultID ###DetailedResult instance has no attribute resultID
 
-            
+            r_id = r[0].ResultID
+
     
             detailedResults = read.getDetailedResultInfo("Time series coverage")
             self.seriesSelectPanel.listCtrl.SetObjects(detailedResults)

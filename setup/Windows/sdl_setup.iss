@@ -4,7 +4,7 @@
 #define MyAppName "StreamingDataLoader"
 #define MyAppInstaller "SDL"
 #define MyWizExeName "SDLLoader"
-#define MyAppVersion "v0.7.0-beta"
+#define MyAppVersion "v0.8.0-beta"
 #define MyAppPublisher "ODM2"
 #define MyAppURL "https://github.com/ODM2/ODM2StreamingDataLoader"
 

@@ -10,7 +10,7 @@ import uuid
 
 
 class ResultSummaryPanel(ResultPageView):
-    def __init__( self, parent, existing_result=None):
+    def __init__( self, parent, existing_result=None, **kwargs):
         super(ResultSummaryPanel, self).__init__(parent)
 
         self.parent = parent
@@ -18,6 +18,12 @@ class ResultSummaryPanel(ResultPageView):
         self.read_session = self.parent.database.getReadSession()
         self.length_units = self.read_session.getUnits(type="length")
         self.time_units = self.read_session.getUnits(type="time")
+        if kwargs is not None:
+            try:
+
+                self.time_spacing = kwargs.pop("time_spacing")
+            except:
+                pass
         self.fontColor = wx.Colour(67, 79, 112)
 
         self.populateFields()
@@ -211,12 +217,12 @@ class ResultSummaryPanel(ResultPageView):
         if str(self.comboSR.GetStringSelection()) != "":
             sr = d[self.comboSR.GetStringSelection()]
 
-        timeSpacing = None
-        if str(self.txtIntended.GetValue()) != "":
-            timeSpacing = float(self.txtIntended.GetValue())
-        timeUnit = None
-        if str(self.comboIntendedUnits.GetStringSelection()) != "":
-            timeUnit = lunitsdict[str(self.comboIntendedUnits.GetStringSelection())]
+        # timeSpacing = None
+        # if str(self.txtIntended.GetValue()) != "":
+        #     timeSpacing = float(self.txtIntended.GetValue())
+        # timeUnit = None
+        # if str(self.comboIntendedUnits.GetStringSelection()) != "":
+        #     timeUnit = lunitsdict[str(self.comboIntendedUnits.GetStringSelection())]
 
         print "X", x
         print "Y", y
@@ -243,8 +249,8 @@ class ResultSummaryPanel(ResultPageView):
                                 ZLocation=z,
                                 ZLocationUnitsID=zUnit,
                                 SpatialReferenceID=sr,
-                                IntendedTimeSpacing=timeSpacing,
-                                IntendedTimeSpacingUnitsID=timeUnit)
+                                IntendedTimeSpacing=self.time_spacing["value"],
+                                IntendedTimeSpacingUnitsID=self.time_spacing["unit"])
         result = write.createResult(tsr)
 
         print result
@@ -306,7 +312,7 @@ class ResultSummaryPanel(ResultPageView):
         self.comboXUnits.AppendItems(length_units_name)
         self.comboYUnits.AppendItems(length_units_name)
         self.comboZUnits.AppendItems(length_units_name)
-        self.comboIntendedUnits.AppendItems(time_units_name)
+        #self.comboIntendedUnits.AppendItems(time_units_name)
         
         self.tax = [{i.TaxonomicClassifierName:i.TaxonomicClassifierID}\
             for i in self.read_session.getTaxonomicClassifiers()]

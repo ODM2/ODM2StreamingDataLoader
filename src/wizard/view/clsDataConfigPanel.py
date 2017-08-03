@@ -111,7 +111,7 @@ class DataConfigPanelView(wx.Panel):
         sbSizerMappings = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Mappings:" ), wx.VERTICAL )
         
         # ObjectListView table.
-        self.m_listCtrl3 = \
+        self.lstMappings = \
                 ObjectListView(sbSizerMappings.GetStaticBox(),
                            id=wx.ID_ANY,
                            pos=wx.DefaultPosition,
@@ -119,12 +119,12 @@ class DataConfigPanelView(wx.Panel):
                            style=wx.LC_REPORT|wx.SUNKEN_BORDER)
         # Customize the list control's message
         # when it is empty.
-        self.m_listCtrl3.oddRowsBackColor = wx.Colour(255, 248, 229)
-        self.m_listCtrl3.evenRowsBackColor = wx.Colour(204, 229, 255)
-        self.m_listCtrl3.SetEmptyListMsg(\
+        self.lstMappings.oddRowsBackColor = wx.Colour(255, 248, 229)
+        self.lstMappings.evenRowsBackColor = wx.Colour(204, 229, 255)
+        self.lstMappings.SetEmptyListMsg(\
             "No columns mapped")
-        self.m_listCtrl3.SetObjects(None)
-        self.m_listCtrl3.SetColumns([
+        self.lstMappings.SetObjects(None)
+        self.lstMappings.SetColumns([
             ColumnDefn('Data Column','left',150,'variableName'),
             ColumnDefn('Result ID','left',70,'resultID'),
             ColumnDefn('Samp. Feat. Code','left',110,'samplingFeatureCode'),
@@ -136,7 +136,7 @@ class DataConfigPanelView(wx.Panel):
             ColumnDefn('Method Name','left',100,'methodName'),
             ColumnDefn('Proc. Level Code','left',110,'processingLevelCode'),])  
         
-        sbSizerMappings.Add(self.m_listCtrl3, 1, wx.EXPAND|wx.ALL)
+        sbSizerMappings.Add(self.lstMappings, 1, wx.EXPAND | wx.ALL)
         
         bSizerBottom.Add( sbSizerMappings, 0, wx.EXPAND|wx.ALL)
         
@@ -151,7 +151,11 @@ class DataConfigPanelView(wx.Panel):
         self.Bind(wx.grid.EVT_GRID_CELL_RIGHT_CLICK, self.onCellClick, self.m_listCtrl1)
         self.Bind(wx.grid.EVT_GRID_LABEL_LEFT_DCLICK, self.onColDoubleClick, self.m_listCtrl1)
         self.Bind(wx.EVT_CHOICE, self.onTimeChoice, self.choiceTimeCol)
-    
+        self.Bind(wx.EVT_CHOICE, self.onSelectUnit, self.choiceUnitID)
+
+    def onSelectUnit(self, event):
+        event.Skip()
+
     def onAddNew(self, event):
         event.Skip()
 

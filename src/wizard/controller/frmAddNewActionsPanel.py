@@ -51,11 +51,15 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
         newMethodPanel.setTypeFilter(str(self.action_type_combo.GetStringSelection()))
         if dlg.ShowModal() == wx.ID_OK:
             newMethod = newMethodPanel.method
-            self.methods = [{i.MethodName:i.MethodID}\
-                for i in [newMethod]]
+            self.methods = [{i.MethodName: i.MethodID} for i in [newMethod]]
             self.method_combo.AppendItems([y for x in [i.keys() for i in self.methods] for y in x])
-            #self.m_comboBox134.SetValue(newMethod.MethodName)
+            # self.method_combo.SetValue(newMethod.MethodName)
+            i = self.method_combo.FindString(newMethod.MethodName)
+            self.method_combo.Select(i)
         dlg.Destroy()
+        if self.method_combo.IsEmpty():
+            self.method_combo.Select(0)
+
         event.Skip()
 
     def onNewAffiliation(self, event):
@@ -91,11 +95,15 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
                     MethodID=self.methodID,
                     BeginDateTime=self.beginDT,
                     BeginDateTimeUTCOffset=self.beginDTUTC,
-                    EndDateTime=self.endDT,
-                    EndDateTimeUTCOffset=self.endDTUTC,
-                    ActionDescription=self.actionDesc,
-                    ActionFileLink=self.actionLink
                 )
+                try:
+                    action.EndDateTime = self.endDT,
+                    action.EndDateTimeUTCOffset = self.endDTUTC,
+                    action.ActionDescription = self.actionDesc,
+                    action.ActionFileLink = self.actionLink
+                except Exception as error:
+                    print error
+
                 action = write.createAction(action)
 
                 self.actionID = action.ActionID
@@ -121,19 +129,30 @@ class AddNewActionsPanelController(AddNewActionsPanelView):
 
     def getFieldValues(self):
 
-        keys = [y for x in [i.keys() for i in self.methods] for y in x]
-        vals = [y for x in [i.values() for i in self.methods] for y in x]
+        keys = [y for x in [aff.keys() for aff in self.methods] for y in x]
+        vals = [y for x in [aff.values() for aff in self.methods] for y in x]
         d = dict(zip(keys, vals))
 
+#         self.ActionType = str(self.action_type_combo.GetStringSelection())
+#         self.MethodID = d[str(self.method_combo.GetStringSelection())]
+#         self.BeginDT = self._getTime(self.m_datePicker5, self.m_timePicker1)
+#         self.BeginDTUTC = self.spinUTCBegin.GetValue()
+#         self.AffiliationList = [i.affiliationID for i in self.affList.GetSelectedObjects()]
+#
+#         for i in self.affList.selected():
+#             if self.affList.IsChecked(i):
+#                 self.actionLead = i.affiliationID
+# # =======
         self.actionType = str(self.action_type_combo.GetStringSelection())
         self.methodID = d[str(self.method_combo.GetStringSelection())]
-        self.beginDT = self._getTime(self.m_datePicker5, self.m_timePicker1)
+        self.beginDT = self._getTime(self.dateBegin, self.m_timePicker1)
         self.beginDTUTC = self.spinUTCBegin.GetValue()
         self.affiliationList = [aff.AffiliationID for aff in self.affList.GetSelectedObjects()]
 
-        for i in self.affList.GetSelectedObjects():
-            if self.affList.IsChecked(i):
-                self.actionLead = i.affiliationID
+        for aff in self.affList.GetSelectedObjects():
+            if self.affList.IsChecked(aff):
+                self.actionLead = aff.AffiliationID
+
                 break
         if self.m_datePicker51.GetValue().IsValid():
             self.endDT = self._getTime(self.m_datePicker51, self.m_timePicker2)

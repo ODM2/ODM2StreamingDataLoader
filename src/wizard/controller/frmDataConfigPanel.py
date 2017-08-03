@@ -20,7 +20,7 @@ class DataConfigPanelController(DataConfigPanelView):
         
         self.prev_data = {}
         self.inputDict = {}
-        self.m_listCtrl3.Bind(wx.EVT_LIST_ITEM_RIGHT_CLICK, self.rightClick)
+        self.lstMappings.Bind(wx.EVT_LIST_ITEM_RIGHT_CLICK, self.rightClick)
 
 
     def rightClick(self, event):
@@ -44,13 +44,13 @@ class DataConfigPanelController(DataConfigPanelView):
 
     def editMapping(self, event):
         self.selectedColumn = \
-            self.m_listCtrl3.GetSelectedObject().variableName
+            self.lstMappings.GetSelectedObject().variableName
         self.runSeriesSelectDialog()
         event.Skip()
     
     def deleteMapping(self, event):
         names = [obj.variableName for obj in \
-            self.m_listCtrl3.GetSelectedObjects()]
+                 self.lstMappings.GetSelectedObjects()]
         for i in range(0, self.m_listCtrl1.GetNumberCols()):
             if str(self.m_listCtrl1.GetColLabelValue(i)) in names:
                 self.m_listCtrl1.SetColLabelRenderer(\
@@ -61,14 +61,14 @@ class DataConfigPanelController(DataConfigPanelView):
         # Instead of deleting from mapping right now,
         # add to a list that can be deleted when finish
         # button is clicked.
-        for name in self.m_listCtrl3.GetSelectedObjects():
+        for name in self.lstMappings.GetSelectedObjects():
             self.deletedMappings.append(name.variableName)
         #for name in self.m_listCtrl3.GetSelectedObjects():
         #    self.inputDict['Mappings'].pop(name.variableName)
 
-        self.m_listCtrl3.RemoveObjects(\
-            self.m_listCtrl3.GetSelectedObjects())
-        self.m_listCtrl3.RepopulateList()
+        self.lstMappings.RemoveObjects(\
+            self.lstMappings.GetSelectedObjects())
+        self.lstMappings.RepopulateList()
         
         event.Skip()
     
@@ -158,8 +158,8 @@ class DataConfigPanelController(DataConfigPanelView):
         except KeyError:
             existingData.update({"Mappings": {}})
         
-        self.m_listCtrl3.DeleteAllItems()
-        self.m_listCtrl3.RepopulateList()
+        self.lstMappings.DeleteAllItems()
+        self.lstMappings.RepopulateList()
         
         popThese = []
         # Iterate through the mappings 
@@ -171,19 +171,21 @@ class DataConfigPanelController(DataConfigPanelView):
                 continue
             # Add the variable name to the mapping list.
             mapping = read.getDetailedResultInfo("Time series coverage", values['ResultID'])
-            mapped = mapping[0]
-            self.m_listCtrl3.AddObject(
-                ResultMapping(mapped.ResultID,
-                    mapped.SamplingFeatureCode,
-                    mapped.SamplingFeatureName,
-                    mapped.MethodCode,
-                    mapped.MethodName,
-                    mapped.VariableCode,
-                    mapped.VariableNameCV,
-                    mapped.ProcessingLevelCode,
-                    mapped.ProcessingLevelDefinition,
-                    mapped.UnitsName,
-                    variableName))
+
+            # mapped = mapping[0]
+            for mapped in mapping:
+                self.lstMappings.AddObject(
+                    ResultMapping(mapped.ResultID,
+                        mapped.SamplingFeatureCode,
+                        mapped.SamplingFeatureName,
+                        mapped.MethodCode,
+                        mapped.MethodName,
+                        mapped.VariableCode,
+                        mapped.VariableNameCV,
+                        mapped.ProcessingLevelCode,
+                        mapped.ProcessingLevelDefinition,
+                        mapped.UnitsName,
+                        variableName))
         if popThese:
             wx.MessageBox("Mappings for the following variables exist, but do not appear in the selected data file:\n'%s'\n\nThese mappings will be deleted if you continue." \
                 % (", ".join(popThese)),
@@ -259,16 +261,25 @@ class DataConfigPanelController(DataConfigPanelView):
 
         for unit in timeUnits:
             self.choiceUnitID.Append(unit.UnitsName)
+        self.choiceUnitID.Append("Create New ...")
         try:
             unitID = searchDict(self.inputDict['Mappings'],
                 'IntendedTimeSpacingUnitID')
             #unit = read.getUnitById(int(unitID))
-            unit = read.getUnits(ids = [int(unitID)])[0]
-            i = self.choiceUnitID.FindString(unit.UnitsName)
-            self.choiceUnitID.SetSelection(i)
+            #unit = read.getUnits(ids = [int(unitID)])[0]
+            unit = read.getUnits(ids = [int(unitID)])
+            if(unit is not None and len(unit) > 0):
+                i = self.choiceUnitID.FindString(unit[0].UnitsName)
+                self.choiceUnitID.SetSelection(i)
+            # else:
+            #     defaultTimeUnits = ['seconds', 'minutes', 'hours', 'days']
+            #     for unit in defaultTimeUnits:
+            #         self.choiceUnitID.Append(unit)
+            #     self.choiceUnitID.SetSelection(0)
+
+
         except KeyError:
             self.choiceUnitID.SetSelection(0)
-
 
     def onAddNew(self, event):
         self.runSeriesSelectDialog()
@@ -308,11 +319,33 @@ class DataConfigPanelController(DataConfigPanelView):
         self.selectedDateColumn = event.GetEventObject().GetString(event.GetEventObject().GetSelection())
         event.Skip()
 
+    def onSelectUnit(self, event):
+        value = event.GetEventObject().GetString(event.GetEventObject().GetSelection())
+        if value == "Create New ...":
+            from src.wizard.controller.frmAddNewUnitPanel import AddNewUnitPanelController
+            from src.wizard.controller.frmNewSeriesDialog import NewSeriesDialog
+            dlg = NewSeriesDialog(self, 'Create New Unit')
+            controller = AddNewUnitPanelController(dlg, self.parent.db, type = "Time")
+            dlg.addPanel(controller)
+            dlg.CenterOnScreen()
+
+            if dlg.ShowModal() == wx.ID_OK and controller.unit is not None:
+                newUnit = controller.unit
+                i = self.choiceUnitID.InsertItems([newUnit.UnitsName], len(self.choiceUnitID.Items)-1)
+                # i = self.choiceUnitID.FindString(newUnit.UnitName)
+                self.choiceUnitID.Select(i)
+
+            dlg.Destroy()
+        event.Skip()
+
 
     def runSeriesSelectDialog(self):
+        unitid = self.parent.db.getReadSession().getUnits(name = self.choiceUnitID.GetString(self.choiceUnitID.Selection))[0].UnitsID
         dlg = SeriesSelectDialog(self,
                 variable=self.selectedColumn,
-                database=self.parent.db)
+                database=self.parent.db,
+                time_spacing = {"value": self.spinTimeSpacing.Value, "unit": unitid}
+                )
         #dlg.CenterOnParent()
         if dlg.ShowModal() == wx.ID_OK:
             dlg.selectedResult.variableName = self.selectedColumn
@@ -322,18 +355,18 @@ class DataConfigPanelController(DataConfigPanelView):
             # Instead of adding immediately to mappings
             # add it to a list to be added when finish button
             # is clicked.
-            self.newMappings.append({str(self.selectedColumn):{\
-                'ResultID':int(dlg.selectedResult.resultID),
-                'LastByteRead':0,
-                'CalculateAggInterval':'false'}})
+            self.newMappings.append({str(self.selectedColumn): {\
+                'ResultID': int(dlg.selectedResult.resultID),
+                'LastByteRead': 0,
+                'CalculateAggInterval': 'false'}})
             
             #pprint.pprint(self.inputDict)
-            for m in self.m_listCtrl3.GetObjects():
+            for m in self.lstMappings.GetObjects():
                 if m.variableName == dlg.selectedResult.variableName:
-                    self.m_listCtrl3.RemoveObjects([m])
+                    self.lstMappings.RemoveObjects([m])
                     break
 
-            self.m_listCtrl3.AddObject(dlg.selectedResult)
+            self.lstMappings.AddObject(dlg.selectedResult)
             dlg.Destroy()
             return True
         dlg.Destroy()
